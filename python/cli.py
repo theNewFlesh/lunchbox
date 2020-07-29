@@ -112,7 +112,7 @@ def get_architecture_diagram_command(info):
     Returns:
         str: Command.
     '''
-    cmd = '{exec} python3.7 -c "from lunchbox.repo_etl import RepoETL; '
+    cmd = '{exec} python3.7 -c "from rolling_pin.repo_etl import RepoETL; '
     cmd += "RepoETL('/root/{repo}/python').write('/root/{repo}/docs/architecture.svg')"
     cmd += '"'
     cmd = cmd.format(
@@ -132,7 +132,7 @@ def get_radon_metrics_command(info):
     Returns:
         str: Command.
     '''
-    cmd = '{exec} python3.7 -c "from lunchbox.radon_etl import RadonETL; '
+    cmd = '{exec} python3.7 -c "from rolling_pin.radon_etl import RadonETL; '
     cmd += "etl = RadonETL('/root/{repo}/python'); "
     cmd += "etl.write_plots('/root/{repo}/docs/plots.html'); "
     cmd += "etl.write_tables('/root/{repo}/docs'); "
