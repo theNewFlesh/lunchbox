@@ -3,12 +3,18 @@ from enum import Enum
 
 
 class Comparator(Enum):
-    EQUAL       = ('equal',   'equal',       '==',     False, '!=',     'is not equal to'  )  # noqa: E241, E202, E501, E221
-    NOT_EQUAL   = ('equal',   'not equal',   '!=',     True,  '==',     'is equal to'      )  # noqa: E241, E202, E501, E221
-    SIMILAR     = ('similar', 'similar',     '~',      False, '!~',     'is not similar to')  # noqa: E241, E202, E501, E221
-    NOT_SIMILAR = ('similar', 'not similar', '!~',     True,  '~',      'is similar to'    )  # noqa: E241, E202, E501, E221
-    IN          = ('in_',     'in',          'in',     False, 'not in', 'is not in'        )  # noqa: E241, E202, E501, E221
-    NOT_IN      = ('in_',     'not in',      'not in', True,  'in',     'is in'            )  # noqa: E241, E202, E501, E221
+    EQ              = ('eq',          'equal',            '==',             False, '!=',             'not equal to'    )  # noqa: E241, E202, E501, E221
+    NOT_EQ          = ('eq',          'not equal',        '!=',             True,  '==',             'equal to'        )  # noqa: E241, E202, E501, E221
+    GT              = ('gt',          'greater',          '>',              False, '<=',             'not greater than')  # noqa: E241, E202, E501, E221
+    GTE             = ('gte',         'greater or equal', '>=',             False, '<',              'less than'       )  # noqa: E241, E202, E501, E221
+    LT              = ('lt',          'lesser',           '<',              False, '>=',             'not less than'   )  # noqa: E241, E202, E501, E221
+    LTE             = ('lte',         'lesser or equal',  '<=',             False, '>',              'greater than'    )  # noqa: E241, E202, E501, E221
+    SIMILAR         = ('similar',     'similar',          '~',              False, '!~',             'not similar to'  )  # noqa: E241, E202, E501, E221
+    NOT_SIMILAR     = ('similar',     'not similar',      '!~',             True,  '~',              'similar to'      )  # noqa: E241, E202, E501, E221
+    IN              = ('in_',         'in',               'in',             False, 'not in',         'not in'          )  # noqa: E241, E202, E501, E221
+    NOT_IN          = ('in_',         'not in',           'not in',         True,  'in',             'in'              )  # noqa: E241, E202, E501, E221
+    INSTANCE_OF     = ('instance_of', 'instance of',      'isinstance',     False, 'not isinstance', 'not instance of' )  # noqa: E241, E202, E501, E221
+    NOT_INSTANCE_OF = ('instance_of', 'not instance of',  'not isinstance', True,  'isinstance',     'instance of'     )  # noqa: E241, E202, E501, E221
 
     def __init__(
         self, function, text, symbol, negation, negation_symbol, message
@@ -70,25 +76,17 @@ class Enforce:
 
         # create error message
         if message is None:
-            message = self.get_message(
-                comparator,
-                a,
-                b,
-                a_val,
-                b_val,
-                attribute=attribute,
-                delta=delta,
-                epsilon=epsilon,
-            )
-        else:
-            message = message.format(
-                a=a,
-                b=b,
-                a_val=a_val,
-                b_val=b_val,
-                delta=delta,
-                epsilon=epsilon,
-            )
+            message = self._get_message(attribute, comparator)
+        message = message.format(
+            comparator=comparator,
+            a=a,
+            b=b,
+            a_val=a_val,
+            b_val=b_val,
+            attribute=attribute,
+            delta=delta,
+            epsilon=epsilon,
+        )
 
         if flag:
             a_val = delta
@@ -101,22 +99,35 @@ class Enforce:
         if result is False:
             raise EnforceError(message)
 
-    def get_message(self, comparator, a, b, a_val, b_val, attribute=None, delta=None, epsilon=None):
-        message = f'{a} {comparator.message} {b}.'
+    def _get_message(self, attribute, comparator):
+        message = '{a} is {comparator.message} {b}.'
         if attribute is not None:
-            message = f'{attribute.capitalize()} of {a} {comparator.message} {attribute} of {b}.'
+            message = '{attribute} of {a} is {comparator.message} {attribute} of {b}.'
 
         if comparator is Comparator.SIMILAR:
-            message += f' Delta {delta} is greater than epsilon {epsilon}.'
+            message += ' Delta {delta} is greater than epsilon {epsilon}.'
         elif comparator is Comparator.NOT_SIMILAR:
-            message += f' Delta {delta} is not greater than epsilon {epsilon}.'
+            message += ' Delta {delta} is not greater than epsilon {epsilon}.'
         else:
-            message += f' {a_val} {comparator.negation_symbol} {b_val}.'
+            message += ' {a_val} {comparator.negation_symbol} {b_val}.'
 
         return message
 
-    def equal(self, a, b):
+    # COMPARATORS---------------------------------------------------------------
+    def eq(self, a, b):
         return a == b
+
+    def gt(self, a, b):
+        return a > b
+
+    def gte(self, a, b):
+        return a >= b
+
+    def lt(self, a, b):
+        return a < b
+
+    def lte(self, a, b):
+        return a <= b
 
     def similar(self, difference, epsilon=0.01):
         return difference < epsilon
@@ -124,8 +135,12 @@ class Enforce:
     def in_(self, a, b):
         return a in b
 
+    def instance_of(self, a, b):
+        return isinstance(a, b)
+
     def difference(self, a, b):
         return abs(a - b)
 
-    def get_type(self, item):
+    # ATTRIBUTE-GETTERS---------------------------------------------------------
+    def get_type_name(self, item):
         return item.__class__.__name__
