@@ -2,7 +2,31 @@ from enum import Enum
 # ------------------------------------------------------------------------------
 
 
+'''
+The enforce module contains the Enforce class which is used for faciltating
+inline testing, inside of function defitions and test definitions.
+'''
+
+
 class Comparator(Enum):
+    '''
+    Enum for comparison operators used by Enforce.
+
+    Includes:
+
+        * EQ
+        * NOT_EQ
+        * GT
+        * GTE
+        * LT
+        * LTE
+        * SIMILAR
+        * NOT_SIMILAR
+        * IN
+        * NOT_IN
+        * INSTANCE_OF
+        * NOT_INSTANCE_OF
+    '''
     EQ              = ('eq',          'equal',            '==',             False, '!=',             'not equal to'    )  # noqa: E241, E202, E501, E221
     NOT_EQ          = ('eq',          'not equal',        '!=',             True,  '==',             'equal to'        )  # noqa: E241, E202, E501, E221
     GT              = ('gt',          'greater',          '>',              False, '<=',             'not greater than')  # noqa: E241, E202, E501, E221
@@ -19,6 +43,17 @@ class Comparator(Enum):
     def __init__(
         self, function, text, symbol, negation, negation_symbol, message
     ):
+        '''
+        Constructs Comparator instance.
+
+        Args:
+            function (str): Enforce function name.
+            text (str): Comparator as text.
+            symbol (str): Comparator as symbol.
+            negation (bool): Function is a negation.
+            negation_symbol (str): Negated comparator as symbol.
+            message  (str): Error message fragment.
+        '''
         self.function = function
         self.text = text
         self.symbol = symbol
@@ -28,10 +63,22 @@ class Comparator(Enum):
 
     @property
     def canonical(self):
+        '''
+        str: Canonical name of Comparator
+        '''
         return self.name.lower()
 
     @staticmethod
     def from_string(string):
+        '''
+        Constructs Comparator from given string.
+
+        Args:
+            string (str): Comparator name.
+
+        Returns:
+            Comparator: Comparator.
+        '''
         lut = {}
         for val in Comparator.__members__.values():
             lut[val.text] = val
@@ -40,14 +87,51 @@ class Comparator(Enum):
 
 
 class EnforceError(Exception):
+    '''
+    Enforce error class.
+    '''
     pass
 # ------------------------------------------------------------------------------
 
 
 class Enforce:
     '''
-    msg = 'foobar'
-    Enforce(foo, 'not in', ['Bar', 'Baz'], 'type_name', msg)
+    Faciltates inline testing. Super class for Enforcer subclasses.
+
+    Example:
+
+        >>> class Foo:
+            def __init__(self, value):
+                self.value = value
+            def __repr__(self):
+                return '<Foo>'
+        >>> class Bar:
+            def __init__(self, value):
+                self.value = value
+            def __repr__(self):
+                return '<Bar>'
+
+        >>> Enforce(Foo(1), '==', Foo(2), 'type_name')
+        >>> Enforce(Foo(1), '==', Bar(2), 'type_name')
+        EnforceError: type_name of <Foo> is not equal to type_name of <Bar>. \
+Foo != Bar.
+
+        >>> class EnforceFooBar(Enforce):
+            def get_value(self, item):
+                return item.value
+        >>> EnforceFooBar(Foo(1), '==', Bar(1), 'value')
+        >>> EnforceFooBar(Foo(1), '==', Bar(2), 'value')
+        EnforceError: value of <Foo> is not equal to value of <Bar>. 1 != 2.
+        >>> EnforceFooBar(Foo(1), '~', Bar(5), 'value', epsilon=2)
+        EnforceError: value of <Foo> is not similar to value of <Bar>. Delta 4 \
+is greater than epsilon 2.
+
+        >>> msg = '{a} is not like {b}. Please adjust your epsilon,: {epsilon}, '
+        >>> msg += 'to be higher than {delta}. '
+        >>> msg += 'A value: {a_val}. B value: {b_val}.'
+        >>> EnforceFooBar(Foo(1), '~', Bar(5), 'value', epsilon=2, message=msg)
+        <Foo> is not like <Bar>. Please adjust your epsilon: 2, to be higher \
+than 4. A value: 1. B value: 5.
     '''
     def __init__(
         self,
@@ -58,6 +142,24 @@ class Enforce:
         message=None,
         epsilon=0.01
     ):
+        '''
+        Validates predicate specified in constructor.
+
+        Args:
+            a (object): First object to be tested.
+            comparator (str): String representation of Comparator.
+            b (object): Second object.
+            attribute (str, optional): Attribute name of a and b. Default: None.
+            message (str, optional): Custom error message. Default: None.
+            epsilon (float, optional): Error threshold for a/b difference.
+                Default: 0.01.
+
+        Raises:
+            EnforceError: If predicate fails.
+
+        Returns:
+            Enforce: Enforce instance.
+        '''
         # resolve everything
         comparator = Comparator.from_string(comparator)
         func = getattr(self, comparator.function)
@@ -100,6 +202,17 @@ class Enforce:
             raise EnforceError(message)
 
     def _get_message(self, attribute, comparator):
+        '''
+        Creates an unformatted error message given an attribute name and
+        comparator.
+
+        Args:
+            attribute (str or None): Attribute name.
+            comparator (Comparator): Comparator instance.
+
+        Returns:
+            str: Error message.
+        '''
         message = '{a} is {comparator.message} {b}.'
         if attribute is not None:
             message = '{attribute} of {a} is {comparator.message} {attribute} of {b}.'
@@ -115,32 +228,131 @@ class Enforce:
 
     # COMPARATORS---------------------------------------------------------------
     def eq(self, a, b):
+        '''
+        Determines if a and b are equal.
+
+        Args:
+            a (object): First object.
+            b (object): Second object.
+
+        Returns:
+            bool: True if a equals b.
+        '''
         return a == b
 
     def gt(self, a, b):
+        '''
+        Determines if a is greater than b.
+
+        Args:
+            a (object): First object.
+            b (object): Second object.
+
+        Returns:
+            bool: True if a is greater than b.
+        '''
         return a > b
 
     def gte(self, a, b):
+        '''
+        Determines if a is greater than or equal to b.
+
+        Args:
+            a (object): First object.
+            b (object): Second object.
+
+        Returns:
+            bool: True if a is greater than or equal to b.
+        '''
         return a >= b
 
     def lt(self, a, b):
+        '''
+        Determines if a is lesser than b.
+
+        Args:
+            a (object): First object.
+            b (object): Second object.
+
+        Returns:
+            bool: True if a is lesser than b.
+        '''
         return a < b
 
     def lte(self, a, b):
+        '''
+        Determines if a is lesser than or equal to b.
+
+        Args:
+            a (object): First object.
+            b (object): Second object.
+
+        Returns:
+            bool: True if a is lesser than or equal to b.
+        '''
         return a <= b
 
     def similar(self, difference, epsilon=0.01):
+        '''
+        Determines if a/b difference given error threshold episilon.
+
+        Args:
+            difference (float): Difference between a and b.
+            epsilon (float, optional): Error threshold. Default: 0.01.
+
+        Returns:
+            bool: True if difference is less than epsilon.
+        '''
         return difference < epsilon
 
     def in_(self, a, b):
+        '''
+        Determines if a is in b.
+
+        Args:
+            a (object): Member object.
+            b (list or set or tuple): Container object.
+
+        Returns:
+            bool: True if a is in b.
+        '''
         return a in b
 
     def instance_of(self, a, b):
+        '''
+        Determines if a is instance of b.
+
+        Args:
+            a (object): Instance object.
+            b (object): Class object.
+
+        Returns:
+            bool: True if a is instance of b.
+        '''
         return isinstance(a, b)
 
     def difference(self, a, b):
+        '''
+        Calculates difference between a and b.
+
+        Args:
+            a (object): First object.
+            b (object): Second object.
+
+        Returns:
+            float: Difference between a and b.
+        '''
         return abs(a - b)
 
     # ATTRIBUTE-GETTERS---------------------------------------------------------
     def get_type_name(self, item):
+        '''
+        Gets __class__.__name__ of given item.
+
+        Args:
+            item (object): Item.
+
+        Returns:
+            str: item.__class__.__name__
+        '''
         return item.__class__.__name__
