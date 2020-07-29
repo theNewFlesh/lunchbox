@@ -17,7 +17,6 @@ services:
       dockerfile: lunchbox.dockerfile
     ports:
       - "9013:9000"
-      - "5002:5000"
     userns_mode: "host"
     user: root
     volumes:
