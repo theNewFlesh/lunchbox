@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.1.1
               </div>
             
           
@@ -246,7 +246,7 @@
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Comparator.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">symbol</span></em>, <em class="sig-param"><span class="n">negation</span></em>, <em class="sig-param"><span class="n">negation_symbol</span></em>, <em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Comparator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Comparator.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">symbol</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">negation</span><span class="p">:</span> <span class="n">bool</span></em>, <em class="sig-param"><span class="n">negation_symbol</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/lunchbox/enforce.html#Comparator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Comparator.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs Comparator instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -275,7 +275,7 @@
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Comparator.from_string">
-<em class="property">static </em><code class="sig-name descname">from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Comparator.from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Comparator.from_string" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#lunchbox.enforce.Comparator" title="lunchbox.enforce.Comparator">lunchbox.enforce.Comparator</a><a class="reference internal" href="_modules/lunchbox/enforce.html#Comparator.from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Comparator.from_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs Comparator from given string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -294,7 +294,7 @@
 
 <dl class="py class">
 <dt id="lunchbox.enforce.Enforce">
-<em class="property">class </em><code class="sig-prename descclassname">lunchbox.enforce.</code><code class="sig-name descname">Enforce</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">comparator</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">lunchbox.enforce.</code><code class="sig-name descname">Enforce</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">comparator</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">attribute</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Faciltates inline testing. Super class for Enforcer subclasses.</p>
 <p class="rubric">Example</p>
@@ -339,7 +339,7 @@
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">comparator</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">comparator</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">attribute</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.01</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates predicate specified in constructor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -378,7 +378,7 @@ Default: 0.01.</p></li>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce._get_message">
-<code class="sig-name descname">_get_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attribute</span></em>, <em class="sig-param"><span class="n">comparator</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce._get_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce._get_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">_get_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attribute</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">comparator</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#lunchbox.enforce.Comparator" title="lunchbox.enforce.Comparator">lunchbox.enforce.Comparator</a></span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce._get_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce._get_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an unformatted error message given an attribute name and
 comparator.</p>
 <dl class="field-list simple">
@@ -399,7 +399,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.difference">
-<code class="sig-name descname">difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.difference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.difference" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.difference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates difference between a and b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -419,7 +419,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.eq">
-<code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.eq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.eq" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">eq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.eq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.eq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a and b are equal.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -439,7 +439,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.get_type_name">
-<code class="sig-name descname">get_type_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.get_type_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.get_type_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_type_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.get_type_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.get_type_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets __class__.__name__ of given item.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -456,7 +456,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.gt">
-<code class="sig-name descname">gt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.gt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.gt" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.gt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.gt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is greater than b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -476,7 +476,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.gte">
-<code class="sig-name descname">gte</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.gte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.gte" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gte</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.gte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.gte" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is greater than or equal to b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -496,7 +496,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.in_">
-<code class="sig-name descname">in_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.in_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.in_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">in_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>List<span class="p">, </span>Set<span class="p">, </span>Tuple<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.in_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.in_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is in b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -516,7 +516,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.instance_of">
-<code class="sig-name descname">instance_of</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.instance_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.instance_of" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">instance_of</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.instance_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.instance_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is instance of b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -536,7 +536,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.lt">
-<code class="sig-name descname">lt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.lt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.lt" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.lt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.lt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is lesser than b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -556,7 +556,7 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.lte">
-<code class="sig-name descname">lte</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.lte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.lte" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lte</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.lte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.lte" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is lesser than or equal to b.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -576,12 +576,12 @@ comparator.</p>
 
 <dl class="py method">
 <dt id="lunchbox.enforce.Enforce.similar">
-<code class="sig-name descname">similar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">difference</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.similar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.similar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">similar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">difference</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.01</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.similar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.similar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a/b difference given error threshold episilon.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>difference</strong> (<em>float</em>) – Difference between a and b.</p></li>
+<li><p><strong>difference</strong> (<em>int</em><em> or </em><em>float</em>) – Difference between a and b.</p></li>
 <li><p><strong>epsilon</strong> (<em>float</em><em>, </em><em>optional</em>) – Error threshold. Default: 0.01.</p></li>
 </ul>
 </dd>
@@ -723,7 +723,7 @@ arguments as a dict.</p>
 
 <dl class="py function">
 <dt id="lunchbox.tools.get_ordered_unique">
-<code class="sig-prename descclassname">lunchbox.tools.</code><code class="sig-name descname">get_ordered_unique</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/tools.html#get_ordered_unique"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.tools.get_ordered_unique" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">lunchbox.tools.</code><code class="sig-name descname">get_ordered_unique</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span><span class="p">:</span> <span class="n">List</span></em><span class="sig-paren">)</span> &#x2192; List<a class="reference internal" href="_modules/lunchbox/tools.html#get_ordered_unique"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.tools.get_ordered_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a unique list of items in same order they were received in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

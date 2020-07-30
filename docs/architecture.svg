@@ -33,41 +33,41 @@
 <polygon fill="#343434" stroke="#343434" points="534,-36 402,-36 402,0 534,0 534,-36"/>
 <text text-anchor="middle" x="468" y="-14.3" font-family="Courier,monospace" font-size="14.00" fill="#b6ecf3">lunchbox.tools</text>
 </g>
-<!-- lunchbox -->
-<g id="node5" class="node">
-<title>lunchbox</title>
-<polygon fill="#343434" stroke="#343434" points="350.5,-108 267.5,-108 267.5,-72 350.5,-72 350.5,-108"/>
-<text text-anchor="middle" x="309" y="-86.3" font-family="Courier,monospace" font-size="14.00" fill="#a0d17b">lunchbox</text>
-</g>
-<!-- lunchbox&#45;&gt;lunchbox.enforce -->
-<g id="edge1" class="edge">
-<title>lunchbox&#45;&gt;lunchbox.enforce</title>
-<path fill="none" stroke="#a0d17b" d="M309,-71.8314C309,-64.131 309,-54.9743 309,-46.4166"/>
-<polygon fill="#a0d17b" stroke="#a0d17b" points="312.5001,-46.4132 309,-36.4133 305.5001,-46.4133 312.5001,-46.4132"/>
-</g>
-<!-- lunchbox&#45;&gt;lunchbox.stopwatch -->
-<g id="edge2" class="edge">
-<title>lunchbox&#45;&gt;lunchbox.stopwatch</title>
-<path fill="none" stroke="#a0d17b" d="M267.0831,-72.7542C243.2328,-62.9415 213.1137,-50.5496 187.5631,-40.0374"/>
-<polygon fill="#a0d17b" stroke="#a0d17b" points="188.5965,-36.678 178.0169,-36.1098 185.9331,-43.1515 188.5965,-36.678"/>
-</g>
-<!-- lunchbox&#45;&gt;lunchbox.tools -->
-<g id="edge3" class="edge">
-<title>lunchbox&#45;&gt;lunchbox.tools</title>
-<path fill="none" stroke="#a0d17b" d="M349.1224,-71.8314C370.2932,-62.2446 396.4483,-50.4008 418.8303,-40.2655"/>
-<polygon fill="#a0d17b" stroke="#a0d17b" points="420.5003,-43.3515 428.1661,-36.038 417.6128,-36.9748 420.5003,-43.3515"/>
-</g>
 <!-- humanfriendly -->
-<g id="node6" class="node">
+<g id="node5" class="node">
 <title>humanfriendly</title>
 <polygon fill="#343434" stroke="#343434" points="196,-108 72,-108 72,-72 196,-72 196,-108"/>
 <text text-anchor="middle" x="134" y="-86.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">humanfriendly</text>
 </g>
 <!-- humanfriendly&#45;&gt;lunchbox.stopwatch -->
-<g id="edge4" class="edge">
+<g id="edge1" class="edge">
 <title>humanfriendly&#45;&gt;lunchbox.stopwatch</title>
 <path fill="none" stroke="#de958e" d="M134,-71.8314C134,-64.131 134,-54.9743 134,-46.4166"/>
 <polygon fill="#de958e" stroke="#de958e" points="137.5001,-46.4132 134,-36.4133 130.5001,-46.4133 137.5001,-46.4132"/>
+</g>
+<!-- lunchbox -->
+<g id="node6" class="node">
+<title>lunchbox</title>
+<polygon fill="#343434" stroke="#343434" points="350.5,-108 267.5,-108 267.5,-72 350.5,-72 350.5,-108"/>
+<text text-anchor="middle" x="309" y="-86.3" font-family="Courier,monospace" font-size="14.00" fill="#a0d17b">lunchbox</text>
+</g>
+<!-- lunchbox&#45;&gt;lunchbox.enforce -->
+<g id="edge2" class="edge">
+<title>lunchbox&#45;&gt;lunchbox.enforce</title>
+<path fill="none" stroke="#a0d17b" d="M309,-71.8314C309,-64.131 309,-54.9743 309,-46.4166"/>
+<polygon fill="#a0d17b" stroke="#a0d17b" points="312.5001,-46.4132 309,-36.4133 305.5001,-46.4133 312.5001,-46.4132"/>
+</g>
+<!-- lunchbox&#45;&gt;lunchbox.stopwatch -->
+<g id="edge3" class="edge">
+<title>lunchbox&#45;&gt;lunchbox.stopwatch</title>
+<path fill="none" stroke="#a0d17b" d="M267.0831,-72.7542C243.2328,-62.9415 213.1137,-50.5496 187.5631,-40.0374"/>
+<polygon fill="#a0d17b" stroke="#a0d17b" points="188.5965,-36.678 178.0169,-36.1098 185.9331,-43.1515 188.5965,-36.678"/>
+</g>
+<!-- lunchbox&#45;&gt;lunchbox.tools -->
+<g id="edge4" class="edge">
+<title>lunchbox&#45;&gt;lunchbox.tools</title>
+<path fill="none" stroke="#a0d17b" d="M349.1224,-71.8314C370.2932,-62.2446 396.4483,-50.4008 418.8303,-40.2655"/>
+<polygon fill="#a0d17b" stroke="#a0d17b" points="420.5003,-43.3515 428.1661,-36.038 417.6128,-36.9748 420.5003,-43.3515"/>
 </g>
 <!-- wrapt -->
 <g id="node7" class="node">
