@@ -47,6 +47,7 @@ def try_(function, item, return_item='item'):
 
 
 def get_ordered_unique(items):
+    # type: (List) -> List
     '''
     Generates a unique list of items in same order they were received in.
 

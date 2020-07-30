@@ -1,3 +1,5 @@
+from typing import Any, List, Optional, Set, Tuple, Union
+
 from enum import Enum
 # ------------------------------------------------------------------------------
 
@@ -43,6 +45,7 @@ class Comparator(Enum):
     def __init__(
         self, function, text, symbol, negation, negation_symbol, message
     ):
+        # type: (str, str, str, bool, str, str) -> None
         '''
         Constructs Comparator instance.
 
@@ -63,6 +66,7 @@ class Comparator(Enum):
 
     @property
     def canonical(self):
+        # type: () -> str
         '''
         str: Canonical name of Comparator
         '''
@@ -70,6 +74,7 @@ class Comparator(Enum):
 
     @staticmethod
     def from_string(string):
+        # type: (str) -> Comparator
         '''
         Constructs Comparator from given string.
 
@@ -142,6 +147,7 @@ than 4. A value: 1. B value: 5.
         message=None,
         epsilon=0.01
     ):
+        # type: (Any, str, Any, Optional[str], Optional[str], float) -> None
         '''
         Validates predicate specified in constructor.
 
@@ -161,29 +167,29 @@ than 4. A value: 1. B value: 5.
             Enforce: Enforce instance.
         '''
         # resolve everything
-        comparator = Comparator.from_string(comparator)
-        func = getattr(self, comparator.function)
+        comp = Comparator.from_string(comparator)  # type: Comparator
+        func = getattr(self, comp.function)
         a_val = a
         b_val = b
         if attribute is not None:
             getter = getattr(self, 'get_' + attribute)
             a_val = getter(a)
-            if comparator in [Comparator.IN, Comparator.NOT_IN]:
+            if comp in [comp.IN, comp.NOT_IN]:
                 b_val = [getter(x) for x in b]
             else:
                 b_val = getter(b)
 
         # get delta
-        flag = comparator.function == 'similar'
+        flag = comp.function == 'similar'
         delta = None
         if flag:
             delta = self.difference(a_val, b_val)
 
         # create error message
         if message is None:
-            message = self._get_message(attribute, comparator)
+            message = self._get_message(attribute, comp)
         message = message.format(
-            comparator=comparator,
+            comparator=comp,
             a=a,
             b=b,
             a_val=a_val,
@@ -199,12 +205,13 @@ than 4. A value: 1. B value: 5.
 
         # test a and b with func
         result = func(a_val, b_val)
-        if comparator.negation:
+        if comp.negation:
             result = not result
         if result is False:
             raise EnforceError(message)
 
     def _get_message(self, attribute, comparator):
+        # type: (Optional[str], Comparator) -> str
         '''
         Creates an unformatted error message given an attribute name and
         comparator.
@@ -239,6 +246,7 @@ than 4. A value: 1. B value: 5.
 
     # COMPARATORS---------------------------------------------------------------
     def eq(self, a, b):
+        # type: (Any, Any) -> bool
         '''
         Determines if a and b are equal.
 
@@ -252,6 +260,7 @@ than 4. A value: 1. B value: 5.
         return a == b
 
     def gt(self, a, b):
+        # type: (Any, Any) -> bool
         '''
         Determines if a is greater than b.
 
@@ -265,6 +274,7 @@ than 4. A value: 1. B value: 5.
         return a > b
 
     def gte(self, a, b):
+        # type: (Any, Any) -> bool
         '''
         Determines if a is greater than or equal to b.
 
@@ -278,6 +288,7 @@ than 4. A value: 1. B value: 5.
         return a >= b
 
     def lt(self, a, b):
+        # type: (Any, Any) -> bool
         '''
         Determines if a is lesser than b.
 
@@ -291,6 +302,7 @@ than 4. A value: 1. B value: 5.
         return a < b
 
     def lte(self, a, b):
+        # type: (Any, Any) -> bool
         '''
         Determines if a is lesser than or equal to b.
 
@@ -304,11 +316,12 @@ than 4. A value: 1. B value: 5.
         return a <= b
 
     def similar(self, difference, epsilon=0.01):
+        # type: (Union[int, float], float) -> bool
         '''
         Determines if a/b difference given error threshold episilon.
 
         Args:
-            difference (float): Difference between a and b.
+            difference (int or float): Difference between a and b.
             epsilon (float, optional): Error threshold. Default: 0.01.
 
         Returns:
@@ -317,6 +330,7 @@ than 4. A value: 1. B value: 5.
         return difference < epsilon
 
     def in_(self, a, b):
+        # type: (Any, Union[List, Set, Tuple]) -> bool
         '''
         Determines if a is in b.
 
@@ -330,6 +344,7 @@ than 4. A value: 1. B value: 5.
         return a in b
 
     def instance_of(self, a, b):
+        # type: (Any, Any) -> bool
         '''
         Determines if a is instance of b.
 
@@ -347,6 +362,7 @@ than 4. A value: 1. B value: 5.
         return isinstance(a, b)
 
     def difference(self, a, b):
+        # type: (Any, Any) -> float
         '''
         Calculates difference between a and b.
 
@@ -361,6 +377,7 @@ than 4. A value: 1. B value: 5.
 
     # ATTRIBUTE-GETTERS---------------------------------------------------------
     def get_type_name(self, item):
+        # type: (Any) -> str
         '''
         Gets __class__.__name__ of given item.
 
