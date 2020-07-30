@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lunchbox.enforce &mdash; lunchbox  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> lunchbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html">enforce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.stopwatch">stopwatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.tools">tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">cli</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lunchbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>lunchbox.enforce</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lunchbox.enforce</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="c1"># ------------------------------------------------------------------------------</span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">The enforce module contains the Enforce class which is used for faciltating</span>
+<span class="sd">inline testing, inside of function defitions and test definitions.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="Comparator"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Comparator">[docs]</a><span class="k">class</span> <span class="nc">Comparator</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Enum for comparison operators used by Enforce.</span>
+
+<span class="sd">    Includes:</span>
+
+<span class="sd">        * EQ</span>
+<span class="sd">        * NOT_EQ</span>
+<span class="sd">        * GT</span>
+<span class="sd">        * GTE</span>
+<span class="sd">        * LT</span>
+<span class="sd">        * LTE</span>
+<span class="sd">        * SIMILAR</span>
+<span class="sd">        * NOT_SIMILAR</span>
+<span class="sd">        * IN</span>
+<span class="sd">        * NOT_IN</span>
+<span class="sd">        * INSTANCE_OF</span>
+<span class="sd">        * NOT_INSTANCE_OF</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">EQ</span>              <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;eq&#39;</span><span class="p">,</span>          <span class="s1">&#39;equal&#39;</span><span class="p">,</span>            <span class="s1">&#39;==&#39;</span><span class="p">,</span>             <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;!=&#39;</span><span class="p">,</span>             <span class="s1">&#39;not equal to&#39;</span>    <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">NOT_EQ</span>          <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;eq&#39;</span><span class="p">,</span>          <span class="s1">&#39;not equal&#39;</span><span class="p">,</span>        <span class="s1">&#39;!=&#39;</span><span class="p">,</span>             <span class="kc">True</span><span class="p">,</span>  <span class="s1">&#39;==&#39;</span><span class="p">,</span>             <span class="s1">&#39;equal to&#39;</span>        <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">GT</span>              <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;gt&#39;</span><span class="p">,</span>          <span class="s1">&#39;greater&#39;</span><span class="p">,</span>          <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span>              <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;&lt;=&#39;</span><span class="p">,</span>             <span class="s1">&#39;not greater than&#39;</span><span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">GTE</span>             <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;gte&#39;</span><span class="p">,</span>         <span class="s1">&#39;greater or equal&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span>             <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">,</span>              <span class="s1">&#39;less than&#39;</span>       <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">LT</span>              <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lt&#39;</span><span class="p">,</span>          <span class="s1">&#39;lesser&#39;</span><span class="p">,</span>           <span class="s1">&#39;&lt;&#39;</span><span class="p">,</span>              <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span>             <span class="s1">&#39;not less than&#39;</span>   <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">LTE</span>             <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lte&#39;</span><span class="p">,</span>         <span class="s1">&#39;lesser or equal&#39;</span><span class="p">,</span>  <span class="s1">&#39;&lt;=&#39;</span><span class="p">,</span>             <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span>              <span class="s1">&#39;greater than&#39;</span>    <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">SIMILAR</span>         <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;similar&#39;</span><span class="p">,</span>     <span class="s1">&#39;similar&#39;</span><span class="p">,</span>          <span class="s1">&#39;~&#39;</span><span class="p">,</span>              <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;!~&#39;</span><span class="p">,</span>             <span class="s1">&#39;not similar to&#39;</span>  <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">NOT_SIMILAR</span>     <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;similar&#39;</span><span class="p">,</span>     <span class="s1">&#39;not similar&#39;</span><span class="p">,</span>      <span class="s1">&#39;!~&#39;</span><span class="p">,</span>             <span class="kc">True</span><span class="p">,</span>  <span class="s1">&#39;~&#39;</span><span class="p">,</span>              <span class="s1">&#39;similar to&#39;</span>      <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">IN</span>              <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;in_&#39;</span><span class="p">,</span>         <span class="s1">&#39;in&#39;</span><span class="p">,</span>               <span class="s1">&#39;in&#39;</span><span class="p">,</span>             <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;not in&#39;</span><span class="p">,</span>         <span class="s1">&#39;not in&#39;</span>          <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">NOT_IN</span>          <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;in_&#39;</span><span class="p">,</span>         <span class="s1">&#39;not in&#39;</span><span class="p">,</span>           <span class="s1">&#39;not in&#39;</span><span class="p">,</span>         <span class="kc">True</span><span class="p">,</span>  <span class="s1">&#39;in&#39;</span><span class="p">,</span>             <span class="s1">&#39;in&#39;</span>              <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">INSTANCE_OF</span>     <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;instance_of&#39;</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span>      <span class="s1">&#39;isinstance&#39;</span><span class="p">,</span>     <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;not isinstance&#39;</span><span class="p">,</span> <span class="s1">&#39;not instance of&#39;</span> <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+    <span class="n">NOT_INSTANCE_OF</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;instance_of&#39;</span><span class="p">,</span> <span class="s1">&#39;not instance of&#39;</span><span class="p">,</span>  <span class="s1">&#39;not isinstance&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>  <span class="s1">&#39;isinstance&#39;</span><span class="p">,</span>     <span class="s1">&#39;instance of&#39;</span>     <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
+
+<div class="viewcode-block" id="Comparator.__init__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Comparator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">negation</span><span class="p">,</span> <span class="n">negation_symbol</span><span class="p">,</span> <span class="n">message</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructs Comparator instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            function (str): Enforce function name.</span>
+<span class="sd">            text (str): Comparator as text.</span>
+<span class="sd">            symbol (str): Comparator as symbol.</span>
+<span class="sd">            negation (bool): Function is a negation.</span>
+<span class="sd">            negation_symbol (str): Negated comparator as symbol.</span>
+<span class="sd">            message  (str): Error message fragment.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">negation</span> <span class="o">=</span> <span class="n">negation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">negation_symbol</span> <span class="o">=</span> <span class="n">negation_symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">canonical</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        str: Canonical name of Comparator</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Comparator.from_string"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Comparator.from_string">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructs Comparator from given string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): Comparator name.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Comparator: Comparator.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">lut</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">Comparator</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">lut</span><span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">text</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="n">lut</span><span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">lut</span><span class="p">[</span><span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span></div></div>
+
+
+<div class="viewcode-block" id="EnforceError"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.EnforceError">[docs]</a><span class="k">class</span> <span class="nc">EnforceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Enforce error class.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">pass</span></div>
+<span class="c1"># ------------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="Enforce"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce">[docs]</a><span class="k">class</span> <span class="nc">Enforce</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Faciltates inline testing. Super class for Enforcer subclasses.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; class Foo:</span>
+<span class="sd">                def __init__(self, value):</span>
+<span class="sd">                    self.value = value</span>
+<span class="sd">                def __repr__(self):</span>
+<span class="sd">                    return &#39;&lt;Foo&gt;&#39;</span>
+<span class="sd">        &gt;&gt;&gt; class Bar:</span>
+<span class="sd">                def __init__(self, value):</span>
+<span class="sd">                    self.value = value</span>
+<span class="sd">                def __repr__(self):</span>
+<span class="sd">                    return &#39;&lt;Bar&gt;&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; Enforce(Foo(1), &#39;==&#39;, Foo(2), &#39;type_name&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; Enforce(Foo(1), &#39;==&#39;, Bar(2), &#39;type_name&#39;)</span>
+<span class="sd">        EnforceError: type_name of &lt;Foo&gt; is not equal to type_name of &lt;Bar&gt;. \</span>
+<span class="sd">Foo != Bar.</span>
+
+<span class="sd">        &gt;&gt;&gt; class EnforceFooBar(Enforce):</span>
+<span class="sd">            def get_value(self, item):</span>
+<span class="sd">                return item.value</span>
+<span class="sd">        &gt;&gt;&gt; EnforceFooBar(Foo(1), &#39;==&#39;, Bar(1), &#39;value&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; EnforceFooBar(Foo(1), &#39;==&#39;, Bar(2), &#39;value&#39;)</span>
+<span class="sd">        EnforceError: value of &lt;Foo&gt; is not equal to value of &lt;Bar&gt;. 1 != 2.</span>
+<span class="sd">        &gt;&gt;&gt; EnforceFooBar(Foo(1), &#39;~&#39;, Bar(5), &#39;value&#39;, epsilon=2)</span>
+<span class="sd">        EnforceError: value of &lt;Foo&gt; is not similar to value of &lt;Bar&gt;. Delta 4 \</span>
+<span class="sd">is greater than epsilon 2.</span>
+
+<span class="sd">        &gt;&gt;&gt; msg = &#39;{a} is not like {b}. Please adjust your epsilon,: {epsilon}, &#39;</span>
+<span class="sd">        &gt;&gt;&gt; msg += &#39;to be higher than {delta}. &#39;</span>
+<span class="sd">        &gt;&gt;&gt; msg += &#39;A value: {a_val}. B value: {b_val}.&#39;</span>
+<span class="sd">        &gt;&gt;&gt; EnforceFooBar(Foo(1), &#39;~&#39;, Bar(5), &#39;value&#39;, epsilon=2, message=msg)</span>
+<span class="sd">        &lt;Foo&gt; is not like &lt;Bar&gt;. Please adjust your epsilon: 2, to be higher \</span>
+<span class="sd">than 4. A value: 1. B value: 5.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Enforce.__init__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">a</span><span class="p">,</span>
+        <span class="n">comparator</span><span class="p">,</span>
+        <span class="n">b</span><span class="p">,</span>
+        <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span>
+    <span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Validates predicate specified in constructor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): First object to be tested.</span>
+<span class="sd">            comparator (str): String representation of Comparator.</span>
+<span class="sd">            b (object): Second object.</span>
+<span class="sd">            attribute (str, optional): Attribute name of a and b. Default: None.</span>
+<span class="sd">            message (str, optional): Custom error message. Default: None.</span>
+<span class="sd">            epsilon (float, optional): Error threshold for a/b difference.</span>
+<span class="sd">                Default: 0.01.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            EnforceError: If predicate fails.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Enforce: Enforce instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># resolve everything</span>
+        <span class="n">comparator</span> <span class="o">=</span> <span class="n">Comparator</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">comparator</span><span class="p">)</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comparator</span><span class="o">.</span><span class="n">function</span><span class="p">)</span>
+        <span class="n">a_val</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="n">b_val</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">getter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;get_&#39;</span> <span class="o">+</span> <span class="n">attribute</span><span class="p">)</span>
+            <span class="n">a_val</span> <span class="o">=</span> <span class="n">getter</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Comparator</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Comparator</span><span class="o">.</span><span class="n">NOT_IN</span><span class="p">]:</span>
+                <span class="n">b_val</span> <span class="o">=</span> <span class="p">[</span><span class="n">getter</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">b_val</span> <span class="o">=</span> <span class="n">getter</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="c1"># get delta</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="n">comparator</span><span class="o">.</span><span class="n">function</span> <span class="o">==</span> <span class="s1">&#39;similar&#39;</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">)</span>
+
+        <span class="c1"># create error message</span>
+        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_message</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">comparator</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">comparator</span><span class="o">=</span><span class="n">comparator</span><span class="p">,</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span>
+            <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">,</span>
+            <span class="n">a_val</span><span class="o">=</span><span class="n">a_val</span><span class="p">,</span>
+            <span class="n">b_val</span><span class="o">=</span><span class="n">b_val</span><span class="p">,</span>
+            <span class="n">attribute</span><span class="o">=</span><span class="n">attribute</span><span class="p">,</span>
+            <span class="n">delta</span><span class="o">=</span><span class="n">delta</span><span class="p">,</span>
+            <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+            <span class="n">a_val</span> <span class="o">=</span> <span class="n">delta</span>
+            <span class="n">b_val</span> <span class="o">=</span> <span class="n">epsilon</span>
+
+        <span class="c1"># test a and b with func</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">comparator</span><span class="o">.</span><span class="n">negation</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">result</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">EnforceError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Enforce._get_message"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce._get_message">[docs]</a>    <span class="k">def</span> <span class="nf">_get_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">comparator</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates an unformatted error message given an attribute name and</span>
+<span class="sd">        comparator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            attribute (str or None): Attribute name.</span>
+<span class="sd">            comparator (Comparator): Comparator instance.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Error message.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{a}</span><span class="s1"> is </span><span class="si">{comparator.message}</span><span class="s1"> </span><span class="si">{b}</span><span class="s1">.&#39;</span>
+        <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{attribute}</span><span class="s1"> of </span><span class="si">{a}</span><span class="s1"> is </span><span class="si">{comparator.message}</span><span class="s1"> </span><span class="si">{attribute}</span><span class="s1"> of </span><span class="si">{b}</span><span class="s1">.&#39;</span>
+
+        <span class="n">skip</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Comparator</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span>
+            <span class="n">Comparator</span><span class="o">.</span><span class="n">NOT_IN</span><span class="p">,</span>
+            <span class="n">Comparator</span><span class="o">.</span><span class="n">INSTANCE_OF</span><span class="p">,</span>
+            <span class="n">Comparator</span><span class="o">.</span><span class="n">NOT_INSTANCE_OF</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="n">skip</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">comparator</span> <span class="ow">is</span> <span class="n">Comparator</span><span class="o">.</span><span class="n">SIMILAR</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39; Delta </span><span class="si">{delta}</span><span class="s1"> is greater than epsilon </span><span class="si">{epsilon}</span><span class="s1">.&#39;</span>
+        <span class="k">elif</span> <span class="n">comparator</span> <span class="ow">is</span> <span class="n">Comparator</span><span class="o">.</span><span class="n">NOT_SIMILAR</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39; Delta </span><span class="si">{delta}</span><span class="s1"> is not greater than epsilon </span><span class="si">{epsilon}</span><span class="s1">.&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39; </span><span class="si">{a_val}</span><span class="s1"> </span><span class="si">{comparator.negation_symbol}</span><span class="s1"> </span><span class="si">{b_val}</span><span class="s1">.&#39;</span>
+
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1"># COMPARATORS---------------------------------------------------------------</span>
+<div class="viewcode-block" id="Enforce.eq"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.eq">[docs]</a>    <span class="k">def</span> <span class="nf">eq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a and b are equal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): First object.</span>
+<span class="sd">            b (object): Second object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if a equals b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span></div>
+
+<div class="viewcode-block" id="Enforce.gt"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.gt">[docs]</a>    <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a is greater than b.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): First object.</span>
+<span class="sd">            b (object): Second object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if a is greater than b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span></div>
+
+<div class="viewcode-block" id="Enforce.gte"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.gte">[docs]</a>    <span class="k">def</span> <span class="nf">gte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a is greater than or equal to b.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): First object.</span>
+<span class="sd">            b (object): Second object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if a is greater than or equal to b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span></div>
+
+<div class="viewcode-block" id="Enforce.lt"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.lt">[docs]</a>    <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a is lesser than b.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): First object.</span>
+<span class="sd">            b (object): Second object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if a is lesser than b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span></div>
+
+<div class="viewcode-block" id="Enforce.lte"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.lte">[docs]</a>    <span class="k">def</span> <span class="nf">lte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a is lesser than or equal to b.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): First object.</span>
+<span class="sd">            b (object): Second object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if a is lesser than or equal to b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span></div>
+
+<div class="viewcode-block" id="Enforce.similar"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.similar">[docs]</a>    <span class="k">def</span> <span class="nf">similar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">difference</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a/b difference given error threshold episilon.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            difference (float): Difference between a and b.</span>
+<span class="sd">            epsilon (float, optional): Error threshold. Default: 0.01.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if difference is less than epsilon.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">difference</span> <span class="o">&lt;</span> <span class="n">epsilon</span></div>
+
+<div class="viewcode-block" id="Enforce.in_"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.in_">[docs]</a>    <span class="k">def</span> <span class="nf">in_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a is in b.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): Member object.</span>
+<span class="sd">            b (list or set or tuple): Container object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if a is in b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">b</span></div>
+
+<div class="viewcode-block" id="Enforce.instance_of"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.instance_of">[docs]</a>    <span class="k">def</span> <span class="nf">instance_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Determines if a is instance of b.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (type or list[type]): Instance object.</span>
+<span class="sd">            b (object): Class object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if a is instance of b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Enforce.difference"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.difference">[docs]</a>    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Calculates difference between a and b.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            a (object): First object.</span>
+<span class="sd">            b (object): Second object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: Difference between a and b.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span></div>
+
+    <span class="c1"># ATTRIBUTE-GETTERS---------------------------------------------------------</span>
+<div class="viewcode-block" id="Enforce.get_type_name"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.get_type_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Gets __class__.__name__ of given item.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            item (object): Item.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: item.__class__.__name__</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Alex Braun &lt;TheNewFlesh@github.com&gt;
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
