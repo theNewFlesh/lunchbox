@@ -101,15 +101,15 @@ class Enforce:
     Example:
 
         >>> class Foo:
-            def __init__(self, value):
-                self.value = value
-            def __repr__(self):
-                return '<Foo>'
+                def __init__(self, value):
+                    self.value = value
+                def __repr__(self):
+                    return '<Foo>'
         >>> class Bar:
-            def __init__(self, value):
-                self.value = value
-            def __repr__(self):
-                return '<Bar>'
+                def __init__(self, value):
+                    self.value = value
+                def __repr__(self):
+                    return '<Bar>'
 
         >>> Enforce(Foo(1), '==', Foo(2), 'type_name')
         >>> Enforce(Foo(1), '==', Bar(2), 'type_name')
@@ -168,7 +168,10 @@ than 4. A value: 1. B value: 5.
         if attribute is not None:
             getter = getattr(self, 'get_' + attribute)
             a_val = getter(a)
-            b_val = getter(b)
+            if comparator in [Comparator.IN, Comparator.NOT_IN]:
+                b_val = [getter(x) for x in b]
+            else:
+                b_val = getter(b)
 
         # get delta
         flag = comparator.function == 'similar'
@@ -217,7 +220,15 @@ than 4. A value: 1. B value: 5.
         if attribute is not None:
             message = '{attribute} of {a} is {comparator.message} {attribute} of {b}.'
 
-        if comparator is Comparator.SIMILAR:
+        skip = [
+            Comparator.IN,
+            Comparator.NOT_IN,
+            Comparator.INSTANCE_OF,
+            Comparator.NOT_INSTANCE_OF,
+        ]
+        if comparator in skip:
+            pass
+        elif comparator is Comparator.SIMILAR:
             message += ' Delta {delta} is greater than epsilon {epsilon}.'
         elif comparator is Comparator.NOT_SIMILAR:
             message += ' Delta {delta} is not greater than epsilon {epsilon}.'
@@ -323,12 +334,16 @@ than 4. A value: 1. B value: 5.
         Determines if a is instance of b.
 
         Args:
-            a (object): Instance object.
+            a (type or list[type]): Instance object.
             b (object): Class object.
 
         Returns:
             bool: True if a is instance of b.
         '''
+        if not isinstance(b, (tuple, list)):
+            b = [b]
+        if isinstance(b, list):
+            b = tuple(b)
         return isinstance(a, b)
 
     def difference(self, a, b):
