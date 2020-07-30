@@ -429,6 +429,7 @@ def get_tox_command(info):
     cmd += 'cp /root/{repo}/docker/* /tmp/{repo}/; '
     cmd += 'cp /root/{repo}/pip/* /tmp/{repo}/; '
     cmd += 'cp -R /root/{repo}/resources /tmp; '
+    cmd += 'rm -rf /tmp/{repo}/{repo}/__init__.py; '
     cmd += r"find /tmp/{repo} | grep -E '__pycache__|\.pyc$' | parallel 'rm -rf'; "
     cmd += 'cd /tmp/{repo}; tox'
     cmd += '"'
