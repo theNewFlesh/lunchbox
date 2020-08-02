@@ -18,6 +18,7 @@ services:
     user: root
     volumes:
       - ../:/root/lunchbox
+      - ~/.ssh:/root/.ssh
       - ./jupyter:/root/.jupyter
     working_dir: "/root/lunchbox/python"
     command: "tail -f /dev/null"
