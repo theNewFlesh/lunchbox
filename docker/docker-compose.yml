@@ -1,9 +1,3 @@
-# Run the lunchbox service stack
-
-# Required variables
-#  - CURRENT_USER: The uid:gid value to ensure the bind mounted volume's
-#                  permissions match the host
-
 version: "3.8"
 services:
   lunchbox:

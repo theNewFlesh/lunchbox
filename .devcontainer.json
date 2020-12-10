@@ -1,11 +1,10 @@
 {
-    "name": "lunchbox",
+    "name": "${localWorkspaceFolderBasename}",
     "context": "./",
     "folders": [{"path": "./"}],
     "dockerComposeFile": "docker/docker-compose.yml",
-    "service": "lunchbox",
-    "workspaceFolder": "/root/lunchbox",
-    "forwardPorts": [9000, 9013],
+    "service": "${localWorkspaceFolderBasename}",
+    "workspaceFolder": "/root/${localWorkspaceFolderBasename}",
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
         "python.languageServer": "Pylance",
