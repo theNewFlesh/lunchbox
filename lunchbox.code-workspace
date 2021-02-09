@@ -61,7 +61,7 @@
             },
             {
                 "label": "coverage",
-                "command": "mkdir -p docs && pytest python -c docker/pytest.ini --cov=python --cov-config=docker/pytest.ini --cov-report=html:docs/htmlcov && chown -R $USER docs",
+                "command": "mkdir -p docs& pytest python -c docker/pytest.ini --cov=python --cov-config=docker/pytest.ini --cov-report=html:docs/htmlcov && chown -R $USER docs",
                 "type": "shell"
             },
             {
@@ -97,7 +97,7 @@
             },
             {
                 "label": "package",
-                "command": "rm -rf /tmp/$REPO && cp -r python /tmp/$REPO && cp README.md /tmp/$REPO/README.md && cp LICENSE /tmp/$REPO/LICENSE && cp pip/MANIFEST.in /tmp/$REPO/MANIFEST.in && cp pip/setup.cfg /tmp/$REPO/ && cp pip/setup.py /tmp/$REPO/ && cp pip/version.txt /tmp/$REPO/ && cp docker/dev_requirements.txt /tmp/$REPO/ && cp docker/prod_requirements.txt /tmp/$REPO/ && find /tmp/$REPO | grep -E '_test\\.py$' | parallel 'rm -rf' && python3.7 setup.py sdist",
+                "command": "rm -rf /tmp/$REPO && cp -r python /tmp/$REPO && cp README.md /tmp/$REPO/README.md && cp LICENSE /tmp/$REPO/LICENSE && cp pip/MANIFEST.in /tmp/$REPO/MANIFEST.in && cp pip/setup.cfg /tmp/$REPO/ && cp pip/setup.py /tmp/$REPO/ && cp pip/version.txt /tmp/$REPO/ && cp docker/dev_requirements.txt /tmp/$REPO/ && cp docker/prod_requirements.txt /tmp/$REPO/ && find /tmp/$REPO | grep -E '_test\\.py$' | parallel 'rm -rf' && cd /tmp/$REPO && python3.7 setup.py sdist",
                 "type": "shell"
             },
             {
