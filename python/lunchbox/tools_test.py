@@ -11,6 +11,38 @@ def foobar_func(foo='<required>', bar='bar'):
 
 
 class ToolsTests(unittest.TestCase):
+
+    def test_to_snakecase(self):
+        x = 'camelCase.SCREAMING__SNAKE_CASE-kebab-case..dot.case  space '
+        x += 'case-fat-face.ratRace'
+        result = tools.to_snakecase(x)
+        expected = 'camel_case_screaming_snake_case_kebab_case_dot_case_space'
+        expected += '_case_fat_face_rat_race'
+        self.assertEqual(result, expected)
+
+        items = [
+            'fooBar',
+            'foo_bar',
+            'foo__bar',
+            'foo.bar',
+            'foo..bar',
+            'foo-bar',
+            'foo--bar',
+            'foo bar',
+            'foo  bar',
+            '_foo_bar_',
+            '_foo__bar_',
+            '.foo.bar.',
+            '.foo..bar.',
+            '-foo-bar-',
+            '-foo--bar-',
+            ' foo bar ',
+            ' foo  bar ',
+        ]
+        for item in items:
+            result = tools.to_snakecase(item)
+            self.assertEqual(result, 'foo_bar')
+
     def test_relative_path(self):
         result = tools.relative_path(__file__, '../../resources/foo.txt')
         self.assertTrue(os.path.exists(result))

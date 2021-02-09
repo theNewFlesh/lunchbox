@@ -5,6 +5,7 @@ from pathlib import Path
 import inspect
 import logging
 import os
+import re
 
 import wrapt
 
@@ -17,6 +18,27 @@ LOGGER = logging.getLogger(__name__)
 '''
 A library of miscellaneous tools.
 '''
+
+
+def to_snakecase(string):
+    # type: (str) -> str
+    '''
+    Converts a given string to snake_case.
+
+    Args:
+        string (str): String to be converted.
+
+    Returns:
+        str: snake_case string.
+    '''
+    output = re.sub('([A-Z]+)', r'_\1', string)
+    output = re.sub('-', '_', output)
+    output = re.sub(r'\.', '_', output)
+    output = re.sub(' ', '_', output)
+    output = re.sub('_+', '_', output)
+    output = re.sub('^_|_$', '', output)
+    output = output.lower()
+    return output
 
 
 def try_(function, item, return_item='item'):
