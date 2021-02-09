@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>enforce &mdash; lunchbox  documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,7 +33,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -52,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> lunchbox
+            <a href="index.html" class="icon icon-home"> lunchbox
           
 
           
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -133,6 +135,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -146,7 +150,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/lunchbox.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -334,7 +338,7 @@
 </div>
 <dl class="py attribute">
 <dt id="lunchbox.enforce.Enforce.__dict__">
-<code class="sig-name descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'lunchbox.enforce', '__doc__': &quot;\n    Faciltates inline testing. Super class for Enforcer subclasses.\n\n    Example:\n\n        &gt;&gt;&gt; class Foo:\n                def __init__(self, value):\n                    self.value = value\n                def __repr__(self):\n                    return '&lt;Foo&gt;'\n        &gt;&gt;&gt; class Bar:\n                def __init__(self, value):\n                    self.value = value\n                def __repr__(self):\n                    return '&lt;Bar&gt;'\n\n        &gt;&gt;&gt; Enforce(Foo(1), '==', Foo(2), 'type_name')\n        &gt;&gt;&gt; Enforce(Foo(1), '==', Bar(2), 'type_name')\n        EnforceError: type_name of &lt;Foo&gt; is not equal to type_name of &lt;Bar&gt;. Foo != Bar.\n\n        &gt;&gt;&gt; class EnforceFooBar(Enforce):\n            def get_value(self, item):\n                return item.value\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '==', Bar(1), 'value')\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '==', Bar(2), 'value')\n        EnforceError: value of &lt;Foo&gt; is not equal to value of &lt;Bar&gt;. 1 != 2.\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '~', Bar(5), 'value', epsilon=2)\n        EnforceError: value of &lt;Foo&gt; is not similar to value of &lt;Bar&gt;. Delta 4 is greater than epsilon 2.\n\n        &gt;&gt;&gt; msg = '{a} is not like {b}. Please adjust your epsilon,: {epsilon}, '\n        &gt;&gt;&gt; msg += 'to be higher than {delta}. '\n        &gt;&gt;&gt; msg += 'A value: {a_val}. B value: {b_val}.'\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '~', Bar(5), 'value', epsilon=2, message=msg)\n        &lt;Foo&gt; is not like &lt;Bar&gt;. Please adjust your epsilon: 2, to be higher than 4. A value: 1. B value: 5.\n    &quot;, '__init__': &lt;function Enforce.__init__&gt;, '_get_message': &lt;function Enforce._get_message&gt;, 'eq': &lt;function Enforce.eq&gt;, 'gt': &lt;function Enforce.gt&gt;, 'gte': &lt;function Enforce.gte&gt;, 'lt': &lt;function Enforce.lt&gt;, 'lte': &lt;function Enforce.lte&gt;, 'similar': &lt;function Enforce.similar&gt;, 'in_': &lt;function Enforce.in_&gt;, 'instance_of': &lt;function Enforce.instance_of&gt;, 'difference': &lt;function Enforce.difference&gt;, 'get_type_name': &lt;function Enforce.get_type_name&gt;, '__dict__': &lt;attribute '__dict__' of 'Enforce' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Enforce' objects&gt;})</em><a class="headerlink" href="#lunchbox.enforce.Enforce.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'lunchbox.enforce', '__doc__': &quot;\n    Faciltates inline testing. Super class for Enforcer subclasses.\n\n    Example:\n\n        &gt;&gt;&gt; class Foo:\n                def __init__(self, value):\n                    self.value = value\n                def __repr__(self):\n                    return '&lt;Foo&gt;'\n        &gt;&gt;&gt; class Bar:\n                def __init__(self, value):\n                    self.value = value\n                def __repr__(self):\n                    return '&lt;Bar&gt;'\n\n        &gt;&gt;&gt; Enforce(Foo(1), '==', Foo(2), 'type_name')\n        &gt;&gt;&gt; Enforce(Foo(1), '==', Bar(2), 'type_name')\n        EnforceError: type_name of &lt;Foo&gt; is not equal to type_name of &lt;Bar&gt;. Foo != Bar.\n\n        &gt;&gt;&gt; class EnforceFooBar(Enforce):\n            def get_value(self, item):\n                return item.value\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '==', Bar(1), 'value')\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '==', Bar(2), 'value')\n        EnforceError: value of &lt;Foo&gt; is not equal to value of &lt;Bar&gt;. 1 != 2.\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '~', Bar(5), 'value', epsilon=2)\n        EnforceError: value of &lt;Foo&gt; is not similar to value of &lt;Bar&gt;. Delta 4 is greater than epsilon 2.\n\n        &gt;&gt;&gt; msg = '{a} is not like {b}. Please adjust your epsilon,: {epsilon}, '\n        &gt;&gt;&gt; msg += 'to be higher than {delta}. '\n        &gt;&gt;&gt; msg += 'A value: {a_val}. B value: {b_val}.'\n        &gt;&gt;&gt; EnforceFooBar(Foo(1), '~', Bar(5), 'value', epsilon=2, message=msg)\n        &lt;Foo&gt; is not like &lt;Bar&gt;. Please adjust your epsilon: 2, to be higher than 4. A value: 1. B value: 5.\n    &quot;, '__init__': &lt;function Enforce.__init__&gt;, '_get_message': &lt;function Enforce._get_message&gt;, 'eq': &lt;function Enforce.eq&gt;, 'gt': &lt;function Enforce.gt&gt;, 'gte': &lt;function Enforce.gte&gt;, 'lt': &lt;function Enforce.lt&gt;, 'lte': &lt;function Enforce.lte&gt;, 'similar': &lt;function Enforce.similar&gt;, 'in_': &lt;function Enforce.in_&gt;, 'instance_of': &lt;function Enforce.instance_of&gt;, 'difference': &lt;function Enforce.difference&gt;, 'get_type_name': &lt;function Enforce.get_type_name&gt;, '__dict__': &lt;attribute '__dict__' of 'Enforce' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'Enforce' objects&gt;, '__annotations__': {}})</em><a class="headerlink" href="#lunchbox.enforce.Enforce.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -624,7 +628,7 @@ comparator.</p>
 <p>StopWatch is used for timing blocks of code.</p>
 <dl class="py attribute">
 <dt id="lunchbox.stopwatch.StopWatch.__dict__">
-<code class="sig-name descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'lunchbox.stopwatch', '__doc__': '\n    StopWatch is used for timing blocks of code.\n    ', '__init__': &lt;function StopWatch.__init__&gt;, 'start': &lt;function StopWatch.start&gt;, 'stop': &lt;function StopWatch.stop&gt;, 'delta': &lt;property object&gt;, 'human_readable_delta': &lt;property object&gt;, '__dict__': &lt;attribute '__dict__' of 'StopWatch' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'StopWatch' objects&gt;})</em><a class="headerlink" href="#lunchbox.stopwatch.StopWatch.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'lunchbox.stopwatch', '__doc__': '\n    StopWatch is used for timing blocks of code.\n    ', '__init__': &lt;function StopWatch.__init__&gt;, 'start': &lt;function StopWatch.start&gt;, 'stop': &lt;function StopWatch.stop&gt;, 'delta': &lt;property object&gt;, 'human_readable_delta': &lt;property object&gt;, '__dict__': &lt;attribute '__dict__' of 'StopWatch' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'StopWatch' objects&gt;, '__annotations__': {'_delta': 'Optional[datetime.timedelta]', '_start_time': 'Optional[datetime.datetime]', '_stop_time': 'Optional[datetime.datetime]'}})</em><a class="headerlink" href="#lunchbox.stopwatch.StopWatch.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -776,6 +780,23 @@ arguments as a dict.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="lunchbox.tools.to_snakecase">
+<code class="sig-prename descclassname">lunchbox.tools.</code><code class="sig-name descname">to_snakecase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/lunchbox/tools.html#to_snakecase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.tools.to_snakecase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a given string to snake_case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> (<em>str</em>) – String to be converted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>snake_case string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="lunchbox.tools.try_">
 <code class="sig-prename descclassname">lunchbox.tools.</code><code class="sig-name descname">try_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span><span class="p">[</span>Any<span class="p">]</span><span class="p">, </span>Any<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">return_item</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">'item'</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/lunchbox/tools.html#try_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lunchbox.tools.try_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call given function on given item, catch any exceptions and return given
@@ -810,37 +831,29 @@ object: Object return by function call if return_item is not “item” or</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="cli.html" class="btn btn-neutral float-right" title="cli" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="modules.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="cli.html" class="btn btn-neutral float-right" title="cli" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, Alex Braun &lt;TheNewFlesh@github.com&gt;
+        &#169; Copyright 2020, Alex Braun &lt;TheNewFlesh@github.com&gt;.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
