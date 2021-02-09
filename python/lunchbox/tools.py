@@ -137,7 +137,7 @@ def get_function_signature(function):
 
 
 def api_function(wrapped=None, **kwargs):
-    # type: (Optional[Callable], **Any) -> Callable
+    # type: (Optional[Callable], Any) -> Callable
     '''
     A decorator that enforces keyword argument only function signatures and
     required keyword argument values when called.
