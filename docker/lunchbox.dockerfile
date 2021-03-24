@@ -60,6 +60,8 @@ RUN rm -rf /root/dev_requirements;
 
 # configure zshrc
 WORKDIR /root
+COPY ./henanigans.zsh-theme /root/.oh-my-zsh/custom/themes/henanigans.zsh-theme
+COPY ./zshrc /root/.zshrc
 RUN echo "\n${CYAN}CONFIGURE ZSHRC${NO_COLOR}"; \
     echo 'export PYTHONPATH="/root/lunchbox/python"' >> /root/.zshrc;
 
@@ -69,10 +71,11 @@ RUN echo "\n${CYAN}INSTALL JUPYTER LAB EXTENSIONS${NO_COLOR}"; \
     jupyter labextension install \
     --dev-build=False \
         nbdime-jupyterlab \
-        @jupyterlab/toc \
         @oriolmirosa/jupyterlab_materialdarker \
         @ryantam626/jupyterlab_sublime \
-        jupyterlab-drawio \
         @jupyterlab/plotly-extension
 
 ENV PYTHONPATH "${PYTHONPATH}:/root/lunchbox/python"
+ENV LANGUAGE "C"
+ENV LC_ALL "C"
+ENV LANG "C"
