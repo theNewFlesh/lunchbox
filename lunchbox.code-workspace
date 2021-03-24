@@ -13,8 +13,16 @@
         "python.linting.pylintEnabled": false,
         "python.pythonPath": "/usr/bin/python3.7",
         "python.testing.pytestEnabled": true,
-        "python.testing.unittestEnabled": true,
         "terminal.integrated.shell.linux": "/bin/zsh",
+        "python.testing.unittestEnabled": false,
+        "terminal.integrated.cwd": "/root/lunchbox",
+        "python.testing.cwd": "/root/lunchbox",
+        "debug.allowBreakpointsEverywhere": true,
+        "python.testing.pytestArgs": [
+            "--cov=/root/lunchbox/python",
+            "--cov-config=/root/lunchbox/docker/pytest.ini",
+            "--cov-report=html:/root/lunchbox/docs/htmlcov"
+        ],
         "files.exclude": {
             "**/.classpath": true,
             "**/.coverage": true,
@@ -30,7 +38,10 @@
             "**/.svn": true,
             "**/CVS": true,
             "*/*/**/node_modules": true
-        }
+        },
+        "todo-tree.filtering.excludeGlobs": [
+            "**/docs/**/*.*"
+        ]
     },
     "tasks": {
         "version": "2.0.0",
@@ -50,7 +61,7 @@
             },
             {
                 "label": "coverage",
-                "command": "mkdir -p docs && pytest python -c docker/pytest.ini --cov=python --cov-config=docker/pytest.ini --cov-report=html:docs/htmlcov && chown -R $USER docs",
+                "command": "mkdir -p docs& pytest python -c docker/pytest.ini --cov=python --cov-config=docker/pytest.ini --cov-report=html:docs/htmlcov && chown -R $USER docs",
                 "type": "shell"
             },
             {
@@ -86,7 +97,7 @@
             },
             {
                 "label": "package",
-                "command": "rm -rf /tmp/$REPO && cp -r python /tmp/$REPO && cp README.md /tmp/$REPO/README.md && cp LICENSE /tmp/$REPO/LICENSE && cp pip/MANIFEST.in /tmp/$REPO/MANIFEST.in && cp pip/setup.cfg /tmp/$REPO/ && cp pip/setup.py /tmp/$REPO/ && cp pip/version.txt /tmp/$REPO/ && cp docker/dev_requirements.txt /tmp/$REPO/ && cp docker/prod_requirements.txt /tmp/$REPO/ && find /tmp/$REPO | grep -E '_test\\.py$' | parallel 'rm -rf' && python3.7 setup.py sdist",
+                "command": "rm -rf /tmp/$REPO && cp -r python /tmp/$REPO && cp README.md /tmp/$REPO/README.md && cp LICENSE /tmp/$REPO/LICENSE && cp pip/MANIFEST.in /tmp/$REPO/MANIFEST.in && cp pip/setup.cfg /tmp/$REPO/ && cp pip/setup.py /tmp/$REPO/ && cp pip/version.txt /tmp/$REPO/ && cp docker/dev_requirements.txt /tmp/$REPO/ && cp docker/prod_requirements.txt /tmp/$REPO/ && find /tmp/$REPO | grep -E '_test\\.py$' | parallel 'rm -rf' && cd /tmp/$REPO && python3.7 setup.py sdist",
                 "type": "shell"
             },
             {

@@ -1,4 +1,5 @@
 flake8
+flake8_polyfill
 ipykernel==5.1.3
 ipysheet
 ipython-genutils
