@@ -210,7 +210,8 @@ than 4. A value: 1. B value: 5.
         if result is False:
             raise EnforceError(message)
 
-    def _get_message(self, attribute, comparator):
+    @staticmethod
+    def _get_message(attribute, comparator):
         # type: (Optional[str], Comparator) -> str
         '''
         Creates an unformatted error message given an attribute name and
@@ -388,3 +389,57 @@ than 4. A value: 1. B value: 5.
             str: item.__class__.__name__
         '''
         return item.__class__.__name__
+
+
+class EnforceForEach:
+    def __init__(
+        self,
+        a,
+        comparator,
+        b,
+        attribute=None,
+        message=None,
+        epsilon=0.01
+    ):
+        # type: (Any, str, Any, Optional[str], Optional[str], float) -> None
+        '''
+        For each item in iterable a, this class validates a given predicate
+        against a single item b.
+
+        Args:
+            a (object): Iterable object to be tested.
+            comparator (str): String representation of Comparator.
+            b (object): Second object.
+            attribute (str, optional): Attribute name of a and b. Default: None.
+            message (str, optional): Custom error message. Default: None.
+            epsilon (float, optional): Error threshold for a/b difference.
+                Default: 0.01.
+
+        Raises:
+            EnforceError: If predicate fails.
+
+        Returns:
+            Enforce: Enforce instance.
+        '''
+        bad_items = []
+        for item in a:
+            try:
+                Enforce(
+                    item, comparator, b, attribute=attribute, epsilon=epsilon
+                )
+            except EnforceError:
+                bad_items.append(item)
+        if len(bad_items) > 0:
+            if message is None:
+                message = Enforce._get_message(attribute, comparator)
+            msg = message.format(
+                comparator=comp,
+                a=bad_items,
+                b=b,
+                a_val=a_val,
+                b_val=b_val,
+                attribute=attribute,
+                delta=delta,
+                epsilon=epsilon,
+            )
+            raise EnforceError(msg)

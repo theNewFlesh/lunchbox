@@ -2,7 +2,7 @@ import unittest
 
 import pytest
 
-from lunchbox.enforce import Comparator, Enforce, EnforceError
+from lunchbox.enforce import Comparator, Enforce, EnforceError, EnforceForEach
 # ------------------------------------------------------------------------------
 
 
@@ -367,3 +367,18 @@ class EnforceTests(unittest.TestCase):
         expected = Taco().__class__.__name__
         result = e.get_type_name(Taco())
         self.assertEqual(result, expected)
+
+
+class EnforceForEachTests(unittest.TestCase):
+    def test_init(self):
+        EnforceForEach([1, 1, 1], '==', 1)
+        EnforceForEach(['a', 'a', 'a'], '==', 'a')
+
+        expected = 'asljkdh'
+        with self.assertRaisesRegexp(EnforceError, expected):
+            EnforceForEach([1, 1, 2], '==', 1)
+
+    def test_init_not_iterable(self):
+        expected = 'is not iterable'
+        with self.assertRaisesRegexp(TypeError, expected):
+            EnforceForEach(1, '==', 1)
