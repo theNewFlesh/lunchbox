@@ -12,6 +12,7 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${NO_COLOR}"; \
     apt install -y \
         curl \
         git \
+        pandoc \
         parallel \
         python3-dev \
         software-properties-common \
