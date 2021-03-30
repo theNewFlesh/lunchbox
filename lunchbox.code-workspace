@@ -18,11 +18,11 @@
         "terminal.integrated.cwd": "/root/lunchbox",
         "python.testing.cwd": "/root/lunchbox",
         "debug.allowBreakpointsEverywhere": true,
-        "python.testing.pytestArgs": [
-            "--cov=/root/lunchbox/python",
-            "--cov-config=/root/lunchbox/docker/pytest.ini",
-            "--cov-report=html:/root/lunchbox/docs/htmlcov"
-        ],
+        // "python.testing.pytestArgs": [
+        //     "--cov=/root/lunchbox/python",
+        //     "--cov-config=/root/lunchbox/docker/pytest.ini",
+        //     "--cov-report=html:/root/lunchbox/docs/htmlcov"
+        // ],
         "files.exclude": {
             "**/.classpath": true,
             "**/.coverage": true,
