@@ -56,7 +56,10 @@
         "tasks": [
             {
                 "label": "architecture",
-                "command": "python3.7 -c \"from rolling_pin.repo_etl import RepoETL; RepoETL('python').write('docs/architecture.svg')\" && chown -R $USER docs",
+                "command": [
+                    "python3.7 -c \"import re; from rolling_pin.repo_etl import RepoETL; etl = RepoETL('/root/$REPO/python'); regex = 'test|mock'; data = etl._data.copy(); func = lambda x: not bool(re.search(regex, x)); mask = data.node_name.apply(func); data = data[mask]; data.reset_index(inplace=True, drop=True); data.dependencies = data.dependencies.apply(lambda x: list(filter(func, x))); etl._data = data; etl.write('/root/$REPO/docs/architecture.svg', orient='lr')\" && ",
+                    "chown -R $USER docs"
+                ],
                 "type": "shell"
             },
             {
