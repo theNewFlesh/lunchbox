@@ -1,10 +1,14 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 WORKDIR /root
 
 # coloring syntax for headers
 ARG CYAN='\033[0;36m'
 ARG NO_COLOR='\033[0m'
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN echo "\n${CYAN}REMOVE LOGIN MOTD${NO_COLOR}"; \
+    touch ~/.hushlogin
 
 # update ubuntu and install basic dependencies
 RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${NO_COLOR}"; \
@@ -14,7 +18,8 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${NO_COLOR}"; \
         git \
         pandoc \
         parallel \
-        python3-dev \
+        python3-pip \
+        python3-setuptools \
         software-properties-common \
         tree \
         vim \
@@ -37,7 +42,6 @@ RUN echo "\n${CYAN}SETUP PYTHON3.7${NO_COLOR}"; \
     rm -rf /root/get-pip.py
 
 # DEBIAN_FRONTEND needed by texlive to install non-interactively
-ARG DEBIAN_FRONTEND=noninteractive
 RUN echo "\n${CYAN}INSTALL NODE.JS DEPENDENCIES${NO_COLOR}"; \
     curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt upgrade -y && \
