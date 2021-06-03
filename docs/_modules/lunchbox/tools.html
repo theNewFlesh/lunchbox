@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
 
   
@@ -30,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -62,7 +65,7 @@
             
             
               <div class="version">
-                0.1.2
+                0.2.0
               </div>
             
           
@@ -163,12 +166,15 @@
 
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">dropwhile</span><span class="p">,</span> <span class="n">takewhile</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
 <span class="kn">import</span> <span class="nn">wrapt</span>
+
+<span class="kn">from</span> <span class="nn">lunchbox.stopwatch</span> <span class="kn">import</span> <span class="n">StopWatch</span>
 
 <span class="n">LOG_LEVEL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LOG_LEVEL&#39;</span><span class="p">,</span> <span class="s1">&#39;WARNING&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">LOG_LEVEL</span><span class="p">)</span>
@@ -272,6 +278,62 @@
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
         <span class="sa">f</span><span class="s1">&#39;relative_path called with: </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s1"> and </span><span class="si">{</span><span class="n">path_</span><span class="si">}</span><span class="s1">. Returned: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">output</span></div>
+
+
+<span class="c1"># LOGGING-----------------------------------------------------------------------</span>
+<div class="viewcode-block" id="log_runtime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.log_runtime">[docs]</a><span class="k">def</span> <span class="nf">log_runtime</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_testing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># type (Callable, ..., Optional[str], bool, ...) -&gt; Any</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Logs the duration of given function called with given arguments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        function (function): Function to be called.</span>
+<span class="sd">        \*args (object, optional): Arguments.</span>
+<span class="sd">        message_ (str, optional): Message to be returned. Default: None.</span>
+<span class="sd">        _testing (bool, optional): Returns message if True. Default: False.</span>
+<span class="sd">        \*\*kwargs (object, optional): Keyword arguments.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        object: function(*args, **kwargs).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># this may silently break file writes in multiprocessing</span>
+    <span class="n">stopwatch</span> <span class="o">=</span> <span class="n">StopWatch</span><span class="p">()</span>
+    <span class="n">stopwatch</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">stopwatch</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">message_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">message_</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">         Runtime: </span><span class="si">{</span><span class="n">stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">message_</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span><span class="si">{</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"></span>
+<span class="s1">         Runtime: </span><span class="si">{</span><span class="n">stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span><span class="s1"></span>
+<span class="s1">            Args: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="si">}</span><span class="s1"></span>
+<span class="s1">          Kwargs: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">_testing</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">message_</span>
+
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message_</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="runtime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.runtime">[docs]</a><span class="nd">@wrapt</span><span class="o">.</span><span class="n">decorator</span>
+<span class="k">def</span> <span class="nf">runtime</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># type: (Callable, Any, Any, Any) -&gt; Any</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Decorator for logging the duration of given function called with given</span>
+<span class="sd">    arguments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        wrapped (function): Function to be called.</span>
+<span class="sd">        instance (object): Needed by wrapt.</span>
+<span class="sd">        \*args (object, optional): Arguments.</span>
+<span class="sd">        \*\*kwargs (object, optional): Keyword arguments.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        function: Wrapped function.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">log_runtime</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <span class="c1"># API---------------------------------------------------------------------------</span>
