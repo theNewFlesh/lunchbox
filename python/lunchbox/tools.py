@@ -2,12 +2,15 @@ from typing import Any, Callable, Dict, List, Optional, Union
 
 from itertools import dropwhile, takewhile
 from pathlib import Path
+from pprint import pformat
 import inspect
 import logging
 import os
 import re
 
 import wrapt
+
+from lunchbox.stopwatch import StopWatch
 
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'WARNING').upper()
 logging.basicConfig(level=LOG_LEVEL)
@@ -111,6 +114,62 @@ def relative_path(module, path):
     LOGGER.debug(
         f'relative_path called with: {module} and {path_}. Returned: {output}')
     return output
+
+
+# LOGGING-----------------------------------------------------------------------
+def log_runtime(function, *args, message_=None, _testing=False, **kwargs):
+    # type (Callable, ..., Optional[str], bool, ...) -> Any
+    r'''
+    Logs the duration of given function called with given arguments.
+
+    Args:
+        function (function): Function to be called.
+        \*args (object, optional): Arguments.
+        message_ (str, optional): Message to be returned. Default: None.
+        _testing (bool, optional): Returns message if True. Default: False.
+        \*\*kwargs (object, optional): Keyword arguments.
+
+    Returns:
+        object: function(*args, **kwargs).
+    '''
+    # this may silently break file writes in multiprocessing
+    stopwatch = StopWatch()
+    stopwatch.start()
+    output = function(*args, **kwargs)
+    stopwatch.stop()
+
+    if message_ is not None:
+        message_ += f'\n         Runtime: {stopwatch.human_readable_delta}'
+    else:
+        message_ = f'''{function.__name__}
+         Runtime: {stopwatch.human_readable_delta}
+            Args: {pformat(args)}
+          Kwargs: {pformat(kwargs)}'''
+
+    if _testing:
+        return message_
+
+    LOGGER.info(message_)
+    return output
+
+
+@wrapt.decorator
+def runtime(wrapped, instance, args, kwargs):
+    # type: (Callable, Any, Any, Any) -> Any
+    r'''
+    Decorator for logging the duration of given function called with given
+    arguments.
+
+    Args:
+        wrapped (function): Function to be called.
+        instance (object): Needed by wrapt.
+        \*args (object, optional): Arguments.
+        \*\*kwargs (object, optional): Keyword arguments.
+
+    Returns:
+        function: Wrapped function.
+    '''
+    return log_runtime(wrapped, *args, **kwargs)
 
 
 # API---------------------------------------------------------------------------

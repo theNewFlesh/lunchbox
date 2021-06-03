@@ -1,13 +1,28 @@
+import multiprocessing
 import os
+import time
 import unittest
 
-from lunchbox import tools
+import lunchbox.tools as lbt
 # ------------------------------------------------------------------------------
 
 
-@tools.api_function
+@lbt.api_function
 def foobar_func(foo='<required>', bar='bar'):
     return foo + bar
+
+
+def _log_runtime_func(a, b, c):
+    time.sleep(0.01)
+    return sum([a, b, c])
+
+
+def _runtime_func(a, b, c):
+    @lbt.runtime
+    def func(a, b, c):
+        time.sleep(0.01)
+        return sum([a, b, c])
+    return func(a, b, c)
 
 
 class ToolsTests(unittest.TestCase):
@@ -15,7 +30,7 @@ class ToolsTests(unittest.TestCase):
     def test_to_snakecase(self):
         x = 'camelCase.SCREAMING__SNAKE_CASE-kebab-case..dot.case  space '
         x += 'case-fat-face.ratRace'
-        result = tools.to_snakecase(x)
+        result = lbt.to_snakecase(x)
         expected = 'camel_case_screaming_snake_case_kebab_case_dot_case_space'
         expected += '_case_fat_face_rat_race'
         self.assertEqual(result, expected)
@@ -40,23 +55,23 @@ class ToolsTests(unittest.TestCase):
             ' foo  bar ',
         ]
         for item in items:
-            result = tools.to_snakecase(item)
+            result = lbt.to_snakecase(item)
             self.assertEqual(result, 'foo_bar')
 
     def test_relative_path(self):
-        result = tools.relative_path(__file__, '../../resources/foo.txt')
+        result = lbt.relative_path(__file__, '../../resources/foo.txt')
         self.assertTrue(os.path.exists(result))
 
     def test_is_standard_module(self):
-        self.assertTrue(tools.is_standard_module('re'))
-        self.assertTrue(tools.is_standard_module('math'))
-        self.assertFalse(tools.is_standard_module('cv2'))
-        self.assertFalse(tools.is_standard_module('pandas'))
+        self.assertTrue(lbt.is_standard_module('re'))
+        self.assertTrue(lbt.is_standard_module('math'))
+        self.assertFalse(lbt.is_standard_module('cv2'))
+        self.assertFalse(lbt.is_standard_module('pandas'))
 
     def test_get_function_signature(self):
         def func(a, b, foo='bar', boo='baz'):
             pass
-        result = tools.get_function_signature(func)
+        result = lbt.get_function_signature(func)
         expected = dict(
             args=['a', 'b'],
             kwargs=dict(foo='bar', boo='baz')
@@ -65,7 +80,7 @@ class ToolsTests(unittest.TestCase):
 
         def func(a, b):
             pass
-        result = tools.get_function_signature(func)
+        result = lbt.get_function_signature(func)
         expected = dict(
             args=['a', 'b'],
             kwargs={},
@@ -74,7 +89,7 @@ class ToolsTests(unittest.TestCase):
 
         def func(foo='bar', boo='baz'):
             pass
-        result = tools.get_function_signature(func)
+        result = lbt.get_function_signature(func)
         expected = dict(
             args=[],
             kwargs=dict(foo='bar', boo='baz')
@@ -83,13 +98,52 @@ class ToolsTests(unittest.TestCase):
 
         def func():
             pass
-        result = tools.get_function_signature(func)
+        result = lbt.get_function_signature(func)
         expected = dict(
             args=[],
             kwargs={},
         )
         self.assertEqual(result, expected)
 
+    # LOGGING-------------------------------------------------------------------
+    def test_log_runtime(self):
+        def func(a, b, c, x=0, y=1, z=2):
+            time.sleep(0.01)
+            return sum([a, b, c, x, y, z])
+
+        result = lbt.log_runtime(func, 1, 2, 3, x=4, y=5, z=6)
+        self.assertEqual(result, 21)
+
+        result = lbt.log_runtime(func, 1, 2, 3, x=4, y=5, z=6, _testing=True)
+        expected = '''func
+         Runtime: 0.01 seconds
+            Args: (1, 2, 3)
+          Kwargs: {'x': 4, 'y': 5, 'z': 6}'''
+        self.assertEqual(result, expected)
+
+        result = lbt.log_runtime(
+            func, 1, 2, 3, x=4, y=5, z=6, message_='foo', _testing=True
+        )
+        expected = 'foo\n         Runtime: 0.01 seconds'
+        self.assertEqual(result, expected)
+
+    def test_log_runtime_multiprocessing(self):
+        args = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        with multiprocessing.Pool(processes=2) as pool:
+            result = pool.starmap(_log_runtime_func, args)
+        self.assertEqual(sum(result), 45)
+
+    def test_runtime(self):
+        result = _runtime_func(1, 2, 3)
+        self.assertEqual(result, 6)
+
+    def test_runtime_multiprocessing(self):
+        args = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        with multiprocessing.Pool(processes=2) as pool:
+            result = pool.starmap(_runtime_func, args)
+        self.assertEqual(sum(result), 45)
+
+    # API-----------------------------------------------------------------------
     def test_api_function(self):
         result = foobar_func(foo='taco', bar='cat')
         self.assertEqual(result, 'tacocat')
@@ -98,7 +152,7 @@ class ToolsTests(unittest.TestCase):
         self.assertEqual(result, 'foobar')
 
     def test_api_function_non_keyword(self):
-        @tools.api_function
+        @lbt.api_function
         def foobar_func(foo, bar='bar'):
             return foo + bar
         expected = 'Function may only have keyword arguments. '
@@ -107,7 +161,7 @@ class ToolsTests(unittest.TestCase):
             foobar_func('foo', bar='bar')
 
     def test_api_function_no_keywords(self):
-        @tools.api_function
+        @lbt.api_function
         def foobar_func():
             return 'foobar'
         result = foobar_func()
@@ -132,20 +186,20 @@ class ToolsTests(unittest.TestCase):
             foobar_func(bar='pumpkin')
 
     def test_try_(self):
-        result = tools.try_(lambda x: int(x), 1.0, return_item='item')
+        result = lbt.try_(lambda x: int(x), 1.0, return_item='item')
         self.assertEqual(result, 1)
 
-        result = tools.try_(lambda x: int(x), 'foo', return_item='bar')
+        result = lbt.try_(lambda x: int(x), 'foo', return_item='bar')
         self.assertEqual(result, 'bar')
 
-        result = tools.try_(lambda x: int(x), 'foo')
+        result = lbt.try_(lambda x: int(x), 'foo')
         self.assertEqual(result, 'foo')
 
-        result = tools.try_(lambda x: int(x), 'foo', return_item='error')
+        result = lbt.try_(lambda x: int(x), 'foo', return_item='error')
         self.assertIsInstance(result, ValueError)
 
     def test_get_ordered_unique(self):
         x = [0, 0, 0, 1, 1, 2, 3, 4, 5, 5, 5]
-        result = tools.get_ordered_unique(x)
+        result = lbt.get_ordered_unique(x)
         expected = [0, 1, 2, 3, 4, 5]
         self.assertEqual(result, expected)
