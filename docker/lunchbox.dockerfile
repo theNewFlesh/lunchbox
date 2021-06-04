@@ -34,10 +34,10 @@ RUN echo "\n${CYAN}SETUP ZSH${NO_COLOR}"; \
 
 # install python3.7 and pip
 ADD https://bootstrap.pypa.io/get-pip.py get-pip.py
-RUN echo "\n${CYAN}SETUP PYTHON3.7${NO_COLOR}"; \
+RUN echo "\n${CYAN}SETUP PYTHON3.7 AND PYTHON3.6${NO_COLOR}"; \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt update && \
-    apt install -y python3.7 && \
+    apt install -y python3.7 python3.6 && \
     python3.7 get-pip.py && \
     rm -rf /root/get-pip.py
 
