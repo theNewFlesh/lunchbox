@@ -142,7 +142,8 @@ class ToolsTests(unittest.TestCase):
         self.assertEqual(result, [1, 2, 3, 4, 5])
 
     def test_truncate_list_errors(self):
-        with self.assertRaises(EnforceError):
+        expected = 'Items must be a list.'
+        with self.assertRaisesRegexp(EnforceError, expected):
             lbt.truncate_list('foo')
 
         items = [1, 2, 3, 4, 5]
