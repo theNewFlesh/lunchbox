@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.2.2
               </div>
             
           
@@ -841,6 +841,56 @@ arguments.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lunchbox.tools.truncate_blob_lists">
+<span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">truncate_blob_lists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blob</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="reference internal" href="_modules/lunchbox/tools.html#truncate_blob_lists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.truncate_blob_lists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Truncates lists inside given JSON blob to a given size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>blob</strong> (<em>dict</em>) – Blob to be truncated.</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of lists. Default 3.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If blob is not a dict.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Truncated blob.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lunchbox.tools.truncate_list">
+<span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">truncate_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/tools.html#truncate_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.truncate_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Truncates a given list to a given size, replaces the middle contents with
+“…”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>items</strong> (<em>list</em>) – List of objects.</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of output list.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If item is not a list.</p></li>
+<li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If size is not an integer greater than -1.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of given size.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
