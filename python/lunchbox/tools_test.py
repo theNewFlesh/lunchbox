@@ -2,6 +2,7 @@ import multiprocessing
 import os
 import time
 import unittest
+from lunchbox.enforce import EnforceError
 
 import lunchbox.tools as lbt
 # ------------------------------------------------------------------------------
@@ -104,6 +105,54 @@ class ToolsTests(unittest.TestCase):
             kwargs={},
         )
         self.assertEqual(result, expected)
+
+    def test_truncate_list(self):
+        items = [1, 2, 3, 4, 5]
+
+        # default size
+        result = lbt.truncate_list(items)
+        self.assertEqual(result, [1, '...', 5])
+
+        # len(items) < size
+        result = lbt.truncate_list(items, size=100)
+        self.assertEqual(result, items)
+
+        # size 0
+        result = lbt.truncate_list(items, size=0)
+        self.assertEqual(result, [])
+
+        # size 1
+        result = lbt.truncate_list(items, size=1)
+        self.assertEqual(result, [1])
+
+        # size 2
+        result = lbt.truncate_list(items, size=2)
+        self.assertEqual(result, [1, 5])
+
+        # size 3
+        result = lbt.truncate_list(items, size=3)
+        self.assertEqual(result, [1, '...', 5])
+
+        # size 4
+        result = lbt.truncate_list(items, size=4)
+        self.assertEqual(result, [1, 2, '...', 5])
+
+    def test_truncate_list_errors(self):
+        with self.assertRaises(EnforceError):
+            lbt.truncate_list('foo')
+
+        items = [1, 2, 3, 4, 5]
+        expected = 'Size must be an integer greater than -1. Given value: foo.'
+        with self.assertRaisesRegexp(EnforceError, expected):
+            lbt.truncate_list(items, size='foo')
+
+        expected = 'Size must be an integer greater than -1. Given value: 9.2.'
+        with self.assertRaisesRegexp(EnforceError, expected):
+            lbt.truncate_list(items, size=9.2)
+
+        expected = 'Size must be an integer greater than -1. Given value: -1.'
+        with self.assertRaisesRegexp(EnforceError, expected):
+            lbt.truncate_list(items, size=-1)
 
     # LOGGING-------------------------------------------------------------------
     def test_log_runtime(self):

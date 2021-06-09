@@ -10,6 +10,7 @@ import re
 
 import wrapt
 
+from lunchbox.enforce import Enforce
 from lunchbox.stopwatch import StopWatch
 
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'WARNING').upper()
@@ -113,6 +114,44 @@ def relative_path(module, path):
 
     LOGGER.debug(
         f'relative_path called with: {module} and {path_}. Returned: {output}')
+    return output
+
+
+def truncate_list(items, size=3):
+    # type (list, int) -> list
+    '''
+    Truncates a given list to a given size, replaces the middle contents with
+    "...".
+
+    Args:
+        items (list): List of objects.
+        size (int, optional): Size of output list.
+
+    Raises:
+        EnforceError: If item is not a list.
+        EnforceError: If size is not an integer greater than -1.
+
+    Returns:
+        list: List of given size.
+    '''
+    Enforce(items, 'instance of', list, message='Items must be a list.')
+    msg = 'Size must be an integer greater than -1. Given value: {a}.'
+    Enforce(size, 'instance of', int, message=msg)
+    Enforce(size, '>', -1, message=msg)
+    # --------------------------------------------------------------------------
+
+    if len(items) <= size:
+        return items
+    if size == 0:
+        return []
+    if size == 1:
+        return items[:1]
+    if size == 2:
+        return [items[0], items[-1]]
+
+    output = items[:size - 2]
+    output.append('...')
+    output.append(items[-1])
     return output
 
 
