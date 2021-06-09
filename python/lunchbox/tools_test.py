@@ -137,6 +137,10 @@ class ToolsTests(unittest.TestCase):
         result = lbt.truncate_list(items, size=4)
         self.assertEqual(result, [1, 2, '...', 5])
 
+        # size 5
+        result = lbt.truncate_list(items, size=5)
+        self.assertEqual(result, [1, 2, 3, 4, 5])
+
     def test_truncate_list_errors(self):
         with self.assertRaises(EnforceError):
             lbt.truncate_list('foo')
