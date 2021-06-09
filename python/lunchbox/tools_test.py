@@ -159,6 +159,72 @@ class ToolsTests(unittest.TestCase):
         with self.assertRaisesRegexp(EnforceError, expected):
             lbt.truncate_list(items, size=-1)
 
+    def test_truncate_blob_lists(self):
+        items = [1, 2, 3, 4, 5]
+        d_items = {'list': items}
+        blob = {
+            'str': '',
+            'list': items,
+            'dict': {
+                'list': items,
+                'str': ''
+            },
+            'nested-list': [items, [items], [[items]], [[[items]]]],
+            'list-dict': [d_items, d_items, d_items, d_items],
+            'complex': {
+                'list': [
+                    [d_items, items, '', items, '']
+                ]
+            }
+        }
+
+        # size 3
+        e_items = [1, '...', 5]
+        d_e_items = {'list': e_items}
+        expected = {
+            'str': '',
+            'list': e_items,
+            'dict': {
+                'list': e_items,
+                'str': ''
+            },
+            'nested-list': [e_items, '...', [[[e_items]]]],
+            'list-dict': [d_e_items, '...', d_e_items],
+            'complex': {
+                'list': [
+                    [d_e_items, '...', '']
+                ]
+            }
+        }
+        result = lbt.truncate_blob_lists(blob, size=3)
+        self.assertEqual(result, expected)
+
+        # size 2
+        e_items = [1, 5]
+        d_e_items = {'list': e_items}
+        expected = {
+            'str': '',
+            'list': e_items,
+            'dict': {
+                'list': e_items,
+                'str': ''
+            },
+            'nested-list': [e_items, [[[e_items]]]],
+            'list-dict': [d_e_items, d_e_items],
+            'complex': {
+                'list': [
+                    [d_e_items, '']
+                ]
+            }
+        }
+        result = lbt.truncate_blob_lists(blob, size=2)
+        self.assertEqual(result, expected)
+
+    def test_truncate_blob_lists_errors(self):
+        expected = 'Blob must be a dict.'
+        with self.assertRaisesRegexp(EnforceError, expected):
+            lbt.truncate_blob_lists('foo')
+
     # LOGGING-------------------------------------------------------------------
     def test_log_runtime(self):
         def func(a, b, c, x=0, y=1, z=2):

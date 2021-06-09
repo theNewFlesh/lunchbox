@@ -155,6 +155,47 @@ def truncate_list(items, size=3):
     return output
 
 
+def truncate_blob_lists(blob, size=3):
+    # type: (dict, int) -> dict
+    '''
+    Truncates lists inside given JSON blob to a given size.
+
+    Args:
+        blob (dict): Blob to be truncated.
+        size (int, optional): Size of lists. Default 3.
+
+    Raises:
+        EnforceError: If blob is not a dict.
+
+    Returns:
+        dict: Truncated blob.
+    '''
+    Enforce(blob, 'instance of', dict, message='Blob must be a dict.')
+    # --------------------------------------------------------------------------
+
+    def recurse_list(items, size):
+        output = []
+        for item in truncate_list(items, size=size):
+            if isinstance(item, dict):
+                item = recurse(item)
+            elif isinstance(item, list):
+                item = recurse_list(item, size)
+            output.append(item)
+        return output
+
+    def recurse(item):
+        output = {}
+        for k, v in item.items():
+            if isinstance(v, dict):
+                output[k] = recurse(v)
+            elif isinstance(v, list):
+                output[k] = recurse_list(v, size)
+            else:
+                output[k] = v
+        return output
+    return recurse(blob)
+
+
 # LOGGING-----------------------------------------------------------------------
 def log_runtime(function, *args, message_=None, _testing=False, **kwargs):
     # type (Callable, ..., Optional[str], bool, ...) -> Any
