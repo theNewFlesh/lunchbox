@@ -4,8 +4,9 @@
     "folders": [{"path": "./"}],
     "dockerComposeFile": "docker/docker-compose.yml",
     "service": "${localWorkspaceFolderBasename}",
-    "workspaceFolder": "/root/${localWorkspaceFolderBasename}",
+    "workspaceFolder": "/home/ubuntu/${localWorkspaceFolderBasename}",
     "settings": {
+        "terminal.integrated.cwd": "/home/ubuntu/${localWorkspaceFolderBasename}",
         "terminal.integrated.shell.linux": "/bin/zsh",
         "python.languageServer": "Pylance",
         "python.linting.enabled": true,
@@ -38,7 +39,6 @@
         }
     },
     "extensions": [
-        "ms-python.python",
         "arturock.gitstash",
         "bibhasdn.unique-lines",
         "christian-kohler.path-intellisense",
@@ -49,6 +49,7 @@
         "fabiospampinato.vscode-diff",
         "gruntfuggly.todo-tree",
         "konstantin.wrapselection",
+        "littlefoxteam.vscode-python-test-adapter",
         "magicstack.magicpython",
         "ms-azuretools.vscode-docker",
         "ms-python.anaconda-extension-pack",
