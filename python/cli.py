@@ -672,26 +672,18 @@ def package_command():
     return resolve(cmds)
 
 
-def prod_command(args):
-    # type: (list) -> str
+def prod_command():
+    # type: () -> str
     '''
     Returns:
         str: Command to start prod container.
     '''
-    if args == ['']:
-        cmds = [
-            line('''
-                echo "Please provide a directory to map into the container
-                after the {cyan}-a{clear} flag."
-            ''')
-        ]
-        return resolve(cmds)
-
-    run = 'docker run --volume {}:/mnt/storage'.format(args[0])
     cmds = [
         enter_repo(),
         version_variable(),
-        line(run + '''
+        line('''docker run
+            --interactive
+            --tty
             --rm
             --publish {port}:{port}
             --name {repo}-prod
@@ -985,7 +977,7 @@ def main():
         'lab': lab_command(),
         'lint': lint_command(),
         'package': package_command(),
-        'prod': prod_command(args),
+        'prod': prod_command(),
         'publish': publish_command(),
         'push': push_command(),
         'python': python_command(),
