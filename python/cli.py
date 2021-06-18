@@ -4,7 +4,7 @@ try:
     # python2.7 doesn't have typing module
     from typing import Any, List, Tuple
 except ImportError:
-   pass
+    pass
 
 import argparse
 import os
