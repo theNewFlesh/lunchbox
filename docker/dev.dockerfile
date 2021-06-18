@@ -1,77 +1,80 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as base
 
-WORKDIR /root
+USER root
 
 # coloring syntax for headers
-ARG CYAN='\033[0;36m'
-ARG NO_COLOR='\033[0m'
-ARG DEBIAN_FRONTEND=noninteractive
+ENV CYAN='\033[0;36m'
+ENV CLEAR='\033[0m'
+ENV DEBIAN_FRONTEND='noninteractive'
 
-RUN echo "\n${CYAN}REMOVE LOGIN MOTD${NO_COLOR}"; \
-    touch ~/.hushlogin
+# setup ubuntu user
+ARG UID_='1000'
+ARG GID_='1000'
+RUN echo "\n${CYAN}SETUP UBUNTU USER${CLEAR}"; \
+    addgroup --gid $GID_ ubuntu && \
+    adduser \
+    --disabled-password \
+    --gecos '' \
+    --uid $UID_ \
+    --gid $GID_ ubuntu && \
+    usermod -aG root ubuntu
+WORKDIR /home/ubuntu
 
 # update ubuntu and install basic dependencies
-RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${NO_COLOR}"; \
+RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
     apt update && \
     apt install -y \
         curl \
         git \
+        graphviz \
         pandoc \
         parallel \
         python3-pip \
-        python3-setuptools \
+        python3-pydot \
         software-properties-common \
         tree \
         vim \
         wget
 
 # install zsh
-RUN echo "\n${CYAN}SETUP ZSH${NO_COLOR}"; \
+RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
     apt install -y zsh && \
-    curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o install-oh-my-zsh.sh && \
+    curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
+    -o install-oh-my-zsh.sh && \
     echo y | sh install-oh-my-zsh.sh && \
-    rm -rf install-oh-my-zsh.sh
+    cp -r /root/.oh-my-zsh /home/ubuntu/ && \
+    chown -R ubuntu:ubuntu \
+        .oh-my-zsh \
+        install-oh-my-zsh.sh && \
+    echo 'UTC' > /etc/timezone
 
 # install python3.7 and pip
-ADD https://bootstrap.pypa.io/get-pip.py get-pip.py
-RUN echo "\n${CYAN}SETUP PYTHON3.7 AND PYTHON3.6${NO_COLOR}"; \
+RUN echo "\n${CYAN}SETUP PYTHON3.7${CLEAR}"; \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt update && \
-    apt install -y python3.7 python3.6 && \
+    apt install --fix-missing -y python3.7 python3.6 && \
+    wget https://bootstrap.pypa.io/get-pip.py && \
     python3.7 get-pip.py && \
-    rm -rf /root/get-pip.py
+    chown -R ubuntu:ubuntu get-pip.py
 
-# DEBIAN_FRONTEND needed by texlive to install non-interactively
-RUN echo "\n${CYAN}INSTALL NODE.JS DEPENDENCIES${NO_COLOR}"; \
+# install node.js, needed by jupyterlab
+RUN echo "\n${CYAN}INSTALL NODE.JS${CLEAR}"; \
     curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt upgrade -y && \
-    echo "\n${CYAN}INSTALL JUPYTERLAB DEPENDENCIES${NO_COLOR}"; \
-    apt install -y \
-        nodejs && \
+    apt install -y nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# install python dependencies
-COPY ./dev_requirements.txt /root/dev_requirements.txt
-COPY ./prod_requirements.txt /root/prod_requirements.txt
-RUN echo "\n${CYAN}INSTALL PYTHON DEPENDECIES${NO_COLOR}"; \
-    apt update && \
-    apt install -y \
-        graphviz \
-        python3-pydot && \
-    pip3.7 install -r dev_requirements.txt && \
-    pip3.7 install -r prod_requirements.txt;
-RUN rm -rf /root/dev_requirements;
+USER ubuntu
+ENV PATH="/home/ubuntu/.local/bin:$PATH"
+COPY ./henanigans.zsh-theme .oh-my-zsh/custom/themes/henanigans.zsh-theme
+COPY ./zshrc .zshrc
 
-# configure zshrc
-WORKDIR /root
-COPY ./henanigans.zsh-theme /root/.oh-my-zsh/custom/themes/henanigans.zsh-theme
-COPY ./zshrc /root/.zshrc
-RUN echo "\n${CYAN}CONFIGURE ZSHRC${NO_COLOR}"; \
-    echo 'export PYTHONPATH="/root/lunchbox/python"' >> /root/.zshrc;
-
-# install jupyter lab extensions
+# install jupyter lab and extensions
+COPY ./dev_requirements.txt dev_requirements.txt
 ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN echo "\n${CYAN}INSTALL JUPYTER LAB EXTENSIONS${NO_COLOR}"; \
+RUN echo "\n${CYAN}INSTALL JUPYTER LAB AND EXTENSIONS${CLEAR}"; \
+    cat dev_requirements.txt | grep -i jupyter > jupyter_requirements.txt && \
+    pip3.7 install -r jupyter_requirements.txt && \
     jupyter labextension install \
     --dev-build=False \
         nbdime-jupyterlab \
@@ -79,7 +82,22 @@ RUN echo "\n${CYAN}INSTALL JUPYTER LAB EXTENSIONS${NO_COLOR}"; \
         @ryantam626/jupyterlab_sublime \
         @jupyterlab/plotly-extension
 
-ENV PYTHONPATH "${PYTHONPATH}:/root/lunchbox/python"
+ENV LANG "C"
 ENV LANGUAGE "C"
 ENV LC_ALL "C"
-ENV LANG "C"
+# ------------------------------------------------------------------------------
+
+FROM base AS dev
+
+USER ubuntu
+WORKDIR /home/ubuntu
+ENV REPO='lunchbox'
+ENV PYTHONPATH "${PYTHONPATH}:/home/ubuntu/$REPO/python"
+ENV REPO_ENV=True
+
+# install python dependencies
+COPY ./dev_requirements.txt dev_requirements.txt
+COPY ./prod_requirements.txt prod_requirements.txt
+RUN echo "\n${CYAN}INSTALL PYTHON DEPENDECIES${CLEAR}"; \
+    pip3.7 install -r dev_requirements.txt && \
+    pip3.7 install -r prod_requirements.txt
