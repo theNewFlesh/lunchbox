@@ -1,14 +1,26 @@
 FROM ubuntu:20.04
 
 USER root
-WORKDIR /home/ubuntu
 
 # coloring syntax for headers
-ARG CYAN='\033[0;36m'
-ARG NO_COLOR='\033[0m'
+ENV CYAN='\033[0;36m'
+ENV CLEAR='\033[0m'
+ENV DEBIAN_FRONTEND='noninteractive'
+
+# setup ubuntu user
+ARG UID_='1000'
+ARG GID_='1000'
+RUN echo "\n${CYAN}SETUP UBUNTU USER${CLEAR}"; \
+    addgroup --gid $GID_ ubuntu && \
+    adduser \
+    --disabled-password \
+    --gecos '' \
+    --uid $UID_ \
+    --gid $GID_ ubuntu
+WORKDIR /home/ubuntu
 
 # update ubuntu and install basic dependencies
-RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${NO_COLOR}"; \
+RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
     apt update && \
     apt install -y \
         python3-dev \
@@ -16,7 +28,7 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${NO_COLOR}"; \
         wget
 
 # install python3.7 and pip
-RUN echo "\n${CYAN}SETUP PYTHON3.7${NO_COLOR}"; \
+RUN echo "\n${CYAN}SETUP PYTHON3.7${CLEAR}"; \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt update && \
     apt install --fix-missing -y python3.7 && \
@@ -27,5 +39,7 @@ RUN echo "\n${CYAN}SETUP PYTHON3.7${NO_COLOR}"; \
 USER ubuntu
 
 # install lunchbox
-RUN echo "\n${CYAN}INSTALL LUNCHBOX${NO_COLOR}"; \
+RUN echo "\n${CYAN}INSTALL LUNCHBOX${CLEAR}"; \
     pip3.7 install lunchbox>=0.2.2;
+
+CMD ["/bin/bash"]
