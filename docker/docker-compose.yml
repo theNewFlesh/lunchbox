@@ -5,14 +5,14 @@ services:
     image: lunchbox
     build:
       context: .
-      dockerfile: lunchbox.dockerfile
+      dockerfile: dev.dockerfile
     ports:
       - "4000:9000"
     userns_mode: "host"
-    user: root
+    user: ubuntu
     volumes:
-      - ../:/root/lunchbox
-      - ~/.ssh:/root/.ssh
-      - ./jupyter:/root/.jupyter
-    working_dir: "/root/lunchbox/python"
+      - ../:/home/ubuntu/lunchbox
+      - ~/.ssh:/home/ubuntu/.ssh
+      - ./jupyter:/home/ubuntu/.jupyter
+    working_dir: "/home/ubuntu/lunchbox/python"
     command: "tail -f /dev/null"
