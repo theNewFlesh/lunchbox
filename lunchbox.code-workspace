@@ -173,16 +173,18 @@
                 "label": "tox-repo",
                 "command": [
                     "rm -rf /tmp/$REPO && ",
+                    "rm -rf /tmp/resources && ",
                     "cp -R /home/ubuntu/$REPO/python /tmp/$REPO && ",
                     "cp /home/ubuntu/$REPO/README.md /tmp/$REPO/ && ",
                     "cp /home/ubuntu/$REPO/LICENSE /tmp/$REPO/ && ",
                     "cp -R /home/ubuntu/$REPO/docker/* /tmp/$REPO/ && ",
                     "cp -R /home/ubuntu/$REPO/pip/* /tmp/$REPO/ && ",
-                    "cp -R /home/ubuntu/$REPO/resources /tmp/$REPO/$REPO && ",
-                    "find /tmp/$REPO/$REPO/resources -type f | grep -vE 'icon|test_' | parallel 'rm -rf {}' && ",
+                    "cp -R /home/ubuntu/$REPO/resources /tmp/ && ",
+                    "rm -rf /tmp/$REPO/__init__.py && ",
+                    // "find /tmp/resources -type f | grep -vE 'icon|test_' | parallel 'rm -rf {}' && ",
                     "cp -R /home/ubuntu/$REPO/templates /tmp/$REPO/$REPO && ",
                     // "cp -R /home/ubuntu/$REPO/python/conftest.py /tmp/$REPO/ && ",
-                    "find /tmp/$REPO | grep -E '__pycache__|\\.pyc$' | parallel 'rm -rf'"
+                    "find /tmp/$REPO | grep -E '__pycache__|\\.pyc$|jupyter|docker|zsh' | parallel 'rm -rf'"
                 ],
                 "type": "shell"
             },
