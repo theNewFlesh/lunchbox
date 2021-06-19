@@ -13,10 +13,10 @@ ARG GID_='1000'
 RUN echo "\n${CYAN}SETUP UBUNTU USER${CLEAR}"; \
     addgroup --gid $GID_ ubuntu && \
     adduser \
-    --disabled-password \
-    --gecos '' \
-    --uid $UID_ \
-    --gid $GID_ ubuntu && \
+        --disabled-password \
+        --gecos '' \
+        --uid $UID_ \
+        --gid $GID_ ubuntu && \
     usermod -aG root ubuntu
 WORKDIR /home/ubuntu
 
@@ -76,7 +76,7 @@ RUN echo "\n${CYAN}INSTALL JUPYTER LAB AND EXTENSIONS${CLEAR}"; \
     cat dev_requirements.txt | grep -i jupyter > jupyter_requirements.txt && \
     pip3.7 install -r jupyter_requirements.txt && \
     jupyter labextension install \
-    --dev-build=False \
+        --dev-build=False \
         nbdime-jupyterlab \
         @oriolmirosa/jupyterlab_materialdarker \
         @ryantam626/jupyterlab_sublime \
