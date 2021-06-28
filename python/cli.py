@@ -192,7 +192,7 @@ def start():
         line('''
             if [ -z "$STATE" ];
                 then cd docker;
-                docker compose
+                docker-compose
                     -p {repo}
                     -f {repo_path}/docker/docker-compose.yml up
                     --detach;
@@ -238,7 +238,7 @@ def docker_down():
     '''
     cmd = line('''
         cd docker;
-        docker compose
+        docker-compose
             -p {repo}
             -f {repo_path}/docker/docker-compose.yml
             down;
@@ -769,7 +769,7 @@ def restart_command():
         enter_repo(),
         line('''
             cd docker;
-            docker compose
+            docker-compose
                 -p {repo}
                 -f {repo_path}/docker/docker-compose.yml
                 restart;
