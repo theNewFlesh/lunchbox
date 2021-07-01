@@ -13,7 +13,7 @@ import re
 # python2.7 doesn't have pathlib module
 REPO_PATH = os.path.join(os.sep, *os.path.realpath(__file__).split(os.sep)[:-2])
 REPO = os.path.split(REPO_PATH)[-1]
-GITHUB_USER = 'thenewflesh'
+GITHUB_USER = 'theNewFlesh'
 USER = 'ubuntu:ubuntu'
 PORT = 8080
 # ------------------------------------------------------------------------------
@@ -48,34 +48,35 @@ def get_info():
         nargs=1,
         action='store',
         help='''Command to run in {repo} app.
-
     build        - Build image of {repo}
     build-prod   - Build production image of {repo}
-    container    - Display the Docker container id for {repo} app
-    coverage     - Generate coverage report for {repo} app
-    destroy      - Shutdown {repo} app and destroy its Docker image
-    destroy-prod - Shutdown {repo} production app and destroy its Docker image
-    docs         - Generate documentation for {repo} app
-    fast-test    - Run testing on {repo} app skipping tests marked as slow
+    container    - Display the Docker container id of {repo}
+    coverage     - Generate coverage report for {repo}
+    destroy      - Shutdown {repo} container and destroy its image
+    destroy-prod - Shutdown {repo} production container and destroy its image
+    docs         - Generate documentation for {repo}
+    fast-test    - Run testing on {repo} skipping tests marked as slow
     full-docs    - Generates documentation, coverage report and metrics
-    image        - Display the Docker image id for {repo} app
+    image        - Display the Docker image id of {repo}
     lab          - Start a Jupyter lab server
-    lint         - Run linting and type checking on {repo} app code
+    lint         - Run linting and type checking on {repo}
     package      - Build {repo} pip package
-    prod         - Start {repo} production app
-    publish      - Publish repository to python package index.
-    push         - Push production of {repo} image to Dockerhub
+    prod         - Start {repo} production container
+    publish      - Publish {repo} repository to python package index
+    push         - Push {repo} production image to Dockerhub
     python       - Run python interpreter session inside {repo} container
-    remove       - Remove {repo} app Docker image
-    restart      - Restart {repo} app
+    remove       - Remove {repo} Docker image
+    restart      - Restart {repo} container
     requirements - Write frozen requirements to disk
-    start        - Start {repo} app
-    state        - State of {repo} app
-    stop         - Stop {repo} app
-    test         - Run testing on {repo} app
+    start        - Start {repo} container
+    state        - State of {repo} container
+    stop         - Stop {repo} container
+    test         - Run testing on {repo}
     tox          - Run tox tests on {repo}
     version-up   - Updates version and runs full-docs and requirements
     zsh          - Run ZSH session inside {repo} container
+    zsh-complete - Generate oh-my-zsh completions
+    zsh-root     - Run ZSH session as root inside {repo} container
 '''.format(repo=REPO))
 
     parser.add_argument(
@@ -126,6 +127,7 @@ def resolve(commands):
         pythonpath='{PYTHONPATH}',
         repo_path=REPO_PATH,
         repo=REPO,
+        repo_=re.sub('-', '_', REPO),
         user=USER,
     )
     args = {}
@@ -137,14 +139,15 @@ def resolve(commands):
     return cmd
 
 
-def line(text):
-    # type: (str) -> str
+def line(text, sep=' '):
+    # type: (str, str) -> str
     '''
     Convenience function for formatting a given block of text as series of
     commands.
 
     Args:
         text (text): Block of text.
+        sep (str, optional): Line separator. Default: ' '.
 
     Returns:
         str: Formatted command.
@@ -152,7 +155,7 @@ def line(text):
     output = re.sub('^\n|\n$', '', text)  # type: Any
     output = output.split('\n')
     output = [re.sub('^ +| +$', '', x) for x in output]
-    output = ' '.join(output) + ' '
+    output = sep.join(output) + sep
     return output
 
 
@@ -261,9 +264,7 @@ def coverage():
                 --cov /home/ubuntu/{repo}/python
                 --cov-config /home/ubuntu/{repo}/docker/pytest.ini
                 --cov-report html:/home/ubuntu/{repo}/docs/htmlcov
-        '''
-        # --headless'''
-    )
+    ''')
     return cmd
 
 
@@ -292,34 +293,42 @@ def docker_exec():
     return cmd
 
 
-def create_package_repo():
+def tmp_repo():
+    # type: () -> str
+    '''
+    Returns:
+        str: Command to build repo in /tmp.
+    '''
+    cmd = line('''
+        cd /home/ubuntu/{repo} &&
+        rm -rf /tmp/{repo} &&
+        mkdir /tmp/{repo} &&
+        cp -R python/{repo_} /tmp/{repo}/ &&
+        cp -R resources /tmp/ &&
+        cp README.md /tmp/{repo}/ &&
+        cp LICENSE /tmp/{repo}/ &&
+        cp docker/dev_requirements.txt /tmp/{repo}/ &&
+        cp docker/prod_requirements.txt /tmp/{repo}/ &&
+        cp -R pip/* /tmp/{repo}/ &&
+        find /tmp/{repo} | grep -E '__pycache__|flask_monitor|cli.py'
+            | parallel 'rm -rf {{}}' &&
+        find /tmp/{repo} -type f | grep __init__.py
+            | parallel 'rm -rf {{}}; touch {{}}'
+    ''')
+    return cmd
+
+
+def package_repo():
     # type: () -> str
     '''
     Returns:
         str: Command to create a temporary repo in /tmp.
     '''
-    cmd = line(
-        docker_exec() + r'''{repo} zsh -c "
-            rm -rf /tmp/{repo} &&
-            cp -R /home/ubuntu/{repo}/python /tmp/{repo} &&
-            cp /home/ubuntu/{repo}/README.md /tmp/{repo}/README.md &&
-            cp /home/ubuntu/{repo}/LICENSE /tmp/{repo}/LICENSE &&
-            cp /home/ubuntu/{repo}/pip/MANIFEST.in /tmp/{repo}/MANIFEST.in &&
-            cp /home/ubuntu/{repo}/pip/setup.cfg /tmp/{repo}/ &&
-            cp /home/ubuntu/{repo}/pip/setup.py /tmp/{repo}/ &&
-            cp /home/ubuntu/{repo}/pip/version.txt /tmp/{repo}/ &&
-            cp /home/ubuntu/{repo}/docker/dev_requirements.txt /tmp/{repo}/ &&
-            cp /home/ubuntu/{repo}/docker/prod_requirements.txt /tmp/{repo}/ &&
-            cp -r /home/ubuntu/{repo}/templates /tmp/{repo}/{repo} &&
-            cp -r /home/ubuntu/{repo}/resources /tmp/{repo}/{repo} &&
-            find /tmp/{repo}/{repo}/resources -type f | grep -vE 'icon|test_'
-                | parallel 'rm -rf {{}}' &&
-            find /tmp/{repo} | grep -E '.*test.*\.py$|mock.*\.py$|__pycache__'
-                | parallel 'rm -rf {{}}' &&
-            find /tmp/{repo} -type f | grep __init__.py
-                | parallel 'rm -rf {{}};touch {{}}'
-        "
+    pkg = line('''
+        find /tmp/$REPO | grep -E '.*test.*\\.py$|mock.*\\.py$'
+            | parallel 'rm -rf {{}}'
     ''')
+    cmd = docker_exec() + ' {repo} zsh -c "' + tmp_repo() + ' && ' + pkg + '"'
     return cmd
 
 
@@ -329,23 +338,13 @@ def tox_repo():
     Returns:
         str: Command to build tox repo.
     '''
-    # cp -R /home/ubuntu/{repo}/python/conftest.py /tmp/{repo}/ &&
-    cmd = line(
-        docker_exec() + r'''{repo} zsh -c "
-            rm -rf /tmp/{repo} &&
-            rm -rf /tmp/resources &&
-            cp -R /home/ubuntu/{repo}/python /tmp/{repo} &&
-            cp /home/ubuntu/{repo}/README.md /tmp/{repo}/ &&
-            cp /home/ubuntu/{repo}/LICENSE /tmp/{repo}/ &&
-            cp -R /home/ubuntu/{repo}/docker/* /tmp/{repo}/ &&
-            cp -R /home/ubuntu/{repo}/pip/* /tmp/{repo}/ &&
-            cp -R /home/ubuntu/{repo}/resources /tmp/ &&
-            rm -rf /tmp/{repo}/__init__.py &&
-            cp -R /home/ubuntu/{repo}/templates /tmp/{repo}/{repo} &&
-            find /tmp/{repo} | grep -E '__pycache__|\\.pyc$|jupyter|docker|zsh'
-                | parallel 'rm -rf'
-        "
+    tox = line('''
+        cp docker/flake8.ini /tmp/{repo} &&
+        cp docker/mypy.ini /tmp/{repo} &&
+        cp docker/pytest.ini /tmp/{repo} &&
+        cp docker/tox.ini /tmp/{repo}
     ''')
+    cmd = docker_exec() + ' {repo} zsh -c "' + tmp_repo() + ' && ' + tox + '"'
     return cmd
 
 
@@ -517,9 +516,7 @@ def fast_test_command():
                 pytest
                     /home/ubuntu/{repo}/python
                     -c /home/ubuntu/{repo}/docker/pytest.ini
-            '''
-            # --headless'''
-        ),
+        '''),
         exit_repo(),
     ]
     return resolve(cmds)
@@ -665,25 +662,33 @@ def package_command():
     cmds = [
         enter_repo(),
         start(),
-        create_package_repo(),
+        package_repo(),
         docker_exec() + ' -w /tmp/{repo} {repo} python3.7 setup.py sdist',
         exit_repo(),
     ]
     return resolve(cmds)
 
 
-def prod_command():
-    # type: () -> str
+def prod_command(args):
+    # type: (list) -> str
     '''
     Returns:
         str: Command to start prod container.
     '''
+    if args == ['']:
+        cmds = [
+            line('''
+                echo "Please provide a directory to map into the container
+                after the {cyan}-a{clear} flag."
+            ''')
+        ]
+        return resolve(cmds)
+
+    run = 'docker run --volume {}:/mnt/storage'.format(args[0])
     cmds = [
         enter_repo(),
         version_variable(),
-        line('''docker run
-            --interactive
-            --tty
+        line(run + '''
             --rm
             --publish {port}:{port}
             --name {repo}-prod
@@ -705,7 +710,7 @@ def publish_command():
         start(),
         tox_repo(),
         docker_exec() + '{repo} zsh -c "cd /tmp/{repo} && tox"',
-        create_package_repo(),
+        package_repo(),
         docker_exec() + ' -w /tmp/{repo} {repo} python3.7 setup.py sdist',
         docker_exec() + ' -w /tmp/{repo} {repo} twine upload dist/*',
         docker_exec() + ' {repo} rm -rf /tmp/{repo}',
@@ -824,6 +829,14 @@ def state_command():
         'export IMAGE_EXISTS=`docker images {repo} | grep -v REPOSITORY`',
         'export CONTAINER_EXISTS=`docker ps -a -f name={repo} | grep -v CONTAINER`',
         'export RUNNING=`docker ps -a -f name={repo} -f status=running | grep -v CONTAINER`',
+        line(r'''
+            export PORTS=`docker ps -a -f name={repo}
+                --format '{{{{.Ports}}}}'
+            | sed -E 's/[0-9.]+:|:|\/[a-z]+//g'
+            | sed 's/, /\n/g' | uniq
+            | sed 's/->/{clear}->{blue}/'
+            | parallel "echo -n {{}} ' '"`
+        '''),
         line('''
             if [ -z "$IMAGE_EXISTS" ];
                 then export IMAGE_STATE="{red}absent{clear}";
@@ -841,7 +854,8 @@ def state_command():
         line('''echo
             "app: {cyan}{repo}{clear}:{yellow}$VERSION{clear} -
             image: $IMAGE_STATE -
-            container: $CONTAINER_STATE"
+            container: $CONTAINER_STATE -
+            ports: {blue}$PORTS{clear}"
         '''),
         exit_repo(),
     ]
@@ -876,9 +890,7 @@ def test_command():
                 pytest
                     /home/ubuntu/{repo}/python
                     -c /home/ubuntu/{repo}/docker/pytest.ini
-            '''
-            # --headless'''
-        ),
+        '''),
         exit_repo(),
     ]
     return resolve(cmds)
@@ -939,6 +951,53 @@ def zsh_command():
     return resolve(cmds)
 
 
+def zsh_complete_command():
+    # type: () -> str
+    '''
+    Returns:
+        str: Command to generate and install zsh completions.
+    '''
+    cmds = [
+        'export _COMP=~/.oh-my-zsh/custom/plugins/zsh-completions/src/_{repo}',
+        'touch $_COMP',
+        'echo "#compdef {repo} rec" > $_COMP',
+        'echo "" >> $_COMP',
+        'echo "local -a _subcommands" >> $_COMP',
+        'echo "_subcommands=(" >> $_COMP',
+        line('''
+            bin/{repo} --help
+                | grep '    - '
+                | sed -E 's/ +- /:/g'
+                | sed -E 's/^ +//g'
+                | sed -E "s/(.*)/    '\\1'/g"
+                | parallel "echo {{}} >> $_COMP"
+        '''),
+        'echo ")" >> $_COMP',
+        'echo "" >> $_COMP',
+        'echo "local expl" >> $_COMP',
+        'echo "" >> $_COMP',
+        'echo "_arguments \\\\" >> $_COMP',
+        'echo "    \'(-h --help)\'{{-h,--help}}\'[show help message]\' \\\\" >> $_COMP',
+        'echo "    \'(-d --dryrun)\'{{-d,--dryrun}}\'[print command]\' \\\\" >> $_COMP',
+        'echo "    \'*:: :->subcmds\' && return 0" >> $_COMP',
+        'echo "\n" >> $_COMP',
+        'echo "if (( CURRENT == 1 )); then" >> $_COMP',
+        'echo "    _describe -t commands \\"{repo} subcommand\\" _subcommands\" >> $_COMP',
+        'echo "    return" >> $_COMP',
+        'echo "fi" >> $_COMP',
+    ]
+    return resolve(cmds)
+
+
+def zsh_root_command():
+    # type: () -> str
+    '''
+    Returns:
+        str: Command to run a zsh session as root inside container.
+    '''
+    return re.sub('ubuntu:ubuntu', 'root:root', zsh_command())
+
+
 def get_illegal_mode_command():
     # type: () -> str
     '''
@@ -977,7 +1036,7 @@ def main():
         'lab': lab_command(),
         'lint': lint_command(),
         'package': package_command(),
-        'prod': prod_command(),
+        'prod': prod_command(args),
         'publish': publish_command(),
         'push': push_command(),
         'python': python_command(),
@@ -991,6 +1050,8 @@ def main():
         'tox': tox_command(),
         'version-up': version_up_command(args),
         'zsh': zsh_command(),
+        'zsh-complete': zsh_complete_command(),
+        'zsh-root': zsh_root_command(),
     }
     cmd = lut.get(mode, get_illegal_mode_command())
 
