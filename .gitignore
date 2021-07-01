@@ -39,10 +39,6 @@ parts
 sdist
 var
 
-# personal data
-resources/shekels_config.json
-resources/transactions.csv
-
 # python
 __pycache__
 *.py[cod]

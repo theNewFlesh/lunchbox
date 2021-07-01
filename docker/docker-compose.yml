@@ -14,5 +14,5 @@ services:
       - ../:/home/ubuntu/lunchbox
       - ~/.ssh:/home/ubuntu/.ssh
       - ./jupyter:/home/ubuntu/.jupyter
-    working_dir: "/home/ubuntu/lunchbox/python"
+    working_dir: "/home/ubuntu"
     command: "tail -f /dev/null"

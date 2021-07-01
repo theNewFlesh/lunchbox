@@ -5,7 +5,11 @@ ipysheet
 ipython-genutils
 ipython==7.9.0
 ipywidgets
-jupyterlab==1.2.3
+jupyterlab_henanigans>=0.2.1
+jupyterlab_sublime
+jupyterlab-git
+jupyterlab>=3.0.0
+lunchbox
 mypy==0.770
 nbconvert==5.6.1
 nbformat==4.4.0
