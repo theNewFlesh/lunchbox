@@ -4,9 +4,11 @@ from itertools import dropwhile, takewhile
 from pathlib import Path
 from pprint import pformat
 import inspect
+import json
 import logging
 import os
 import re
+import urllib.request
 
 import wrapt
 
@@ -250,6 +252,49 @@ def runtime(wrapped, instance, args, kwargs):
         function: Wrapped function.
     '''
     return log_runtime(wrapped, *args, **kwargs)
+
+
+# HTTP-REQUESTS-----------------------------------------------------------------
+def post_to_slack(url, channel, message):
+    # type (str, str, str) -> urllib.request.HttpRespons
+    '''
+    Post a given message to a given slack channel.
+
+    Args:
+        url (str): https://hooks.slack.com/services URL.
+        channel (str): Channel name.
+        message (str): Message to be posted.
+
+    Raises:
+        EnforceError: If URL is not a string.
+        EnforceError: If URL does not start with https://hooks.slack.com/services
+        EnforceError: If channel is not a string.
+        EnforceError: If message is not a string.
+
+    Returns:
+        HTTPResponse: Response.
+    '''
+    Enforce(url, 'instance of', str)
+    Enforce(channel, 'instance of', str)
+    Enforce(message, 'instance of', str)
+    msg = 'URL must begin with https://hooks.slack.com/services/. '
+    msg += f'Given URL: {url}'
+    Enforce(
+        url.startswith('https://hooks.slack.com/services/'), '==', True,
+        message=msg
+    )
+    # --------------------------------------------------------------------------
+
+    request = urllib.request.Request(
+        url,
+        method='POST',
+        headers={'Content-type': 'application/json'},
+        data=json.dumps(dict(
+            channel='#' + channel,
+            text=message,
+        )).encode(),
+    )
+    return urllib.request.urlopen(request)
 
 
 # API---------------------------------------------------------------------------

@@ -263,6 +263,29 @@ class ToolsTests(unittest.TestCase):
             result = pool.starmap(_runtime_func, args)
         self.assertEqual(sum(result), 45)
 
+    # HTTP-REQUESTS-------------------------------------------------------------
+    def test_post_to_slack(self):
+        result = lbt.post_to_slack(
+            'https://hooks.slack.com/services/foo/bar', 'channel', 'message'
+        ).status
+        self.assertEqual(result, 200)
+
+    def test_post_to_slack_errors(self):
+        url = 'https://hooks.slack.com/services/foo/bar',
+        with self.assertRaises(EnforceError):
+            lbt.post_to_slack(99, 'channel', 'message')
+
+        with self.assertRaises(EnforceError):
+            lbt.post_to_slack(url, 99, 'message')
+
+        with self.assertRaises(EnforceError):
+            lbt.post_to_slack(url, 'channel', 99)
+
+        expected = 'URL must begin with https://hooks.slack.com/services/. '
+        expected += 'Given URL: http://foo.com/bar'
+        with self.assertRaisesRegexp(EnforceError, expected):
+            lbt.post_to_slack('http://foo.com/bar', 'channel', 'message')
+
     # API-----------------------------------------------------------------------
     def test_api_function(self):
         result = foobar_func(foo='taco', bar='cat')
