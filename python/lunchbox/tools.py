@@ -264,17 +264,18 @@ class LogRuntime:
         human_readable_delta (str): Runtime in human readable format.
 
     Example:
-        >>>import time
-        >>>def foobar():
-               time.sleep(1)
 
-        >>>with LogRuntime('Foo the bars', name=foobar.__name__, level='debug'):
-               foobar()
+        >>> import time
+        >>> def foobar():
+                time.sleep(1)
+
+        >>> with LogRuntime('Foo the bars', name=foobar.__name__, level='debug'):
+                foobar()
         DEBUG:foobar:Foo the bars - Runtime: 0:00:01.001069 (1 second)
 
-        >>>with LogRuntime(message='Fooing all the bars', suppress=True) as log:
-               foo_the_bars([1, 2, 3])
-        >>>print(log.message)
+        >>> with LogRuntime(message='Fooing all the bars', suppress=True) as log:
+                foobar()
+        >>> print(log.message)
         Fooing all the bars - Runtime: 0:00:01.001069 (1 second)
     '''
     def __init__(

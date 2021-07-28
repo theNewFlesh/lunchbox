@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.2.4
               </div>
             
           
@@ -168,12 +168,15 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
 
 <span class="kn">import</span> <span class="nn">wrapt</span>
 
+<span class="kn">from</span> <span class="nn">lunchbox.enforce</span> <span class="kn">import</span> <span class="n">Enforce</span><span class="p">,</span> <span class="n">EnforceError</span>
 <span class="kn">from</span> <span class="nn">lunchbox.stopwatch</span> <span class="kn">import</span> <span class="n">StopWatch</span>
 
 <span class="n">LOG_LEVEL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LOG_LEVEL&#39;</span><span class="p">,</span> <span class="s1">&#39;WARNING&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -280,6 +283,85 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
+<div class="viewcode-block" id="truncate_list"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.truncate_list">[docs]</a><span class="k">def</span> <span class="nf">truncate_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># type (list, int) -&gt; list</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Truncates a given list to a given size, replaces the middle contents with</span>
+<span class="sd">    &quot;...&quot;.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        items (list): List of objects.</span>
+<span class="sd">        size (int, optional): Size of output list.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        EnforceError: If item is not a list.</span>
+<span class="sd">        EnforceError: If size is not an integer greater than -1.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of given size.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">Enforce</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Items must be a list.&#39;</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Size must be an integer greater than -1. Given value: </span><span class="si">{a}</span><span class="s1">.&#39;</span>
+    <span class="n">Enforce</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">Enforce</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># --------------------------------------------------------------------------</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">size</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">items</span>
+    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">items</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">items</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">items</span><span class="p">[:</span><span class="n">size</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="truncate_blob_lists"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.truncate_blob_lists">[docs]</a><span class="k">def</span> <span class="nf">truncate_blob_lists</span><span class="p">(</span><span class="n">blob</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># type: (dict, int) -&gt; dict</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Truncates lists inside given JSON blob to a given size.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        blob (dict): Blob to be truncated.</span>
+<span class="sd">        size (int, optional): Size of lists. Default 3.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        EnforceError: If blob is not a dict.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Truncated blob.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">Enforce</span><span class="p">(</span><span class="n">blob</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Blob must be a dict.&#39;</span><span class="p">)</span>
+    <span class="c1"># --------------------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">recurse_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">truncate_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">recurse</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">recurse_list</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">output</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">recurse</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">output</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">recurse_list</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">output</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">output</span>
+    <span class="k">return</span> <span class="n">recurse</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span></div>
+
+
 <span class="c1"># LOGGING-----------------------------------------------------------------------</span>
 <div class="viewcode-block" id="log_runtime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.log_runtime">[docs]</a><span class="k">def</span> <span class="nf">log_runtime</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_testing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="c1"># type (Callable, ..., Optional[str], bool, ...) -&gt; Any</span>
@@ -334,6 +416,155 @@
 <span class="sd">        function: Wrapped function.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">log_runtime</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LogRuntime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime">[docs]</a><span class="k">class</span> <span class="nc">LogRuntime</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    LogRuntime is a class for logging the runtime of arbitrary code.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        message (str): Logging message with runtime line.</span>
+<span class="sd">        delta (datetime.timedelta): Runtime.</span>
+<span class="sd">        human_readable_delta (str): Runtime in human readable format.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import time</span>
+<span class="sd">        &gt;&gt;&gt; def foobar():</span>
+<span class="sd">                time.sleep(1)</span>
+
+<span class="sd">        &gt;&gt;&gt; with LogRuntime(&#39;Foo the bars&#39;, name=foobar.__name__, level=&#39;debug&#39;):</span>
+<span class="sd">                foobar()</span>
+<span class="sd">        DEBUG:foobar:Foo the bars - Runtime: 0:00:01.001069 (1 second)</span>
+
+<span class="sd">        &gt;&gt;&gt; with LogRuntime(message=&#39;Fooing all the bars&#39;, suppress=True) as log:</span>
+<span class="sd">                foobar()</span>
+<span class="sd">        &gt;&gt;&gt; print(log.message)</span>
+<span class="sd">        Fooing all the bars - Runtime: 0:00:01.001069 (1 second)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="LogRuntime.__init__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;LogRuntime&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="c1"># type: (str, str, Union[str, int], bool) -&gt; None</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructs a LogRuntime instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message (str, optional): Logging message. Default: &#39;&#39;.</span>
+<span class="sd">            name (str, optional): Name of logger. Default: &#39;LogRuntime&#39;.</span>
+<span class="sd">            level (str or int, optional): Log level. Default: info.</span>
+<span class="sd">            suppress (bool, optional): Whether to suppress logging.</span>
+<span class="sd">                Default: False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            EnforceError: If message is not a string.</span>
+<span class="sd">            EnforceError: If name is not a string.</span>
+<span class="sd">            EnforceError: If level is not legal logging level.</span>
+<span class="sd">            EnforceError: If suppress is not a boolean.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">Enforce</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="n">Enforce</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="n">Enforce</span><span class="p">(</span><span class="n">suppress</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s1">&#39;warn&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;critical&#39;</span><span class="p">,</span> <span class="s1">&#39;fatal&#39;</span><span class="p">]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
+        <span class="n">lut</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>  <span class="c1"># type: Dict[str, int]</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Log level must be an integer or string. Given value: </span><span class="si">{a}</span><span class="s1">. &#39;</span>
+        <span class="n">lut_msg</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">)])</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;Legal values: [</span><span class="si">{</span><span class="n">lut_msg</span><span class="si">}</span><span class="s1">].&#39;</span>
+
+        <span class="n">level_</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">Enforce</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">Enforce</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">level_</span> <span class="o">=</span> <span class="n">lut</span><span class="p">[</span><span class="n">level</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">EnforceError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">level</span><span class="p">))</span>
+        <span class="c1"># ----------------------------------------------------------------------</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span> <span class="o">=</span> <span class="n">StopWatch</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suppress</span> <span class="o">=</span> <span class="n">suppress</span></div>
+
+<div class="viewcode-block" id="LogRuntime.__enter__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># type: () -&gt; LogRuntime</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Starts stopwatch.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            LogRuntime: self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="LogRuntime.__exit__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__exit__">[docs]</a>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; None</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Stops stopwatch and logs message.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Runtime: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">delta</span><span class="si">}</span><span class="s1"> &#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="n">msg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">msg</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">delta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">human_readable_delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span></div></div>
+
+
+<span class="c1"># HTTP-REQUESTS-----------------------------------------------------------------</span>
+<div class="viewcode-block" id="post_to_slack"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.post_to_slack">[docs]</a><span class="k">def</span> <span class="nf">post_to_slack</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="c1"># type (str, str, str) -&gt; urllib.request.HttpRespons</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Post a given message to a given slack channel.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url (str): https://hooks.slack.com/services URL.</span>
+<span class="sd">        channel (str): Channel name.</span>
+<span class="sd">        message (str): Message to be posted.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        EnforceError: If URL is not a string.</span>
+<span class="sd">        EnforceError: If URL does not start with https://hooks.slack.com/services</span>
+<span class="sd">        EnforceError: If channel is not a string.</span>
+<span class="sd">        EnforceError: If message is not a string.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        HTTPResponse: Response.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">Enforce</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">Enforce</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">Enforce</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;URL must begin with https://hooks.slack.com/services/. &#39;</span>
+    <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;Given URL: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">Enforce</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https://hooks.slack.com/services/&#39;</span><span class="p">),</span> <span class="s1">&#39;==&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="n">msg</span>
+    <span class="p">)</span>
+    <span class="c1"># --------------------------------------------------------------------------</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">},</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">channel</span><span class="o">=</span><span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="n">channel</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
+        <span class="p">))</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
 
 
 <span class="c1"># API---------------------------------------------------------------------------</span>
@@ -755,7 +986,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Alex Braun &lt;TheNewFlesh@github.com&gt;.
+        &#169; Copyright 2020, Alex Braun &lt;alexander.g.braun@gmail.com&gt;.
 
     </p>
   </div>
