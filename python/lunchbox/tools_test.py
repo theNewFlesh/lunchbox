@@ -1,9 +1,10 @@
+import logging
 import multiprocessing
 import os
 import time
 import unittest
-from lunchbox.enforce import EnforceError
 
+from lunchbox.enforce import EnforceError
 import lunchbox.tools as lbt
 # ------------------------------------------------------------------------------
 
@@ -27,7 +28,6 @@ def _runtime_func(a, b, c):
 
 
 class ToolsTests(unittest.TestCase):
-
     def test_to_snakecase(self):
         x = 'camelCase.SCREAMING__SNAKE_CASE-kebab-case..dot.case  space '
         x += 'case-fat-face.ratRace'
@@ -346,3 +346,65 @@ class ToolsTests(unittest.TestCase):
         result = lbt.get_ordered_unique(x)
         expected = [0, 1, 2, 3, 4, 5]
         self.assertEqual(result, expected)
+
+
+class LogRuntimeTest(unittest.TestCase):
+    def test_init(self):
+        result = lbt.LogRuntime(
+            message='message',
+            name='test',
+            level='debug',
+            suppress=True,
+        )
+        self.assertEqual(result._message, 'message')
+        self.assertIsInstance(result._stopwatch, lbt.StopWatch)
+        self.assertIsInstance(result._logger, logging.Logger)
+        self.assertEqual(result._level, logging.DEBUG)
+        self.assertEqual(result._suppress, True)
+
+    def test_init_errors(self):
+        # message
+        with self.assertRaises(EnforceError):
+            lbt.LogRuntime(message=199)
+
+        # name
+        with self.assertRaises(EnforceError):
+            lbt.LogRuntime(name=99)
+
+        # suppress
+        with self.assertRaises(EnforceError):
+            lbt.LogRuntime(suppress=99)
+
+        expected = r'Log level must be an integer or string\. '
+        expected += r'Given value: {}\. '
+        expected += r'Legal values: \[debug: 10, info: 20, warn: 30, error: 40, '
+        expected += r'critical: 50, fatal: 50\]\.'
+
+        # level int
+        with self.assertRaisesRegexp(EnforceError, expected.format(99)):
+            lbt.LogRuntime(level=99)
+
+        # level str
+        with self.assertRaisesRegexp(EnforceError, expected.format(99)):
+            lbt.LogRuntime(level=99)
+
+        # level bool
+        with self.assertRaisesRegexp(EnforceError, expected.format(1.0)):
+            lbt.LogRuntime(level=1.0)
+
+    def test_with(self):
+        msg = 'Foo the bars'
+        with lbt.LogRuntime(msg, name='foobar', level='debug'):
+            time.sleep(0.001)
+
+        # suppress
+        expected = r'Foo the bars - Runtime: 0:00:00\..* \(.* seconds?\)'
+        with lbt.LogRuntime(msg, suppress=True) as log:
+            time.sleep(0.001)
+        self.assertRegex(log.message, expected)
+
+        # suppress no message
+        expected = r'Runtime: 0:00:00\..* \(.* seconds?\)'
+        with lbt.LogRuntime(suppress=True) as log:
+            time.sleep(0.001)
+        self.assertRegex(log.message, expected)

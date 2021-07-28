@@ -12,7 +12,7 @@ import urllib.request
 
 import wrapt
 
-from lunchbox.enforce import Enforce
+from lunchbox.enforce import Enforce, EnforceError
 from lunchbox.stopwatch import StopWatch
 
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'WARNING').upper()
@@ -252,6 +252,111 @@ def runtime(wrapped, instance, args, kwargs):
         function: Wrapped function.
     '''
     return log_runtime(wrapped, *args, **kwargs)
+
+
+class LogRuntime:
+    '''
+    LogRuntime is a class for logging the runtime of arbitrary code.
+
+    Attributes:
+        message (str): Logging message with runtime line.
+        delta (datetime.timedelta): Runtime.
+        human_readable_delta (str): Runtime in human readable format.
+
+    Example:
+        >>>import time
+        >>>def foobar():
+               time.sleep(1)
+
+        >>>with LogRuntime('Foo the bars', name=foobar.__name__, level='debug'):
+               foobar()
+        DEBUG:foobar:Foo the bars - Runtime: 0:00:01.001069 (1 second)
+
+        >>>with LogRuntime(message='Fooing all the bars', suppress=True) as log:
+               foo_the_bars([1, 2, 3])
+        >>>print(log.message)
+        Fooing all the bars - Runtime: 0:00:01.001069 (1 second)
+    '''
+    def __init__(
+        self, message='', name='LogRuntime', level='info', suppress=False
+    ):
+        # type: (str, str, Union[str, int], bool) -> None
+        '''
+        Constructs a LogRuntime instance.
+
+        Args:
+            message (str, optional): Logging message. Default: ''.
+            name (str, optional): Name of logger. Default: 'LogRuntime'.
+            level (str or int, optional): Log level. Default: info.
+            suppress (bool, optional): Whether to suppress logging.
+                Default: False.
+
+        Raises:
+            EnforceError: If message is not a string.
+            EnforceError: If name is not a string.
+            EnforceError: If level is not legal logging level.
+            EnforceError: If suppress is not a boolean.
+        '''
+        Enforce(message, 'instance of', str)
+        Enforce(name, 'instance of', str)
+        Enforce(suppress, 'instance of', bool)
+
+        keys = ['debug', 'info', 'warn', 'error', 'critical', 'fatal']
+        values = [getattr(logging, x.upper()) for x in keys]
+        lut = dict(zip(keys, values))  # type: Dict[str, int]
+
+        msg = 'Log level must be an integer or string. Given value: {a}. '
+        lut_msg = ', '.join([f'{k}: {v}' for k, v in zip(keys, values)])
+        msg += f'Legal values: [{lut_msg}].'
+
+        level_ = 0
+        if isinstance(level, int):
+            Enforce(level, 'in', values, message=msg)
+
+        elif isinstance(level, str):
+            level = level.lower()
+            Enforce(level, 'in', keys, message=msg)
+            level_ = lut[level]
+
+        else:
+            raise EnforceError(msg.format(a=level))
+        # ----------------------------------------------------------------------
+
+        self._message = message
+        self._stopwatch = StopWatch()
+        self._logger = logging.getLogger(name)
+        self._level = level_
+        self._suppress = suppress
+
+    def __enter__(self):
+        # type: () -> LogRuntime
+        '''
+        Starts stopwatch.
+
+        Returns:
+            LogRuntime: self.
+        '''
+        self._stopwatch.start()
+        return self
+
+    def __exit__(self, *args):
+        # type: (Any) -> None
+        '''
+        Stops stopwatch and logs message.
+        '''
+        self._stopwatch.stop()
+
+        msg = f'Runtime: {self._stopwatch.delta} '
+        msg += f'({self._stopwatch.human_readable_delta})'
+        if self._message != '':
+            msg = self._message + ' - ' + msg
+        self.message = msg
+
+        self.delta = self._stopwatch.delta
+        self.human_readable_delta = self._stopwatch.human_readable_delta
+
+        if not self._suppress:
+            self._logger.log(self._level, msg)
 
 
 # HTTP-REQUESTS-----------------------------------------------------------------
