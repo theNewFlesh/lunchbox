@@ -7,6 +7,15 @@ enforce
    :undoc-members:
    :show-inheritance:
 
+singleton
+---------
+.. automodule:: lunchbox.singleton
+   :members:
+   :private-members:
+   :special-members:
+   :undoc-members:
+   :show-inheritance:
+
 stopwatch
 ---------
 .. automodule:: lunchbox.stopwatch
