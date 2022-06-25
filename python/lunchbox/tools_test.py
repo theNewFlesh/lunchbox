@@ -27,6 +27,29 @@ def _runtime_func(a, b, c):
     return func(a, b, c)
 
 
+class ExampleClass:
+    def func_public(self):
+        pass
+
+    def _func_semiprivate(self):
+        pass
+
+    def __func_private(self):
+        pass
+
+    def very_long_func_public(self):
+        pass
+
+    def _very_long_func_semiprivate(self):
+        pass
+
+    def __very_long_func_private(self):
+        pass
+
+    def _Func_semiprivate(self):
+        pass
+
+
 class ToolsTests(unittest.TestCase):
     def test_to_snakecase(self):
         x = 'camelCase.SCREAMING__SNAKE_CASE-kebab-case..dot.case  space '
@@ -105,6 +128,61 @@ class ToolsTests(unittest.TestCase):
             kwargs={},
         )
         self.assertEqual(result, expected)
+
+    def test_dir_table_header(self):
+        result = lbt._dir_table(
+            ExampleClass, public=True, semiprivate=True, private=True,
+        ).split('\n')[0]
+        expected = '^NAME +TYPE +VALUE$'
+        self.assertRegex(result, expected)
+
+    def test_dir_table_public(self):
+        result = lbt._dir_table(
+            ExampleClass, public=True, semiprivate=False, private=False,
+        )
+        self.assertIn('func_public', result)
+        self.assertIn('very_long_func_public', result)
+        self.assertNotIn('_Func_semiprivate', result)
+        self.assertNotIn('_func_semiprivate', result)
+        self.assertNotIn('_very_long_func_semiprivate', result)
+        self.assertNotIn('__func_private', result)
+        self.assertNotIn('__very_long_func_private', result)
+
+    def test_dir_table_semiprivate(self):
+        result = lbt._dir_table(
+            ExampleClass, public=False, semiprivate=True, private=False,
+        )
+        self.assertNotIn('func_public', result)
+        self.assertNotIn('very_long_func_public', result)
+        self.assertIn('_Func_semiprivate', result)
+        self.assertIn('_func_semiprivate', result)
+        self.assertIn('_very_long_func_semiprivate', result)
+        self.assertNotIn('__func_private', result)
+        self.assertNotIn('__very_long_func_private', result)
+
+    def test_dir_table_private(self):
+        result = lbt._dir_table(
+            ExampleClass, public=False, semiprivate=False, private=True,
+        )
+        self.assertNotIn('func_public', result)
+        self.assertNotIn('very_long_func_public', result)
+        self.assertNotIn('_Func_semiprivate', result)
+        self.assertNotIn('_func_semiprivate', result)
+        self.assertNotIn('_very_long_func_semiprivate', result)
+        self.assertIn('__func_private', result)
+        self.assertIn('__very_long_func_private', result)
+
+    def test_dir_table_max_width(self):
+        result = lbt._dir_table(ExampleClass, max_width=52).split('\n')
+        for line in result:
+            self.assertLessEqual(len(line), 52)
+
+        result = lbt._dir_table(
+            ExampleClass,
+            public=True, semiprivate=True, private=True, max_width=52
+        ).split('\n')
+        for line in result:
+            self.assertLessEqual(len(line), 52)
 
     def test_truncate_list(self):
         items = [1, 2, 3, 4, 5]

@@ -426,6 +426,79 @@ def get_function_signature(function):
     return dict(args=args, kwargs=kwargs)
 
 
+def _dir_table(obj, public=True, semiprivate=True, private=False, max_width=100):
+    # type: (Any, bool, bool, bool, int) -> str
+    '''
+    Create a table from results of calling dir(obj).
+
+    Args:
+        obj (object): Object to call dir on.
+        public (bool, optional): Include public attributes in table.
+            Default: True.
+        semiprivate (bool, optional): Include semiprivate attributes in table.
+            Default: True.
+        private (bool, optional): Include private attributes in table.
+            Default: False.
+        max_width (int, optional): Maximum table width: Default: 100.
+
+    Returns:
+        str: Table.
+    '''
+    dirkeys = dir(obj)
+    pub = set(list(filter(lambda x: re.search('^[^_]', x), dirkeys)))
+    priv = set(list(filter(lambda x: re.search('^__|^_[A-Z].*__', x), dirkeys)))
+    semipriv = set(dirkeys).difference(pub).difference(priv)
+
+    keys = set()
+    if public:
+        keys.update(pub)
+    if private:
+        keys.update(priv)
+    if semiprivate:
+        keys.update(semipriv)
+
+    data = [dict(key='NAME', atype='TYPE', val='VALUE')]
+    max_key = 0
+    max_atype = 0
+    for key in sorted(keys):
+        attr = getattr(obj, key)
+        atype = attr.__class__.__name__
+        val = str(attr).replace('\n', ' ')
+        max_key = max(max_key, len(key))
+        max_atype = max(max_atype, len(atype))
+        row = dict(key=key, atype=atype, val=val)
+        data.append(row)
+
+    pattern = f'{{key:<{max_key}}}    {{atype:<{max_atype}}}    {{val}}'
+    lines = list(map(lambda x: pattern.format(**x)[:max_width], data))
+    output = '\n'.join(lines)
+    return output
+
+
+def dir_table(obj, public=True, semiprivate=True, private=False, max_width=100):
+    # type: (Any, bool, bool, bool, int) -> None
+    '''
+    Prints a table from results of calling dir(obj).
+
+    Args:
+        obj (object): Object to call dir on.
+        public (bool, optional): Include public attributes in table.
+            Default: True.
+        semiprivate (bool, optional): Include semiprivate attributes in table.
+            Default: True.
+        private (bool, optional): Include private attributes in table.
+            Default: False.
+        max_width (int, optional): Maximum table width: Default: 100.
+    '''
+    print(_dir_table(
+        obj,
+        public=public,
+        semiprivate=semiprivate,
+        private=private,
+        max_width=max_width,
+    ))  # pragma: no cover
+
+
 def api_function(wrapped=None, **kwargs):
     # type: (Optional[Callable], Any) -> Callable
     '''
