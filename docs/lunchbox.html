@@ -31,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.2.5
+                0.2.6
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -756,6 +756,32 @@ Default: False.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="lunchbox.tools._dir_table">
+<span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">_dir_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">semiprivate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#_dir_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools._dir_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a table from results of calling dir(obj).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>object</em>) – Object to call dir on.</p></li>
+<li><p><strong>public</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include public attributes in table.
+Default: True.</p></li>
+<li><p><strong>semiprivate</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include semiprivate attributes in table.
+Default: True.</p></li>
+<li><p><strong>private</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include private attributes in table.
+Default: False.</p></li>
+<li><p><strong>max_width</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum table width: Default: 100.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Table.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="lunchbox.tools.api_function">
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">api_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wrapped</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#api_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.api_function" title="Permalink to this definition">¶</a></dt>
 <dd><p>A decorator that enforces keyword argument only function signatures and
@@ -775,6 +801,26 @@ required keyword argument values when called.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>api function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lunchbox.tools.dir_table">
+<span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">dir_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">semiprivate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#dir_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.dir_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a table from results of calling dir(obj).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>object</em>) – Object to call dir on.</p></li>
+<li><p><strong>public</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include public attributes in table.
+Default: True.</p></li>
+<li><p><strong>semiprivate</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include semiprivate attributes in table.
+Default: True.</p></li>
+<li><p><strong>private</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include private attributes in table.
+Default: False.</p></li>
+<li><p><strong>max_width</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum table width: Default: 100.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
