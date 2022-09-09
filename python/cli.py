@@ -195,7 +195,7 @@ def start():
         line('''
             if [ -z "$STATE" ];
                 then cd docker;
-                docker-compose
+                docker compose
                     -p {repo}
                     -f {repo_path}/docker/docker-compose.yml up
                     --detach;
@@ -233,7 +233,7 @@ def make_docs_dir():
     return cmd
 
 
-def docker_down():
+def stop():
     # type: () -> str
     '''
     Returns:
@@ -241,7 +241,7 @@ def docker_down():
     '''
     cmd = line('''
         cd docker;
-        docker-compose
+        docker compose
             -p {repo}
             -f {repo_path}/docker/docker-compose.yml
             down;
@@ -450,7 +450,7 @@ def destroy_dev_command():
     '''
     cmds = [
         enter_repo(),
-        docker_down(),
+        stop(),
         remove_container(),
         'docker image rm --force {repo}',
         exit_repo(),
@@ -766,7 +766,7 @@ def restart_command():
         enter_repo(),
         line('''
             cd docker;
-            docker-compose
+            docker compose
                 -p {repo}
                 -f {repo_path}/docker/docker-compose.yml
                 restart;
@@ -866,7 +866,7 @@ def stop_command():
     '''
     cmds = [
         enter_repo(),
-        docker_down(),
+        stop(),
         exit_repo(),
     ]
     return resolve(cmds)
