@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 AS base
+FROM ubuntu:22.04 AS base
 
 USER root
 
@@ -31,11 +31,17 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
         pandoc \
         parallel \
         python3-pydot \
-        python3.7-dev \
+        python3.10-dev \
         software-properties-common \
         tree \
         vim \
         wget
+
+RUN echo "\n${CYAN}INSTALL PIP${CLEAR}"; \
+    wget https://bootstrap.pypa.io/get-pip.py && \
+    python3.10 get-pip.py && \
+    chown -R ubuntu:ubuntu get-pip.py && \
+    pip3.10 install --upgrade pip
 
 # install zsh
 RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
@@ -55,31 +61,14 @@ RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
         install-oh-my-zsh.sh && \
     echo 'UTC' > /etc/timezone
 
-# install python3.7 and pip
-RUN echo "\n${CYAN}SETUP PYTHON3.7${CLEAR}"; \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt update && \
-    apt install --fix-missing -y \
-        python3.7 && \
-    wget https://bootstrap.pypa.io/get-pip.py && \
-    python3.7 get-pip.py && \
-    chown -R ubuntu:ubuntu get-pip.py
-
-# install node.js, needed by jupyterlab
-RUN echo "\n${CYAN}INSTALL NODE.JS${CLEAR}"; \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt upgrade -y && \
-    apt install -y nodejs && \
-    rm -rf /var/lib/apt/lists/*
-
 USER ubuntu
 ENV PATH="/home/ubuntu/.local/bin:$PATH"
 COPY ./henanigans.zsh-theme .oh-my-zsh/custom/themes/henanigans.zsh-theme
 COPY ./zshrc .zshrc
 
-ENV LANG "C"
-ENV LANGUAGE "C"
-ENV LC_ALL "C"
+ENV LANG "C.UTF-8"
+ENV LANGUAGE "C.UTF-8"
+ENV LC_ALL "C.UTF-8"
 # ------------------------------------------------------------------------------
 
 FROM base AS dev
@@ -87,8 +76,9 @@ FROM base AS dev
 USER root
 WORKDIR /home/ubuntu
 ENV REPO='lunchbox'
-ENV PYTHONPATH "${PYTHONPATH}:/home/ubuntu/$REPO/python"
 ENV REPO_ENV=True
+ENV PYTHONPATH "${PYTHONPATH}:/home/ubuntu/$REPO/python"
+ENV PATH "${PATH}:/home/ubuntu/.local/bin"
 
 USER ubuntu
 
@@ -96,6 +86,6 @@ USER ubuntu
 COPY ./dev_requirements.txt dev_requirements.txt
 COPY ./prod_requirements.txt prod_requirements.txt
 RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
-    pip3.7 install -r dev_requirements.txt && \
-    pip3.7 install -r prod_requirements.txt && \
-    jupyter server extension enable --py --user jupyterlab_git
+    pip3.10 install \
+        -r dev_requirements.txt \
+        -r prod_requirements.txt

@@ -26,14 +26,14 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
         software-properties-common \
         wget
 
-# install python3.7 and pip
-RUN echo "\n${CYAN}SETUP PYTHON3.7${CLEAR}"; \
+# install python3.10 and pip
+RUN echo "\n${CYAN}SETUP PYTHON3.10${CLEAR}"; \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt update && \
     apt install --fix-missing -y \
-        python3.7 && \
+        python3.10 && \
     wget https://bootstrap.pypa.io/get-pip.py && \
-    python3.7 get-pip.py && \
+    python3.10 get-pip.py && \
     rm -rf /home/ubuntu/get-pip.py
 
 # install lunchbox
@@ -41,6 +41,6 @@ USER ubuntu
 ENV REPO='lunchbox'
 ENV PYTHONPATH "${PYTHONPATH}:/home/ubuntu/$REPO/python"
 RUN echo "\n${CYAN}INSTALL LUNCHBOX{CLEAR}"; \
-    pip3.7 install lunchbox
+    pip3.10 install lunchbox
 
 

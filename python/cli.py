@@ -362,7 +362,7 @@ def app_command():
             docker_exec() + '''
                 -e DEBUG_MODE=True
                 -e REPO_ENV=True {repo}
-                python3.7 /home/ubuntu/{repo}/python/{repo}/server/app.py'''
+                python3.10 /home/ubuntu/{repo}/python/{repo}/server/app.py'''
         ),
         exit_repo(),
     ]
@@ -558,7 +558,7 @@ def full_docs_command():
         coverage(),
         line(
             docker_exec() + '''-e REPO_ENV=True {repo}
-                python3.7 -c
+                python3.10 -c
                     "import rolling_pin.repo_etl as rpo;
                     rpo.write_repo_architecture(
                         '/home/ubuntu/{repo}/python',
@@ -570,7 +570,7 @@ def full_docs_command():
         '''),
         line(
             docker_exec() + '''-e REPO_ENV=True {repo}
-                python3.7 -c
+                python3.10 -c
                    "import rolling_pin.repo_etl as rpo;
                     rpo.write_repo_plots_and_tables(
                         '/home/ubuntu/{repo}/python',
@@ -655,7 +655,7 @@ def package_command():
         enter_repo(),
         start(),
         package_repo(),
-        docker_exec() + ' -w /tmp/{repo} {repo} python3.7 setup.py sdist',
+        docker_exec() + ' -w /tmp/{repo} {repo} python3.10 setup.py sdist',
         exit_repo(),
     ]
     return resolve(cmds)
@@ -703,7 +703,7 @@ def publish_command():
         tox_repo(),
         docker_exec() + '{repo} zsh -c "cd /tmp/{repo} && tox"',
         package_repo(),
-        docker_exec() + ' -w /tmp/{repo} {repo} python3.7 setup.py sdist',
+        docker_exec() + ' -w /tmp/{repo} {repo} python3.10 setup.py sdist',
         docker_exec() + ' -w /tmp/{repo} {repo} twine upload dist/*',
         docker_exec() + ' {repo} rm -rf /tmp/{repo}',
         exit_repo(),
@@ -736,7 +736,7 @@ def python_command():
     cmds = [
         enter_repo(),
         start(),
-        docker_exec() + ' -e REPO_ENV=True {repo} python3.7',
+        docker_exec() + ' -e REPO_ENV=True {repo} python3.10',
         exit_repo(),
     ]
     return resolve(cmds)
@@ -788,7 +788,7 @@ def requirements_command():
         start(),
         line(
             docker_exec() + '''-e REPO_ENV=True {repo} zsh -c "
-                python3.7 -m pip list --format freeze >
+                python3.10 -m pip list --format freeze >
                     /home/ubuntu/{repo}/docker/frozen_requirements.txt"
         '''),
         exit_repo(),

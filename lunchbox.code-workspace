@@ -12,7 +12,7 @@
         "python.linting.mypyPath": "/home/ubuntu/.local/bin/mypy",
         "python.linting.pycodestylePath": "/home/ubuntu/.local/bin/pycodestyle",
         "python.linting.pylintEnabled": false,
-        "python.pythonPath": "/usr/bin/python3.7",
+        "python.pythonPath": "/usr/bin/python3.10",
         "python.testing.pytestArgs": [],
         "python.testing.pytestEnabled": true,
         "python.testing.unittestEnabled": false,
@@ -57,14 +57,14 @@
             //     "label": "app",
             //     "command": [
             //         "export DEBUG_MODE=True &&",
-            //         "python3.7 python/$REPO/server/app.py"
+            //         "python3.10 python/$REPO/server/app.py"
             //     ],
             //     "type": "shell"
             // },
             {
                 "label": "architecture",
                 "command": [
-                    "python3.7 -c ",
+                    "python3.10 -c ",
                         "\"import rolling_pin.repo_etl as rpo;",
                         "rpo.write_repo_architecture(",
                             "'/home/ubuntu/$REPO/python',",
@@ -145,7 +145,7 @@
             {
                 "label": "metrics",
                 "command": [
-                    "python3.7 -c ",
+                    "python3.10 -c ",
                         "\"import rolling_pin.repo_etl as rpo;",
                         "rpo.write_repo_plots_and_tables(",
                             "'python', 'docs/plots.html', 'docs'",
@@ -193,7 +193,7 @@
                 "command": [
                     "unset REPO_ENV &&",
                     "cd /tmp/$REPO &&",
-                    "python3.7 setup.py sdist"
+                    "python3.10 setup.py sdist"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
@@ -218,13 +218,13 @@
             },
             {
                 "label": "python",
-                "command": "python3.7",
+                "command": "python3.10",
                 "type": "shell"
             },
             {
                 "label": "requirements",
                 "command": [
-                    "python3.7 -m pip list --format freeze",
+                    "python3.10 -m pip list --format freeze",
                     "> docker/frozen_requirements.txt"
                 ],
                 "type": "shell"
