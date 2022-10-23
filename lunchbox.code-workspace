@@ -48,7 +48,7 @@
             "cwd": "/home/ubuntu/${workspaceFolderBasename}",
             "env": {
                 "REPO": "${workspaceFolderBasename}",
-                "PYTHONPATH": "${PYTHONPATH}:/home/ubuntu/${workspaceFolderBasename}/python",
+                "PYTHONPATH": ":/home/ubuntu/lunchbox/python:/home/ubuntu/.pdm/__pypackages__/3.10/lib",
                 "REPO_ENV": "True"
             }
         },

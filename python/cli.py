@@ -226,7 +226,6 @@ def make_docs_dir():
             --interactive
             --tty
             --user {user}
-            -e PYTHONPATH="${pythonpath}:/home/ubuntu/{repo}/python"
             -e REPO_ENV=True {repo}
             mkdir -p /home/ubuntu/{repo}/docs
     ''')
@@ -288,7 +287,6 @@ def docker_exec():
             --interactive
             --tty
             --user {user}
-            -e PYTHONPATH="${pythonpath}:/home/ubuntu/{repo}/python"
     ''')
     return cmd
 
