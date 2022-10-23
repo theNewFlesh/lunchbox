@@ -79,24 +79,29 @@ ENV LC_ALL "C.UTF-8"
 
 FROM base AS dev
 
-USER root
-WORKDIR /home/ubuntu
-ENV REPO='lunchbox'
-ENV REPO_ENV=True
-ENV PYTHONPATH "${PYTHONPATH}:/home/ubuntu/$REPO/python"
-ENV PATH "${PATH}:/home/ubuntu/.local/bin"
-
 USER ubuntu
+WORKDIR /home/ubuntu
 
 RUN echo "\n${CYAN}INSTALL PDM${CLEAR}"; \
     curl -sSL \
         https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py \
     | python3.10 -
 
+USER root
+RUN mkdir -p /home/ubuntu/.pdm/cache && \
+    chown -R ubuntu:ubuntu /home/ubuntu/.pdm
+USER ubuntu
+
+ENV REPO='lunchbox'
+ENV REPO_ENV=True
+ENV PYTHONPATH ":/home/ubuntu/$REPO/python:/home/ubuntu/.pdm/__pypackages__/3.10/lib"
+ENV PATH "${PATH}:/home/ubuntu/.local/bin:/home/ubuntu/.pdm/__pypackages__/3.10/bin"
+
 # install python dependencies
-# COPY ./dev_requirements.txt dev_requirements.txt
-# COPY ./prod_requirements.txt prod_requirements.txt
-# RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
-#     pip3.10 install \
-#         -r dev_requirements.txt \
-#         -r prod_requirements.txt
+COPY pyproject.toml /home/ubuntu/.pdm/pyproject.toml
+COPY pdm.toml /home/ubuntu/.pdm/.pdm.toml
+RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
+    cd /home/ubuntu/.pdm && \
+    pdm install --no-self --dev && \
+    rm pyproject.toml && \
+    rm .pdm.toml

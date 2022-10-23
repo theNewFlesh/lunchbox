@@ -380,8 +380,6 @@ def build_dev_command():
         line('''
             cd docker;
             docker build
-                --force-rm
-                --no-cache
                 --file dev.dockerfile
                 --tag {repo}:latest .;
             cd ..

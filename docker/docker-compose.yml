@@ -12,7 +12,7 @@ services:
     user: ubuntu
     volumes:
       - ../:/home/ubuntu/lunchbox
-      - ~/.ssh:/home/ubuntu/.ssh
+      - ~/.ssh:/home/ubuntu/.ssh:ro
       - ./jupyter:/home/ubuntu/.jupyter
       - ./ipython:/home/ubuntu/.ipython
       - ./zshrc:/home/ubuntu/.zshrc
