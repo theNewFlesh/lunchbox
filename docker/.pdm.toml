@@ -1,2 +1,14 @@
+build_isolation = false
+cache_dir = "/home/ubuntu/.pdm/cache"
+
+[global_project]
+path = "/home/ubuntu/.pdm"
+
+[venv]
+location = "/home/ubuntu/.pdm/envs"
+in_project = false
+
 [python]
 path = "/usr/bin/python3.10"
+use_pyenv = false
+use_venv = false
