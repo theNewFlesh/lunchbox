@@ -107,3 +107,10 @@ RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
     pdm install --no-self --dev -v && \
     rm pyproject.toml && \
     rm .pdm.toml
+
+RUN echo "\n${CYAN}SYMLINK ~/.LOCAL AS ~/.PDM${CLEAR}"; \
+    mv /home/ubuntu/.local /tmp/local && \
+    ln -s /home/ubuntu/.pdm/__pypackages__/3.10 /home/ubuntu/.local && \
+    mv /tmp/local/share/pdm /home/ubuntu/.local/share/pdm && \
+    rm -rf /tmp/local
+ 

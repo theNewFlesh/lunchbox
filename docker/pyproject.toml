@@ -36,6 +36,7 @@ dev = [
     # "nbconvert",
     # "nbformat",
     # "notebook",
+    "pdm",
     "pytest",
     "pytest-cov",
     "pytest-forked",
