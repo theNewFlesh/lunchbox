@@ -18,5 +18,6 @@ services:
       - ./zshrc:/home/ubuntu/.zshrc
       - ./pyproject.toml:/home/ubuntu/.pdm/pyproject.toml
       - ./pdm.toml:/home/ubuntu/.pdm/.pdm.toml
+      - ./pdm.lock:/home/ubuntu/.pdm/pdm.lock
     working_dir: "/home/ubuntu"
     command: "tail -f /dev/null"
