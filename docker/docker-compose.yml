@@ -15,5 +15,6 @@ services:
       - ~/.ssh:/home/ubuntu/.ssh
       - ./jupyter:/home/ubuntu/.jupyter
       - ./ipython:/home/ubuntu/.ipython
+      - ./zshrc:/home/ubuntu/.zshrc
     working_dir: "/home/ubuntu"
     command: "tail -f /dev/null"

@@ -30,12 +30,19 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
         npm \
         pandoc \
         parallel \
-        python3-pydot \
-        python3.10-dev \
         software-properties-common \
         tree \
         vim \
         wget
+
+RUN echo "\n${CYAN}INSTALL PYTHON${CLEAR}"; \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt update && \
+    apt install -y \
+        python3-pydot \
+        python3.10-dev \
+        python3.10-distutils \
+        python3.10-venv
 
 RUN echo "\n${CYAN}INSTALL PIP${CLEAR}"; \
     wget https://bootstrap.pypa.io/get-pip.py && \
@@ -64,7 +71,6 @@ RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
 USER ubuntu
 ENV PATH="/home/ubuntu/.local/bin:$PATH"
 COPY ./henanigans.zsh-theme .oh-my-zsh/custom/themes/henanigans.zsh-theme
-COPY ./zshrc .zshrc
 
 ENV LANG "C.UTF-8"
 ENV LANGUAGE "C.UTF-8"
@@ -82,10 +88,15 @@ ENV PATH "${PATH}:/home/ubuntu/.local/bin"
 
 USER ubuntu
 
+RUN echo "\n${CYAN}INSTALL PDM${CLEAR}"; \
+    curl -sSL \
+        https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py \
+    | python3.10 -
+
 # install python dependencies
-COPY ./dev_requirements.txt dev_requirements.txt
-COPY ./prod_requirements.txt prod_requirements.txt
-RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
-    pip3.10 install \
-        -r dev_requirements.txt \
-        -r prod_requirements.txt
+# COPY ./dev_requirements.txt dev_requirements.txt
+# COPY ./prod_requirements.txt prod_requirements.txt
+# RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
+#     pip3.10 install \
+#         -r dev_requirements.txt \
+#         -r prod_requirements.txt
