@@ -85,7 +85,9 @@ WORKDIR /home/ubuntu
 RUN echo "\n${CYAN}INSTALL PDM${CLEAR}"; \
     curl -sSL \
         https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py \
-    | python3.10 -
+    | python3.10 - && \
+    mkdir -p /home/ubuntu/.oh-my-zsh/custom/completions && \
+    pdm completion zsh > /home/ubuntu/.oh-my-zsh/custom/completions/_pdm
 
 USER root
 RUN mkdir -p /home/ubuntu/.pdm/cache && \
