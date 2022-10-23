@@ -16,5 +16,7 @@ services:
       - ./jupyter:/home/ubuntu/.jupyter
       - ./ipython:/home/ubuntu/.ipython
       - ./zshrc:/home/ubuntu/.zshrc
+      - ./pyproject.toml:/home/ubuntu/.pdm/pyproject.toml
+      - ./pdm.toml:/home/ubuntu/.pdm/.pdm.toml
     working_dir: "/home/ubuntu"
     command: "tail -f /dev/null"
