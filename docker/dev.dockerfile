@@ -102,6 +102,6 @@ COPY pyproject.toml /home/ubuntu/.pdm/pyproject.toml
 COPY pdm.toml /home/ubuntu/.pdm/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
     cd /home/ubuntu/.pdm && \
-    pdm install --no-self --dev && \
+    pdm install --no-self --dev -v && \
     rm pyproject.toml && \
     rm .pdm.toml
