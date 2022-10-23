@@ -45,6 +45,7 @@
     "extensions": [
         "arturock.gitstash",
         "bibhasdn.unique-lines",
+        "bungcip.better-toml",
         "christian-kohler.path-intellisense",
         "compulim.indent4to2",
         "eamodio.gitlens",
