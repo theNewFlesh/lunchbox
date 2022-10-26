@@ -244,14 +244,12 @@
             {
                 "label": "tox-repo",
                 "command": [
-                    "cp docker/flake8.ini /tmp/$REPO &&",
-                    "cp docker/mypy.ini /tmp/$REPO &&",
-                    "cp docker/pytest.ini /tmp/$REPO &&",
-                    "cp docker/tox.ini /tmp/$REPO"
-                ],
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "tmp-repo"
+                    "rm -rf /tmp/build && ",
+                    "python3.10 -c",
+                    "\"from rolling_pin.conform_etl import ConformETL;",
+                    "src = 'docker/conform.yml';",
+                    "ConformETL.from_yaml(src).conform(groups=['base', 'tox'])",
+                    "\""
                 ],
                 "type": "shell"
             },
@@ -259,7 +257,7 @@
                 "label": "tox",
                 "command": [
                     "unset REPO_ENV &&",
-                    "cd /tmp/$REPO &&",
+                    "cd /tmp/build/repo &&",
                     "tox"
                 ],
                 "dependsOrder": "sequence",
