@@ -1,11 +1,11 @@
 source_rules:
   - path: /home/ubuntu/lunchbox
-    include: "README|LICENSE"
+    include: "LICENSE|README\\.md"
     exclude: "/\\.|docker"
   - path: /home/ubuntu/lunchbox/python/lunchbox
     include: "\\.py$"
   - path: /home/ubuntu/lunchbox/docker
-    include: "pdm|pyproject"
+    include: "pdm|pyproject|pytest|tox|flake8|mypy"
   - path: /home/ubuntu/lunchbox/resources
     include: ".*"
 rename_rules:
@@ -20,7 +20,7 @@ rename_rules:
   - regex: "/docker"
     replace: ""
 group_rules:
-  - name: test
+  - name: tox
     regex: "__init__\\.py$|_test\\.py$|resources"
   - name: publish
     regex: "__init__\\.py$"
