@@ -17,7 +17,7 @@ pytest
 pytest-cov
 pytest-forked
 pytest-xdist
-rolling-pin>=0.4.2
+rolling-pin>=0.6.3
 sphinx-rtd-theme
 sphinx>=5.3.0
 tox
