@@ -42,7 +42,7 @@ dev = [
     "pytest-cov",
     "pytest-forked",
     "pytest-xdist",
-    "rolling-pin>=0.6.3",
+    "rolling-pin>=0.6.4",
     "sphinx-rtd-theme",
     "sphinx>=5.3.0",
     "tox-pdm>=0.6.0",

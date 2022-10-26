@@ -1175,7 +1175,7 @@ dependencies = [
 
 [[package]]
 name = "rolling-pin"
-version = "0.6.3"
+version = "0.6.4"
 summary = "A library of generic tools for ETL work and visualization of JSON blobs and python repositories."
 dependencies = [
     "cufflinks",
@@ -1495,7 +1495,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:fa071585c76e6e853ed25d97cc17de52c509dd7d6d6d4bd9f833116c9c7f7502"
+content_hash = "sha256:e53cd31196543e5c33d9459e970f9a03b376eb9109bd17f604babf2004d37105"
 
 [metadata.files]
 "aiofiles 0.8.0" = [
@@ -2507,8 +2507,8 @@ content_hash = "sha256:fa071585c76e6e853ed25d97cc17de52c509dd7d6d6d4bd9f833116c9
     {url = "https://files.pythonhosted.org/packages/11/23/814edf09ec6470d52022b9e95c23c1bef77f0bc451761e1504ebd09606d3/rich-12.6.0.tar.gz", hash = "sha256:ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"},
     {url = "https://files.pythonhosted.org/packages/32/60/81ac2e7d1e3b861ab478a72e3b20fc91c4302acd2274822e493758941829/rich-12.6.0-py3-none-any.whl", hash = "sha256:a4eb26484f2c82589bd9a17c73d32a010b1e29d89f1604cd9bf3a2097b81bb5e"},
 ]
-"rolling-pin 0.6.3" = [
-    {url = "https://files.pythonhosted.org/packages/9c/ef/db4d59d49366d914082ce7e64e9717ad158b56cca11ee4fbb188fd91bf9c/rolling-pin-0.6.3.tar.gz", hash = "sha256:068cbcf3fd3207d2b4e02234c2034f2563f3e519247811bb422a4d058a8bc2f7"},
+"rolling-pin 0.6.4" = [
+    {url = "https://files.pythonhosted.org/packages/a1/bb/79e367c39dae04214867a1df4812c344c9164662996d75305ac5cc8d2abb/rolling-pin-0.6.4.tar.gz", hash = "sha256:91cd197c9c2789a2d3f4f76912f909ea28f2e81d4fa9b34acb4a4b15a686e0f3"},
 ]
 "schematics 2.1.1" = [
     {url = "https://files.pythonhosted.org/packages/a5/e1/c9dca73caf001f82e8479e382a66820cbd29f461f465a12d4b3d7e0b929a/schematics-2.1.1-py2.py3-none-any.whl", hash = "sha256:be2d451bfb86789975e5ec0864aec569b63cea9010f0d24cbbd992a4e564c647"},
