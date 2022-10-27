@@ -6,8 +6,8 @@ readme = "README.md"
 license = {text = "MIT"}
 
 [[project.authors]]
-    name = "Alex Braun"
-    email = "alexander.g.braun@gmail.com"
+name = "Alex Braun"
+email = "alexander.g.braun@gmail.com"
 
 requires-python = ">=3.7"
 dependencies = [
