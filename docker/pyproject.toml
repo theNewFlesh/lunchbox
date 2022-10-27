@@ -24,7 +24,7 @@ dev = [
     "jupyterlab-henanigans>=0.2.2",
     "jupyterlab-sublime",
     "jupyterlab>=3.5.0rc0",
-    "rolling-pin>=0.6.4",
+    "rolling-pin>=0.6.5",
     "sphinx-rtd-theme",
     "sphinx>=5.3.0",
     "wrapt>=1.14.1",
