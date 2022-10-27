@@ -52,7 +52,7 @@ def generate_pyproject(source_path, version):
     # fix python version
     proj['project']['requires-python'] = f'^{version}'
 
-    # del dev dependencies
+    # delete dev dependencies
     del proj['tool']['pdm']['dev-dependencies']['dev']
 
     return toml.dumps(proj)
