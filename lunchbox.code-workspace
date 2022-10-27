@@ -154,37 +154,14 @@
                 "type": "shell"
             },
             {
-                "label": "tmp-repo",
-                "command": [
-                    "rm -rf /tmp/$REPO &&",
-                    "mkdir /tmp/$REPO &&",
-                    "cp -R python/$REPO /tmp/$REPO &&",
-                    "cp -R resources /tmp/ &&",
-                    "cp README.md /tmp/$REPO/ &&",
-                    "cp LICENSE /tmp/$REPO/ &&",
-                    "cp docker/dev_requirements.txt /tmp/$REPO/ &&",
-                    "cp docker/prod_requirements.txt /tmp/$REPO/ &&",
-                    "cp -R pip/* /tmp/$REPO/ &&",
-                    "find /tmp/$REPO",
-                        "| grep -E '__pycache__|flask_monitor|cli.py'",
-                        "| parallel 'rm -rf {}' &&",
-                    "find /tmp/$REPO -type f",
-                        "| grep __init__.py",
-                        "| parallel 'rm -rf {}; touch {}'"
-                ],
-                "type": "shell"
-            },
-            {
                 "label": "package-repo",
                 "command": [
-                    "cd /tmp/$REPO &&",
-                    "find /tmp/$REPO",
-                        "| grep -E '.*test.*\\.py$|mock.*\\.py$'",
-                        "| parallel 'rm -rf {}'",
-                ],
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "tmp-repo"
+                    "rm -rf /tmp/build && ",
+                    "python3.10 -c",
+                    "\"from rolling_pin.conform_etl import ConformETL;",
+                    "src = 'docker/conform.yml';",
+                    "ConformETL.from_yaml(src).conform(groups=['base', 'publish'])",
+                    "\""
                 ],
                 "type": "shell"
             },

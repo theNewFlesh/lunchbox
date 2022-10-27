@@ -2,49 +2,45 @@
 name = "lunchbox"
 version = "0.2.6"
 description = "A library of various tools for common python tasks"
+readme = "README.md"
+license = {text = "MIT"}
 authors = [
     {name = "Alex Braun", email = "alexander.g.braun@gmail.com"}
 ]
+
+requires-python = ">=3.10"
 dependencies = [
     "humanfriendly",
     "wrapt",
 ]
-requires-python = ">=3.10"
-readme = "README.md"
-license = {text = "MIT"}
 [project.optional-dependencies]
-
-[build-system]
-requires = ["pdm-pep517>=1.0.0"]
-build-backend = "pdm.pep517.api"
 
 [tool]
 [tool.pdm]
 [tool.pdm.dev-dependencies]
 dev = [
-    "flake8",
-    "flake8-polyfill",
-    # "ipykernel",
-    # "ipysheet",
-    # "ipython",
-    # "ipython-genutils",
-    # "ipywidgets",
+    "cufflinks",
+    "jupyterlab-git",
     "jupyterlab-henanigans>=0.2.2",
     "jupyterlab-sublime",
-    "jupyterlab-git",
     "jupyterlab>=3.5.0rc0",
-    "mypy",
-    # "nbconvert",
-    # "nbformat",
-    # "notebook",
-    "pdm",
-    "pytest",
-    "pytest-cov",
-    "pytest-forked",
-    "pytest-xdist",
     "rolling-pin>=0.6.4",
     "sphinx-rtd-theme",
     "sphinx>=5.3.0",
+    "wrapt>=1.14.1",
+]
+test = [
+    "flake8",
+    "mypy",
+    "pdm",
+    "pytest-cov",
+    "pytest-forked",
+    "pytest-xdist",
+    "pytest",
     "tox-pdm>=0.6.0",
     "tox>=3.26.0",
 ]
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
