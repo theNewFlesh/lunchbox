@@ -42,7 +42,16 @@ RUN echo "\n${CYAN}INSTALL PYTHON${CLEAR}"; \
         python3-pydot \
         python3.10-dev \
         python3.10-distutils \
-        python3.10-venv
+        python3.10-venv \
+        python3.9-dev \
+        python3.9-distutils \
+        python3.9-venv \
+        python3.8-dev \
+        python3.8-distutils \
+        python3.8-venv \
+        python3.7-dev \
+        python3.7-distutils \
+        python3.7-venv
 
 RUN echo "\n${CYAN}INSTALL PIP${CLEAR}"; \
     wget https://bootstrap.pypa.io/get-pip.py && \
