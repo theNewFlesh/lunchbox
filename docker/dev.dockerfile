@@ -96,17 +96,17 @@ USER ubuntu
 
 ENV REPO='lunchbox'
 ENV REPO_ENV=True
-ENV PYTHONPATH ":/home/ubuntu/$REPO/python:/home/ubuntu/.pdm/__pypackages__/3.10/lib"
+ENV PYTHONPATH ":/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/$REPO/python"
 ENV PATH "${PATH}:/home/ubuntu/.local/bin:/home/ubuntu/.pdm/__pypackages__/3.10/bin"
 
 # install python dependencies
 COPY pyproject.toml /home/ubuntu/.pdm/pyproject.toml
+COPY pdm.lock /home/ubuntu/.pdm/pdm.lock
 COPY pdm.toml /home/ubuntu/.pdm/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
     cd /home/ubuntu/.pdm && \
     pdm install --no-self --dev -v && \
-    rm pyproject.toml && \
-    rm .pdm.toml
+    rm -f pyproject.toml pdm.lock .pdm.toml
 
 RUN echo "\n${CYAN}SYMLINK ~/.LOCAL AS ~/.PDM${CLEAR}"; \
     mv /home/ubuntu/.local /tmp/local && \
