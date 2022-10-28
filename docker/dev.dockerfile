@@ -110,7 +110,7 @@ COPY dev/pyproject.toml /home/ubuntu/dev/
 COPY dev/pdm.lock /home/ubuntu/dev/
 COPY dev/pdm.toml /home/ubuntu/dev/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON DEV ENVIRONMENT${CLEAR}"; \
-    cd pdm && \
+    cd dev && \
     pdm install --no-self --dev -v
 
 COPY prod/pdm.lock /home/ubuntu/prod/
