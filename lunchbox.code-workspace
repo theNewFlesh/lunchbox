@@ -45,10 +45,10 @@
     "tasks": {
         "version": "2.0.0",
         "options": {
-            "cwd": "/home/ubuntu/${workspaceFolderBasename}",
+            "cwd": "/home/ubuntu/dev",
             "env": {
                 "REPO": "${workspaceFolderBasename}",
-                "PYTHONPATH": ":/home/ubuntu/lunchbox/python:/home/ubuntu/.pdm/__pypackages__/3.10/lib",
+                "REPO_PATH": "/home/ubuntu/${workspaceFolderBasename}",
                 "REPO_ENV": "True"
             }
         },
@@ -57,14 +57,14 @@
             //     "label": "app",
             //     "command": [
             //         "export DEBUG_MODE=True &&",
-            //         "python3.10 python/$REPO/server/app.py"
+            //         "python3 python/$REPO/server/app.py"
             //     ],
             //     "type": "shell"
             // },
             {
                 "label": "architecture",
                 "command": [
-                    "python3.10 -c ",
+                    "python3 -c ",
                         "\"import rolling_pin.repo_etl as rpo;",
                         "rpo.write_repo_architecture(",
                             "'/home/ubuntu/$REPO/python',",
@@ -76,9 +76,25 @@
                 "type": "shell"
             },
             {
+                "label": "build-dev",
+                "command": "pdm install --no-self --dev -v",
+                "type": "shell"
+            },
+            {
+                "label": "build-prod",
+                "command": [
+                    "python3 /home/ubuntu/$REPO/docker/generate_pyproject.py",
+                    "   pyproject.toml '>=3.7' --groups test",
+                    "> ../prod/pyproject.toml &&",
+                    "cd ../prod &&",
+                    "pdm install --no-self --dev -v"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "coverage",
                 "command": [
-                    "mkdir -p docs &&",
+                    "mkdir -p $REPO_PATH/docs &&",
                     "export PROCS=`",
                         "python3 -c 'import os; print(os.cpu_count())'` &&",
                     "pytest",
@@ -94,12 +110,12 @@
             {
                 "label": "docs",
                 "command": [
-                    "mkdir -p docs &&",
+                    "mkdir -p $REPO_PATH/docs &&",
                     "pandoc README.md -o sphinx/intro.rst &&",
                     "sphinx-build sphinx docs &&",
                     "cp sphinx/style.css docs/_static/style.css &&",
                     "touch docs/.nojekyll &&",
-                    "mkdir -p docs/resources"
+                    "mkdir -p $REPO_PATH/docs/resources"
                 ],
                 "type": "shell"
             },
@@ -145,7 +161,7 @@
             {
                 "label": "metrics",
                 "command": [
-                    "python3.10 -c ",
+                    "python3 -c ",
                         "\"import rolling_pin.repo_etl as rpo;",
                         "rpo.write_repo_plots_and_tables(",
                             "'python', 'docs/plots.html', 'docs'",
@@ -157,7 +173,7 @@
                 "label": "package-repo",
                 "command": [
                     "rm -rf /tmp/build && ",
-                    "python3.10 -c",
+                    "python3 -c",
                     "\"from rolling_pin.conform_etl import ConformETL;",
                     "src = 'docker/conform.yml';",
                     "ConformETL.from_yaml(src).conform(groups=['base', 'publish'])",
@@ -170,7 +186,7 @@
                 "command": [
                     "unset REPO_ENV &&",
                     "cd /tmp/$REPO &&",
-                    "python3.10 setup.py sdist"
+                    "python3 setup.py sdist"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
@@ -201,7 +217,7 @@
             {
                 "label": "requirements",
                 "command": [
-                    "python3.10 -m pip list --format freeze",
+                    "python3 -m pip list --format freeze",
                     "> docker/frozen_requirements.txt"
                 ],
                 "type": "shell"
@@ -222,7 +238,7 @@
                 "label": "tox-repo",
                 "command": [
                     "rm -rf /tmp/build && ",
-                    "python3.10 -c",
+                    "python3 -c",
                     "\"from rolling_pin.conform_etl import ConformETL;",
                     "src = 'docker/conform.yml';",
                     "ConformETL.from_yaml(src).conform(groups=['base', 'tox'])",
