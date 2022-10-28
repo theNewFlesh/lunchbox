@@ -105,7 +105,6 @@ RUN echo "\n${CYAN}CREATE DEV AND PROD DIRECTORIES${CLEAR}"; \
 USER ubuntu
 
 # install python dependencies
-COPY generate_pyproject.py /home/ubuntu/
 COPY dev/pyproject.toml /home/ubuntu/dev/
 COPY dev/pdm.lock /home/ubuntu/dev/
 COPY dev/pdm.toml /home/ubuntu/dev/.pdm.toml
@@ -113,18 +112,16 @@ RUN echo "\n${CYAN}INSTALL PYTHON DEV ENVIRONMENT${CLEAR}"; \
     cd dev && \
     pdm install --no-self --dev -v
 
+COPY prod/pyproject.toml /home/ubuntu/prod/
 COPY prod/pdm.lock /home/ubuntu/prod/
 COPY prod/pdm.toml /home/ubuntu/prod/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON PROD ENVIRONMENT${CLEAR}"; \
-    pip3.10 install toml && \
-    python3 ./generate_pyproject.py \
-        ./dev/pyproject.toml ">=3.7" --prod > ./prod/pyproject.toml && \
     cd prod && \
-    pdm install --no-self -v
+    pdm install --no-self --dev -v
 
-RUN echo "\n${CYAN}SYMLINK ~/PDM TO ~/.LOCAL${CLEAR}"; \
+RUN echo "\n${CYAN}SYMLINK ~/DEV TO ~/.LOCAL${CLEAR}"; \
     mv /home/ubuntu/.local /tmp/local && \
-    ln -s /home/ubuntu/dev/py310/__pypackages__/3.10 /home/ubuntu/.local && \
+    ln -s /home/ubuntu/dev/__pypackages__/3.10 /home/ubuntu/.local && \
     mv /tmp/local/share/pdm /home/ubuntu/.local/share/pdm && \
     rm -rf /tmp/local
 
