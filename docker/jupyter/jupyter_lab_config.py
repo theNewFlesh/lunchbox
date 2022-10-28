@@ -6,5 +6,5 @@ c.ServerApp.password_required = False
 c.ServerApp.port = 9000
 c.ServerApp.terminado_settings = {'shell_command': ['/bin/bash']}
 c.ServerApp.token = ''
-c.LabApp.app_dir = "/home/ubuntu/.pdm/__pypackages__/3.10/share/jupyter/lab"
+c.LabApp.app_dir = "/home/ubuntu/dev/__pypackages__/3.10/share/jupyter/lab"
 c.IPCompleter.use_jedi = False
