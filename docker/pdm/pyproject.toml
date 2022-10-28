@@ -4,7 +4,7 @@ version = "0.2.6"
 description = "A library of various tools for common python tasks"
 readme = "README.md"
 license = {text = "MIT"}
-requires-python = ">=3.9"
+requires-python = ">=3.7"
 dependencies = [
     "humanfriendly",
     "wrapt",
@@ -15,28 +15,27 @@ name = "Alex Braun"
 email = "alexander.g.braun@gmail.com"
 
 [tool.pdm.dev-dependencies]
-dev = [
-    "cufflinks",
-    "jupyterlab-git",
-    "jupyterlab-henanigans>=0.2.2",
-    "jupyterlab-sublime",
-    "jupyterlab>=3.5.0rc0",
-    "rolling-pin>=0.6.5",
-    "sphinx-rtd-theme",
-    "sphinx>=5.3.0",
-    "wrapt>=1.14.1",
-]
-test = [
-    "flake8",
-    "mypy",
-    "pdm",
-    "pytest-cov",
-    "pytest-forked",
-    "pytest-xdist",
-    "pytest",
-    "tox-pdm>=0.6.0",
-    "tox>=3.26.0",
-]
+# dev = [
+#     "cufflinks",
+#     "jupyterlab-git",
+#     "jupyterlab-henanigans>=0.2.2",
+#     "jupyterlab-sublime",
+#     "jupyterlab>=3.5.0rc0",
+#     "rolling-pin>=0.7.0",
+#     "sphinx-rtd-theme",
+#     "sphinx>=5.3.0",
+# ]
+# test = [
+#     "flake8",
+#     "mypy",
+#     "pdm",
+#     "pytest-cov",
+#     "pytest-forked",
+#     "pytest-xdist",
+#     "pytest",
+#     "tox-pdm>=0.6.0",
+#     "tox>=3.26.0",
+# ]
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
