@@ -117,15 +117,11 @@ COPY prod/pdm.lock /home/ubuntu/prod/
 COPY prod/pdm.toml /home/ubuntu/prod/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON PROD ENVIRONMENT${CLEAR}"; \
     cd prod && \
-    pdm install --no-self --dev -v
-
-RUN echo "\n${CYAN}SYMLINK ~/DEV TO ~/.LOCAL${CLEAR}"; \
-    mv /home/ubuntu/.local /tmp/local && \
-    ln -s /home/ubuntu/dev/__pypackages__/3.10 /home/ubuntu/.local && \
-    mv /tmp/local/share/pdm /home/ubuntu/.local/share/pdm && \
-    rm -rf /tmp/local
+    pdm use /usr/bin/python3.7  && pdm install --no-self --dev -v && \
+    pdm use /usr/bin/python3.8  && pdm install --no-self --dev -v && \
+    pdm use /usr/bin/python3.9  && pdm install --no-self --dev -v && \
+    pdm use /usr/bin/python3.10 && pdm install --no-self --dev -v
 
 ENV REPO='lunchbox'
 ENV REPO_ENV=True
-ENV PYTHONPATH ":/home/ubuntu/.local/lib/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/$REPO/python"
-ENV PATH "${PATH}:/home/ubuntu/.local/bin"
+ENV PYTHONPATH ":/home/ubuntu/$REPO/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib"
