@@ -41,23 +41,23 @@ RUN echo "\n${CYAN}INSTALL PYTHON${CLEAR}"; \
     apt install -y \
         python3-pydot \
         python3.10-dev \
-        python3.10-distutils \
         python3.10-venv \
+        python3.10-distutils \
         python3.9-dev \
-        python3.9-distutils \
         python3.9-venv \
+        python3.9-distutils \
         python3.8-dev \
-        python3.8-distutils \
         python3.8-venv \
+        python3.8-distutils \
         python3.7-dev \
-        python3.7-distutils \
-        python3.7-venv
+        python3.7-venv \
+        python3.7-distutils
 
 RUN echo "\n${CYAN}INSTALL PIP${CLEAR}"; \
     wget https://bootstrap.pypa.io/get-pip.py && \
     python3.10 get-pip.py && \
-    chown -R ubuntu:ubuntu get-pip.py && \
-    pip3.10 install --upgrade pip
+    pip3.10 install --upgrade pip && \
+    rm -rf get-pip.py
 
 # install zsh
 RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
@@ -72,9 +72,8 @@ RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
     npm i -g zsh-history-enquirer --unsafe-perm && \
     cd /home/ubuntu && \
     cp -r /root/.oh-my-zsh /home/ubuntu/ && \
-    chown -R ubuntu:ubuntu \
-        .oh-my-zsh \
-        install-oh-my-zsh.sh && \
+    chown -R ubuntu:ubuntu .oh-my-zsh && \
+    rm -rf install-oh-my-zsh.sh && \
     echo 'UTC' > /etc/timezone
 
 USER ubuntu
