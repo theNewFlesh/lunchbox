@@ -1437,7 +1437,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:0d40342cf035f4282f21ed522c4615c0840d11e27c735e91209397d7246f8bb8"
+content_hash = "sha256:2df699d5986610444c9847613beafb9c1424a10513e9ec0d659ddb06037b05f3"
 
 [metadata.files]
 "aiofiles 0.8.0" = [
