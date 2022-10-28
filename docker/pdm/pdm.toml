@@ -6,7 +6,8 @@ path = "/home/ubuntu/pdm"
 
 [venv]
 location = "/home/ubuntu/pdm/envs"
-in_project = false
+in_project = true
+backend = "virtualenv"
 
 [python]
 path = "/usr/bin/python3.10"
