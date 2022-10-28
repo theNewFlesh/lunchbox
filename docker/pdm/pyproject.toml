@@ -13,30 +13,30 @@ dependencies = [
     "wrapt",
 ]
 
-
-[tool.pdm.dev-dependencies]
-# dev = [
-#     "cufflinks",
-#     "jupyterlab-git",
-#     "jupyterlab-henanigans>=0.2.2",
-#     "jupyterlab-sublime",
-#     "jupyterlab>=3.5.0rc0",
-#     "rolling-pin>=0.7.0",
-#     "sphinx-rtd-theme",
-#     "sphinx>=5.3.0",
-# ]
-# test = [
-#     "flake8",
-#     "mypy",
-#     "pdm",
-#     "pytest-cov",
-#     "pytest-forked",
-#     "pytest-xdist",
-#     "pytest",
-#     "tox-pdm>=0.6.0",
-#     "tox>=3.26.0",
-# ]
-
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
+
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "cufflinks",
+    "jupyterlab-git",
+    "jupyterlab-henanigans>=0.2.2",
+    "jupyterlab-sublime",
+    "jupyterlab>=3.5.0rc0",
+    "rolling-pin>=0.7.0",
+    "sphinx-rtd-theme",
+    "sphinx>=5.3.0",
+]
+test = [
+    "flake8",
+    "mypy",
+    "pdm",
+    "pytest-cov",
+    "pytest-forked",
+    "pytest-xdist",
+    "pytest",
+    "tox-pdm>=0.6.0",
+    "tox>=3.26.0",
+]
