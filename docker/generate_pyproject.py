@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+from typing import List
 
+from copy import deepcopy
 import argparse
 import toml
 # ------------------------------------------------------------------------------
@@ -30,22 +32,23 @@ def main():
     )
 
     parser.add_argument(
-        '--prod',
-        metavar='prod',
-        type=bool,
-        default=False,
+        '--groups',
+        metavar='groups',
+        type=str,
         nargs=1,
+        default='all',
         action='store',
-        help='production dependencies only',
+        help='python version',
     )
+
     args = parser.parse_args()
-    temp, ver, prod = args.template[0], args.version[0], args.prod[0]
-    text = generate_pyproject(temp, ver, prod)
+    temp, ver, grp = args.template[0], args.version[0], args.groups[0].split(',')
+    text = generate_pyproject(temp, ver, grp)
     print(text)
 
 
-def generate_pyproject(source_path, version, prod_mode):
-    # type: (str, str, bool) -> str
+def generate_pyproject(source_path, version, groups):
+    # type: (str, str, List[str]) -> str
     '''
     Generate pyproject.toml file given a source_path and python version.
     Removes dev dependecies.
@@ -54,7 +57,7 @@ def generate_pyproject(source_path, version, prod_mode):
         source_path (str): Path to base pyproject.toml file.
         target_path (str): Path to write generated pyproject.toml file.
         version (str): Python version.
-        prod_mode (bool): Production dependencies only.
+        groups (list[str]): Dependency groups.
 
     Returns:
         str: pyproject.toml content.
@@ -64,9 +67,14 @@ def generate_pyproject(source_path, version, prod_mode):
     # fix python version
     proj['project']['requires-python'] = f'{version}'
 
-    # delete dev dependencies
-    if prod_mode:
-        del proj['tool']['pdm']['dev-dependencies']['dev']
+    deps = deepcopy(proj['tool']['pdm']['dev-dependencies'])
+    proj['tool']['pdm']['dev-dependencies'] = {}
+
+    if groups == ['all']:
+        groups = ['dev', 'test']
+    for group in groups:
+        if group in deps.keys():
+            proj['tool']['pdm']['dev-dependencies'][group] = deps[group]
 
     return toml.dumps(proj)
 
