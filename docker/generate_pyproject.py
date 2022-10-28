@@ -28,13 +28,24 @@ def main():
         action='store',
         help='python version',
     )
+
+    parser.add_argument(
+        '--prod',
+        metavar='prod',
+        type=bool,
+        default=False,
+        nargs=1,
+        action='store',
+        help='production dependencies only',
+    )
     args = parser.parse_args()
-    text = generate_pyproject(args.template[0], args.version[0])
+    temp, ver, prod = args.template[0], args.version[0], args.prod[0]
+    text = generate_pyproject(temp, ver, prod)
     print(text)
 
 
-def generate_pyproject(source_path, version):
-    # type: (str, str) -> str
+def generate_pyproject(source_path, version, prod_mode):
+    # type: (str, str, bool) -> str
     '''
     Generate pyproject.toml file given a source_path and python version.
     Removes dev dependecies.
@@ -43,6 +54,7 @@ def generate_pyproject(source_path, version):
         source_path (str): Path to base pyproject.toml file.
         target_path (str): Path to write generated pyproject.toml file.
         version (str): Python version.
+        prod_mode (bool): Production dependencies only.
 
     Returns:
         str: pyproject.toml content.
@@ -50,10 +62,11 @@ def generate_pyproject(source_path, version):
     proj = toml.load(source_path)
 
     # fix python version
-    proj['project']['requires-python'] = f'^{version}'
+    proj['project']['requires-python'] = f'{version}'
 
     # delete dev dependencies
-    del proj['tool']['pdm']['dev-dependencies']['dev']
+    if prod_mode:
+        del proj['tool']['pdm']['dev-dependencies']['dev']
 
     return toml.dumps(proj)
 

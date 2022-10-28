@@ -7,15 +7,11 @@ authors = [
 ]
 readme = "README.md"
 license = {text = "MIT"}
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 dependencies = [
     "humanfriendly",
     "wrapt",
 ]
-
-[build-system]
-requires = ["pdm-pep517>=1.0.0"]
-build-backend = "pdm.pep517.api"
 
 [tool.pdm.dev-dependencies]
 dev = [
@@ -39,3 +35,7 @@ test = [
     "tox-pdm>=0.6.0",
     "tox>=3.26.0",
 ]
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"

@@ -99,27 +99,36 @@ RUN echo "\n${CYAN}INSTALL PDM${CLEAR}"; \
     pdm completion zsh > /home/ubuntu/.oh-my-zsh/custom/completions/_pdm
 
 USER root
-RUN mkdir -p /home/ubuntu/.pdm/cache && \
-    chown -R ubuntu:ubuntu /home/ubuntu/.pdm
+RUN echo "\n${CYAN}CREATE DEV AND PROD DIRECTORIES${CLEAR}"; \
+    mkdir dev prod && \
+    chown ubuntu:ubuntu dev prod
 USER ubuntu
+
+# install python dependencies
+COPY generate_pyproject.py /home/ubuntu/
+COPY dev/pyproject.toml /home/ubuntu/dev/
+COPY dev/pdm.lock /home/ubuntu/dev/
+COPY dev/pdm.toml /home/ubuntu/dev/.pdm.toml
+RUN echo "\n${CYAN}INSTALL PYTHON DEV ENVIRONMENT${CLEAR}"; \
+    cd pdm && \
+    pdm install --no-self --dev -v
+
+COPY prod/pdm.lock /home/ubuntu/prod/
+COPY prod/pdm.toml /home/ubuntu/prod/.pdm.toml
+RUN echo "\n${CYAN}INSTALL PYTHON PROD ENVIRONMENT${CLEAR}"; \
+    pip3.10 install toml && \
+    python3 ./generate_pyproject.py \
+        ./dev/pyproject.toml ">=3.7" --prod > ./prod/pyproject.toml && \
+    cd prod && \
+    pdm install --no-self -v
+
+RUN echo "\n${CYAN}SYMLINK ~/PDM TO ~/.LOCAL${CLEAR}"; \
+    mv /home/ubuntu/.local /tmp/local && \
+    ln -s /home/ubuntu/dev/py310/__pypackages__/3.10 /home/ubuntu/.local && \
+    mv /tmp/local/share/pdm /home/ubuntu/.local/share/pdm && \
+    rm -rf /tmp/local
 
 ENV REPO='lunchbox'
 ENV REPO_ENV=True
-ENV PYTHONPATH ":/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/$REPO/python"
-ENV PATH "${PATH}:/home/ubuntu/.local/bin:/home/ubuntu/.pdm/__pypackages__/3.10/bin"
-
-# install python dependencies
-COPY pyproject.toml /home/ubuntu/.pdm/pyproject.toml
-COPY pdm.lock /home/ubuntu/.pdm/pdm.lock
-COPY pdm.toml /home/ubuntu/.pdm/.pdm.toml
-RUN echo "\n${CYAN}INSTALL PYTHON DEPENDENCIES${CLEAR}"; \
-    cd /home/ubuntu/.pdm && \
-    pdm install --no-self --dev -v && \
-    rm -f pyproject.toml pdm.lock .pdm.toml
-
-RUN echo "\n${CYAN}SYMLINK ~/.LOCAL AS ~/.PDM${CLEAR}"; \
-    mv /home/ubuntu/.local /tmp/local && \
-    ln -s /home/ubuntu/.pdm/__pypackages__/3.10 /home/ubuntu/.local && \
-    mv /tmp/local/share/pdm /home/ubuntu/.local/share/pdm && \
-    rm -rf /tmp/local
- 
+ENV PYTHONPATH ":/home/ubuntu/.local/lib/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/$REPO/python"
+ENV PATH "${PATH}:/home/ubuntu/.local/bin"

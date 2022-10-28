@@ -15,8 +15,11 @@ services:
       - ~/.ssh:/home/ubuntu/.ssh:ro
       - ./jupyter:/home/ubuntu/.jupyter
       - ./zshrc:/home/ubuntu/.zshrc
-      - ./pdm/pyproject.toml:/home/ubuntu/pdm/pyproject.toml
-      - ./pdm/pdm.toml:/home/ubuntu/pdm/.pdm.toml
-      - ./pdm/pdm.lock:/home/ubuntu/pdm/pdm.lock
+      - ./dev/pyproject.toml:/home/ubuntu/dev/pyproject.toml
+      - ./dev/pdm.toml:/home/ubuntu/dev/.pdm.toml
+      - ./dev/pdm.lock:/home/ubuntu/dev/pdm.lock
+      - ./prod/pyproject.toml:/home/ubuntu/prod/pyproject.toml
+      - ./prod/pdm.toml:/home/ubuntu/prod/.pdm.toml
+      - ./prod/pdm.lock:/home/ubuntu/prod/pdm.lock
     working_dir: "/home/ubuntu"
     command: "tail -f /dev/null"
