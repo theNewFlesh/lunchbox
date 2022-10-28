@@ -1,5 +1,4 @@
-build_isolation = false
-cache_dir = "/home/ubuntu/pdm/cache"
+build_isolation = true
 
 [global_project]
 path = "/home/ubuntu/pdm"
