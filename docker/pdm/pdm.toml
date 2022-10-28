@@ -1,11 +1,11 @@
 build_isolation = false
-cache_dir = "/home/ubuntu/.pdm/cache"
+cache_dir = "/home/ubuntu/pdm/cache"
 
 [global_project]
-path = "/home/ubuntu/.pdm"
+path = "/home/ubuntu/pdm"
 
 [venv]
-location = "/home/ubuntu/.pdm/envs"
+location = "/home/ubuntu/pdm/envs"
 in_project = false
 
 [python]
