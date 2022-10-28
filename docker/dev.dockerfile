@@ -33,7 +33,8 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
         software-properties-common \
         tree \
         vim \
-        wget
+        wget && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN echo "\n${CYAN}INSTALL PYTHON${CLEAR}"; \
     add-apt-repository -y ppa:deadsnakes/ppa && \
@@ -51,7 +52,8 @@ RUN echo "\n${CYAN}INSTALL PYTHON${CLEAR}"; \
         python3.8-distutils \
         python3.7-dev \
         python3.7-venv \
-        python3.7-distutils
+        python3.7-distutils && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN echo "\n${CYAN}INSTALL PIP${CLEAR}"; \
     wget https://bootstrap.pypa.io/get-pip.py && \
@@ -61,7 +63,9 @@ RUN echo "\n${CYAN}INSTALL PIP${CLEAR}"; \
 
 # install zsh
 RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
+    apt update && \
     apt install -y zsh && \
+    rm -rf /var/lib/apt/lists/* && \
     curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
         -o install-oh-my-zsh.sh && \
     echo y | sh install-oh-my-zsh.sh && \
@@ -104,16 +108,16 @@ RUN echo "\n${CYAN}CREATE DEV AND PROD DIRECTORIES${CLEAR}"; \
 USER ubuntu
 
 # install python dependencies
-COPY dev/pyproject.toml /home/ubuntu/dev/
-COPY dev/pdm.lock /home/ubuntu/dev/
-COPY dev/pdm.toml /home/ubuntu/dev/.pdm.toml
+COPY --chown=ubuntu:ubuntu dev/pyproject.toml /home/ubuntu/dev/
+COPY --chown=ubuntu:ubuntu dev/pdm.lock /home/ubuntu/dev/
+COPY --chown=ubuntu:ubuntu dev/pdm.toml /home/ubuntu/dev/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON DEV ENVIRONMENT${CLEAR}"; \
     cd dev && \
     pdm install --no-self --dev -v
 
-COPY prod/pyproject.toml /home/ubuntu/prod/
-COPY prod/pdm.lock /home/ubuntu/prod/
-COPY prod/pdm.toml /home/ubuntu/prod/.pdm.toml
+COPY --chown=ubuntu:ubuntu prod/pyproject.toml /home/ubuntu/prod/
+COPY --chown=ubuntu:ubuntu prod/pdm.lock /home/ubuntu/prod/
+COPY --chown=ubuntu:ubuntu prod/pdm.toml /home/ubuntu/prod/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON PROD ENVIRONMENT${CLEAR}"; \
     cd prod && \
     pdm use /usr/bin/python3.7  && pdm install --no-self --dev -v && \
