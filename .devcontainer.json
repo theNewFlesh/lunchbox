@@ -8,6 +8,8 @@
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.defaultProfile.osx": "zsh",
         "terminal.integrated.env.linux": { "REPO_ENV": "True" },
+        "python.analysis.extraPaths": ["/home/ubuntu/dev/__pypackages__/3.10/lib"],
+        "python.autoComplete.extraPaths": ["/home/ubuntu/dev/__pypackages__/3.10/lib"],
         "python.languageServer": "Pylance",
         "python.linting.enabled": true,
         "python.linting.flake8Args": ["--config=docker/flake8.ini"],
