@@ -19,3 +19,4 @@ source $ZSH/oh-my-zsh.sh
 echo 'will cite' | parallel --citation >> /dev/null 2>&1
 alias ll='ls -hlA'
 alias tree='tree -Ca'
+export PATH=$PATH:/home/ubuntu/dev/__pypackages__/3.10/bin

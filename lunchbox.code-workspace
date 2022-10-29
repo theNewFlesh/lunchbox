@@ -47,7 +47,8 @@
         "options": {
             "cwd": "/home/ubuntu/dev",
             "env": {
-                "PATH": ":/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/dev/__pypackages__/3.10/bin",
+                "PATH": ":/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "PYTHONPATH": ":/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/lib",
                 "REPO": "${workspaceFolderBasename}",
                 "REPO_PATH": "/home/ubuntu/${workspaceFolderBasename}",
                 "REPO_ENV": "True",

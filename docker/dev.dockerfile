@@ -113,7 +113,14 @@ COPY --chown=ubuntu:ubuntu dev/pdm.lock /home/ubuntu/dev/
 COPY --chown=ubuntu:ubuntu dev/pdm.toml /home/ubuntu/dev/.pdm.toml
 RUN echo "\n${CYAN}INSTALL PYTHON DEV ENVIRONMENT${CLEAR}"; \
     cd dev && \
-    pdm install --no-self --dev -v
+    pdm install --no-self --dev -v && \
+    pdm export \
+        --no-default \
+        -dG lab \
+        --without-hashes \
+        --format requirements \
+        --output lab_requirements.txt && \
+    pip3.10 install --user -r lab_requirements.txt
 
 COPY --chown=ubuntu:ubuntu prod/pyproject.toml /home/ubuntu/prod/
 COPY --chown=ubuntu:ubuntu prod/pdm.lock /home/ubuntu/prod/
