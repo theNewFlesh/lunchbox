@@ -46,7 +46,7 @@
     "tasks": {
         "version": "2.0.0",
         "options": {
-            "cwd": "/home/ubuntu/dev",
+            "cwd": "/home/ubuntu/${workspaceFolderBasename}",
             "env": {
                 "PATH": ":/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/bin",
                 "PYTHONPATH": ":/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/lib",
@@ -65,6 +65,11 @@
             //     "type": "shell"
             // },
             {
+                "label": "link",
+                "command": "ln -sf /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__",
+                "type": "shell"
+            },
+            {
                 "label": "architecture",
                 "command": [
                     "python3 -c ",
@@ -76,12 +81,16 @@
                             "orient='lr'",
                         ")\""
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "build-dev",
                 "command": "pdm install --no-self --dev -v",
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "build-prod",
@@ -92,7 +101,9 @@
                     "cd ../prod &&",
                     "pdm install --no-self --dev -v"
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "coverage",
@@ -108,7 +119,9 @@
                         "--cov-report=html:docs/htmlcov",
                         "python"
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "docs",
@@ -120,7 +133,9 @@
                     "touch docs/.nojekyll &&",
                     "mkdir -p $REPO_PATH/docs/resources"
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "fast-test",
@@ -133,23 +148,28 @@
                         "--numprocesses $PROCS",
                         "python"
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "full-docs",
+                "type": "shell",
                 "dependsOrder": "sequence",
                 "dependsOn": [
+                    "link",
                     "docs",
                     "coverage",
                     "architecture",
                     "metrics"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "lab",
                 "command": "jupyter lab --allow-root --ip=0.0.0.0 --no-browser",
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "lint",
@@ -159,7 +179,9 @@
                     "echo 'TYPE CHECKING' &&",
                     "mypy python --config-file docker/mypy.ini"
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "metrics",
@@ -170,7 +192,9 @@
                             "'python', 'docs/plots.html', 'docs'",
                         ")\""
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "package-repo",
@@ -182,7 +206,9 @@
                     "ConformETL.from_yaml(src).conform(groups=['base', 'publish'])",
                     "\""
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "package",
@@ -193,6 +219,7 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
+                    "link",
                     "package-repo"
                 ],
                 "type": "shell"
@@ -206,6 +233,7 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
+                    "link",
                     "tox",
                     "lint",
                     "package"
@@ -215,7 +243,9 @@
             {
                 "label": "python",
                 "command": "python3.10",
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "requirements",
@@ -223,7 +253,9 @@
                     "python3 -m pip list --format freeze",
                     "> docker/frozen_requirements.txt"
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "test",
@@ -235,7 +267,9 @@
                         "--numprocesses $PROCS",
                         "python"
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "tox-repo",
@@ -247,7 +281,9 @@
                     "ConformETL.from_yaml(src).conform(groups=['base', 'tox'])",
                     "\""
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link"]
             },
             {
                 "label": "tox",
@@ -258,6 +294,7 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
+                    "link",
                     "tox-repo"
                 ],
                 "type": "shell"
@@ -266,6 +303,7 @@
                 "label": "version",
                 "dependsOrder": "sequence",
                 "dependsOn": [
+                    "link",
                     "lint",
                     "full-docs",
                     "requirements"
