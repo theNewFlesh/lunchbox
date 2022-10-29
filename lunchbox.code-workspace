@@ -100,10 +100,10 @@
             {
                 "label": "build-prod",
                 "command": [
-                    "python3 /home/ubuntu/$REPO/docker/generate_pyproject.py",
-                    "   pyproject.toml '>=3.7' --groups test",
-                    "> ../prod/pyproject.toml &&",
-                    "cd ../prod &&",
+                    "python3 docker/generate_pyproject.py",
+                    "   docker/dev/pyproject.toml '>=3.7' --groups test",
+                    "> docker/prod/pyproject.toml &&",
+                    "cd /home/ubuntu/prod &&",
                     "pdm install --no-self --dev -v"
                 ],
                 "type": "shell",
