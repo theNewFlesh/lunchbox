@@ -146,6 +146,15 @@ requires_python = ">=3.6.0"
 summary = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
 
 [[package]]
+name = "click"
+version = "8.1.3"
+requires_python = ">=3.7"
+summary = "Composable command line interface toolkit"
+dependencies = [
+    "colorama; platform_system == \"Windows\"",
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
@@ -592,8 +601,7 @@ summary = "Platform-independent file locking module"
 [[package]]
 name = "lunchbox"
 version = "0.2.6"
-requires_python = ">=3.10"
-summary = "A library of various tools for common python tasks"
+summary = "A library of various tools for common python tasks."
 dependencies = [
     "humanfriendly",
     "wrapt",
@@ -1062,7 +1070,7 @@ summary = "Python for Window Extensions"
 name = "pywinpty"
 version = "2.0.9"
 requires_python = ">=3.7"
-summary = "Pseudo terminal support for Windows from Python."
+summary = ""
 
 [[package]]
 name = "pyyaml"
@@ -1437,7 +1445,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:2df699d5986610444c9847613beafb9c1424a10513e9ec0d659ddb06037b05f3"
+content_hash = "sha256:6826c28618bcd274419252236840b5a8ccdac110ca3f44c1a4a48ee52c34bd84"
 
 [metadata.files]
 "aiofiles 0.8.0" = [
@@ -1592,6 +1600,10 @@ content_hash = "sha256:2df699d5986610444c9847613beafb9c1424a10513e9ec0d659ddb060
 "charset-normalizer 2.1.1" = [
     {url = "https://files.pythonhosted.org/packages/a1/34/44964211e5410b051e4b8d2869c470ae8a68ae274953b1c7de6d98bbcf94/charset-normalizer-2.1.1.tar.gz", hash = "sha256:5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"},
     {url = "https://files.pythonhosted.org/packages/db/51/a507c856293ab05cdc1db77ff4bc1268ddd39f29e7dc4919aa497f0adbec/charset_normalizer-2.1.1-py3-none-any.whl", hash = "sha256:83e9a75d1911279afd89352c68b45348559d1fc0506b054b346651b5e7fee29f"},
+]
+"click 8.1.3" = [
+    {url = "https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
+    {url = "https://files.pythonhosted.org/packages/c2/f1/df59e28c642d583f7dacffb1e0965d0e00b218e0186d7858ac5233dce840/click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
 ]
 "colorama 0.4.6" = [
     {url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
