@@ -24,6 +24,7 @@
             "**/docs": true
         },
         "files.exclude": {
+            "**/__pypackages__": true,
             "**/.classpath": true,
             "**/.coverage": true,
             "**/.DS_Store": true,
@@ -36,10 +37,10 @@
             "**/.pytest_cache": true,
             "**/.settings": true,
             "**/.svn": true,
-            "**/CVS": true,
-            "*/*/**/node_modules": true,
             "**/.vscode": true,
-            "**/flask_monitoringdashboard.db": true
+            "**/CVS": true,
+            "**/flask_monitoringdashboard.db": true,
+            "*/*/**/node_modules": true
         }
     },
     "tasks": {
