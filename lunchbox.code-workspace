@@ -197,7 +197,7 @@
                 "dependsOn": ["link"]
             },
             {
-                "label": "package-repo",
+                "label": "prod-repo",
                 "command": [
                     "rm -rf /home/ubuntu/build && ",
                     "python3 -c",
@@ -220,7 +220,7 @@
                 "dependsOrder": "sequence",
                 "dependsOn": [
                     "link",
-                    "package-repo"
+                    "prod-repo"
                 ],
                 "type": "shell"
             },
@@ -272,7 +272,7 @@
                 "dependsOn": ["link"]
             },
             {
-                "label": "tox-repo",
+                "label": "test-repo",
                 "command": [
                     "rm -rf /home/ubuntu/build && ",
                     "python3 -c",
@@ -295,7 +295,7 @@
                 "dependsOrder": "sequence",
                 "dependsOn": [
                     "link",
-                    "tox-repo"
+                    "test-repo"
                 ],
                 "type": "shell"
             },
