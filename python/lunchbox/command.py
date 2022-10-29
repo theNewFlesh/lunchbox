@@ -1,3 +1,5 @@
+import subprocess
+
 import click
 
 import lunchbox.tools as lbt
@@ -26,6 +28,17 @@ def slack(url, channel, message):
           MESSAGE - message to be posted
     '''
     lbt.post_to_slack(url, channel, message)
+
+
+@main.command()
+def zsh_completion():
+    '''
+        ZSH completion code to be written to your ~/.zshrc file
+    '''
+    cmd = '_LUNCHBOX_COMPLETE=zsh_source lunchbox'
+    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    result.wait()
+    click.echo(result.stdout.read())
 
 
 if __name__ == '__main__':
