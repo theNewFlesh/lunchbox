@@ -5,7 +5,10 @@ source_rules:
   - path: /home/ubuntu/lunchbox/python/lunchbox
     include: "\\.py$"
   - path: /home/ubuntu/lunchbox/docker
-    include: "pdm|pyproject|pytest|tox|flake8|mypy"
+    include: "pytest|tox|flake8|mypy"
+    exclude: "cache"
+  - path: /home/ubuntu/lunchbox/docker/dev
+    include: ".*"
   - path: /home/ubuntu/lunchbox/resources
     include: ".*"
 rename_rules:
@@ -15,9 +18,7 @@ rename_rules:
     replace: "/home/ubuntu/build/resources"
   - regex: "/pdm\\.toml"
     replace: "/.pdm.toml"
-  - regex: "/python"
-    replace: ""
-  - regex: "/docker"
+  - regex: "/python|/docker|/dev"
     replace: ""
 group_rules:
   - name: tox

@@ -199,10 +199,10 @@
             {
                 "label": "package-repo",
                 "command": [
-                    "rm -rf /tmp/build && ",
+                    "rm -rf /home/ubuntu/build && ",
                     "python3 -c",
                     "\"from rolling_pin.conform_etl import ConformETL;",
-                    "src = 'docker/conform.yml';",
+                    "src = 'docker/build.yaml';",
                     "ConformETL.from_yaml(src).conform(groups=['base', 'publish'])",
                     "\""
                 ],
@@ -274,10 +274,10 @@
             {
                 "label": "tox-repo",
                 "command": [
-                    "rm -rf /tmp/build && ",
+                    "rm -rf /home/ubuntu/build && ",
                     "python3 -c",
                     "\"from rolling_pin.conform_etl import ConformETL;",
-                    "src = 'docker/conform.yml';",
+                    "src = 'docker/build.yaml';",
                     "ConformETL.from_yaml(src).conform(groups=['base', 'tox'])",
                     "\""
                 ],
@@ -289,7 +289,7 @@
                 "label": "tox",
                 "command": [
                     "unset REPO_ENV &&",
-                    "cd /tmp/build/repo &&",
+                    "cd /home/ubuntu/build/repo &&",
                     "tox"
                 ],
                 "dependsOrder": "sequence",
