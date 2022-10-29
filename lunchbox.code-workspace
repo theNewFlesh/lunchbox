@@ -219,7 +219,7 @@
                 "label": "package",
                 "command": [
                     "unset REPO_ENV &&",
-                    "cd /tmp/$REPO &&",
+                    "cd /home/ubuntu/build/repo &&",
                     "python3 setup.py sdist"
                 ],
                 "dependsOrder": "sequence",
@@ -233,8 +233,8 @@
                 "label": "publish",
                 "command": [
                     "unset REPO_ENV &&",
-                    "cd /tmp/$REPO &&",
-                    "twine upload dist/* && rm -rf /tmp/$REPO"
+                    "cd /home/ubuntu/build/repo &&",
+                    "twine upload dist/* && rm -rf /home/ubuntu/build/repo"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
