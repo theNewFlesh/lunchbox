@@ -1,6 +1,6 @@
 [project]
 name = "lunchbox"
-version = "0.2.6"
+version = "0.3.0"
 description = "A library of various tools for common python tasks"
 authors = [
     {name = "Alex Braun", email = "alexander.g.braun@gmail.com"},
@@ -9,9 +9,13 @@ readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 dependencies = [
+    "click>=8.1.3",
     "humanfriendly",
     "wrapt",
 ]
+
+[project.scripts]
+lunchbox = "lunchbox.command:main"
 
 [tool.pdm.dev-dependencies]
 lab = [
