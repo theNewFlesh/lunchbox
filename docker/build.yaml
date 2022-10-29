@@ -21,10 +21,10 @@ rename_rules:
   - regex: "/python|/docker|/dev"
     replace: ""
 group_rules:
-  - name: tox
+  - name: test
     regex: "__init__\\.py$|_test\\.py$|resources"
-  - name: publish
+  - name: prod
     regex: "__init__\\.py$"
 line_rules:
-  - group: publish
+  - group: prod
     exclude: test
