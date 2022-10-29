@@ -11,7 +11,7 @@ Command line interface to lunchbox library
 
 @click.group()
 def main():
-    pass
+    pass  # pragma: no cover
 
 @main.command()
 @click.argument('url', type=str, nargs=1)
@@ -27,7 +27,7 @@ def slack(url, channel, message):
 
           MESSAGE - message to be posted
     '''
-    lbt.post_to_slack(url, channel, message)
+    lbt.post_to_slack(url, channel, message)  # pragma: no cover
 
 
 @main.command()
@@ -35,11 +35,11 @@ def zsh_completion():
     '''
         ZSH completion code to be written to your ~/.zshrc file
     '''
-    cmd = '_LUNCHBOX_COMPLETE=zsh_source lunchbox'
-    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-    result.wait()
-    click.echo(result.stdout.read())
+    cmd = '_LUNCHBOX_COMPLETE=zsh_source lunchbox'  # pragma: no cover
+    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)  # pragma: no cover
+    result.wait()  # pragma: no cover
+    click.echo(result.stdout.read())  # pragma: no cover
 
 
 if __name__ == '__main__':
-    main()
+    main()  # pragma: no cover
