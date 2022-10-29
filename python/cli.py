@@ -210,9 +210,14 @@ def version_variable():
     # type: () -> str
     '''
     Returns:
-        str: Command to set version variable from pip/version.txt.
+        str: Command to set version variable from dev/pyproject.toml.
     '''
-    return 'export VERSION=`cat pip/version.txt`'
+    return line('''
+        export VERSION=`cat docker/dev/pyproject.toml
+            | grep version
+            | awk '{{print $3}}'
+            | sed 's/\"//g'`
+    ''')
 
 
 def make_docs_dir():
