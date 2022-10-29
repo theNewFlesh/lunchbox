@@ -31,9 +31,20 @@ def slack(url, channel, message):
 
 
 @main.command()
+def bash_completion():
+    '''
+        BASH completion code to be written to a _lunchbox completion file.
+    '''
+    cmd = '_LUNCHBOX_COMPLETE=bash_source lunchbox'  # pragma: no cover
+    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)  # pragma: no cover
+    result.wait()  # pragma: no cover
+    click.echo(result.stdout.read())  # pragma: no cover
+
+
+@main.command()
 def zsh_completion():
     '''
-        ZSH completion code to be written to your ~/.zshrc file
+        ZSH completion code to be written to a _lunchbox completion file.
     '''
     cmd = '_LUNCHBOX_COMPLETE=zsh_source lunchbox'  # pragma: no cover
     result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)  # pragma: no cover
