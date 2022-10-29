@@ -51,8 +51,7 @@
                 "PYTHONPATH": ":/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/lib",
                 "REPO": "${workspaceFolderBasename}",
                 "REPO_PATH": "/home/ubuntu/${workspaceFolderBasename}",
-                "REPO_ENV": "True",
-                "NVM_DIR": "/home/ubuntu/.nvm"
+                "REPO_ENV": "True"
             }
         },
         "tasks": [
