@@ -233,7 +233,13 @@
                 "label": "publish",
                 "command": [
                     "cd /home/ubuntu/build/repo &&",
-                    "pdm publish -v"
+                    "pdm publish",
+                    "   --repository https://test.pypi.org/legacy",
+                    "   --no-build",
+                    "   --username \"$PYPI_USER\"",
+                    "   --password \"$PYPI_PASSWORD\"",
+                    "   --comment \"$PYPI_COMMENT\"",
+                    "   --verbose"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
