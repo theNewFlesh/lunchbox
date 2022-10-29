@@ -218,9 +218,8 @@
             {
                 "label": "package",
                 "command": [
-                    "unset REPO_ENV &&",
                     "cd /home/ubuntu/build/repo &&",
-                    "python3 setup.py sdist"
+                    "pdm build --dest /home/ubuntu/build/dist -v"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
