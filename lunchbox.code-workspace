@@ -65,8 +65,13 @@
             //     "type": "shell"
             // },
             {
-                "label": "link",
+                "label": "dev-link",
                 "command": "ln -sf /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__",
+                "type": "shell"
+            },
+            {
+                "label": "prod-link",
+                "command": "ln -sf /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__",
                 "type": "shell"
             },
             {
@@ -83,14 +88,14 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "build-dev",
                 "command": "pdm install --no-self --dev -v",
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "build-prod",
@@ -103,7 +108,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "coverage",
@@ -121,7 +126,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "docs",
@@ -135,7 +140,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "fast-test",
@@ -150,14 +155,14 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "full-docs",
                 "type": "shell",
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "link",
+                    "dev-link",
                     "docs",
                     "coverage",
                     "architecture",
@@ -169,7 +174,7 @@
                 "command": "jupyter lab --allow-root --ip=0.0.0.0 --no-browser",
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "lint",
@@ -181,7 +186,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "metrics",
@@ -194,7 +199,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "prod-repo",
@@ -208,7 +213,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "package",
@@ -219,7 +224,7 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "link",
+                    "prod-link",
                     "prod-repo"
                 ],
                 "type": "shell"
@@ -233,7 +238,7 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "link",
+                    "prod-link",
                     "tox",
                     "lint",
                     "package"
@@ -245,17 +250,7 @@
                 "command": "python3.10",
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
-            },
-            {
-                "label": "requirements",
-                "command": [
-                    "python3 -m pip list --format freeze",
-                    "> docker/frozen_requirements.txt"
-                ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "test",
@@ -269,7 +264,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "test-repo",
@@ -283,7 +278,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["link"]
+                "dependsOn": ["dev-link"]
             },
             {
                 "label": "tox",
@@ -294,7 +289,7 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "link",
+                    "prod-link",
                     "test-repo"
                 ],
                 "type": "shell"
@@ -303,7 +298,7 @@
                 "label": "version",
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "link",
+                    "dev-link",
                     "lint",
                     "full-docs",
                     "requirements"
