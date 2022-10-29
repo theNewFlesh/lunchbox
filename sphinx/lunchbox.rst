@@ -1,12 +1,3 @@
-command
--------
-.. automodule:: lunchbox.command
-   :members:
-   :private-members:
-   :special-members:
-   :undoc-members:
-   :show-inheritance:
-
 enforce
 -------
 .. automodule:: lunchbox.enforce
