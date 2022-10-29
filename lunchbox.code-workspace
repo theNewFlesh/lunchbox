@@ -65,16 +65,6 @@
             //     "type": "shell"
             // },
             {
-                "label": "dev-link",
-                "command": "ln -sf /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__",
-                "type": "shell"
-            },
-            {
-                "label": "prod-link",
-                "command": "ln -sf /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__",
-                "type": "shell"
-            },
-            {
                 "label": "architecture",
                 "command": [
                     "python3 -c ",
@@ -113,7 +103,7 @@
             {
                 "label": "coverage",
                 "command": [
-                    "mkdir -p $REPO_PATH/docs &&",
+                    "mkdir -p docs &&",
                     "export PROCS=`",
                         "python3 -c 'import os; print(os.cpu_count())'` &&",
                     "pytest",
@@ -129,14 +119,19 @@
                 "dependsOn": ["dev-link"]
             },
             {
+                "label": "dev-link",
+                "command": "ln -sf /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__",
+                "type": "shell"
+            },
+            {
                 "label": "docs",
                 "command": [
-                    "mkdir -p $REPO_PATH/docs &&",
+                    "mkdir -p docs &&",
                     "pandoc README.md -o sphinx/intro.rst &&",
                     "sphinx-build sphinx docs &&",
                     "cp sphinx/style.css docs/_static/style.css &&",
                     "touch docs/.nojekyll &&",
-                    "mkdir -p $REPO_PATH/docs/resources"
+                    "mkdir -p docs/resources"
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
@@ -162,7 +157,6 @@
                 "type": "shell",
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "dev-link",
                     "docs",
                     "coverage",
                     "architecture",
@@ -189,6 +183,14 @@
                 "dependsOn": ["dev-link"]
             },
             {
+                "label": "lock",
+                "command": [
+                    "cd /home/ubuntu/dev &&",
+                    "pdm lock -v"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "metrics",
                 "command": [
                     "python3 -c ",
@@ -200,6 +202,24 @@
                 "type": "shell",
                 "dependsOrder": "sequence",
                 "dependsOn": ["dev-link"]
+            },
+            {
+                "label": "package",
+                "command": [
+                    "cd /home/ubuntu/build/repo &&",
+                    "pdm build -v"
+                ],
+                "dependsOrder": "sequence",
+                "dependsOn": [
+                    "build-prod",
+                    "prod-repo"
+                ],
+                "type": "shell"
+            },
+            {
+                "label": "prod-link",
+                "command": "ln -sf /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__",
+                "type": "shell"
             },
             {
                 "label": "prod-repo",
@@ -216,20 +236,6 @@
                 "dependsOn": ["dev-link"]
             },
             {
-                "label": "package",
-                "command": [
-                    "cd /home/ubuntu/build/repo &&",
-                    "pdm build -v"
-                ],
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "prod-link",
-                    "build-prod",
-                    "prod-repo"
-                ],
-                "type": "shell"
-            },
-            {
                 "label": "publish",
                 "command": [
                     "cd /home/ubuntu/build/repo &&",
@@ -243,29 +249,13 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "prod-link",
-                    "build-prod",
-                    "prod-repo"
+                    "package",
                 ],
                 "type": "shell"
             },
             {
                 "label": "python",
                 "command": "python3.10",
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
-            },
-            {
-                "label": "test",
-                "command": [
-                    "export PROCS=`",
-                        "python3 -c 'import os; print(os.cpu_count())'` &&",
-                    "pytest",
-                        "-c docker/pytest.ini",
-                        "--numprocesses $PROCS",
-                        "python"
-                ],
                 "type": "shell",
                 "dependsOrder": "sequence",
                 "dependsOn": ["dev-link"]
@@ -285,6 +275,20 @@
                 "dependsOn": ["dev-link"]
             },
             {
+                "label": "test",
+                "command": [
+                    "export PROCS=`",
+                        "python3 -c 'import os; print(os.cpu_count())'` &&",
+                    "pytest",
+                        "-c docker/pytest.ini",
+                        "--numprocesses $PROCS",
+                        "python"
+                ],
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["dev-link"]
+            },
+            {
                 "label": "tox",
                 "command": [
                     "unset REPO_ENV &&",
@@ -293,8 +297,8 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "prod-link",
-                    "test-repo"
+                    "test-repo",
+                    "prod-link"
                 ],
                 "type": "shell"
             },
@@ -302,10 +306,9 @@
                 "label": "version",
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "dev-link",
                     "lint",
-                    "full-docs",
-                    "requirements"
+                    "lock",
+                    "full-docs"
                 ],
                 "type": "shell"
             }
