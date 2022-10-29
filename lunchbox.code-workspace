@@ -219,7 +219,7 @@
                 "label": "package",
                 "command": [
                     "cd /home/ubuntu/build/repo &&",
-                    "pdm build --dest /home/ubuntu/build/dist -v"
+                    "pdm build -v"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
@@ -231,16 +231,13 @@
             {
                 "label": "publish",
                 "command": [
-                    "unset REPO_ENV &&",
                     "cd /home/ubuntu/build/repo &&",
-                    "twine upload dist/* && rm -rf /home/ubuntu/build/repo"
+                    "pdm publish -v"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
                     "prod-link",
-                    "tox",
-                    "lint",
-                    "package"
+                    "prod-repo"
                 ],
                 "type": "shell"
             },
