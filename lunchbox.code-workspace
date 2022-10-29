@@ -224,6 +224,7 @@
                 "dependsOrder": "sequence",
                 "dependsOn": [
                     "prod-link",
+                    "build-prod",
                     "prod-repo"
                 ],
                 "type": "shell"
@@ -237,6 +238,7 @@
                 "dependsOrder": "sequence",
                 "dependsOn": [
                     "prod-link",
+                    "build-prod",
                     "prod-repo"
                 ],
                 "type": "shell"
