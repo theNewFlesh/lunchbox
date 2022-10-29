@@ -10,9 +10,9 @@ source_rules:
     include: ".*"
 rename_rules:
   - regex: "/home/ubuntu/lunchbox"
-    replace: /tmp/build/repo
+    replace: /home/ubuntu/build/repo
   - regex: ".*/resources"
-    replace: "/tmp/build/resources"
+    replace: "/home/ubuntu/build/resources"
   - regex: "/pdm\\.toml"
     replace: "/.pdm.toml"
   - regex: "/python"
