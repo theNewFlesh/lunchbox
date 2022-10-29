@@ -98,6 +98,7 @@ RUN echo "\n${CYAN}INSTALL PDM${CLEAR}"; \
     curl -sSL \
         https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py \
     | python3.10 - && \
+    pip3.10 install --upgrade pdm && \
     mkdir -p /home/ubuntu/.oh-my-zsh/custom/completions && \
     pdm completion zsh > /home/ubuntu/.oh-my-zsh/custom/completions/_pdm
 
