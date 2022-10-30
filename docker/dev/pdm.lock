@@ -267,7 +267,7 @@ summary = "A platform independent file lock."
 
 [[package]]
 name = "findpython"
-version = "0.2.1"
+version = "0.2.2"
 requires_python = ">=3.7"
 summary = "A utility to find python versions on your system"
 dependencies = [
@@ -368,7 +368,7 @@ dependencies = [
 
 [[package]]
 name = "ipython"
-version = "8.5.0"
+version = "8.6.0"
 requires_python = ">=3.8"
 summary = "IPython: Productive Interactive Computing"
 dependencies = [
@@ -599,6 +599,15 @@ version = "0.12.2"
 summary = "Platform-independent file locking module"
 
 [[package]]
+name = "lunchbox"
+version = "0.2.6"
+summary = "A library of various tools for common python tasks."
+dependencies = [
+    "humanfriendly",
+    "wrapt",
+]
+
+[[package]]
 name = "mando"
 version = "0.6.4"
 summary = "Create Python CLI apps with little to no effort at all!"
@@ -655,7 +664,7 @@ summary = "Experimental type system extensions for programs checked with the myp
 
 [[package]]
 name = "nbclassic"
-version = "0.4.5"
+version = "0.4.7"
 requires_python = ">=3.7"
 summary = "A web-based notebook environment for interactive computing"
 dependencies = [
@@ -756,7 +765,7 @@ summary = "Python package for creating and manipulating graphs and networks"
 
 [[package]]
 name = "notebook"
-version = "6.5.1"
+version = "6.5.2"
 requires_python = ">=3.7"
 summary = "A web-based notebook environment for interactive computing"
 dependencies = [
@@ -767,7 +776,7 @@ dependencies = [
     "jinja2",
     "jupyter-client>=5.3.4",
     "jupyter-core>=4.6.1",
-    "nbclassic==0.4.5",
+    "nbclassic>=0.4.7",
     "nbconvert>=5",
     "nbformat",
     "nest-asyncio>=1.5",
@@ -1436,7 +1445,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:1e305bffc4822e55d0a255bf14d2c60ea546c0e13bf403f158dad979e2bbfd93"
+content_hash = "sha256:923d50c9a43fa1a79cfb269dec4cca1d07ad40c2f098434aebd55aca1aec7f5d"
 
 [metadata.files]
 "aiofiles 0.8.0" = [
@@ -1723,9 +1732,9 @@ content_hash = "sha256:1e305bffc4822e55d0a255bf14d2c60ea546c0e13bf403f158dad979e
     {url = "https://files.pythonhosted.org/packages/94/b3/ff2845971788613e646e667043fdb5f128e2e540aefa09a3c55be8290d6d/filelock-3.8.0-py3-none-any.whl", hash = "sha256:617eb4e5eedc82fc5f47b6d61e4d11cb837c56cb4544e39081099fa17ad109d4"},
     {url = "https://files.pythonhosted.org/packages/95/55/b897882bffb8213456363e646bf9e9fa704ffda5a7d140edf935a9e02c7b/filelock-3.8.0.tar.gz", hash = "sha256:55447caa666f2198c5b6b13a26d2084d26fa5b115c00d065664b2124680c4edc"},
 ]
-"findpython 0.2.1" = [
-    {url = "https://files.pythonhosted.org/packages/50/8d/7df425ce8547a6cf7b266ad16d463b1a5d302886fc59921ff82208be643c/findpython-0.2.1-py3-none-any.whl", hash = "sha256:c2182339b8c94d10fb63c6bc871f0eb89d8b3b7172a8060e8f2f8fb74f333f33"},
-    {url = "https://files.pythonhosted.org/packages/56/85/3a587047aaab86970157497e9a56fd48947ed6e284112d8c5c810a773526/findpython-0.2.1.tar.gz", hash = "sha256:4394a1cbcdbcf8d10ea3439e2d8086b2ec074507097b6e6dbee18028c6e52b08"},
+"findpython 0.2.2" = [
+    {url = "https://files.pythonhosted.org/packages/19/b4/6c35b7e741c18fb6d5be35e2d9099dc1a05a8525b45ebbb6985d101f2b62/findpython-0.2.2-py3-none-any.whl", hash = "sha256:62717187e728c3d38b2754dfd7e6b5cfa503ed3608b9ad93cb80dbf2497e92e0"},
+    {url = "https://files.pythonhosted.org/packages/28/96/ec16612c4384cfca9381239d06e9285ca41d749d4a5003df73e3a96255e7/findpython-0.2.2.tar.gz", hash = "sha256:80557961c04cf1c8c4ba4ca3ac7cf76ec27fa92788a6af42cb701e3450c49430"},
 ]
 "flake8 5.0.4" = [
     {url = "https://files.pythonhosted.org/packages/ad/00/9808c62b2d529cefc69ce4e4a1ea42c0f855effa55817b7327ec5b75e60a/flake8-5.0.4.tar.gz", hash = "sha256:6fbe320aad8d6b95cec8b8e47bc933004678dc63095be98528b7bdd2a9f510db"},
@@ -1770,9 +1779,9 @@ content_hash = "sha256:1e305bffc4822e55d0a255bf14d2c60ea546c0e13bf403f158dad979e
     {url = "https://files.pythonhosted.org/packages/4f/ca/22431cf8ffa45438a5ab7d5e0ada45037b3622478ef45b231f29783a93a9/ipykernel-6.16.2.tar.gz", hash = "sha256:463f3d87a92e99969b1605cb7a5b4d7b36b7145a0e72d06e65918a6ddefbe630"},
     {url = "https://files.pythonhosted.org/packages/95/46/505364588f6145f5edd29c1506b1964dd397a668c49f8bb42deffb6a0168/ipykernel-6.16.2-py3-none-any.whl", hash = "sha256:67daf93e5b52456cd8eea87a8b59405d2bb80ae411864a1ea206c3631d8179af"},
 ]
-"ipython 8.5.0" = [
-    {url = "https://files.pythonhosted.org/packages/13/0d/ad3266203acb01189588aac9c1fc4dc982b58b0512ddb3cd4bea3cc26e22/ipython-8.5.0-py3-none-any.whl", hash = "sha256:6f090e29ab8ef8643e521763a4f1f39dc3914db643122b1e9d3328ff2e43ada2"},
-    {url = "https://files.pythonhosted.org/packages/25/a5/dda90aa8cb931458a357ae65ff4341d7694464f322b095a438489440dc7c/ipython-8.5.0.tar.gz", hash = "sha256:097bdf5cd87576fd066179c9f7f208004f7a6864ee1b20f37d346c0bcb099f84"},
+"ipython 8.6.0" = [
+    {url = "https://files.pythonhosted.org/packages/7f/59/05e94e067afb61460f0d5229a1edb800e2f65b8436085fad9cd262d80d45/ipython-8.6.0.tar.gz", hash = "sha256:7c959e3dedbf7ed81f9b9d8833df252c430610e2a4a6464ec13cd20975ce20a5"},
+    {url = "https://files.pythonhosted.org/packages/c7/53/072d677a16fd61f5806d80218c65202cc0ee77b831088af8f79ef59efcf2/ipython-8.6.0-py3-none-any.whl", hash = "sha256:91ef03016bcf72dd17190f863476e7c799c6126ec7e8be97719d1bc9a78a59a4"},
 ]
 "ipython-genutils 0.2.0" = [
     {url = "https://files.pythonhosted.org/packages/e8/69/fbeffffc05236398ebfcfb512b6d2511c622871dca1746361006da310399/ipython_genutils-0.2.0.tar.gz", hash = "sha256:eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8"},
@@ -1995,9 +2004,9 @@ content_hash = "sha256:1e305bffc4822e55d0a255bf14d2c60ea546c0e13bf403f158dad979e
     {url = "https://files.pythonhosted.org/packages/5c/eb/975c7c080f3223a5cdaff09612f3a5221e4ba534f7039db34c35d95fa6a5/mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
     {url = "https://files.pythonhosted.org/packages/63/60/0582ce2eaced55f65a4406fc97beba256de4b7a95a0034c6576458c6519f/mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
-"nbclassic 0.4.5" = [
-    {url = "https://files.pythonhosted.org/packages/87/53/f772db447e5da12433f7bd5bf71b71e7eb15f465c22087fc9a5e027bab59/nbclassic-0.4.5.tar.gz", hash = "sha256:05704c6cdd8301bf52e40ed9fae39e80d6bc5d2d447dc67831c145b4dd928779"},
-    {url = "https://files.pythonhosted.org/packages/e6/fc/e3d71e00ca66f644da449c64ef564a10880b7df74267d479753065100ac1/nbclassic-0.4.5-py3-none-any.whl", hash = "sha256:07fba5a9e52a6ed7e795b45d300629b2a07a69e5a47398833b7977a7ecc8a3c1"},
+"nbclassic 0.4.7" = [
+    {url = "https://files.pythonhosted.org/packages/ae/5a/6bdc0b20e5f6894fef0be99e0a9132bd8467fd082164fdbdbd37464416f6/nbclassic-0.4.7.tar.gz", hash = "sha256:1e0470583b55089c427940ed31b8a866ffef7ccab101494e409efe5ac7ba9897"},
+    {url = "https://files.pythonhosted.org/packages/b5/e8/eff73eb3b3424bd698ec919a3653b579f4253badaa579f477f769aa772ce/nbclassic-0.4.7-py3-none-any.whl", hash = "sha256:d71d18aa6605eaf59e9b99b34c96360af45847f2a30ee2fefbe2f7bed4bc3df2"},
 ]
 "nbclient 0.7.0" = [
     {url = "https://files.pythonhosted.org/packages/9d/8a/c36a91676da7115753e46931d672f2fff6003f6b9e78fb2dee8e739b9dcd/nbclient-0.7.0.tar.gz", hash = "sha256:a1d844efd6da9bc39d2209bf996dbd8e07bf0f36b796edfabaa8f8a9ab77c3aa"},
@@ -2023,9 +2032,9 @@ content_hash = "sha256:1e305bffc4822e55d0a255bf14d2c60ea546c0e13bf403f158dad979e
     {url = "https://files.pythonhosted.org/packages/9e/89/90846e0da5c412cbffb66d1f976b056cd46c6f2aa7f2f1eb271573b5fefb/networkx-2.8.7.tar.gz", hash = "sha256:815383fd52ece0a7024b5fd8408cc13a389ea350cd912178b82eed8b96f82cd3"},
     {url = "https://files.pythonhosted.org/packages/d0/00/1713dd6735d5a646cabdd99ff750e969795134d7d33f462ad71dfd07fa76/networkx-2.8.7-py3-none-any.whl", hash = "sha256:15cdf7f7c157637107ea690cabbc488018f8256fa28242aed0fb24c93c03a06d"},
 ]
-"notebook 6.5.1" = [
-    {url = "https://files.pythonhosted.org/packages/75/ea/d0928b1cb8733ff7ddad7a497efa33365d341a89987d2c5b3b56b0fa89b2/notebook-6.5.1.tar.gz", hash = "sha256:f69fd3b13df092af3a66c8797fa8ce00608db71cade89105ac4178b8d8d154aa"},
-    {url = "https://files.pythonhosted.org/packages/e5/e0/6a8094098a91314b48dd7aeef113aea86b67da64ab7d6bb12f2b1e18b0b4/notebook-6.5.1-py3-none-any.whl", hash = "sha256:660849b12a1e03f98bfc84ec73422f09a4fdd1af6679c1935b1baf426b864fca"},
+"notebook 6.5.2" = [
+    {url = "https://files.pythonhosted.org/packages/41/15/a4285abb25c87dec3002cd7eab88320ef21448effdd3714840695aafab12/notebook-6.5.2.tar.gz", hash = "sha256:c1897e5317e225fc78b45549a6ab4b668e4c996fd03a04e938fe5e7af2bfffd0"},
+    {url = "https://files.pythonhosted.org/packages/db/40/2d321ba572dc9a94a090d92c9826291a1dcee1e05bc6c1d641ce419b701d/notebook-6.5.2-py3-none-any.whl", hash = "sha256:e04f9018ceb86e4fa841e92ea8fb214f8d23c1cedfde530cc96f92446924f0e4"},
 ]
 "notebook-shim 0.2.0" = [
     {url = "https://files.pythonhosted.org/packages/11/d5/40ebe523d6001ef2be1e9a1799af9c2d8a7a05e9557d2439f202a4c0e6a7/notebook_shim-0.2.0.tar.gz", hash = "sha256:fdb81febb05932c6d19e44e10382ce05469cac5e1b6e99b49be6159ddb5e4804"},
