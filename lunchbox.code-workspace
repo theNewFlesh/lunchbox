@@ -82,10 +82,11 @@
             },
             {
                 "label": "build-dev",
-                "command": "pdm install --no-self --dev -v",
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "command": [
+                    "cd /home/ubuntu/dev &&",
+                    "pdm install --no-self --dev -v"
+                ],
+                "type": "shell"
             },
             {
                 "label": "build-prod",
@@ -96,9 +97,7 @@
                     "cd /home/ubuntu/prod &&",
                     "pdm install --no-self --dev -v"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "type": "shell"
             },
             {
                 "label": "coverage",
