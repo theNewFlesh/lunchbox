@@ -599,17 +599,6 @@ version = "0.12.2"
 summary = "Platform-independent file locking module"
 
 [[package]]
-name = "lunchbox"
-version = "0.3.0"
-requires_python = ">=3.10"
-summary = "A library of various tools for common python tasks"
-dependencies = [
-    "click>=8.1.3",
-    "humanfriendly",
-    "wrapt",
-]
-
-[[package]]
 name = "mando"
 version = "0.6.4"
 summary = "Create Python CLI apps with little to no effort at all!"
