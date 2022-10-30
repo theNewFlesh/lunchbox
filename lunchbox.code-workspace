@@ -78,26 +78,35 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
-            },
-            {
-                "label": "build-dev",
-                "command": [
-                    "cd /home/ubuntu/dev &&",
-                    "pdm install --no-self --dev -v"
-                ],
-                "type": "shell"
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "build-prod",
                 "command": [
-                    "python3 docker/generate_pyproject.py",
-                    "   docker/dev/pyproject.toml '>=3.7' --groups test",
-                    "> docker/prod/pyproject.toml &&",
-                    "cd /home/ubuntu/prod &&",
-                    "pdm install --no-self --dev -v"
+                    "rm -rf /home/ubuntu/build && ",
+                    "python3 -c",
+                    "\"from rolling_pin.conform_etl import ConformETL;",
+                    "src = 'docker/build.yaml';",
+                    "ConformETL.from_yaml(src).conform(groups=['base', 'prod'])",
+                    "\""
                 ],
-                "type": "shell"
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link-dev"]
+            },
+            {
+                "label": "build-test",
+                "command": [
+                    "rm -rf /home/ubuntu/build && ",
+                    "python3 -c",
+                    "\"from rolling_pin.conform_etl import ConformETL;",
+                    "src = 'docker/build.yaml';",
+                    "ConformETL.from_yaml(src).conform(groups=['base', 'test'])",
+                    "\""
+                ],
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "coverage",
@@ -115,15 +124,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
-            },
-            {
-                "label": "dev-link",
-                "command": [
-                    "rm -f $REPO_PATH/__pypackages__ &&",
-                    "ln -s /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__"
-                ],
-                "type": "shell"
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "docs",
@@ -137,7 +138,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "fast-test",
@@ -152,7 +153,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "full-docs",
@@ -166,11 +167,46 @@
                 ]
             },
             {
+                "label": "install-dev",
+                "command": [
+                    "cd /home/ubuntu/dev &&",
+                    "pdm install --no-self --dev -v"
+                ],
+                "type": "shell"
+            },
+            {
+                "label": "install-prod",
+                "command": [
+                    "python3 docker/generate_pyproject.py",
+                    "   docker/dev/pyproject.toml '>=3.7' --groups test",
+                    "> docker/prod/pyproject.toml &&",
+                    "cd /home/ubuntu/prod &&",
+                    "pdm install --no-self --dev -v"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "lab",
                 "command": "jupyter lab --allow-root --ip=0.0.0.0 --no-browser",
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "dependsOn": ["link-dev"]
+            },
+            {
+                "label": "link-dev",
+                "command": [
+                    "rm -f $REPO_PATH/__pypackages__ &&",
+                    "ln -s /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__"
+                ],
+                "type": "shell"
+            },
+            {
+                "label": "link-prod",
+                "command": [
+                    "rm -f $REPO_PATH/__pypackages__ &&",
+                    "ln -s /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__"
+                ],
+                "type": "shell"
             },
             {
                 "label": "lint",
@@ -182,7 +218,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "lock",
@@ -203,7 +239,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "package",
@@ -213,32 +249,10 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "build-prod",
-                    "prod-repo"
+                    "install-prod",
+                    "build-prod"
                 ],
                 "type": "shell"
-            },
-            {
-                "label": "prod-link",
-                "command": [
-                    "rm -f $REPO_PATH/__pypackages__ &&",
-                    "ln -s /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__"
-                ],
-                "type": "shell"
-            },
-            {
-                "label": "prod-repo",
-                "command": [
-                    "rm -rf /home/ubuntu/build && ",
-                    "python3 -c",
-                    "\"from rolling_pin.conform_etl import ConformETL;",
-                    "src = 'docker/build.yaml';",
-                    "ConformETL.from_yaml(src).conform(groups=['base', 'prod'])",
-                    "\""
-                ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
             },
             {
                 "label": "publish",
@@ -263,7 +277,7 @@
                 "command": "python3.10",
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "test",
@@ -277,21 +291,7 @@
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
-            },
-            {
-                "label": "test-repo",
-                "command": [
-                    "rm -rf /home/ubuntu/build && ",
-                    "python3 -c",
-                    "\"from rolling_pin.conform_etl import ConformETL;",
-                    "src = 'docker/build.yaml';",
-                    "ConformETL.from_yaml(src).conform(groups=['base', 'test'])",
-                    "\""
-                ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
+                "dependsOn": ["link-dev"]
             },
             {
                 "label": "tox",
@@ -302,8 +302,8 @@
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "test-repo",
-                    "prod-link"
+                    "build-test",
+                    "link-prod"
                 ],
                 "type": "shell"
             },
@@ -311,10 +311,43 @@
                 "label": "version",
                 "dependsOrder": "sequence",
                 "dependsOn": [
+                    "dev-link",
                     "lint",
                     "lock",
+                    "install-dev",
                     "full-docs"
                 ],
+                "type": "shell",
+
+            },
+            {
+                "label": "version-bump-major",
+                "command": [
+                    "cd /home/ubuntu/dev &&",
+                    "pdm bump major"
+                ],
+                "dependsOrder": "sequence",
+                "dependsOn": ["dev-link"],
+                "type": "shell"
+            },
+            {
+                "label": "version-bump-minor",
+                "command": [
+                    "cd /home/ubuntu/dev &&",
+                    "pdm bump minor"
+                ],
+                "dependsOrder": "sequence",
+                "dependsOn": ["dev-link"],
+                "type": "shell"
+            },
+            {
+                "label": "version-bump-patch",
+                "command": [
+                    "cd /home/ubuntu/dev &&",
+                    "pdm bump pacth"
+                ],
+                "dependsOrder": "sequence",
+                "dependsOn": ["dev-link"],
                 "type": "shell"
             }
         ]
