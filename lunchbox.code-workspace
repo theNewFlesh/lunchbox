@@ -120,7 +120,10 @@
             },
             {
                 "label": "dev-link",
-                "command": "ln -sf /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__",
+                "command": [
+                    "rm -f $REPO_PATH/__pypackages__ &&",
+                    "ln -s /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__"
+                ],
                 "type": "shell"
             },
             {
@@ -218,7 +221,10 @@
             },
             {
                 "label": "prod-link",
-                "command": "ln -sf /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__",
+                "command": [
+                    "rm -f $REPO_PATH/__pypackages__ &&",
+                    "ln -s /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__"
+                ],
                 "type": "shell"
             },
             {
