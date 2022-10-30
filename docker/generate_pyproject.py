@@ -3,6 +3,8 @@ from typing import List
 
 from copy import deepcopy
 import argparse
+import re
+
 import toml
 # ------------------------------------------------------------------------------
 
@@ -63,6 +65,12 @@ def generate_pyproject(source_path, version, groups):
         str: pyproject.toml content.
     '''
     proj = toml.load(source_path)
+
+    # remove arbitrary tag
+    # if your project has a dependency that depends on an earlier version of
+    # your project, you need to add an arbitrary tag to disrupt its namespace in
+    # order for pdm to resolve
+    proj['project']['name'] = re.sub('<.*>', '', proj['project']['name'])
 
     # fix python version
     proj['project']['requires-python'] = f'{version}'

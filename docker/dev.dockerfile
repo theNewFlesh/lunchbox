@@ -123,6 +123,7 @@ RUN echo "\n${CYAN}INSTALL PYTHON DEV ENVIRONMENT${CLEAR}"; \
         --output lab_requirements.txt && \
     pip3.10 install --user -r lab_requirements.txt
 
+# install prod dependencies
 COPY --chown=ubuntu:ubuntu prod/pyproject.toml /home/ubuntu/prod/
 COPY --chown=ubuntu:ubuntu prod/pdm.lock /home/ubuntu/prod/
 COPY --chown=ubuntu:ubuntu prod/pdm.toml /home/ubuntu/prod/.pdm.toml

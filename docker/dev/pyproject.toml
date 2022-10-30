@@ -1,5 +1,5 @@
 [project]
-name = "lunchbox"
+name = "lunchbox<dev>"
 version = "0.3.0"
 description = "A library of various tools for common python tasks"
 authors = [

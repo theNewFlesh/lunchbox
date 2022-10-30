@@ -1445,7 +1445,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:923d50c9a43fa1a79cfb269dec4cca1d07ad40c2f098434aebd55aca1aec7f5d"
+content_hash = "sha256:b780f106a85d8715d14cde756e731e32d2c8cf6699d9eb2307f7daed5aba17f5"
 
 [metadata.files]
 "aiofiles 0.8.0" = [
@@ -1861,6 +1861,9 @@ content_hash = "sha256:923d50c9a43fa1a79cfb269dec4cca1d07ad40c2f098434aebd55aca1
 "lockfile 0.12.2" = [
     {url = "https://files.pythonhosted.org/packages/17/47/72cb04a58a35ec495f96984dddb48232b551aafb95bde614605b754fe6f7/lockfile-0.12.2.tar.gz", hash = "sha256:6aed02de03cba24efabcd600b30540140634fc06cfa603822d508d5361e9f799"},
     {url = "https://files.pythonhosted.org/packages/c8/22/9460e311f340cb62d26a38c419b1381b8593b0bb6b5d1f056938b086d362/lockfile-0.12.2-py2.py3-none-any.whl", hash = "sha256:6c3cb24f344923d30b2785d5ad75182c8ea7ac1b6171b08657258ec7429d50fa"},
+]
+"lunchbox 0.2.6" = [
+    {url = "https://files.pythonhosted.org/packages/05/e5/ca6a3c78950c81ad556eaa5fd7ee6cabe03fc6001e5b6d32900436b0db9b/lunchbox-0.2.6.tar.gz", hash = "sha256:289f446766021527e32c15049bb617bb42dbb7fdc5a9c6bdea04dd8367d369e5"},
 ]
 "mando 0.6.4" = [
     {url = "https://files.pythonhosted.org/packages/8a/fe/1b94ddd9c89c8be761c0b5ca01498029f1253f059a59f03f7be369255e75/mando-0.6.4.tar.gz", hash = "sha256:79feb19dc0f097daa64a1243db578e7674909b75f88ac2220f1c065c10a0d960"},
