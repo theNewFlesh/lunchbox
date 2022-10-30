@@ -261,20 +261,6 @@
                 "dependsOn": ["dev-link"]
             },
             {
-                "label": "test-repo",
-                "command": [
-                    "rm -rf /home/ubuntu/build && ",
-                    "python3 -c",
-                    "\"from rolling_pin.conform_etl import ConformETL;",
-                    "src = 'docker/build.yaml';",
-                    "ConformETL.from_yaml(src).conform(groups=['base', 'test'])",
-                    "\""
-                ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"]
-            },
-            {
                 "label": "test",
                 "command": [
                     "export PROCS=`",
@@ -283,6 +269,20 @@
                         "-c docker/pytest.ini",
                         "--numprocesses $PROCS",
                         "python"
+                ],
+                "type": "shell",
+                "dependsOrder": "sequence",
+                "dependsOn": ["dev-link"]
+            },
+            {
+                "label": "test-repo",
+                "command": [
+                    "rm -rf /home/ubuntu/build && ",
+                    "python3 -c",
+                    "\"from rolling_pin.conform_etl import ConformETL;",
+                    "src = 'docker/build.yaml';",
+                    "ConformETL.from_yaml(src).conform(groups=['base', 'test'])",
+                    "\""
                 ],
                 "type": "shell",
                 "dependsOrder": "sequence",
