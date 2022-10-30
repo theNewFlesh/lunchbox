@@ -30,6 +30,7 @@ dev = [
     "flake8",
     "mypy",
     "pdm",
+    "pdm-bump",
     "sphinx-rtd-theme",
     "sphinx>=5.3.0",
     "toml>=0.10.2",
