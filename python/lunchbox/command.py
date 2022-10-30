@@ -9,9 +9,11 @@ import lunchbox.tools as lbt
 Command line interface to lunchbox library
 '''
 
+
 @click.group()
 def main():
     pass  # pragma: no cover
+
 
 @main.command()
 @click.argument('url', type=str, nargs=1)
