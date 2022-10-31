@@ -65,6 +65,20 @@
             //     "type": "shell"
             // },
             {
+                "label": "add-package",
+                "command": [
+                    "cd docker/dev &&",
+                    "export PKG=${input:pdm_package} &&",
+                    "export GRP=${input:pdm_group} &&",
+                    "if [[ $GRP == 'none' ]] then",
+                    "    pdm add $PKG;",
+                    "else",
+                    "    pdm add -dG $GRP $PKG;",
+                    "fi"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "architecture",
                 "command": [
                     "python3 -c ",
@@ -278,6 +292,20 @@
                 "type": "shell",
                 "dependsOrder": "sequence",
                 "dependsOn": ["link-dev"]
+            },
+            {
+                "label": "remove-package",
+                "command": [
+                    "cd docker/dev &&",
+                    "export PKG=${input:pdm_package} &&",
+                    "export GRP=${input:pdm_group} &&",
+                    "if [[ $GRP == 'none' ]] then",
+                    "    pdm remove $PKG;",
+                    "else",
+                    "    pdm remove -dG $GRP $PKG;",
+                    "fi"
+                ],
+                "type": "shell"
             },
             {
                 "label": "test",
