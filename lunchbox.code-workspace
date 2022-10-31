@@ -411,17 +411,19 @@
                 "id": "pdm_group",
                 "type": "pickString",
                 "description": "Dependency group:",
-                "options": ["none", "dev", "test", "lab"]
+                "options": ["none", "dev", "test", "lab"],
+                "default": "none"
             },
             {
                 "id": "pdm_package",
                 "type": "promptString",
-                "description": "Package:"
+                "description": "Package name:"
             },
             {
                 "id": "pypi_user",
                 "description": "PyPi username:",
-                "type": "promptString"
+                "type": "promptString",
+                "default": "the-new-flesh"
             },
             {
                 "id": "pypi_password",
