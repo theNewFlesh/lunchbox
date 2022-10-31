@@ -399,7 +399,7 @@
                 "detail": "Bump repo's patch version",
                 "command": [
                     "cd $DEV_PATH &&",
-                    "pdm bump pacth"
+                    "pdm bump patch"
                 ],
                 "dependsOrder": "sequence",
                 "dependsOn": ["link-dev"],
