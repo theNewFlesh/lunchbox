@@ -311,7 +311,7 @@
                 "label": "version",
                 "dependsOrder": "sequence",
                 "dependsOn": [
-                    "dev-link",
+                    "link-dev",
                     "lint",
                     "lock",
                     "install-dev",
@@ -327,7 +327,7 @@
                     "pdm bump major"
                 ],
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"],
+                "dependsOn": ["link-dev"],
                 "type": "shell"
             },
             {
@@ -337,7 +337,7 @@
                     "pdm bump minor"
                 ],
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"],
+                "dependsOn": ["link-dev"],
                 "type": "shell"
             },
             {
@@ -347,7 +347,7 @@
                     "pdm bump pacth"
                 ],
                 "dependsOrder": "sequence",
-                "dependsOn": ["dev-link"],
+                "dependsOn": ["link-dev"],
                 "type": "shell"
             }
         ],
