@@ -51,8 +51,11 @@
                 "PATH": ":/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/bin",
                 "PYTHONPATH": ":/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/lib",
                 "REPO": "${workspaceFolderBasename}",
+                "REPO_ENV": "True",
                 "REPO_PATH": "/home/ubuntu/${workspaceFolderBasename}",
-                "REPO_ENV": "True"
+                "BUILD_PATH": "/home/ubuntu/build",
+                "DEV_PATH": "/home/ubuntu/${workspaceFolderBasename}/docker/dev",
+                "PROD_PATH": "/home/ubuntu/${workspaceFolderBasename}/docker/prod"
             }
         },
         "tasks": [
@@ -67,7 +70,7 @@
             {
                 "label": "add-package",
                 "command": [
-                    "cd docker/dev &&",
+                    "cd $DEV_PATH &&",
                     "export PKG=${input:pdm_package} &&",
                     "export GRP=${input:pdm_group} &&",
                     "if [[ $GRP == 'none' ]] then",
@@ -97,7 +100,7 @@
             {
                 "label": "build-prod",
                 "command": [
-                    "rm -rf /home/ubuntu/build && ",
+                    "rm -rf $BUILD_PATH && ",
                     "python3 -c",
                     "\"from rolling_pin.conform_etl import ConformETL;",
                     "src = 'docker/build.yaml';",
@@ -111,7 +114,7 @@
             {
                 "label": "build-test",
                 "command": [
-                    "rm -rf /home/ubuntu/build && ",
+                    "rm -rf $BUILD_PATH && ",
                     "python3 -c",
                     "\"from rolling_pin.conform_etl import ConformETL;",
                     "src = 'docker/build.yaml';",
@@ -183,7 +186,7 @@
             {
                 "label": "install-dev",
                 "command": [
-                    "cd /home/ubuntu/dev &&",
+                    "cd $DEV_PATH &&",
                     "pdm install --no-self --dev -v"
                 ],
                 "type": "shell"
@@ -194,7 +197,7 @@
                     "python3 docker/generate_pyproject.py",
                     "   docker/dev/pyproject.toml '>=3.7' --groups test",
                     "> docker/prod/pyproject.toml &&",
-                    "cd /home/ubuntu/prod &&",
+                    "cd $PROD_PATH &&",
                     "pdm install --no-self --dev -v"
                 ],
                 "type": "shell"
@@ -237,7 +240,7 @@
             {
                 "label": "lock",
                 "command": [
-                    "cd /home/ubuntu/dev &&",
+                    "cd $DEV_PATH &&",
                     "pdm lock -v"
                 ],
                 "type": "shell"
@@ -258,7 +261,7 @@
             {
                 "label": "package",
                 "command": [
-                    "cd /home/ubuntu/build/repo &&",
+                    "cd $BUILD_PATH/repo &&",
                     "pdm build -v"
                 ],
                 "dependsOrder": "sequence",
@@ -271,7 +274,7 @@
             {
                 "label": "publish",
                 "command": [
-                    "cd /home/ubuntu/build/repo &&",
+                    "cd $BUILD_PATH/repo &&",
                     "pdm publish",
                     "   --repository https://test.pypi.org/legacy",
                     "   --no-build",
@@ -296,7 +299,7 @@
             {
                 "label": "remove-package",
                 "command": [
-                    "cd docker/dev &&",
+                    "cd $DEV_PATH &&",
                     "export PKG=${input:pdm_package} &&",
                     "export GRP=${input:pdm_group} &&",
                     "if [[ $GRP == 'none' ]] then",
@@ -325,7 +328,7 @@
                 "label": "tox",
                 "command": [
                     "unset REPO_ENV &&",
-                    "cd /home/ubuntu/build/repo &&",
+                    "cd $BUILD_PATH/repo &&",
                     "tox"
                 ],
                 "dependsOrder": "sequence",
@@ -351,7 +354,7 @@
             {
                 "label": "version-bump-major",
                 "command": [
-                    "cd /home/ubuntu/dev &&",
+                    "cd $DEV_PATH &&",
                     "pdm bump major"
                 ],
                 "dependsOrder": "sequence",
@@ -361,7 +364,7 @@
             {
                 "label": "version-bump-minor",
                 "command": [
-                    "cd /home/ubuntu/dev &&",
+                    "cd $DEV_PATH &&",
                     "pdm bump minor"
                 ],
                 "dependsOrder": "sequence",
@@ -371,7 +374,7 @@
             {
                 "label": "version-bump-patch",
                 "command": [
-                    "cd /home/ubuntu/dev &&",
+                    "cd $DEV_PATH &&",
                     "pdm bump pacth"
                 ],
                 "dependsOrder": "sequence",
