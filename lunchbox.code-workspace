@@ -69,6 +69,7 @@
             // },
             {
                 "label": "add-package",
+                "detail": "Add a given package to a given dependency group",
                 "command": [
                     "cd $DEV_PATH &&",
                     "export PKG=${input:pdm_package} &&",
@@ -83,6 +84,7 @@
             },
             {
                 "label": "architecture",
+                "detail": "Generate architecture.svg diagram from all import statements",
                 "command": [
                     "python3 -c ",
                         "\"import rolling_pin.repo_etl as rpo;",
@@ -99,6 +101,7 @@
             },
             {
                 "label": "build-prod",
+                "detail": "Build production version of repo for publishing",
                 "command": [
                     "rm -rf $BUILD_PATH && ",
                     "python3 -c",
@@ -113,6 +116,7 @@
             },
             {
                 "label": "build-test",
+                "detail": "Build test version of repo for tox testing",
                 "command": [
                     "rm -rf $BUILD_PATH && ",
                     "python3 -c",
@@ -127,6 +131,7 @@
             },
             {
                 "label": "coverage",
+                "detail": "Generate test coverage report",
                 "command": [
                     "mkdir -p docs &&",
                     "export PROCS=`",
@@ -145,6 +150,7 @@
             },
             {
                 "label": "docs",
+                "detail": "Generate sphinx documentation",
                 "command": [
                     "mkdir -p docs &&",
                     "pandoc README.md -o sphinx/intro.rst &&",
@@ -159,6 +165,7 @@
             },
             {
                 "label": "fast-test",
+                "detail": "Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator",
                 "command": [
                     "export PROCS=`",
                         "python3 -c 'import os; print(os.cpu_count())'` &&",
@@ -174,6 +181,7 @@
             },
             {
                 "label": "full-docs",
+                "detail": "Generate documentation, coverage report, architecture diagram and code metrics",
                 "type": "shell",
                 "dependsOrder": "sequence",
                 "dependsOn": [
@@ -185,6 +193,7 @@
             },
             {
                 "label": "install-dev",
+                "detail": "Install all dependencies of dev/pyproject.toml into ~/dev",
                 "command": [
                     "cd $DEV_PATH &&",
                     "pdm install --no-self --dev -v"
@@ -193,6 +202,7 @@
             },
             {
                 "label": "install-prod",
+                "detail": "Install all dependencies of prod/pyproject.toml into ~/prod",
                 "command": [
                     "python3 docker/generate_pyproject.py",
                     "   docker/dev/pyproject.toml '>=3.7' --groups test",
@@ -204,6 +214,7 @@
             },
             {
                 "label": "lab",
+                "detail": "Run jupyter lab server",
                 "command": "jupyter lab --allow-root --ip=0.0.0.0 --no-browser",
                 "type": "shell",
                 "dependsOrder": "sequence",
@@ -211,6 +222,7 @@
             },
             {
                 "label": "link-dev",
+                "detail": "Link ~/dev/__pypackages__ to ~/lunchbox/__pypackages__",
                 "command": [
                     "rm -f $REPO_PATH/__pypackages__ &&",
                     "ln -s /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__"
@@ -219,6 +231,7 @@
             },
             {
                 "label": "link-prod",
+                "detail": "Link ~/prod/__pypackages__ to ~/lunchbox/__pypackages__",
                 "command": [
                     "rm -f $REPO_PATH/__pypackages__ &&",
                     "ln -s /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__"
@@ -227,6 +240,7 @@
             },
             {
                 "label": "lint",
+                "detail": "Run linting and type checking",
                 "command": [
                     "echo 'LINTING' &&",
                     "flake8 python --config docker/flake8.ini &&",
@@ -239,6 +253,7 @@
             },
             {
                 "label": "lock",
+                "detail": "Update ~/dev/pdm.lock file",
                 "command": [
                     "cd $DEV_PATH &&",
                     "pdm lock -v"
@@ -247,6 +262,7 @@
             },
             {
                 "label": "metrics",
+                "detail": "Generate code metrics report, plots and tables",
                 "command": [
                     "python3 -c ",
                         "\"import rolling_pin.repo_etl as rpo;",
@@ -260,6 +276,7 @@
             },
             {
                 "label": "package",
+                "detail": "Generate pip package of repo in ~/build/repo",
                 "command": [
                     "cd $BUILD_PATH/repo &&",
                     "pdm build -v"
@@ -273,6 +290,7 @@
             },
             {
                 "label": "publish",
+                "detail": "Publish pip package of repo to PyPi",
                 "command": [
                     "cd $BUILD_PATH/repo &&",
                     "pdm publish",
@@ -291,6 +309,7 @@
             },
             {
                 "label": "python",
+                "detail": "Run python session with dev dependencies",
                 "command": "python3.10",
                 "type": "shell",
                 "dependsOrder": "sequence",
@@ -298,6 +317,7 @@
             },
             {
                 "label": "remove-package",
+                "detail": "Remove a given package from a given dependency group",
                 "command": [
                     "cd $DEV_PATH &&",
                     "export PKG=${input:pdm_package} &&",
@@ -312,6 +332,7 @@
             },
             {
                 "label": "test",
+                "detail": "Run all tests",
                 "command": [
                     "export PROCS=`",
                         "python3 -c 'import os; print(os.cpu_count())'` &&",
@@ -326,6 +347,7 @@
             },
             {
                 "label": "tox",
+                "detail": "Run tests across all support python versions",
                 "command": [
                     "unset REPO_ENV &&",
                     "cd $BUILD_PATH/repo &&",
@@ -340,19 +362,19 @@
             },
             {
                 "label": "version",
+                "detail": "Full resolution of repo: dependencies, linting, tests, docs, etc",
                 "dependsOrder": "sequence",
                 "dependsOn": [
                     "link-dev",
                     "lint",
-                    "lock",
                     "install-dev",
                     "full-docs"
                 ],
                 "type": "shell",
-
             },
             {
                 "label": "version-bump-major",
+                "detail": "Bump repo's major version",
                 "command": [
                     "cd $DEV_PATH &&",
                     "pdm bump major"
@@ -363,6 +385,7 @@
             },
             {
                 "label": "version-bump-minor",
+                "detail": "Bump repo's minor version",
                 "command": [
                     "cd $DEV_PATH &&",
                     "pdm bump minor"
@@ -373,6 +396,7 @@
             },
             {
                 "label": "version-bump-patch",
+                "detail": "Bump repo's patch version",
                 "command": [
                     "cd $DEV_PATH &&",
                     "pdm bump pacth"
