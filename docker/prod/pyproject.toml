@@ -22,3 +22,4 @@ lunchbox = "lunchbox.command:main"
 [tool.pdm.dev-dependencies]
 test = [ "pytest-cov", "pytest-forked", "pytest-xdist", "pytest", "tox-pdm>=0.6.0", "tox>=3.26.0",]
 
+[project.optional-dependencies]
