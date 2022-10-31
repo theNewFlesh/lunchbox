@@ -261,9 +261,9 @@
                     "pdm publish",
                     "   --repository https://test.pypi.org/legacy",
                     "   --no-build",
-                    "   --username \"$PYPI_USER\"",
-                    "   --password \"$PYPI_PASSWORD\"",
-                    "   --comment \"$PYPI_COMMENT\"",
+                    "   --username ${input:pypi_user}",
+                    "   --password ${input:pypi_password}",
+                    "   --comment ${input:pypi_comment}",
                     "   --verbose"
                 ],
                 "dependsOrder": "sequence",
@@ -349,6 +349,34 @@
                 "dependsOrder": "sequence",
                 "dependsOn": ["dev-link"],
                 "type": "shell"
+            }
+        ],
+    "inputs": [
+            {
+                "id": "pdm_group",
+                "type": "pickString",
+                "description": "Dependency group:",
+                "options": ["none", "dev", "test", "lab"]
+            },
+            {
+                "id": "pdm_package",
+                "type": "promptString",
+                "description": "Package:"
+            },
+            {
+                "id": "pypi_user",
+                "description": "PyPi username:",
+                "type": "promptString"
+            },
+            {
+                "id": "pypi_password",
+                "description": "PyPi password:",
+                "type": "promptString"
+            },
+            {
+                "id": "pypi_comment",
+                "description": "Comments:",
+                "type": "promptString"
             }
         ]
     }
