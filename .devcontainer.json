@@ -2,9 +2,9 @@
     "name": "${localWorkspaceFolderBasename}",
     "dockerComposeFile": "docker/docker-compose.yml",
     "service": "${localWorkspaceFolderBasename}",
-    "workspaceFolder": "/home/ubuntu/${localWorkspaceFolderBasename}",
+    "workspaceFolder": "${localWorkspaceFolder}",
     "settings": {
-        "terminal.integrated.cwd": "/home/ubuntu/${localWorkspaceFolderBasename}",
+        "terminal.integrated.cwd": "${localWorkspaceFolder}",
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.defaultProfile.osx": "zsh",
         "terminal.integrated.env.linux": { "REPO_ENV": "True" },
