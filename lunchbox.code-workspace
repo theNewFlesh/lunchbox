@@ -4,10 +4,10 @@
         "debug.allowBreakpointsEverywhere": true,
         "python.languageServer": "Pylance",
         "python.linting.enabled": true,
-        "python.linting.flake8Args": ["--config=docker/flake8.ini"],
+        "python.linting.flake8Args": ["--config=docker/config/flake8.ini"],
         "python.linting.flake8Enabled": true,
         "python.linting.flake8Path": "/home/ubuntu/.local/bin/flake8",
-        "python.linting.mypyArgs": ["--config=docker/mypy.ini"],
+        "python.linting.mypyArgs": ["--config=docker/config/mypy.ini"],
         "python.linting.mypyEnabled": true,
         "python.linting.mypyPath": "/home/ubuntu/.local/bin/mypy",
         "python.linting.pycodestylePath": "/home/ubuntu/.local/bin/pycodestyle",
@@ -48,7 +48,7 @@
         "options": {
             "cwd": "${workspaceFolder}",
             "env": {
-                "X_TOOLS_PATH": "${workspaceFolder}/docker/x-tools.sh",
+                "X_TOOLS_PATH": "${workspaceFolder}/docker/scripts/x-tools.sh",
             }
         },
         "tasks": [

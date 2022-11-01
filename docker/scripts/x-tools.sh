@@ -11,7 +11,7 @@ export PROD_SOURCE="$REPO_PATH/docker/prod"
 export PROD_TARGET="/home/ubuntu/prod"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
 export PROD_PYTHON_VERSION=">=3.7"
-export X_TOOLS_PATH="$REPO_PATH/docker/x-tools.sh"
+export X_TOOLS_PATH="$REPO_PATH/docker/scripts/x-tools.sh"
 
 # HELPER-FUNCTIONS--------------------------------------------------------------
 _x-link () {
@@ -63,7 +63,9 @@ _x-build () {
     _x-link-dev;
     cd $REPO_PATH;
     rm -rf $BUILD_PATH;
-    python3 docker/rolling_pin_command.py docker/build.yaml --groups base,$1;
+    python3 docker/scripts/rolling_pin_command.py \
+        docker/config/build.yaml \
+        --groups base,$1;
 }
 
 _x-dev-workflow () {
@@ -185,7 +187,7 @@ x-library-install-prod () {
     _x-link-dev;
     _x-from-prod-path;
     python3 \
-        docker/generate_pyproject.py \
+        docker/scripts/generate_pyproject.py \
             docker/dev/pyproject.toml \
             "$PROD_PYTHON_VERSION" \
             --groups test \
@@ -265,10 +267,10 @@ x-test-coverage () {
     cd $REPO_PATH;
     mkdir -p docs;
     pytest \
-        -c docker/pytest.ini \
+        -c docker/config/pytest.ini \
         --numprocesses $PROCS \
         --cov=python \
-        --cov-config=docker/pytest.ini \
+        --cov-config=docker/config/pytest.ini \
         --cov-report=html:docs/htmlcov \
         python;
 }
@@ -277,7 +279,7 @@ x-test-dev () {
     # Run all tests
     _x-link-dev;
     cd $REPO_PATH;
-    pytest -c docker/pytest.ini --numprocesses $PROCS python;
+    pytest -c docker/config/pytest.ini --numprocesses $PROCS python;
 }
 
 x-test-fast () {
@@ -285,7 +287,7 @@ x-test-fast () {
     _x-link-dev;
     cd $REPO_PATH;
     SKIP_SLOW_TESTS=true \
-    pytest -c docker/pytest.ini --numprocesses $PROCS python;
+    pytest -c docker/config/pytest.ini --numprocesses $PROCS python;
 }
 
 x-test-lint () {
@@ -293,9 +295,9 @@ x-test-lint () {
     _x-link-dev;
     cd $REPO_PATH;
     echo LINTING;
-    flake8 python --config docker/flake8.ini;
+    flake8 python --config docker/config/flake8.ini;
     echo TYPE CHECKING;
-    mypy python --config-file docker/mypy.ini;
+    mypy python --config-file docker/config/mypy.ini;
 }
 
 x-test-prod () {

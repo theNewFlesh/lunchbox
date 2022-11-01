@@ -13,7 +13,7 @@ services:
     volumes:
       - ../:/home/ubuntu/lunchbox
       - ~/.ssh:/home/ubuntu/.ssh:ro
-      - ./jupyter:/home/ubuntu/.jupyter
-      - ./zshrc:/home/ubuntu/.zshrc
+      - ./config/jupyter:/home/ubuntu/.jupyter
+      - ./config/zshrc:/home/ubuntu/.zshrc
     working_dir: "/home/ubuntu"
     command: "tail -f /dev/null"

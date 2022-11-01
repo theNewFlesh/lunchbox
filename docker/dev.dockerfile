@@ -82,7 +82,7 @@ RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
 
 USER ubuntu
 ENV PATH="/home/ubuntu/.local/bin:$PATH"
-COPY ./henanigans.zsh-theme .oh-my-zsh/custom/themes/henanigans.zsh-theme
+COPY ./config/henanigans.zsh-theme .oh-my-zsh/custom/themes/henanigans.zsh-theme
 
 ENV LANG "C.UTF-8"
 ENV LANGUAGE "C.UTF-8"

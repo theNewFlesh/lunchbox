@@ -4,7 +4,7 @@ source_rules:
     exclude: "/\\.|docker"
   - path: /home/ubuntu/lunchbox/python/lunchbox
     include: "\\.py$"
-  - path: /home/ubuntu/lunchbox/docker
+  - path: /home/ubuntu/lunchbox/docker/config
     include: "pytest|tox|flake8|mypy"
     exclude: "cache|__pypackages__"
   - path: /home/ubuntu/lunchbox/docker/prod
@@ -16,7 +16,7 @@ rename_rules:
     replace: /home/ubuntu/build/repo
   - regex: ".*/resources"
     replace: "/home/ubuntu/build/resources"
-  - regex: "/python|/docker|/prod"
+  - regex: "/python|/docker|/prod|/config"
     replace: ""
 group_rules:
   - name: test
