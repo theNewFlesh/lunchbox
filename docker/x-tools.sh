@@ -1,11 +1,13 @@
-# HELP-VARIABLES----------------------------------------------------------------
-local REPO_ENV="True"
-local REPO="lunchbox"
-local REPO_PATH="/home/ubuntu/$REPO"
-local BUILD_PATH="/home/ubuntu/build"
-local DEV_PATH="$REPO_PATH/docker/dev"
-local PROD_PATH="$REPO_PATH/docker/prod"
-local PROCS=`python3 -c 'import os; print(os.cpu_count())'`
+# EXPORTS-----------------------------------------------------------------------
+export PATH=:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/bin
+export PYTHONPATH=/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/lib
+export REPO_ENV="True"
+export REPO="lunchbox"
+export REPO_PATH="/home/ubuntu/$REPO"
+export BUILD_PATH="/home/ubuntu/build"
+export DEV_PATH="$REPO_PATH/docker/dev"
+export PROD_PATH="$REPO_PATH/docker/prod"
+export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
 
 # HELPER-FUNCTIONS--------------------------------------------------------------
 _x-link () {
