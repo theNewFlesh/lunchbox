@@ -58,7 +58,8 @@ _x-to-prod-path () {
 }
 
 _x-dev-workflow () {
-    # Copies docker/dev to ~/dev, run a given command, and copies ~/dev bask to docker/dev
+    # Copies docker/dev to ~/dev, run a given command, and copies ~/dev bask to
+    # docker/dev
     # args: command string
     local CWD=`pwd`;
     _x-link-dev;
@@ -149,7 +150,8 @@ x-fast-test () {
 }
 
 x-full-docs () {
-    # Generate documentation, coverage report, architecture diagram and code metrics
+    # Generate documentation, coverage report, architecture diagram and code
+    # metrics
     x-docs && x-coverage && x-architecture && x-metrics;
 }
 
