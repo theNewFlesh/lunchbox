@@ -146,6 +146,24 @@
                 "type": "shell"
             },
             {
+                "label": "[library]-graph-dev",
+                "detail": "Graph dependencies in dev environment",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-library-graph-dev"
+                ],
+                "type": "shell"
+            },
+            {
+                "label": "[library]-graph-prod",
+                "detail": "Graph dependencies in prod environment",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-library-graph-prod"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "[library]-install-dev",
                 "detail": "Install all dependencies of dev/pyproject.toml into ~/dev",
                 "command": [
@@ -160,6 +178,24 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x-library-install-prod"
+                ],
+                "type": "shell"
+            },
+            {
+                "label": "[library]-list-dev",
+                "detail": "List packages in dev environment",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-library-list-dev"
+                ],
+                "type": "shell"
+            },
+            {
+                "label": "[library]-list-prod",
+                "detail": "List packages in prod environment",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-library-list-prod"
                 ],
                 "type": "shell"
             },

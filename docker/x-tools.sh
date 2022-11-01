@@ -169,6 +169,18 @@ x-library-add () {
     _x-to-dev-path;
 }
 
+x-library-graph-dev () {
+    # Graph dependencies in dev environment
+    cd $DEV_TARGET;
+    pdm list --graph;
+}
+
+x-library-graph-prod () {
+    # Graph dependencies in prod environment
+    cd $PROD_TARGET;
+    pdm list --graph;
+}
+
 x-library-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
     _x-dev-workflow "pdm install --no-self --dev -v";
@@ -187,6 +199,18 @@ x-library-install-prod () {
     cd $PROD_TARGET;
     pdm install --no-self --dev -v;
     _x-to-prod-path;
+}
+
+x-library-list-dev () {
+    # List packages in dev environment
+    cd $DEV_TARGET;
+    pdm list;
+}
+
+x-library-list-prod () {
+    # List packages in prod environment
+    cd $PROD_TARGET;
+    pdm list;
 }
 
 x-library-lock () {
