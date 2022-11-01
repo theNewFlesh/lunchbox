@@ -8,6 +8,7 @@ export BUILD_PATH="/home/ubuntu/build"
 export DEV_PATH="$REPO_PATH/docker/dev"
 export PROD_PATH="$REPO_PATH/docker/prod"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
+export X_TOOLS_PATH="$REPO_PATH/docker/x-tools.sh"
 
 # HELPER-FUNCTIONS--------------------------------------------------------------
 _x-link () {
@@ -26,12 +27,19 @@ _x-link-prod () {
     _x-link $PROD_PATH/__pypackages__;
 }
 
+_x-file-copy () {
+    # copy source contents to target contents instead of replacing the target file
+    # args: source, target
+    touch $1;
+    touch $2;
+    cat $1 > $2;
+}
+
 _x-dir-copy () {
     # copy all contents of source into target, skipping __pypackages__ directory
     # args: source, target
-    find $1 -maxdepth 1 -type f \
-    | grep -v __pypackages__ \
-    | parallel "cp --force {} $2/";
+    ls -pA $1 | grep -v '/' \
+    | parallel "source $X_TOOLS_PATH; _x-file-copy $1/{} $2/{}";
 }
 
 _x-from-dev-path () {
