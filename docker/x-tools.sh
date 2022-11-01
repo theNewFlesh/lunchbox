@@ -5,8 +5,10 @@ export REPO_ENV="True"
 export REPO="lunchbox"
 export REPO_PATH="/home/ubuntu/$REPO"
 export BUILD_PATH="/home/ubuntu/build"
-export DEV_PATH="$REPO_PATH/docker/dev"
-export PROD_PATH="$REPO_PATH/docker/prod"
+export DEV_SOURCE="$REPO_PATH/docker/dev"
+export DEV_TARGET="/home/ubuntu/dev"
+export PROD_SOURCE="$REPO_PATH/docker/prod"
+export PROD_TARGET="/home/ubuntu/prod"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
 export X_TOOLS_PATH="$REPO_PATH/docker/x-tools.sh"
 
@@ -19,47 +21,39 @@ _x-link () {
 
 _x-link-dev () {
     # Link /home/ubuntu/dev/__pypackages__ to /home/ubuntu/__pypackages__
-    _x-link $DEV_PATH/__pypackages__;
+    _x-link $DEV_TARGET/__pypackages__;
 }
 
 _x-link-prod () {
     # Link /home/ubuntu/prod/__pypackages__ to /home/ubuntu/__pypackages__
-    _x-link $PROD_PATH/__pypackages__;
-}
-
-_x-file-copy () {
-    # copy source contents to target contents instead of replacing the target file
-    # args: source, target
-    touch $1;
-    touch $2;
-    cat $1 > $2;
+    _x-link $PROD_TARGET/__pypackages__;
 }
 
 _x-dir-copy () {
     # copy all contents of source into target, skipping __pypackages__ directory
     # args: source, target
     ls -pA $1 | grep -v '/' \
-    | parallel "source $X_TOOLS_PATH; _x-file-copy $1/{} $2/{}";
+    | parallel "cp --force $1/{} $2/{}";
 }
 
 _x-from-dev-path () {
     # Copy lunchbox/docker/dev to /home/ubuntu/dev
-    _x-dir-copy $DEV_PATH /home/ubuntu/dev;
+    _x-dir-copy $DEV_SOURCE $DEV_TARGET;
 }
 
 _x-from-prod-path () {
     # Copy lunchbox/docker/prod to /home/ubuntu/prod
-    _x-dir-copy $PROD_PATH /home/ubuntu/prod;
+    _x-dir-copy $PROD_SOURCE $PROD_TARGET;
 }
 
 _x-to-dev-path () {
     # Copy /home/ubuntu/dev to lunchbox/docker/dev
-    _x-dir-copy /home/ubuntu/dev $DEV_PATH;
+    _x-dir-copy $DEV_TARGET $DEV_SOURCE;
 }
 
 _x-to-prod-path () {
     # Copy /home/ubuntu/prod to lunchbox/docker/prod
-    _x-dir-copy /home/ubuntu/prod $PROD_PATH;
+    _x-dir-copy $PROD_TARGET $PROD_SOURCE;
 }
 
 _x-build () {
@@ -79,7 +73,7 @@ x-add-package () {
     # Add a given package to a given dependency group
     # args: package, group
     _x-from-dev-path;
-    cd $DEV_PATH;
+    cd $DEV_TARGET;
     if [[ $2 == 'none' ]] then
         pdm add $1 -v;
     else
@@ -154,7 +148,7 @@ x-full-docs () {
 
 x-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
-    cd $DEV_PATH;
+    cd $DEV_TARGET;
     pdm install --no-self --dev -v;
 }
 
@@ -166,8 +160,8 @@ x-install-prod () {
             docker/dev/pyproject.toml \
             '>=3.7' \
             --groups test \
-        > $PROD_PATH/pyproject.toml;
-    cd $PROD_PATH;
+        > $PROD_TARGET/pyproject.toml;
+    cd $PROD_TARGET;
     pdm install --no-self --dev -v;
 }
 
@@ -189,7 +183,7 @@ x-lint () {
 
 x-lock () {
     # Update /home/ubuntu/dev/pdm.lock file
-    cd $DEV_PATH;
+    cd $DEV_TARGET;
     pdm lock -v;
 }
 
@@ -233,7 +227,7 @@ x-remove-package () {
     # Remove a given package from a given dependency group
     # args: package, group
     _x-from-dev-path;
-    cd $DEV_PATH;
+    cd $DEV_TARGET;
     if [[ $2 == 'none' ]] then
         pdm remove $1 -v;
     else
@@ -272,20 +266,20 @@ x-version () {
 x-version-bump-major () {
     # Bump repo's major version
     _x-link-dev;
-    cd $DEV_PATH;
+    cd $DEV_TARGET;
     pdm bump major;
 }
 
 x-version-bump-minor () {
     # Bump repo's minor version
     _x-link-dev;
-    cd $DEV_PATH;
+    cd $DEV_TARGET;
     pdm bump minor;
 }
 
 x-version-bump-patch () {
     # Bump repo's patch version
     _x-link-dev;
-    cd $DEV_PATH;
+    cd $DEV_TARGET;
     pdm bump patch;
 }
