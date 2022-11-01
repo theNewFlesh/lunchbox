@@ -128,15 +128,6 @@
                 "type": "shell"
             },
             {
-                "label": "[lab]",
-                "detail": "Run jupyter lab server",
-                "command": [
-                    "source $X_TOOLS_PATH &&",
-                    "x-lab"
-                ],
-                "type": "shell"
-            },
-            {
                 "label": "[library]-add",
                 "detail": "Add a given package to a given dependency group",
                 "command": [
@@ -244,12 +235,30 @@
                 ],
                 "type": "shell"
             },
+            // {
+            //     "label": "[server]-app",
+            //     "detail": "Run app server",
+            //     "command": [
+            //         "source $X_TOOLS_PATH &&",
+            //         "x-server-app"
+            //     ],
+            //     "type": "shell"
+            // },
             {
-                "label": "[python]",
+                "label": "[server]-lab",
+                "detail": "Run jupyter lab server",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-server-lab"
+                ],
+                "type": "shell"
+            },
+            {
+                "label": "[server]-python",
                 "detail": "Run python session with dev dependencies",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-python"
+                    "x-server-python"
                 ],
                 "type": "shell"
             },

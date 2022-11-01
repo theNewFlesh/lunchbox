@@ -150,12 +150,6 @@ x-docs-metrics () {
 rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 }
 
-x-lab () {
-    # Run jupyter lab server
-    _x-link-dev;
-    jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
-}
-
 x-library-add () {
     # Add a given package to a given dependency group
     # args: package, group
@@ -247,7 +241,19 @@ x-library-update () {
     _x-dev-workflow "pdm update --no-self --dev -v";
 }
 
-x-python () {
+x-server-app () {
+    # Run lunchbox app
+    _x-link-dev;
+    python3.10 python/$REPO/server/app.py;
+}
+
+x-server-lab () {
+    # Run jupyter lab server
+    _x-link-dev;
+    jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
+}
+
+x-server-python () {
     # Run python session with dev dependencies
     _x-link-dev;
     python3.10;
