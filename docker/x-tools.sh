@@ -57,6 +57,15 @@ _x-to-prod-path () {
     _x-dir-copy $PROD_TARGET $PROD_SOURCE;
 }
 
+_x-build () {
+    # Build production version of repo for publishing
+    # args: type (test or prod)
+    _x-link-dev;
+    cd $REPO_PATH;
+    rm -rf $BUILD_PATH;
+    python3 docker/rolling_pin_command.py docker/build.yaml --groups base,$1;
+}
+
 _x-dev-workflow () {
     # Copies docker/dev to ~/dev, run a given command, and copies ~/dev bask to
     # docker/dev
@@ -70,39 +79,13 @@ _x-dev-workflow () {
     cd $CWD;
 }
 
-_x-build () {
-    # Build production version of repo for publishing
-    # args: type (test or prod)
-    _x-link-dev;
-    cd $REPO_PATH;
-    rm -rf $BUILD_PATH;
-    python3 docker/rolling_pin_command.py docker/build.yaml --groups base,$1;
-}
-
 # TASK-FUNCTIONS----------------------------------------------------------------
-x-library-add () {
-    # Add a given package to a given dependency group
-    # args: package, group
-    _x-from-dev-path;
-    cd $DEV_TARGET;
-    if [[ $2 == 'none' ]] then
-        pdm add $1 -v;
-    else
-        pdm add -dG $2 $1 -v;
-    fi;
-    _x-to-dev-path;
-}
-
-x-docs-architecture () {
-    # Generate architecture.svg diagram from all import statements
-    _x-link-dev;
-    python3 -c "import rolling_pin.repo_etl as rpo; \
-rpo.write_repo_architecture( \
-    '/home/ubuntu/$REPO/python', \
-    'docs/architecture.svg', \
-    exclude_regex='test|mock', \
-    orient='lr', \
-)";
+x-build-pip-package () {
+    # Generate pip package of repo in /home/ubuntu/build/repo
+    x-library-install-prod;
+    x-build-prod;
+    cd $BUILD_PATH/repo;
+    pdm build -v;
 }
 
 x-build-prod () {
@@ -110,23 +93,23 @@ x-build-prod () {
     _x-build prod;
 }
 
+x-build-publish () {
+    # Publish pip package of repo to PyPi
+    # args: user, password, comment
+    x-build-pip-package;
+    cd $BUILD_PATH/repo;
+    pdm publish \
+        --repository https://test.pypi.org/legacy \
+        --no-build \
+        --username $1 \
+        --password $2 \
+        --comment $3 \
+        --verbose;
+}
+
 x-build-test () {
     # Build test version of repo for tox testing
     _x-build test;
-}
-
-x-test-coverage () {
-    # Generate test coverage report
-    _x-link-dev;
-    cd $REPO_PATH;
-    mkdir -p docs;
-    pytest \
-        -c docker/pytest.ini \
-        --numprocesses $PROCS \
-        --cov=python \
-        --cov-config=docker/pytest.ini \
-        --cov-report=html:docs/htmlcov \
-        python;
 }
 
 x-docs () {
@@ -141,18 +124,49 @@ x-docs () {
     mkdir -p docs/resources;
 }
 
-x-test-fast () {
-    # Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator
+x-docs-architecture () {
+    # Generate architecture.svg diagram from all import statements
     _x-link-dev;
-    cd $REPO_PATH;
-    SKIP_SLOW_TESTS=true \
-    pytest -c docker/pytest.ini --numprocesses $PROCS python;
+    python3 -c "import rolling_pin.repo_etl as rpo; \
+rpo.write_repo_architecture( \
+    '/home/ubuntu/$REPO/python', \
+    'docs/architecture.svg', \
+    exclude_regex='test|mock', \
+    orient='lr', \
+)";
 }
 
 x-docs-full () {
     # Generate documentation, coverage report, architecture diagram and code
     # metrics
     x-docs && x-test-coverage && x-docs-architecture && x-docs-metrics;
+}
+
+x-docs-metrics () {
+    # Generate code metrics report, plots and tables
+    _x-link-dev;
+    cd $REPO_PATH;
+    python3 -c "import rolling_pin.repo_etl as rpo; \
+rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
+}
+
+x-lab () {
+    # Run jupyter lab server
+    _x-link-dev;
+    jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
+}
+
+x-library-add () {
+    # Add a given package to a given dependency group
+    # args: package, group
+    _x-from-dev-path;
+    cd $DEV_TARGET;
+    if [[ $2 == 'none' ]] then
+        pdm add $1 -v;
+    else
+        pdm add -dG $2 $1 -v;
+    fi;
+    _x-to-dev-path;
 }
 
 x-library-install-dev () {
@@ -175,61 +189,9 @@ x-library-install-prod () {
     _x-to-prod-path;
 }
 
-x-lab () {
-    # Run jupyter lab server
-    _x-link-dev;
-    jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
-}
-
-x-test-lint () {
-    # Run linting and type checking
-    _x-link-dev;
-    cd $REPO_PATH;
-    echo LINTING;
-    flake8 python --config docker/flake8.ini;
-    echo TYPE CHECKING;
-    mypy python --config-file docker/mypy.ini;
-}
-
 x-library-lock () {
     # Update /home/ubuntu/dev/pdm.lock file
     _x-dev-workflow "pdm lock -v";
-}
-
-x-docs-metrics () {
-    # Generate code metrics report, plots and tables
-    _x-link-dev;
-    cd $REPO_PATH;
-    python3 -c "import rolling_pin.repo_etl as rpo; \
-rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
-}
-
-x-build-pip-package () {
-    # Generate pip package of repo in /home/ubuntu/build/repo
-    x-library-install-prod;
-    x-build-prod;
-    cd $BUILD_PATH/repo;
-    pdm build -v;
-}
-
-x-build-publish () {
-    # Publish pip package of repo to PyPi
-    # args: user, password, comment
-    x-build-pip-package;
-    cd $BUILD_PATH/repo;
-    pdm publish \
-        --repository https://test.pypi.org/legacy \
-        --no-build \
-        --username $1 \
-        --password $2 \
-        --comment $3 \
-        --verbose;
-}
-
-x-python () {
-    # Run python session with dev dependencies
-    _x-link-dev;
-    python3.10;
 }
 
 x-library-remove () {
@@ -245,11 +207,49 @@ x-library-remove () {
     _x-to-dev-path;
 }
 
+x-python () {
+    # Run python session with dev dependencies
+    _x-link-dev;
+    python3.10;
+}
+
+x-test-coverage () {
+    # Generate test coverage report
+    _x-link-dev;
+    cd $REPO_PATH;
+    mkdir -p docs;
+    pytest \
+        -c docker/pytest.ini \
+        --numprocesses $PROCS \
+        --cov=python \
+        --cov-config=docker/pytest.ini \
+        --cov-report=html:docs/htmlcov \
+        python;
+}
+
 x-test-dev () {
     # Run all tests
     _x-link-dev;
     cd $REPO_PATH;
     pytest -c docker/pytest.ini --numprocesses $PROCS python;
+}
+
+x-test-fast () {
+    # Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator
+    _x-link-dev;
+    cd $REPO_PATH;
+    SKIP_SLOW_TESTS=true \
+    pytest -c docker/pytest.ini --numprocesses $PROCS python;
+}
+
+x-test-lint () {
+    # Run linting and type checking
+    _x-link-dev;
+    cd $REPO_PATH;
+    echo LINTING;
+    flake8 python --config docker/flake8.ini;
+    echo TYPE CHECKING;
+    mypy python --config-file docker/mypy.ini;
 }
 
 x-test-prod () {
