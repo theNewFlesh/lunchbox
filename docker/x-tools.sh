@@ -26,7 +26,7 @@ _x-link-prod () {
     _x-link $PROD_PATH/__pypackages__;
 }
 
-_x-special_copy () {
+_x-dir-copy () {
     # copy all contents of source into target, skipping __pypackages__ directory
     # args: source, target
     find $1 -maxdepth 1 -type f \
@@ -36,22 +36,22 @@ _x-special_copy () {
 
 _x-from-dev-path () {
     # Copy lunchbox/docker/dev to /home/ubuntu/dev
-    _x-special_copy $DEV_PATH /home/ubuntu/dev;
+    _x-dir-copy $DEV_PATH /home/ubuntu/dev;
 }
 
 _x-from-prod-path () {
     # Copy lunchbox/docker/prod to /home/ubuntu/prod
-    _x-special_copy $PROD_PATH /home/ubuntu/prod;
+    _x-dir-copy $PROD_PATH /home/ubuntu/prod;
 }
 
 _x-to-dev-path () {
     # Copy /home/ubuntu/dev to lunchbox/docker/dev
-    _x-special_copy /home/ubuntu/dev $DEV_PATH;
+    _x-dir-copy /home/ubuntu/dev $DEV_PATH;
 }
 
 _x-to-prod-path () {
     # Copy /home/ubuntu/prod to lunchbox/docker/prod
-    _x-special_copy /home/ubuntu/prod $PROD_PATH;
+    _x-dir-copy /home/ubuntu/prod $PROD_PATH;
 }
 
 _x-build () {
