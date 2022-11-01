@@ -227,6 +227,15 @@
                 "type": "shell"
             },
             {
+                "label": "[library]-sync",
+                "detail": "Sync dev dependencies",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-library-sync"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "[library]-update",
                 "detail": "Update dev dependencies",
                 "command": [

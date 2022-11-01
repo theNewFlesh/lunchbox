@@ -237,6 +237,11 @@ x-library-search () {
     pdm search $1;
 }
 
+x-library-sync () {
+    # Sync dev dependencies
+    _x-dev-workflow "pdm sync --no-self --dev -v";
+}
+
 x-library-update () {
     # Update dev dependencies
     _x-dev-workflow "pdm update --no-self --dev -v";
