@@ -137,47 +137,47 @@
                 "type": "shell"
             },
             {
-                "label": "[package]-add",
+                "label": "[library]-add",
                 "detail": "Add a given package to a given dependency group",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-package-add ${input:pdm_package} ${input:pdm_group}"
+                    "x-library-add ${input:pdm_package} ${input:pdm_group}"
                 ],
                 "type": "shell"
             },
             {
-                "label": "[package]-install-dev",
+                "label": "[library]-install-dev",
                 "detail": "Install all dependencies of dev/pyproject.toml into ~/dev",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-package-install-dev"
+                    "x-library-install-dev"
                 ],
                 "type": "shell"
             },
             {
-                "label": "[package]-install-prod",
+                "label": "[library]-install-prod",
                 "detail": "Install all dependencies of prod/pyproject.toml into ~/prod",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-package-install-prod"
+                    "x-library-install-prod"
                 ],
                 "type": "shell"
             },
             {
-                "label": "[package]-lock",
+                "label": "[library]-lock",
                 "detail": "Update ~/dev/pdm.lock file",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-package-lock"
+                    "x-library-lock"
                 ],
                 "type": "shell"
             },
             {
-                "label": "[package]-remove",
+                "label": "[library]-remove",
                 "detail": "Remove a given package from a given dependency group",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-package-remove ${input:pdm_package} ${input:pdm_group}"
+                    "x-library-remove ${input:pdm_package} ${input:pdm_group}"
                 ],
                 "type": "shell"
             },

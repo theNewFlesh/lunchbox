@@ -80,7 +80,7 @@ _x-build () {
 }
 
 # TASK-FUNCTIONS----------------------------------------------------------------
-x-package-add () {
+x-library-add () {
     # Add a given package to a given dependency group
     # args: package, group
     _x-from-dev-path;
@@ -155,12 +155,12 @@ x-docs-full () {
     x-docs && x-test-coverage && x-docs-architecture && x-docs-metrics;
 }
 
-x-package-install-dev () {
+x-library-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
     _x-dev-workflow "pdm install --no-self --dev -v";
 }
 
-x-package-install-prod () {
+x-library-install-prod () {
     # Install all dependencies of prod/pyproject.toml into /home/ubuntu/prod
     _x-link-dev;
     _x-from-prod-path;
@@ -191,7 +191,7 @@ x-test-lint () {
     mypy python --config-file docker/mypy.ini;
 }
 
-x-package-lock () {
+x-library-lock () {
     # Update /home/ubuntu/dev/pdm.lock file
     _x-dev-workflow "pdm lock -v";
 }
@@ -206,7 +206,7 @@ rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 
 x-build-pip-package () {
     # Generate pip package of repo in /home/ubuntu/build/repo
-    x-package-install-prod;
+    x-library-install-prod;
     x-build-prod;
     cd $BUILD_PATH/repo;
     pdm build -v;
@@ -215,7 +215,7 @@ x-build-pip-package () {
 x-build-publish () {
     # Publish pip package of repo to PyPi
     # args: user, password, comment
-    x-package;
+    x-build-pip-package;
     cd $BUILD_PATH/repo;
     pdm publish \
         --repository https://test.pypi.org/legacy \
@@ -232,7 +232,7 @@ x-python () {
     python3.10;
 }
 
-x-package-remove () {
+x-library-remove () {
     # Remove a given package from a given dependency group
     # args: package, group
     _x-from-dev-path;
@@ -265,7 +265,7 @@ x-version () {
     # Full resolution of repo: dependencies, linting, tests, docs, etc
     _x-link-dev;
     x-test-lint;
-    x-package-install-dev;
+    x-library-install-dev;
     x-docs-full;
 }
 
