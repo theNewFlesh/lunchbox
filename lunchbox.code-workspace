@@ -236,29 +236,29 @@
                 "type": "shell"
             },
             // {
-            //     "label": "[server]-app",
+            //     "label": "[session]-app",
             //     "detail": "Run app server",
             //     "command": [
             //         "source $X_TOOLS_PATH &&",
-            //         "x-server-app"
+            //         "x-session-app"
             //     ],
             //     "type": "shell"
             // },
             {
-                "label": "[server]-lab",
+                "label": "[session]-lab",
                 "detail": "Run jupyter lab server",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-server-lab"
+                    "x-session-lab"
                 ],
                 "type": "shell"
             },
             {
-                "label": "[server]-python",
+                "label": "[session]-python",
                 "detail": "Run python session with dev dependencies",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-server-python"
+                    "x-session-python"
                 ],
                 "type": "shell"
             },

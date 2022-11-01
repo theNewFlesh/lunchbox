@@ -263,21 +263,21 @@ x-library-update () {
     _x-dev-workflow "pdm update --no-self --dev -v";
 }
 
-x-server-app () {
+x-session-app () {
     # Run lunchbox app
     echo "${CYAN}APP${CLEAR}\n";
     _x-link-dev;
     python3.10 python/$REPO/server/app.py;
 }
 
-x-server-lab () {
+x-session-lab () {
     # Run jupyter lab server
     echo "${CYAN}JUPYTER LAB${CLEAR}\n";
     _x-link-dev;
     jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
 }
 
-x-server-python () {
+x-session-python () {
     # Run python session with dev dependencies
     _x-link-dev;
     python3.10;
