@@ -34,22 +34,22 @@ _x-special_copy () {
     | parallel "cp --force {} $2/";
 }
 
-_x-read-dev () {
+_x-from-dev-path () {
     # Copy lunchbox/docker/dev to /home/ubuntu/dev
     _x-special_copy $DEV_PATH /home/ubuntu/dev;
 }
 
-_x-read-prod () {
+_x-from-prod-path () {
     # Copy lunchbox/docker/prod to /home/ubuntu/prod
     _x-special_copy $PROD_PATH /home/ubuntu/prod;
 }
 
-_x-write-dev () {
+_x-to-dev-path () {
     # Copy /home/ubuntu/dev to lunchbox/docker/dev
     _x-special_copy /home/ubuntu/dev $DEV_PATH;
 }
 
-_x-write-prod () {
+_x-to-prod-path () {
     # Copy /home/ubuntu/prod to lunchbox/docker/prod
     _x-special_copy /home/ubuntu/prod $PROD_PATH;
 }
@@ -70,12 +70,14 @@ ConformETL.from_yaml(src).conform(groups=['base', '$1']) \
 x-add-package () {
     # Add a given package to a given dependency group
     # args: package, group
+    _x-from-dev-path;
     cd $DEV_PATH;
     if [[ $2 == 'none' ]] then
-        pdm add $1;
+        pdm add $1 -v;
     else
-        pdm add -dG $1 $2;
+        pdm add -dG $2 $1 -v;
     fi;
+    _x-to-dev-path;
 }
 
 x-architecture () {
@@ -222,12 +224,14 @@ x-python () {
 x-remove-package () {
     # Remove a given package from a given dependency group
     # args: package, group
+    _x-from-dev-path;
     cd $DEV_PATH;
     if [[ $2 == 'none' ]] then
-        pdm remove $1;
+        pdm remove $1 -v;
     else
-        pdm remove -dG $1 $2;
+        pdm remove -dG $2 $1 -v;
     fi;
+    _x-to-dev-path;
 }
 
 x-test () {
