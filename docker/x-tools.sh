@@ -237,6 +237,11 @@ x-library-search () {
     pdm search $1;
 }
 
+x-library-update () {
+    # Update dev dependencies
+    _x-dev-workflow "pdm update --no-self --dev -v";
+}
+
 x-python () {
     # Run python session with dev dependencies
     _x-link-dev;

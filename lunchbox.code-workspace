@@ -227,6 +227,15 @@
                 "type": "shell"
             },
             {
+                "label": "[library]-update",
+                "detail": "Update dev dependencies",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-library-update"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "[python]",
                 "detail": "Run python session with dev dependencies",
                 "command": [
