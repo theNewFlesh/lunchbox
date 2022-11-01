@@ -76,9 +76,9 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x-build-publish",
-                    "${input:pypi_user}",
-                    "${input:pypi_password}",
-                    "${input:pypi_comment}"
+                    "'${input:pypi_user}'",
+                    "'${input:pypi_password}'",
+                    "'${input:pypi_comment}'"
                 ],
                 "type": "shell"
             },

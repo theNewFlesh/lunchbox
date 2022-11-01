@@ -101,16 +101,18 @@ x-build-publish () {
     # Publish pip package of repo to PyPi
     # args: user, password, comment
     x-test-lint;
+    cd $REPO_PATH;
     x-test-prod;
+    cd $REPO_PATH;
     x-build-pip-package;
     echo "${CYAN}PUBLISHING PIP PACKAGE TO PYPI${CLEAR}\n";
     cd $BUILD_PATH/repo;
     pdm publish \
         --repository https://pypi.org \
         --no-build \
-        --username $1 \
-        --password $2 \
-        --comment $3 \
+        --username "$1" \
+        --password "$2" \
+        --comment "$3" \
         --verbose;
 }
 
