@@ -145,10 +145,7 @@ x-fast-test () {
     _x-link-dev;
     cd $REPO_PATH;
     SKIP_SLOW_TESTS=true \
-    pytest \
-        -c docker/pytest.ini \
-        --numprocesses $PROCS \
-        python;
+    pytest -c docker/pytest.ini --numprocesses $PROCS python;
 }
 
 x-full-docs () {
@@ -250,10 +247,7 @@ x-test () {
     # Run all tests
     _x-link-dev;
     cd $REPO_PATH;
-    pytest \
-       -c docker/pytest.ini \
-       --numprocesses $PROCS \
-       python;
+    pytest -c docker/pytest.ini --numprocesses $PROCS python;
 }
 
 x-tox () {
