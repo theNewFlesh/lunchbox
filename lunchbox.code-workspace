@@ -218,6 +218,15 @@
                 "type": "shell"
             },
             {
+                "label": "[library]-search",
+                "detail": "Search for pip packages",
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-library-search ${input:pdm_package}"
+                ],
+                "type": "shell"
+            },
+            {
                 "label": "[python]",
                 "detail": "Run python session with dev dependencies",
                 "command": [

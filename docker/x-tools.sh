@@ -231,6 +231,12 @@ x-library-remove () {
     _x-to-dev-path;
 }
 
+x-library-search () {
+    # Search for pip packages
+    # args: package name
+    pdm search $1;
+}
+
 x-python () {
     # Run python session with dev dependencies
     _x-link-dev;
