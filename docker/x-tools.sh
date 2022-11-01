@@ -10,6 +10,7 @@ export DEV_TARGET="/home/ubuntu/dev"
 export PROD_SOURCE="$REPO_PATH/docker/prod"
 export PROD_TARGET="/home/ubuntu/prod"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
+export PROD_PYTHON_VERSION=">=3.7"
 export X_TOOLS_PATH="$REPO_PATH/docker/x-tools.sh"
 
 # HELPER-FUNCTIONS--------------------------------------------------------------
@@ -160,7 +161,7 @@ x-install-prod () {
     python3 \
         docker/generate_pyproject.py \
             docker/dev/pyproject.toml \
-            '>=3.7' \
+            "$PROD_PYTHON_VERSION" \
             --groups test \
         > $PROD_TARGET/pyproject.toml;
     cd $PROD_TARGET;
