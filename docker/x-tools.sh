@@ -80,7 +80,7 @@ _x-build () {
 }
 
 # TASK-FUNCTIONS----------------------------------------------------------------
-x-add-package () {
+x-package-add () {
     # Add a given package to a given dependency group
     # args: package, group
     _x-from-dev-path;
@@ -93,7 +93,7 @@ x-add-package () {
     _x-to-dev-path;
 }
 
-x-architecture () {
+x-docs-architecture () {
     # Generate architecture.svg diagram from all import statements
     _x-link-dev;
     python3 -c "import rolling_pin.repo_etl as rpo; \
@@ -115,7 +115,7 @@ x-build-test () {
     _x-build test;
 }
 
-x-coverage () {
+x-test-coverage () {
     # Generate test coverage report
     _x-link-dev;
     cd $REPO_PATH;
@@ -141,7 +141,7 @@ x-docs () {
     mkdir -p docs/resources;
 }
 
-x-fast-test () {
+x-test-fast () {
     # Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator
     _x-link-dev;
     cd $REPO_PATH;
@@ -149,18 +149,18 @@ x-fast-test () {
     pytest -c docker/pytest.ini --numprocesses $PROCS python;
 }
 
-x-full-docs () {
+x-docs-full () {
     # Generate documentation, coverage report, architecture diagram and code
     # metrics
-    x-docs && x-coverage && x-architecture && x-metrics;
+    x-docs && x-test-coverage && x-docs-architecture && x-docs-metrics;
 }
 
-x-install-dev () {
+x-package-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
     _x-dev-workflow "pdm install --no-self --dev -v";
 }
 
-x-install-prod () {
+x-package-install-prod () {
     # Install all dependencies of prod/pyproject.toml into /home/ubuntu/prod
     _x-link-dev;
     _x-from-prod-path;
@@ -181,7 +181,7 @@ x-lab () {
     jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
 }
 
-x-lint () {
+x-test-lint () {
     # Run linting and type checking
     _x-link-dev;
     cd $REPO_PATH;
@@ -191,12 +191,12 @@ x-lint () {
     mypy python --config-file docker/mypy.ini;
 }
 
-x-lock () {
+x-package-lock () {
     # Update /home/ubuntu/dev/pdm.lock file
     _x-dev-workflow "pdm lock -v";
 }
 
-x-metrics () {
+x-docs-metrics () {
     # Generate code metrics report, plots and tables
     _x-link-dev;
     cd $REPO_PATH;
@@ -204,15 +204,15 @@ x-metrics () {
 rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 }
 
-x-package () {
+x-build-pip-package () {
     # Generate pip package of repo in /home/ubuntu/build/repo
-    x-install-prod;
+    x-package-install-prod;
     x-build-prod;
     cd $BUILD_PATH/repo;
     pdm build -v;
 }
 
-x-publish () {
+x-build-publish () {
     # Publish pip package of repo to PyPi
     # args: user, password, comment
     x-package;
@@ -232,7 +232,7 @@ x-python () {
     python3.10;
 }
 
-x-remove-package () {
+x-package-remove () {
     # Remove a given package from a given dependency group
     # args: package, group
     _x-from-dev-path;
@@ -245,14 +245,14 @@ x-remove-package () {
     _x-to-dev-path;
 }
 
-x-test () {
+x-test-dev () {
     # Run all tests
     _x-link-dev;
     cd $REPO_PATH;
     pytest -c docker/pytest.ini --numprocesses $PROCS python;
 }
 
-x-tox () {
+x-test-prod () {
     # Run tests across all support python versions
     x-build-test;
     _x-link-prod;
@@ -264,9 +264,9 @@ x-tox () {
 x-version () {
     # Full resolution of repo: dependencies, linting, tests, docs, etc
     _x-link-dev;
-    x-lint;
-    x-install-dev;
-    x-full-docs;
+    x-test-lint;
+    x-package-install-dev;
+    x-docs-full;
 }
 
 x-version-bump-major () {
