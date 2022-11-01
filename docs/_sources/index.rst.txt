@@ -3,10 +3,16 @@
 Welcome to lunchbox's documentation!
 ==========================================
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :caption: Python API
 
-   modules
+   lunchbox
+
+.. toctree::
+   :maxdepth: 1
+   :caption: CLI
+
+   cli
 
 Indices and tables
 ==================
