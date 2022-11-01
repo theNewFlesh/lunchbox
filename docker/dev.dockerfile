@@ -18,6 +18,15 @@ RUN echo "\n${CYAN}SETUP UBUNTU USER${CLEAR}"; \
         --uid $UID_ \
         --gid $GID_ ubuntu && \
     usermod -aG root ubuntu
+
+# setup sudo
+RUN echo "\n${CYAN}SETUP SUDO${CLEAR}"; \
+    apt update && \
+    apt install -y sudo && \
+    usermod -aG sudo ubuntu && \
+    echo '%ubuntu    ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /home/ubuntu
 
 # update ubuntu and install basic dependencies
