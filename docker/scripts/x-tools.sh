@@ -103,6 +103,7 @@ x-build-publish () {
     x-test-lint;
     x-test-prod;
     x-build-pip-package;
+    echo "${CYAN}PUBLISHING PIP PACKAGE TO PYPI${CLEAR}\n";
     cd $BUILD_PATH/repo;
     pdm publish \
         --repository https://test.pypi.org/legacy \
@@ -198,7 +199,6 @@ x-library-install-prod () {
     # Install all dependencies of prod/pyproject.toml into /home/ubuntu/prod
     echo "${CYAN}INSTALL PROD${CLEAR}\n";
     _x-link-dev;
-    _x-from-prod-path;
     python3 \
         docker/scripts/generate_pyproject.py \
             docker/dev/pyproject.toml \
@@ -206,6 +206,7 @@ x-library-install-prod () {
             --groups test \
         > $PROD_TARGET/pyproject.toml;
     cd $PROD_TARGET;
+    _x-from-prod-path;
     pdm install --no-self --dev -v;
     _x-to-prod-path;
 }
