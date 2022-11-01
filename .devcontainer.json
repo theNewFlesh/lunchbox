@@ -4,7 +4,7 @@
     "service": "${localWorkspaceFolderBasename}",
     "workspaceFolder": "/home/ubuntu/${localWorkspaceFolderBasename}",
     "settings": {
-        "terminal.integrated.cwd": "${localWorkspaceFolder}",
+        "terminal.integrated.cwd": "/home/ubuntu/${localWorkspaceFolderBasename}",
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.defaultProfile.osx": "zsh",
         "terminal.integrated.env.linux": { "REPO_ENV": "True" },
