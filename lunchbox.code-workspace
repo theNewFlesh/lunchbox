@@ -48,37 +48,16 @@
         "options": {
             "cwd": "${workspaceFolder}",
             "env": {
-                "PATH": ":/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/bin",
-                "PYTHONPATH": ":/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/lib",
-                "REPO": "${workspaceFolderBasename}",
-                "REPO_ENV": "True",
-                "REPO_PATH": "${workspaceFolder}",
-                "BUILD_PATH": "/home/ubuntu/build",
-                "DEV_PATH": "/home/ubuntu/${workspaceFolderBasename}/docker/dev",
-                "PROD_PATH": "/home/ubuntu/${workspaceFolderBasename}/docker/prod"
+                "X_TOOLS_PATH": "${workspaceFolder}/docker/x-tools.sh",
             }
         },
         "tasks": [
-            // {
-            //     "label": "app",
-            //     "command": [
-            //         "export DEBUG_MODE=True &&",
-            //         "python3 python/$REPO/server/app.py"
-            //     ],
-            //     "type": "shell"
-            // },
             {
                 "label": "add-package",
                 "detail": "Add a given package to a given dependency group",
                 "command": [
-                    "cd $DEV_PATH &&",
-                    "export PKG=${input:pdm_package} &&",
-                    "export GRP=${input:pdm_group} &&",
-                    "if [[ $GRP == 'none' ]] then",
-                    "    pdm add $PKG;",
-                    "else",
-                    "    pdm add -dG $GRP $PKG;",
-                    "fi"
+                    "source $X_TOOLS_PATH &&",
+                    "x-add-package ${input:pdm_package} ${input:pdm_group}"
                 ],
                 "type": "shell"
             },
@@ -86,117 +65,71 @@
                 "label": "architecture",
                 "detail": "Generate architecture.svg diagram from all import statements",
                 "command": [
-                    "python3 -c ",
-                        "\"import rolling_pin.repo_etl as rpo;",
-                        "rpo.write_repo_architecture(",
-                            "'/home/ubuntu/$REPO/python',",
-                            "'docs/architecture.svg',",
-                            "exclude_regex='test|mock',",
-                            "orient='lr'",
-                        ")\""
+                    "source $X_TOOLS_PATH &&",
+                    "x-architecture"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "build-prod",
                 "detail": "Build production version of repo for publishing",
                 "command": [
-                    "rm -rf $BUILD_PATH && ",
-                    "python3 -c",
-                    "\"from rolling_pin.conform_etl import ConformETL;",
-                    "src = 'docker/build.yaml';",
-                    "ConformETL.from_yaml(src).conform(groups=['base', 'prod'])",
-                    "\""
+                    "source $X_TOOLS_PATH &&",
+                    "x-build-prod"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "build-test",
                 "detail": "Build test version of repo for tox testing",
                 "command": [
-                    "rm -rf $BUILD_PATH && ",
-                    "python3 -c",
-                    "\"from rolling_pin.conform_etl import ConformETL;",
-                    "src = 'docker/build.yaml';",
-                    "ConformETL.from_yaml(src).conform(groups=['base', 'test'])",
-                    "\""
+                    "source $X_TOOLS_PATH &&",
+                    "x-build-test"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "coverage",
                 "detail": "Generate test coverage report",
                 "command": [
-                    "mkdir -p docs &&",
-                    "export PROCS=`",
-                        "python3 -c 'import os; print(os.cpu_count())'` &&",
-                    "pytest",
-                        "-c docker/pytest.ini",
-                        "--numprocesses $PROCS",
-                        "--cov=python",
-                        "--cov-config=docker/pytest.ini",
-                        "--cov-report=html:docs/htmlcov",
-                        "python"
+                    "source $X_TOOLS_PATH &&",
+                    "x-coverage"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "docs",
                 "detail": "Generate sphinx documentation",
                 "command": [
-                    "mkdir -p docs &&",
-                    "pandoc README.md -o sphinx/intro.rst &&",
-                    "sphinx-build sphinx docs &&",
-                    "cp sphinx/style.css docs/_static/style.css &&",
-                    "touch docs/.nojekyll &&",
-                    "mkdir -p docs/resources"
+                    "source $X_TOOLS_PATH &&",
+                    "x-docs"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "fast-test",
                 "detail": "Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator",
                 "command": [
-                    "export PROCS=`",
-                        "python3 -c 'import os; print(os.cpu_count())'` &&",
-                    "SKIP_SLOW_TESTS=true",
-                    "pytest",
-                        "-c docker/pytest.ini",
-                        "--numprocesses $PROCS",
-                        "python"
+                    "source $X_TOOLS_PATH &&",
+                    "x-fast-test"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "full-docs",
                 "detail": "Generate documentation, coverage report, architecture diagram and code metrics",
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "docs",
-                    "coverage",
-                    "architecture",
-                    "metrics"
-                ]
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-full-docs"
+                ],
+                "type": "shell"
             },
             {
                 "label": "install-dev",
                 "detail": "Install all dependencies of dev/pyproject.toml into ~/dev",
                 "command": [
-                    "cd $DEV_PATH &&",
-                    "pdm install --no-self --dev -v"
+                    "source $X_TOOLS_PATH &&",
+                    "x-install-dev"
                 ],
                 "type": "shell"
             },
@@ -204,37 +137,17 @@
                 "label": "install-prod",
                 "detail": "Install all dependencies of prod/pyproject.toml into ~/prod",
                 "command": [
-                    "python3 docker/generate_pyproject.py",
-                    "   docker/dev/pyproject.toml '>=3.7' --groups test",
-                    "> docker/prod/pyproject.toml &&",
-                    "cd $PROD_PATH &&",
-                    "pdm install --no-self --dev -v"
+                    "source $X_TOOLS_PATH &&",
+                    "x-install-prod"
                 ],
                 "type": "shell"
             },
             {
                 "label": "lab",
                 "detail": "Run jupyter lab server",
-                "command": "jupyter lab --allow-root --ip=0.0.0.0 --no-browser",
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
-            },
-            {
-                "label": "link-dev",
-                "detail": "Link ~/dev/__pypackages__ to ~/lunchbox/__pypackages__",
                 "command": [
-                    "rm -f $REPO_PATH/__pypackages__ &&",
-                    "ln -s /home/ubuntu/dev/__pypackages__ $REPO_PATH/__pypackages__"
-                ],
-                "type": "shell"
-            },
-            {
-                "label": "link-prod",
-                "detail": "Link ~/prod/__pypackages__ to ~/lunchbox/__pypackages__",
-                "command": [
-                    "rm -f $REPO_PATH/__pypackages__ &&",
-                    "ln -s /home/ubuntu/prod/__pypackages__ $REPO_PATH/__pypackages__"
+                    "source $X_TOOLS_PATH &&",
+                    "x-lab"
                 ],
                 "type": "shell"
             },
@@ -242,21 +155,17 @@
                 "label": "lint",
                 "detail": "Run linting and type checking",
                 "command": [
-                    "echo 'LINTING' &&",
-                    "flake8 python --config docker/flake8.ini &&",
-                    "echo 'TYPE CHECKING' &&",
-                    "mypy python --config-file docker/mypy.ini"
+                    "source $X_TOOLS_PATH &&",
+                    "x-lint"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "lock",
                 "detail": "Update ~/dev/pdm.lock file",
                 "command": [
-                    "cd $DEV_PATH &&",
-                    "pdm lock -v"
+                    "source $X_TOOLS_PATH &&",
+                    "x-lock"
                 ],
                 "type": "shell"
             },
@@ -264,27 +173,17 @@
                 "label": "metrics",
                 "detail": "Generate code metrics report, plots and tables",
                 "command": [
-                    "python3 -c ",
-                        "\"import rolling_pin.repo_etl as rpo;",
-                        "rpo.write_repo_plots_and_tables(",
-                            "'python', 'docs/plots.html', 'docs'",
-                        ")\""
+                    "source $X_TOOLS_PATH &&",
+                    "x-metrics"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "package",
                 "detail": "Generate pip package of repo in ~/build/repo",
                 "command": [
-                    "cd $BUILD_PATH/repo &&",
-                    "pdm build -v"
-                ],
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "install-prod",
-                    "build-prod"
+                    "source $X_TOOLS_PATH &&",
+                    "x-package"
                 ],
                 "type": "shell"
             },
@@ -292,41 +191,29 @@
                 "label": "publish",
                 "detail": "Publish pip package of repo to PyPi",
                 "command": [
-                    "cd $BUILD_PATH/repo &&",
-                    "pdm publish",
-                    "   --repository https://test.pypi.org/legacy",
-                    "   --no-build",
-                    "   --username ${input:pypi_user}",
-                    "   --password ${input:pypi_password}",
-                    "   --comment ${input:pypi_comment}",
-                    "   --verbose"
-                ],
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "package",
+                    "source $X_TOOLS_PATH &&",
+                    "x-publish",
+                        "${input:pypi_user}",
+                        "${input:pypi_password}",
+                        "${input:pypi_comment}"
                 ],
                 "type": "shell"
             },
             {
                 "label": "python",
                 "detail": "Run python session with dev dependencies",
-                "command": "python3.10",
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-python"
+                ],
+                "type": "shell"
             },
             {
                 "label": "remove-package",
                 "detail": "Remove a given package from a given dependency group",
                 "command": [
-                    "cd $DEV_PATH &&",
-                    "export PKG=${input:pdm_package} &&",
-                    "export GRP=${input:pdm_group} &&",
-                    "if [[ $GRP == 'none' ]] then",
-                    "    pdm remove $PKG;",
-                    "else",
-                    "    pdm remove -dG $GRP $PKG;",
-                    "fi"
+                    "source $X_TOOLS_PATH &&",
+                    "x-remove-package ${input:pdm_package} ${input:pdm_group}"
                 ],
                 "type": "shell"
             },
@@ -334,75 +221,54 @@
                 "label": "test",
                 "detail": "Run all tests",
                 "command": [
-                    "export PROCS=`",
-                        "python3 -c 'import os; print(os.cpu_count())'` &&",
-                    "pytest",
-                        "-c docker/pytest.ini",
-                        "--numprocesses $PROCS",
-                        "python"
+                    "source $X_TOOLS_PATH &&",
+                    "x-test"
                 ],
-                "type": "shell",
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"]
+                "type": "shell"
             },
             {
                 "label": "tox",
                 "detail": "Run tests across all support python versions",
                 "command": [
-                    "unset REPO_ENV &&",
-                    "cd $BUILD_PATH/repo &&",
-                    "tox"
-                ],
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "build-test",
-                    "link-prod"
+                    "source $X_TOOLS_PATH &&",
+                    "x-tox"
                 ],
                 "type": "shell"
             },
             {
                 "label": "version",
                 "detail": "Full resolution of repo: dependencies, linting, tests, docs, etc",
-                "dependsOrder": "sequence",
-                "dependsOn": [
-                    "link-dev",
-                    "lint",
-                    "install-dev",
-                    "full-docs"
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x-version"
                 ],
-                "type": "shell",
+                "type": "shell"
             },
             {
                 "label": "version-bump-major",
                 "detail": "Bump repo's major version",
                 "command": [
-                    "cd $DEV_PATH &&",
-                    "pdm bump major"
+                    "source $X_TOOLS_PATH &&",
+                    "x-version-bump-major"
                 ],
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"],
                 "type": "shell"
             },
             {
                 "label": "version-bump-minor",
                 "detail": "Bump repo's minor version",
                 "command": [
-                    "cd $DEV_PATH &&",
-                    "pdm bump minor"
+                    "source $X_TOOLS_PATH &&",
+                    "x-version-bump-minor"
                 ],
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"],
                 "type": "shell"
             },
             {
                 "label": "version-bump-patch",
                 "detail": "Bump repo's patch version",
                 "command": [
-                    "cd $DEV_PATH &&",
-                    "pdm bump patch"
+                    "source $X_TOOLS_PATH &&",
+                    "x-version-bump-patch"
                 ],
-                "dependsOrder": "sequence",
-                "dependsOn": ["link-dev"],
                 "type": "shell"
             }
         ],

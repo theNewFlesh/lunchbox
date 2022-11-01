@@ -134,15 +134,10 @@ RUN echo "\n${CYAN}INSTALL PYTHON PROD ENVIRONMENT${CLEAR}"; \
     pdm use /usr/bin/python3.9  && pdm install --no-self --dev -v && \
     pdm use /usr/bin/python3.10 && pdm install --no-self --dev -v
 
-RUN echo "\n${CYAN}CREATE SYMBOLIC LINKS${CLEAR}"; \
+RUN echo "\n${CYAN}CREATE SYMBOLIC LINK${CLEAR}"; \
     find /home/ubuntu/dev  -type f -maxdepth 1 | parallel 'rm -rf {}' && \
     find /home/ubuntu/prod -type f -maxdepth 1 | parallel 'rm -rf {}' && \
-    ln -s /home/ubuntu/lunchbox/docker/dev/pyproject.toml  /home/ubuntu/dev/pyproject.toml  && \
-    ln -s /home/ubuntu/lunchbox/docker/dev/pdm.lock        /home/ubuntu/dev/pdm.lock        && \
-    ln -s /home/ubuntu/lunchbox/docker/dev/.pdm.toml       /home/ubuntu/dev/.pdm.toml       && \
-    ln -s /home/ubuntu/lunchbox/docker/prod/pyproject.toml /home/ubuntu/prod/pyproject.toml && \
-    ln -s /home/ubuntu/lunchbox/docker/prod/pdm.lock       /home/ubuntu/prod/pdm.lock       && \
-    ln -s /home/ubuntu/lunchbox/docker/prod/.pdm.toml      /home/ubuntu/prod/.pdm.toml
+    ln -s /home/ubuntu/dev/__pypackages__ /home/ubuntu/
 
 ENV REPO='lunchbox'
 ENV REPO_ENV=True
