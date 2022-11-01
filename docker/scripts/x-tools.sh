@@ -190,13 +190,13 @@ x-library-graph-prod () {
 
 x-library-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
-    echo "${CYAN}DEV INSTALL${CLEAR}\n";
+    echo "${CYAN}INSTALL DEV${CLEAR}\n";
     _x-dev-workflow "pdm install --no-self --dev -v";
 }
 
 x-library-install-prod () {
     # Install all dependencies of prod/pyproject.toml into /home/ubuntu/prod
-    echo "${CYAN}PROD INSTALL${CLEAR}\n";
+    echo "${CYAN}INSTALL PROD${CLEAR}\n";
     _x-link-dev;
     _x-from-prod-path;
     python3 \
