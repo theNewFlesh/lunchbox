@@ -57,6 +57,18 @@ _x-to-prod-path () {
     _x-dir-copy $PROD_TARGET $PROD_SOURCE;
 }
 
+_x-dev-workflow () {
+    # Copies docker/dev to ~/dev, run a given command, and copies ~/dev bask to docker/dev
+    # args: command string
+    local CWD=`pwd`;
+    _x-link-dev;
+    _x-dir-copy $DEV_SOURCE $DEV_TARGET;
+    cd $DEV_TARGET;
+    eval "$1";
+    _x-dir-copy $DEV_TARGET $DEV_SOURCE;
+    cd $CWD;
+}
+
 _x-build () {
     # Build production version of repo for publishing
     # args: type (test or prod)
@@ -149,15 +161,13 @@ x-full-docs () {
 
 x-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
-    _x-from-dev-path;
-    cd $DEV_TARGET;
-    pdm install --no-self --dev -v;
-    _x-to-dev-path;
+    _x-dev-workflow "pdm install --no-self --dev -v";
 }
 
 x-install-prod () {
     # Install all dependencies of prod/pyproject.toml into /home/ubuntu/prod
     _x-link-dev;
+    _x-from-prod-path;
     python3 \
         docker/generate_pyproject.py \
             docker/dev/pyproject.toml \
@@ -166,6 +176,7 @@ x-install-prod () {
         > $PROD_TARGET/pyproject.toml;
     cd $PROD_TARGET;
     pdm install --no-self --dev -v;
+    _x-to-prod-path;
 }
 
 x-lab () {
@@ -186,10 +197,7 @@ x-lint () {
 
 x-lock () {
     # Update /home/ubuntu/dev/pdm.lock file
-    _x-from-dev-path;
-    cd $DEV_TARGET;
-    pdm lock -v;
-    _x-to-dev-path;
+    _x-dev-workflow "pdm lock -v";
 }
 
 x-metrics () {
@@ -270,27 +278,15 @@ x-version () {
 
 x-version-bump-major () {
     # Bump repo's major version
-    _x-link-dev;
-    _x-from-dev-path;
-    cd $DEV_TARGET;
-    pdm bump major;
-    _x-to-dev-path;
+    _x-dev-workflow "pdm bump major";
 }
 
 x-version-bump-minor () {
     # Bump repo's minor version
-    _x-link-dev;
-    _x-from-dev-path;
-    cd $DEV_TARGET;
-    pdm bump minor;
-    _x-to-dev-path;
+    _x-dev-workflow "pdm bump minor";
 }
 
 x-version-bump-patch () {
     # Bump repo's patch version
-    _x-link-dev;
-    _x-from-dev-path;
-    cd $DEV_TARGET;
-    pdm bump patch;
-    _x-to-dev-path;
+    _x-dev-workflow "pdm bump patch";
 }
