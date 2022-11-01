@@ -83,10 +83,10 @@ x-architecture () {
     _x-link-dev;
     python3 -c "import rolling_pin.repo_etl as rpo; \
 rpo.write_repo_architecture( \
-    '/home/ubuntu/$REPO/python' \
-    'docs/architecture.svg' \
-    exclude_regex='test|mock',
-    orient='lr'
+    '/home/ubuntu/$REPO/python', \
+    'docs/architecture.svg', \
+    exclude_regex='test|mock', \
+    orient='lr', \
 )";
 }
 
