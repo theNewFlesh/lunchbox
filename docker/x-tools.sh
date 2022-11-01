@@ -148,8 +148,10 @@ x-full-docs () {
 
 x-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
+    _x-from-dev-path;
     cd $DEV_TARGET;
     pdm install --no-self --dev -v;
+    _x-to-dev-path;
 }
 
 x-install-prod () {
@@ -183,8 +185,10 @@ x-lint () {
 
 x-lock () {
     # Update /home/ubuntu/dev/pdm.lock file
+    _x-from-dev-path;
     cd $DEV_TARGET;
     pdm lock -v;
+    _x-to-dev-path;
 }
 
 x-metrics () {
@@ -266,20 +270,26 @@ x-version () {
 x-version-bump-major () {
     # Bump repo's major version
     _x-link-dev;
+    _x-from-dev-path;
     cd $DEV_TARGET;
     pdm bump major;
+    _x-to-dev-path;
 }
 
 x-version-bump-minor () {
     # Bump repo's minor version
     _x-link-dev;
+    _x-from-dev-path;
     cd $DEV_TARGET;
     pdm bump minor;
+    _x-to-dev-path;
 }
 
 x-version-bump-patch () {
     # Bump repo's patch version
     _x-link-dev;
+    _x-from-dev-path;
     cd $DEV_TARGET;
     pdm bump patch;
+    _x-to-dev-path;
 }
