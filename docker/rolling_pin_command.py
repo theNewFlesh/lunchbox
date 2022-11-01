@@ -24,17 +24,18 @@ def main():
     parser.add_argument(
         '--groups',
         metavar='groups',
-        type=list,
-        nargs='+',
+        type=str,
+        nargs=1,
         action='store',
         help='groups',
-        default='all',
+        default=['all'],
     )
     args = parser.parse_args()
-    print(args)
-    # ConformETL \
-    #     .from_yaml(args.filepath[0]) \
-    #     .conform(groups=args.groups)
+    filepath = args.filepath[0]
+    groups = args.groups[0].split(',')
+    if groups == ['all']:
+        groups = 'all'
+    ConformETL.from_yaml(filepath).conform(groups)
 
 if __name__ == '__main__':
     main()

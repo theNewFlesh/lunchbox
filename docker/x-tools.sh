@@ -75,10 +75,7 @@ _x-build () {
     _x-link-dev;
     cd $REPO_PATH;
     rm -rf $BUILD_PATH;
-    python3 -c "from rolling_pin.conform_etl import ConformETL; \
-src = 'docker/build.yaml'; \
-ConformETL.from_yaml(src).conform(groups=['base', '$1']) \
-";
+    python3 docker/rolling_pin_command.py docker/build.yaml --groups base,$1;
 }
 
 # TASK-FUNCTIONS----------------------------------------------------------------
