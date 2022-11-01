@@ -87,17 +87,21 @@ x-build-pip-package () {
     x-library-install-prod;
     x-build-prod;
     cd $BUILD_PATH/repo;
+    echo "${CYAN}BUILDING PIP PACKAGE${CLEAR}\n";
     pdm build -v;
 }
 
 x-build-prod () {
     # Build production version of repo for publishing
+    echo "${CYAN}BUILDING PROD REPO${CLEAR}\n";
     _x-build prod;
 }
 
 x-build-publish () {
     # Publish pip package of repo to PyPi
     # args: user, password, comment
+    x-test-lint;
+    x-test-prod;
     x-build-pip-package;
     cd $BUILD_PATH/repo;
     pdm publish \
@@ -111,11 +115,13 @@ x-build-publish () {
 
 x-build-test () {
     # Build test version of repo for tox testing
+    echo "${CYAN}BUILDING TEST REPO${CLEAR}\n";
     _x-build test;
 }
 
 x-docs () {
     # Generate sphinx documentation
+    echo "${CYAN}GENERATING DOCS${CLEAR}\n";
     _x-link-dev;
     cd $REPO_PATH;
     mkdir -p docs;
@@ -128,6 +134,7 @@ x-docs () {
 
 x-docs-architecture () {
     # Generate architecture.svg diagram from all import statements
+    echo "${CYAN}GENERATING ARCHITECTURE DIAGRAM${CLEAR}\n";
     _x-link-dev;
     python3 -c "import rolling_pin.repo_etl as rpo; \
 rpo.write_repo_architecture( \
@@ -146,6 +153,7 @@ x-docs-full () {
 
 x-docs-metrics () {
     # Generate code metrics report, plots and tables
+    echo "${CYAN}GENERATING METRICS${CLEAR}\n";
     _x-link-dev;
     cd $REPO_PATH;
     python3 -c "import rolling_pin.repo_etl as rpo; \
@@ -155,6 +163,7 @@ rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 x-library-add () {
     # Add a given package to a given dependency group
     # args: package, group
+    echo "${CYAN}ADDING PACKAGE TO DEV DEPENDENCIES${CLEAR}\n";
     _x-from-dev-path;
     cd $DEV_TARGET;
     if [[ $2 == 'none' ]] then
@@ -167,23 +176,27 @@ x-library-add () {
 
 x-library-graph-dev () {
     # Graph dependencies in dev environment
+    echo "${CYAN}DEV DEPENDENCY GRAPH${CLEAR}\n";
     cd $DEV_TARGET;
     pdm list --graph;
 }
 
 x-library-graph-prod () {
     # Graph dependencies in prod environment
+    echo "${CYAN}PROD DEPENDENCY GRAPH${CLEAR}\n";
     cd $PROD_TARGET;
     pdm list --graph;
 }
 
 x-library-install-dev () {
     # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
+    echo "${CYAN}DEV INSTALL${CLEAR}\n";
     _x-dev-workflow "pdm install --no-self --dev -v";
 }
 
 x-library-install-prod () {
     # Install all dependencies of prod/pyproject.toml into /home/ubuntu/prod
+    echo "${CYAN}PROD INSTALL${CLEAR}\n";
     _x-link-dev;
     _x-from-prod-path;
     python3 \
@@ -199,24 +212,28 @@ x-library-install-prod () {
 
 x-library-list-dev () {
     # List packages in dev environment
+    echo "${CYAN}DEV DEPENDENCIES${CLEAR}\n";
     cd $DEV_TARGET;
     pdm list;
 }
 
 x-library-list-prod () {
     # List packages in prod environment
+    echo "${CYAN}PROD DEPENDENCIES${CLEAR}\n";
     cd $PROD_TARGET;
     pdm list;
 }
 
 x-library-lock () {
     # Update /home/ubuntu/dev/pdm.lock file
+    echo "${CYAN}DEV DEPENDENCY LOCK${CLEAR}\n";
     _x-dev-workflow "pdm lock -v";
 }
 
 x-library-remove () {
     # Remove a given package from a given dependency group
     # args: package, group
+    echo "${CYAN}REMOVING PACKAGE FROM DEV DEPENDENCIES${CLEAR}\n";
     _x-from-dev-path;
     cd $DEV_TARGET;
     if [[ $2 == 'none' ]] then
@@ -235,22 +252,26 @@ x-library-search () {
 
 x-library-sync () {
     # Sync dev dependencies
+    echo "${CYAN}SYNCING DEV DEPENDENCIES${CLEAR}\n";
     _x-dev-workflow "pdm sync --no-self --dev -v";
 }
 
 x-library-update () {
     # Update dev dependencies
+    echo "${CYAN}UPDATING DEV DEPENDENCIES${CLEAR}\n";
     _x-dev-workflow "pdm update --no-self --dev -v";
 }
 
 x-server-app () {
     # Run lunchbox app
+    echo "${CYAN}APP${CLEAR}\n";
     _x-link-dev;
     python3.10 python/$REPO/server/app.py;
 }
 
 x-server-lab () {
     # Run jupyter lab server
+    echo "${CYAN}JUPYTER LAB${CLEAR}\n";
     _x-link-dev;
     jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
 }
@@ -263,6 +284,7 @@ x-server-python () {
 
 x-test-coverage () {
     # Generate test coverage report
+    echo "${CYAN}GENERATING TEST COVERAGE REPORT${CLEAR}\n";
     _x-link-dev;
     cd $REPO_PATH;
     mkdir -p docs;
@@ -277,6 +299,7 @@ x-test-coverage () {
 
 x-test-dev () {
     # Run all tests
+    echo "${CYAN}TESTING DEV${CLEAR}\n";
     _x-link-dev;
     cd $REPO_PATH;
     pytest -c docker/config/pytest.ini --numprocesses $PROCS python;
@@ -284,6 +307,7 @@ x-test-dev () {
 
 x-test-fast () {
     # Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator
+    echo "${CYAN}FAST TESTING DEV${CLEAR}\n";
     _x-link-dev;
     cd $REPO_PATH;
     SKIP_SLOW_TESTS=true \
@@ -294,9 +318,9 @@ x-test-lint () {
     # Run linting and type checking
     _x-link-dev;
     cd $REPO_PATH;
-    echo LINTING;
+    echo "${CYAN}LINTING${CLEAR}\n";
     flake8 python --config docker/config/flake8.ini;
-    echo TYPE CHECKING;
+    echo "${CYAN}TYPE CHECKING${CLEAR}\n";
     mypy python --config-file docker/config/mypy.ini;
 }
 
@@ -304,6 +328,7 @@ x-test-prod () {
     # Run tests across all support python versions
     x-build-test;
     _x-link-prod;
+    echo "${CYAN}TESTING PROD${CLEAR}\n";
     unset REPO_ENV;
     cd $BUILD_PATH/repo;
     tox;
@@ -319,15 +344,18 @@ x-version () {
 
 x-version-bump-major () {
     # Bump repo's major version
+    echo "${CYAN}BUMPING MAJOR VERSION${CLEAR}\n";
     _x-dev-workflow "pdm bump major";
 }
 
 x-version-bump-minor () {
     # Bump repo's minor version
+    echo "${CYAN}BUMPING MINOR VERSION${CLEAR}\n";
     _x-dev-workflow "pdm bump minor";
 }
 
 x-version-bump-patch () {
     # Bump repo's patch version
+    echo "${CYAN}BUMPING PATCH VERSION${CLEAR}\n";
     _x-dev-workflow "pdm bump patch";
 }
