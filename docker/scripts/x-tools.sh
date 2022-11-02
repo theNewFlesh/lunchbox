@@ -108,7 +108,6 @@ x-build-publish () {
     echo "${CYAN}PUBLISHING PIP PACKAGE TO PYPI${CLEAR}\n";
     cd $BUILD_PATH/repo;
     pdm publish \
-        --repository https://pypi.org \
         --no-build \
         --username "$1" \
         --password "$2" \
