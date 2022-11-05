@@ -57,7 +57,7 @@
                 "detail": "Generate pip package of repo in ~/build/repo",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-build-pip-package"
+                    "x_build_pip_package"
                 ],
                 "type": "shell"
             },
@@ -66,7 +66,7 @@
                 "detail": "Build production version of repo for publishing",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-build-prod"
+                    "x_build_prod"
                 ],
                 "type": "shell"
             },
@@ -75,7 +75,7 @@
                 "detail": "Publish pip package of repo to PyPi",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-build-publish",
+                    "x_build_publish",
                     "'${input:pypi_user}'",
                     "'${input:pypi_password}'",
                     "'${input:pypi_comment}'"
@@ -87,7 +87,7 @@
                 "detail": "Build test version of repo for tox testing",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-build-test"
+                    "x_build_test"
                 ],
                 "type": "shell"
             },
@@ -96,7 +96,7 @@
                 "detail": "Generate sphinx documentation",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-docs"
+                    "x_docs"
                 ],
                 "type": "shell"
             },
@@ -105,7 +105,7 @@
                 "detail": "Generate architecture.svg diagram from all import statements",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-docs-architecture"
+                    "x_docs_architecture"
                 ],
                 "type": "shell"
             },
@@ -114,7 +114,7 @@
                 "detail": "Generate documentation, coverage report, architecture diagram and code metrics",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-docs-full"
+                    "x_docs_full"
                 ],
                 "type": "shell"
             },
@@ -123,7 +123,7 @@
                 "detail": "Generate code metrics report, plots and tables",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-docs-metrics"
+                    "x_docs_metrics"
                 ],
                 "type": "shell"
             },
@@ -132,7 +132,7 @@
                 "detail": "Add a given package to a given dependency group",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-add ${input:pdm_package} ${input:pdm_group}"
+                    "x_library_add ${input:pdm_package} ${input:pdm_group}"
                 ],
                 "type": "shell"
             },
@@ -141,7 +141,7 @@
                 "detail": "Graph dependencies in dev environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-graph-dev"
+                    "x_library_graph_dev"
                 ],
                 "type": "shell"
             },
@@ -150,7 +150,7 @@
                 "detail": "Graph dependencies in prod environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-graph-prod"
+                    "x_library_graph_prod"
                 ],
                 "type": "shell"
             },
@@ -159,7 +159,7 @@
                 "detail": "Install all dependencies of dev/pyproject.toml into ~/dev",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-install-dev"
+                    "x_library_install_dev"
                 ],
                 "type": "shell"
             },
@@ -168,7 +168,7 @@
                 "detail": "Install all dependencies of prod/pyproject.toml into ~/prod",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-install-prod"
+                    "x_library_install_prod"
                 ],
                 "type": "shell"
             },
@@ -177,7 +177,7 @@
                 "detail": "List packages in dev environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-list-dev"
+                    "x_library_list_dev"
                 ],
                 "type": "shell"
             },
@@ -186,7 +186,7 @@
                 "detail": "List packages in prod environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-list-prod"
+                    "x_library_list_prod"
                 ],
                 "type": "shell"
             },
@@ -195,7 +195,7 @@
                 "detail": "Update ~/dev/pdm.lock file",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-lock"
+                    "x_library_lock"
                 ],
                 "type": "shell"
             },
@@ -204,7 +204,7 @@
                 "detail": "Remove a given package from a given dependency group",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-remove ${input:pdm_package} ${input:pdm_group}"
+                    "x_library_remove ${input:pdm_package} ${input:pdm_group}"
                 ],
                 "type": "shell"
             },
@@ -213,7 +213,7 @@
                 "detail": "Search for pip packages",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-search ${input:pdm_package}"
+                    "x_library_search ${input:pdm_package}"
                 ],
                 "type": "shell"
             },
@@ -222,7 +222,7 @@
                 "detail": "Sync dev dependencies",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-sync"
+                    "x_library_sync"
                 ],
                 "type": "shell"
             },
@@ -231,7 +231,7 @@
                 "detail": "Update dev dependencies",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-library-update"
+                    "x_library_update"
                 ],
                 "type": "shell"
             },
@@ -240,7 +240,7 @@
             //     "detail": "Run app server",
             //     "command": [
             //         "source $X_TOOLS_PATH &&",
-            //         "x-session-app"
+            //         "x_session_app"
             //     ],
             //     "type": "shell"
             // },
@@ -249,7 +249,7 @@
                 "detail": "Run jupyter lab server",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-session-lab"
+                    "x_session_lab"
                 ],
                 "type": "shell"
             },
@@ -258,7 +258,7 @@
                 "detail": "Run python session with dev dependencies",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-session-python"
+                    "x_session_python"
                 ],
                 "type": "shell"
             },
@@ -267,7 +267,7 @@
                 "detail": "Generate test coverage report",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-test-coverage"
+                    "x_test_coverage"
                 ],
                 "type": "shell"
             },
@@ -276,7 +276,7 @@
                 "detail": "Run all tests",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-test-dev"
+                    "x_test_dev"
                 ],
                 "type": "shell"
             },
@@ -285,7 +285,7 @@
                 "detail": "Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-test-fast"
+                    "x_test_fast"
                 ],
                 "type": "shell"
             },
@@ -294,7 +294,7 @@
                 "detail": "Run linting and type checking",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-test-lint"
+                    "x_test_lint"
                 ],
                 "type": "shell"
             },
@@ -303,7 +303,7 @@
                 "detail": "Run tests across all support python versions",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-test-prod"
+                    "x_test_prod"
                 ],
                 "type": "shell"
             },
@@ -312,7 +312,7 @@
                 "detail": "Full resolution of repo: dependencies, linting, tests, docs, etc",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-version"
+                    "x_version"
                 ],
                 "type": "shell"
             },
@@ -321,7 +321,7 @@
                 "detail": "Bump repo's major version",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-version-bump-major"
+                    "x_version_bump_major"
                 ],
                 "type": "shell"
             },
@@ -330,7 +330,7 @@
                 "detail": "Bump repo's minor version",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-version-bump-minor"
+                    "x_version_bump_minor"
                 ],
                 "type": "shell"
             },
@@ -339,7 +339,7 @@
                 "detail": "Bump repo's patch version",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x-version-bump-patch"
+                    "x_version_bump_patch"
                 ],
                 "type": "shell"
             }

@@ -120,11 +120,11 @@ COPY --chown=ubuntu:ubuntu config/prod.lock /home/ubuntu/pdm/
 RUN echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
     cd pdm && \
     . /home/ubuntu/pdm/x-tools.sh && \
-    x_env_init dev 3.10 && \
-    x_env_init prod 3.10 && \
-    x_env_init prod 3.9 && \
-    x_env_init prod 3.8 && \
-    x_env_init prod 3.7
+    x_env_init dev 3.10
+    # x_env_init prod 3.10 && \
+    # x_env_init prod 3.9 && \
+    # x_env_init prod 3.8 && \
+    # x_env_init prod 3.7
 
 # # install test dependencies
 # COPY --chown=ubuntu:ubuntu pyproject.toml.j2 /home/ubuntu/test/
