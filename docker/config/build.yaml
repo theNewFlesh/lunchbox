@@ -5,12 +5,13 @@ source_rules:
   - path: /home/ubuntu/lunchbox/python/lunchbox
     include: "\\.py$"
   - path: /home/ubuntu/lunchbox/docker/config
-    include: "pytest|tox|flake8|mypy"
+    include: "flake8"
     exclude: "cache|__pypackages__"
   - path: /home/ubuntu/lunchbox/docker/prod
     exclude: "__pypackages__"
   - path: /home/ubuntu/lunchbox/resources
     include: ".*"
+    exclude: "__pycache__"
 rename_rules:
   - regex: "/home/ubuntu/lunchbox"
     replace: /home/ubuntu/build/repo
@@ -20,7 +21,7 @@ rename_rules:
     replace: ""
 group_rules:
   - name: test
-    regex: "(__init__|_test)\\.py$|(mypy|flake8|tox|pytest)\\.ini|resources"
+    regex: "(__init__|_test)\\.py$|flake8\\.ini|resources"
   - name: prod
     regex: "__init__\\.py$"
 line_rules:
