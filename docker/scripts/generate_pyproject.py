@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-from typing import List
+from typing import Any, List
 
-from copy import deepcopy
 import argparse
-import re
 
 import toml
 # ------------------------------------------------------------------------------
@@ -25,66 +23,82 @@ def main():
     )
 
     parser.add_argument(
-        'version',
-        metavar='version',
+        '--replace',
+        metavar='replace',
         type=str,
-        nargs=1,
-        action='store',
+        nargs='+',
+        default=[],
+        action='append',
         help='python version',
     )
 
     parser.add_argument(
-        '--groups',
-        metavar='groups',
+        '--delete',
+        metavar='delete',
         type=str,
-        nargs=1,
-        default='all',
-        action='store',
+        nargs='+',
+        default=[],
+        action='append',
         help='python version',
     )
 
     args = parser.parse_args()
-    temp, ver, grp = args.template[0], args.version[0], args.groups[0].split(',')
-    text = generate_pyproject(temp, ver, grp)
+    template, repls, dels = args.template[0], args.replace, args.delete
+    repls = [x[0].split(',') for x in repls]
+    dels = [x[0] for x in dels]
+    text = generate_pyproject(template, repls, dels)
     print(text)
 
 
-def generate_pyproject(source_path, version, groups):
-    # type: (str, str, List[str]) -> str
+class PyprojectEncoder(toml.TomlArraySeparatorEncoder):
+    def __init__(self, _dict=dict, preserve=False, separator=','):
+        super().__init__(_dict, preserve, ',\n   ')
+
+    def dump_list(self, v):
+        if len(v) == 0:
+            return '[]'
+        if len(v) == 1:
+            return '["' + v[0] + '"]'
+        output = super().dump_list(v)[1:-1].rstrip('    \n')
+        return '[\n   ' + output + '\n]'
+
+
+def generate_pyproject(filepath, replacements, deletions):
+    # type: (str, List[List[str, Any]], List[str]) -> str
     '''
-    Generate pyproject.toml file given a source_path and python version.
-    Removes dev dependecies.
+    Generate an new pyproject.toml file from a given one and a list of
+    replacements and deletions.
+
+    edits a
 
     Args:
-        source_path (str): Path to base pyproject.toml file.
-        target_path (str): Path to write generated pyproject.toml file.
-        version (str): Python version.
-        groups (list[str]): Dependency groups.
+        filepath (str): pyproject.toml filepath.
+        replacements (List[List[str, object]]): LIst of key value pairs.
+            Key is replaced with value.
+        deletions (List[str]): Keys to be deleted.
 
     Returns:
         str: pyproject.toml content.
     '''
-    proj = toml.load(source_path)
+    data = toml.load(filepath)
 
-    # remove arbitrary tag
-    # if your project has a dependency that depends on an earlier version of
-    # your project, you need to add an arbitrary tag to disrupt its namespace in
-    # order for pdm to resolve
-    proj['project']['name'] = re.sub('<.*>', '', proj['project']['name'])
+    def lookup(key, data):
+        keys = key.split('.')
+        last_key = keys.pop()
+        temp = data
+        for k in keys:
+            temp = temp[k]
+        return temp, last_key
 
-    # fix python version
-    proj['project']['requires-python'] = f'{version}'
+    for key, val in replacements:
+        temp, k = lookup(key, data)
+        temp[k]= val
 
-    deps = deepcopy(proj['tool']['pdm']['dev-dependencies'])
-    proj['tool']['pdm']['dev-dependencies'] = {}
+    for key in deletions:
+        temp, k = lookup(key, data)
+        del temp[k]
 
-    if groups == ['all']:
-        groups = ['dev', 'test']
-    for group in groups:
-        if group in deps.keys():
-            proj['tool']['pdm']['dev-dependencies'][group] = deps[group]
-
-    return toml.dumps(proj)
+    return toml.dumps(data, encoder=PyprojectEncoder())
 
 
 if __name__ == '__main__':
