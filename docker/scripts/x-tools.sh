@@ -209,7 +209,6 @@ x_docs_architecture () {
     # Generate architecture.svg diagram from all import statements
     echo "${CYAN}GENERATING ARCHITECTURE DIAGRAM${CLEAR}\n";
     x_env_activate_dev;
-    cd $REPO_DIR/python;
     python3 -c "import rolling_pin.repo_etl as rpo; \
 rpo.write_repo_architecture( \
     '$REPO_DIR/python', \
