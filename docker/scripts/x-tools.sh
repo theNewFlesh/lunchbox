@@ -227,7 +227,7 @@ x_docs_full () {
 x_docs_metrics () {
     # Generate code metrics report, plots and tables
     echo "${CYAN}GENERATING METRICS${CLEAR}\n";
-    _x_link_dev;
+    x_env_activate_dev;
     cd $REPO_DIR;
     python3 -c "import rolling_pin.repo_etl as rpo; \
 rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
