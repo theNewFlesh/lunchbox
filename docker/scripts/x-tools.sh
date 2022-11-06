@@ -9,7 +9,7 @@ export CONFIG_DIR="$REPO_DIR/docker/config"
 export PDM_DIR="$HOME/pdm"
 export SCRIPT_DIR="$REPO_DIR/docker/scripts"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
-export DEV_PYTHON_VERSION="3.10"
+export MAX_PYTHON_VERSION="3.10"
 export MIN_PYTHON_VERSION="3.7"
 export X_TOOLS_PATH="$SCRIPT_DIR/x-tools.sh"
 
@@ -110,6 +110,11 @@ _x_env_sync () {
     deactivate;
 }
 
+x_env_activate_dev () {
+    # Activates dev environment
+    _x_env_activate dev $MAX_PYTHON_VERSION;
+}
+
 x_env_init () {
     # Create a virtual env with dependencies given a mode and python version
     # args: mode, python_version
@@ -118,20 +123,21 @@ x_env_init () {
     _x_env_sync $1 $2;
 }
 
-x_activate_dev () {
-    # Activates dev environment
-    _x_env_activate dev $DEV_PYTHON_VERSION;
-}
-
 # BUILD-FUNCTIONS---------------------------------------------------------------
 _x_build () {
     # Build production version of repo for publishing
     # args: type (test or prod)
-    cd $REPO_DIR;
+    x_env_activate_dev;
     rm -rf $BUILD_DIR;
-    python3 docker/scripts/rolling_pin_command.py \
-        docker/config/build.yaml \
+    python3 \
+        $SCRIPT_DIR/rolling_pin_command.py \
+        $CONFIG_DIR/build.yaml \
         --groups base,$1;
+    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+        --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
+        --delete "tool.pdm.dev-dependencies.lab" \
+        --delete "tool.pdm.dev-dependencies.dev" \
+        > $BUILD_DIR/repo/pyproject.toml;
 }
 
 x_build_pip_package () {
@@ -146,7 +152,7 @@ x_build_pip_package () {
 x_build_prod () {
     # Build production version of repo for publishing
     echo "${CYAN}BUILDING PROD REPO${CLEAR}\n";
-    x_build prod;
+    _x_build prod;
 }
 
 x_build_publish () {
