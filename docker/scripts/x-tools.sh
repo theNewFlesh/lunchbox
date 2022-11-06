@@ -391,23 +391,23 @@ x_library_update () {
 
 # SESSION-FUNCTIONS-------------------------------------------------------------
 x_session_app () {
-    # Run lunchbox app
+    # Run app
+    x_env_activate_dev;
     echo "${CYAN}APP${CLEAR}\n";
-    _x_link_dev;
-    python3.10 python/$REPO/server/app.py;
+    python3.10 $REPO_PATH/python/$REPO/server/app.py;
 }
 
 x_session_lab () {
     # Run jupyter lab server
+    x_env_activate_dev;
     echo "${CYAN}JUPYTER LAB${CLEAR}\n";
-    _x_link_dev;
     jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
 }
 
 x_session_python () {
     # Run python session with dev dependencies
-    _x_link_dev;
-    python3.10;
+    x_env_activate_dev;
+    python3;
 }
 
 # TEST-FUNCTIONS----------------------------------------------------------------
