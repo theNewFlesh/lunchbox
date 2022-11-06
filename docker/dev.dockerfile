@@ -120,29 +120,11 @@ COPY --chown=ubuntu:ubuntu config/prod.lock /home/ubuntu/pdm/
 RUN echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
     cd pdm && \
     . /home/ubuntu/pdm/x-tools.sh && \
-    x_env_init dev 3.10
-    # x_env_init prod 3.10 && \
-    # x_env_init prod 3.9 && \
-    # x_env_init prod 3.8 && \
-    # x_env_init prod 3.7
-
-# # install test dependencies
-# COPY --chown=ubuntu:ubuntu pyproject.toml.j2 /home/ubuntu/test/
-# COPY --chown=ubuntu:ubuntu test.lock /home/ubuntu/test/pdm.lock
-# COPY --chown=ubuntu:ubuntu pdm.toml /home/ubuntu/test/.pdm.toml
-# RUN echo "\n${CYAN}INSTALL PYTHON TEST ENVIRONMENT${CLEAR}"; \
-#     cd test && \
-#     jinja pyproject.toml.j2 --define mode test > pyproject.toml && \
-#     pdm use /usr/bin/python3.7  && pdm install --no-self --dev -v && \
-#     pdm use /usr/bin/python3.8  && pdm install --no-self --dev -v && \
-#     pdm use /usr/bin/python3.9  && pdm install --no-self --dev -v && \
-#     pdm use /usr/bin/python3.10 && pdm install --no-self --dev -v
-
-# RUN echo "\n${CYAN}CREATE SYMBOLIC LINK${CLEAR}"; \
-#     find /home/ubuntu/dev  -type f -maxdepth 1 | parallel 'rm -rf {}' && \
-#     find /home/ubuntu/test -type f -maxdepth 1 | parallel 'rm -rf {}' && \
-#     ln -s /home/ubuntu/dev/__pypackages__ /home/ubuntu/
+    x_env_init dev 3.10 && \
+    x_env_init prod 3.10 && \
+    x_env_init prod 3.9 && \
+    x_env_init prod 3.8 && \
+    x_env_init prod 3.7
 
 ENV REPO='lunchbox'
 ENV PYTHONPATH ":/home/ubuntu/$REPO/python:/home/ubuntu/.local/lib"
-# ENV PYTHONPATH ":/home/ubuntu/$REPO/python:/home/ubuntu/.local/lib:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582"
