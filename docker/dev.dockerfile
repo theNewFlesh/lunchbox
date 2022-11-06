@@ -113,7 +113,7 @@ RUN echo "\n${CYAN}INSTALL PDM AND JINJA${CLEAR}"; \
 
 # install python dependencies
 COPY --chown=ubuntu:ubuntu scripts/x-tools.sh /home/ubuntu/pdm/
-COPY --chown=ubuntu:ubuntu config/pyproject.toml.j2 /home/ubuntu/pdm/
+COPY --chown=ubuntu:ubuntu config/pyproject.toml /home/ubuntu/pdm/
 COPY --chown=ubuntu:ubuntu config/pdm.toml.j2 /home/ubuntu/pdm/
 COPY --chown=ubuntu:ubuntu config/dev.lock /home/ubuntu/pdm/
 COPY --chown=ubuntu:ubuntu config/prod.lock /home/ubuntu/pdm/

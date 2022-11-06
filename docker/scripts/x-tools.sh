@@ -4,12 +4,13 @@ export PYTHONPATH=/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/ven
 export REPO="lunchbox"
 export REPO_PATH="/home/ubuntu/$REPO"
 export BUILD_PATH="/home/ubuntu/build"
+export GEN_PATH="$REPO_PATH/docker/scripts/generate_pyproject.py"
+export PROJ_PATH="$REPO_PATH/docker/pyproject.toml"
 export DEV_SOURCE="$REPO_PATH/docker/dev"
 export DEV_TARGET="/home/ubuntu/dev"
 export PROD_SOURCE="$REPO_PATH/docker/prod"
 export PROD_TARGET="/home/ubuntu/prod"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
-export PROD_PYTHON_VERSION=">=3.7"
 export X_TOOLS_PATH="$REPO_PATH/docker/scripts/x-tools.sh"
 
 # HELPER-FUNCTIONS--------------------------------------------------------------
@@ -106,8 +107,16 @@ _x_generate_dev () {
 _x_generate_prod () {
     # Generate ~/prod/pyproject.toml from docker/pyproject.toml.j2
     _x_link_dev;
-    jinja docker/pyproject.toml.j2 --define mode prod \
+    python3 $GEN_PATH $PROJ_PATH \
+        --replace 'project.requires-python,>=3.7' \
+        --delete 'tool.pdm.dev-dependencies.lab' \
+        --delete 'tool.pdm.dev-dependencies.dev' \
     > $PROD_SOURCE/pyproject.toml;
+    python3 $GEN_PATH $PDM_PATH \
+        --replace 'venv.prompt,prod-{python_version}' \
+        --replace "python.path,$path";
+    > $PROD_SOURCE/.pdm.toml;
+    cp --force $REPO_PATH/docker/prod.lock /home/ubuntu/pdm/pdm.lock;
     _x_from_prod_path;
 }
 
