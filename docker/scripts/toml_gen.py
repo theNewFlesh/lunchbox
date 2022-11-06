@@ -9,17 +9,17 @@ import toml
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter,
-        description='Generates a pyproject.toml file for specific python version',
-        usage='\ngenerate_pyproject [template] [python-version] [-h --help]'
+        description='Generate TOML content using a given TOML file',
+        usage='\ntoml_gen [filepath] [-h --help]'
     )
 
     parser.add_argument(
-        'template',
-        metavar='template',
+        'filepath',
+        metavar='filepath',
         type=str,
         nargs=1,
         action='store',
-        help='pyrpoject.toml filepath',
+        help='TOML file',
     )
 
     parser.add_argument(
@@ -29,7 +29,7 @@ def main():
         nargs='+',
         default=[],
         action='append',
-        help='python version',
+        help='replace key with value in comma separated pair',
     )
 
     parser.add_argument(
@@ -39,14 +39,14 @@ def main():
         nargs='+',
         default=[],
         action='append',
-        help='python version',
+        help='key to be deleted',
     )
 
     args = parser.parse_args()
     template, repls, dels = args.template[0], args.replace, args.delete
     repls = [x[0].split(',') for x in repls]
     dels = [x[0] for x in dels]
-    text = generate_pyproject(template, repls, dels)
+    text = generate(template, repls, dels)
     print(text)
 
 
@@ -63,13 +63,11 @@ class PyprojectEncoder(toml.TomlArraySeparatorEncoder):
         return '[\n   ' + output + '\n]'
 
 
-def generate_pyproject(filepath, replacements, deletions):
+def generate(filepath, replacements, deletions):
     # type: (str, List[List[str, Any]], List[str]) -> str
     '''
-    Generate an new pyproject.toml file from a given one and a list of
-    replacements and deletions.
-
-    edits a
+    Generate TOML from a given TOML file and a list of replacements and
+    deletions.
 
     Args:
         filepath (str): pyproject.toml filepath.
