@@ -413,54 +413,55 @@ x_session_python () {
 # TEST-FUNCTIONS----------------------------------------------------------------
 x_test_coverage () {
     # Generate test coverage report
+    x_env_activate_dev;
     echo "${CYAN}GENERATING TEST COVERAGE REPORT${CLEAR}\n";
-    _x_link_dev;
     cd $REPO_DIR;
     mkdir -p docs;
     pytest \
-        -c docker/dev/pyproject.toml \
+        -c $CONFIG_DIR/pyproject.toml \
         --numprocesses $PROCS \
         --cov=python \
-        --cov-config=docker/dev/pyproject.toml \
+        --cov-config=$CONFIG_DIR/pyproject.toml \
         --cov-report=html:docs/htmlcov \
-        python;
+        $REPO_DIR/python;
 }
 
 x_test_dev () {
     # Run all tests
+    x_env_activate_dev;
     echo "${CYAN}TESTING DEV${CLEAR}\n";
-    _x_link_dev;
     cd $REPO_DIR;
-    pytest -c docker/dev/pyproject.toml --numprocesses $PROCS python;
+    pytest -c $CONFIG_DIR/pyproject.toml --numprocesses $PROCS $REPO_DIR/python;
 }
 
 x_test_fast () {
     # Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator
+    x_env_activate_dev;
     echo "${CYAN}FAST TESTING DEV${CLEAR}\n";
-    _x_link_dev;
     cd $REPO_DIR;
     SKIP_SLOW_TESTS=true \
-    pytest -c docker/dev/pyproject.toml --numprocesses $PROCS python;
+    pytest -c $CONFIG_DIR/pyproject.toml --numprocesses $PROCS $REPO_DIR/python;
 }
 
 x_test_lint () {
     # Run linting and type checking
-    _x_link_dev;
+    x_env_activate_dev;
     cd $REPO_DIR;
     echo "${CYAN}LINTING${CLEAR}\n";
-    flake8 python --config docker/config/flake8.ini;
+    flake8 python --config $CONFIG_DIR/flake8.ini;
     echo "${CYAN}TYPE CHECKING${CLEAR}\n";
-    mypy python --config-file docker/dev/pyproject.toml;
+    mypy python --config-file $CONFIG_DIR/pyproject.toml;
 }
 
 x_test_prod () {
     # Run tests across all support python versions
-    _x_gen_prod;
     x_build_test;
-    _x_link_prod;
     echo "${CYAN}TESTING PROD${CLEAR}\n";
+    x_env_activate_prod;
     cd $BUILD_DIR/repo;
     tox --parallel -v;
+    deactivate;
+    x_env_activate_dev;
 }
 
 # VERSION-FUNCTIONS-------------------------------------------------------------
