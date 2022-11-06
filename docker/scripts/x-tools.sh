@@ -9,19 +9,43 @@ export CONFIG_DIR="$REPO_DIR/docker/config"
 export PDM_DIR="$HOME/pdm"
 export SCRIPT_DIR="$REPO_DIR/docker/scripts"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
+export DEV_PYTHON_VERSION="3.10"
+export MIN_PYTHON_VERSION="3.7"
 export X_TOOLS_PATH="$SCRIPT_DIR/x-tools.sh"
 
-# HELPER-FUNCTIONS--------------------------------------------------------------
-_x_build () {
-    # Build production version of repo for publishing
-    # args: type (test or prod)
-    cd $REPO_DIR;
-    rm -rf $BUILD_DIR;
-    python3 docker/scripts/rolling_pin_command.py \
-        docker/config/build.yaml \
-        --groups base,$1;
+# GENERATE-FUNCTIONS------------------------------------------------------------
+_x_generate_pdm_files () {
+    # Generate pyproject.tom, .pdm.toml and pdm.lock files
+    # args: mode, python version
+
+    # pdm.lock
+    rm -f $PDM_DIR/pdm.lock;
+    cp $CONFIG_DIR/$1.lock $PDM_DIR/pdm.lock;
+
+    # get python path
+    local pypath=`_x_get_env_python $1 $2`;
+
+    # .pdm.toml
+    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pdm.toml \
+        --replace "venv.prompt,$1-{python_version}" \
+        --replace "python.path,$pypath" \
+        > $PDM_DIR/.pdm.toml;
+
+    # pyproject.toml
+    if [[ $1 == "dev" ]]; then
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+            --replace "project.name,lunchbox-dev" \
+            > $PDM_DIR/pyproject.toml;
+    else
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+            --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
+            --delete "tool.pdm.dev-dependencies.lab" \
+            --delete "tool.pdm.dev-dependencies.dev" \
+            > $PDM_DIR/pyproject.toml;
+    fi;
 }
 
+# ENV-FUNCTIONS-----------------------------------------------------------------
 _x_get_env_path () {
     # gets path of given environment
     # args: environment name
@@ -51,39 +75,7 @@ _x_get_env_python () {
     fi;
 }
 
-_x_generate_pdm_files () {
-    # Generate pyproject.tom, .pdm.toml and pdm.lock files
-    # args: mode, python version
-
-    # pdm.lock
-    rm -f $PDM_DIR/pdm.lock;
-    cp $CONFIG_DIR/$1.lock $PDM_DIR/pdm.lock;
-
-    # get python path
-    local pypath=`_x_get_env_python $1 $2`;
-
-    # .pdm.toml
-    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pdm.toml \
-        --replace "venv.prompt,$1-{python_version}" \
-        --replace "python.path,$pypath" \
-        > $PDM_DIR/.pdm.toml;
-
-    # pyproject.toml
-    if [[ $1 == "dev" ]]; then
-        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-            --replace "project.name,lunchbox-dev" \
-            > $PDM_DIR/pyproject.toml;
-    else
-        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-            --replace "project.requires-python,>=3.7" \
-            --delete "tool.pdm.dev-dependencies.lab" \
-            --delete "tool.pdm.dev-dependencies.dev" \
-            > $PDM_DIR/pyproject.toml;
-    fi;
-}
-
-# ENV-FUNCTIONS-----------------------------------------------------------------
-x_env_create () {
+_x_env_create () {
     # Create a virtual env given a mode and python version
     # args: mode, python_version
     cd $PDM_DIR;
@@ -91,7 +83,7 @@ x_env_create () {
     pdm venv create -n $1-$2;
 }
 
-x_env_activate () {
+_x_env_activate () {
     # Activate a virtual env given a mode and python version
     # args: mode, python_version
     cd $PDM_DIR;
@@ -99,21 +91,21 @@ x_env_activate () {
     . `pdm venv activate $1-$2 | awk '{print $2}'`;
 }
 
-x_env_lock () {
+_x_env_lock () {
     # Resolve dependencies listed in pyrproject.toml into a pdm.lock file
     # args: mode, python_version
     cd $PDM_DIR;
-    x_env_activate $1 $2 && \
+    _x_env_activate $1 $2 && \
     pdm lock -v && \
     cat $PDM_DIR/pdm.lock > $CONFIG_DIR/$1.lock;
 }
 
-x_env_sync () {
+_x_env_sync () {
     # Install dependencies from a pdm.lock into a virtual env specified by a
     # given mode and python version
     # args: mode, python_version
     cd $PDM_DIR;
-    x_env_activate $1 $2 && \
+    _x_env_activate $1 $2 && \
     pdm sync --no-self --dev --clean -v && \
     deactivate;
 }
@@ -122,11 +114,26 @@ x_env_init () {
     # Create a virtual env with dependencies given a mode and python version
     # args: mode, python_version
     cd $PDM_DIR;
-    x_env_create $1 $2;
-    x_env_sync $1 $2;
+    _x_env_create $1 $2;
+    _x_env_sync $1 $2;
+}
+
+x_activate_dev () {
+    # Activates dev environment
+    _x_env_activate dev $DEV_PYTHON_VERSION;
 }
 
 # BUILD-FUNCTIONS---------------------------------------------------------------
+_x_build () {
+    # Build production version of repo for publishing
+    # args: type (test or prod)
+    cd $REPO_DIR;
+    rm -rf $BUILD_DIR;
+    python3 docker/scripts/rolling_pin_command.py \
+        docker/config/build.yaml \
+        --groups base,$1;
+}
+
 x_build_pip_package () {
     # Generate pip package of repo in $HOME/build/repo
     x_library_install_prod;
@@ -139,7 +146,7 @@ x_build_pip_package () {
 x_build_prod () {
     # Build production version of repo for publishing
     echo "${CYAN}BUILDING PROD REPO${CLEAR}\n";
-    _x_build prod;
+    x_build prod;
 }
 
 x_build_publish () {
@@ -163,7 +170,7 @@ x_build_publish () {
 x_build_test () {
     # Build test version of repo for tox testing
     echo "${CYAN}BUILDING TEST REPO${CLEAR}\n";
-    _x_build test;
+    x_build test;
 }
 
 # DOCS-FUNCTIONS----------------------------------------------------------------
