@@ -17,6 +17,8 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 echo 'will cite' | parallel --citation >> /dev/null 2>&1
+alias l='ls -hl'
 alias ll='ls -hlA'
 alias tree='tree -Ca'
+git config --global --add safe.directory /home/ubuntu/lunchbox
 source /home/ubuntu/lunchbox/docker/scripts/x-tools.sh

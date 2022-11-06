@@ -12,6 +12,7 @@ export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
 export MAX_PYTHON_VERSION="3.10"
 export MIN_PYTHON_VERSION="3.7"
 export X_TOOLS_PATH="$SCRIPT_DIR/x-tools.sh"
+unalias cp  # "cp -i" alias asks you if you want to clobber files
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
 _x_gen_pyproject () {
@@ -193,13 +194,13 @@ x_build_test () {
 # DOCS-FUNCTIONS----------------------------------------------------------------
 x_docs () {
     # Generate sphinx documentation
-    echo "${CYAN}GENERATING DOCS${CLEAR}\n";
-    _x_link_dev;
+    x_env_activate_dev;
     cd $REPO_DIR;
+    echo "${CYAN}GENERATING DOCS${CLEAR}\n";
     mkdir -p docs;
     pandoc README.md -o sphinx/intro.rst;
     sphinx-build sphinx docs;
-    cp sphinx/style.css docs/_static/style.css;
+    cp -f sphinx/style.css docs/_static/style.css;
     touch docs/.nojekyll;
     mkdir -p docs/resources;
 }
