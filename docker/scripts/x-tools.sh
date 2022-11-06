@@ -243,10 +243,18 @@ rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 }
 
 # LIBRARY-FUNCTIONS-------------------------------------------------------------
-_x_library_pdm_proj_to_repo () {
+_x_library_pdm_to_repo_dev () {
+    # Copies pdm/pyproject.toml and pdm/pdm.lock to repo's pyproject.toml and
+    # dev.lock files
+    cp -f $PDM_DIR/pdm.lock $CONFIG_DIR/dev.lock;
     cat $PDM_DIR/pyproject.toml \
         | sed -E "s/name.*$REPO-dev.*/name = \"$REPO\"/" \
         > $CONFIG_DIR/pyproject.toml;
+}
+
+_x_library_pdm_to_repo_prod () {
+    # Copies pdm/pdm.lock to repo's prod.lock
+    cp -f $PDM_DIR/pdm.lock $CONFIG_DIR/prod.lock;
 }
 
 x_library_add () {
@@ -260,8 +268,7 @@ x_library_add () {
     else
         pdm add -dG $2 $1 -v;
     fi;
-    cp -f $PDM_DIR/pdm.lock $CONFIG_DIR/dev.lock;
-    _x_library_pdm_proj_to_repo;
+    _x_library_pdm_to_repo_dev;
 }
 
 x_library_graph_dev () {
