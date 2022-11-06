@@ -19,8 +19,11 @@ _x_gen_pyproject () {
     # Generates pyproject.toml content given a mode
     # args: mode (dev, test or prod)
     if [[ $1 == "dev" ]]; then
-        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-            --replace "project.name,lunchbox-dev";
+        # toml_gen mangles formatting so use sed
+        # add -dev to project.name to avoid circular and ambiguous dependencies
+        cat $CONFIG_DIR/pyproject.toml \
+            |  sed -E "s/name.*$REPO.*/name = \"$REPO-dev\"/" \
+            > $PDM_DIR/pyproject.toml;
 
     elif [[ $1 == "test" ]]; then
         python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
@@ -234,18 +237,25 @@ rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 }
 
 # LIBRARY-FUNCTIONS-------------------------------------------------------------
+_x_library_pdm_proj_to_repo () {
+    cat $PDM_DIR/pyproject.toml \
+        | sed -E "s/name.*$REPO-dev.*/name = \"$REPO\"/" \
+        > $CONFIG_DIR/pyproject.toml;
+}
+
 x_library_add () {
     # Add a given package to a given dependency group
     # args: package, group
+    x_env_activate_dev;
     echo "${CYAN}ADDING PACKAGE TO DEV DEPENDENCIES${CLEAR}\n";
-    _x_from_dev_path;
-    cd $DEV_TARGET;
+    cd $PDM_DIR;
     if [[ $2 == 'none' ]]; then
         pdm add $1 -v;
     else
         pdm add -dG $2 $1 -v;
     fi;
-    _x_to_dev_path;
+    cp -f $PDM_DIR/pdm.lock $CONFIG_DIR/dev.lock;
+    _x_library_pdm_proj_to_repo;
 }
 
 x_library_graph_dev () {

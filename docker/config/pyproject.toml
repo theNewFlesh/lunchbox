@@ -17,6 +17,8 @@ dependencies = [
 [project.scripts]
 lunchbox = "lunchbox.command:main"
 
+[project.optional-dependencies]
+
 [tool.pdm.dev-dependencies]
 lab = [
     "cufflinks",
