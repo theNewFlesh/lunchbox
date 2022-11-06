@@ -27,8 +27,6 @@ lab = [
     "rolling-pin>=0.7.0",
 ]
 dev = [
-    "jinja2>=3.1.2",
-    "jinja-cli>=1.2.2",
     "pdm",
     "pdm-bump",
     "sphinx-rtd-theme",
