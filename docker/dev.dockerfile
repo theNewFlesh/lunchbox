@@ -103,28 +103,30 @@ FROM base AS dev
 USER ubuntu
 WORKDIR /home/ubuntu
 
-RUN echo "\n${CYAN}INSTALL PDM AND JINJA${CLEAR}"; \
+RUN echo "\n${CYAN}INSTALL PDM AND TOML${CLEAR}"; \
     curl -sSL \
         https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py \
     | python3.10 - && \
-    pip3.10 install --upgrade --user jinja-cli pdm && \
+    pip3.10 install --upgrade --user pdm toml && \
     mkdir -p /home/ubuntu/.oh-my-zsh/custom/completions && \
     pdm completion zsh > /home/ubuntu/.oh-my-zsh/custom/completions/_pdm
 
 # install python dependencies
-COPY --chown=ubuntu:ubuntu scripts/x-tools.sh /home/ubuntu/pdm/
-COPY --chown=ubuntu:ubuntu config/pyproject.toml /home/ubuntu/pdm/
-COPY --chown=ubuntu:ubuntu config/pdm.toml.j2 /home/ubuntu/pdm/
-COPY --chown=ubuntu:ubuntu config/dev.lock /home/ubuntu/pdm/
-COPY --chown=ubuntu:ubuntu config/prod.lock /home/ubuntu/pdm/
+COPY --chown=ubuntu:ubuntu config/* /home/ubuntu/config/
+COPY --chown=ubuntu:ubuntu scripts/* /home/ubuntu/scripts/
 RUN echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
+    mkdir pdm && \
     cd pdm && \
-    . /home/ubuntu/pdm/x-tools.sh && \
+    . /home/ubuntu/scripts/x-tools.sh && \
+    export CONFIG_DIR=/home/ubuntu/config && \
+    export SCRIPT_DIR=/home/ubuntu/scripts && \
     x_env_init dev 3.10 && \
     x_env_init prod 3.10 && \
     x_env_init prod 3.9 && \
     x_env_init prod 3.8 && \
-    x_env_init prod 3.7
+    x_env_init prod 3.7 && \
+    cd /home/ubuntu && \
+    rm -rf config scripts
 
 ENV REPO='lunchbox'
 ENV PYTHONPATH ":/home/ubuntu/$REPO/python:/home/ubuntu/.local/lib"
