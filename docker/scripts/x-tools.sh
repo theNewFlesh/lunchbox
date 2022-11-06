@@ -14,34 +14,36 @@ export MIN_PYTHON_VERSION="3.7"
 export X_TOOLS_PATH="$SCRIPT_DIR/x-tools.sh"
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
-_x_gen_pyproject_dev () {
-    # Generates pyproject.toml content for development
-    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-        --replace "project.name,lunchbox-dev";
-}
+_x_gen_pyproject () {
+    # Generates pyproject.toml content given a mode
+    # args: mode (dev, test or prod)
+    if [[ $1 == "dev" ]]; then
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+            --replace "project.name,lunchbox-dev";
 
-_x_gen_pyproject_test () {
-    # Generates pyproject.toml content for testing
-    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-        --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
-        --delete "tool.pdm.dev-dependencies.lab" \
-        --delete "tool.pdm.dev-dependencies.dev";
-}
+    elif [[ $1 == "test" ]]; then
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+            --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
+            --delete "tool.pdm.dev-dependencies.lab" \
+            --delete "tool.pdm.dev-dependencies.dev";
 
-_x_gen_pyproject_prod () {
-    # Generates pyproject.toml content for production
-    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-        --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
-        --delete "tool.pdm.dev-dependencies" \
-        --delete "tool.mypy" \
-        --delete "tool.pdm" \
-        --delete "tool.pytest" \
-        --delete "tool.tox";
+    elif [[ $1 == "prod" ]]; then
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+            --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
+            --delete "tool.pdm.dev-dependencies" \
+            --delete "tool.mypy" \
+            --delete "tool.pdm" \
+            --delete "tool.pytest" \
+            --delete "tool.tox";
+    fi;
 }
 
 _x_gen_pdm_files () {
     # Generate pyproject.tom, .pdm.toml and pdm.lock files
     # args: mode, python version
+
+    # pyproject.toml
+    _x_gen_pyproject $1 > $PDM_DIR/pyproject.toml;
 
     # pdm.lock
     rm -f $PDM_DIR/pdm.lock;
@@ -55,13 +57,6 @@ _x_gen_pdm_files () {
         --replace "venv.prompt,$1-{python_version}" \
         --replace "python.path,$pypath" \
         > $PDM_DIR/.pdm.toml;
-
-    # pyproject.toml
-    if [[ $1 == "dev" ]]; then
-        _x_gen_pyproject_dev > $PDM_DIR/pyproject.toml;
-    else
-        _x_gen_pyproject_test > $PDM_DIR/pyproject.toml;
-    fi;
 }
 
 # ENV-FUNCTIONS-----------------------------------------------------------------
@@ -152,11 +147,7 @@ _x_build () {
         $SCRIPT_DIR/rolling_pin_command.py \
         $CONFIG_DIR/build.yaml \
         --groups base,$1;
-    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-        --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
-        --delete "tool.pdm.dev-dependencies.lab" \
-        --delete "tool.pdm.dev-dependencies.dev" \
-        > $BUILD_DIR/repo/pyproject.toml;
+    _x_gen_pyproject $1 > $BUILD_DIR/repo/pyproject.toml;
 }
 
 x_build_pip_package () {
