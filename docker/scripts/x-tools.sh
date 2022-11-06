@@ -382,8 +382,11 @@ x_library_search () {
 
 x_library_update () {
     # Update dev dependencies
+    x_env_activate_dev;
     echo "${CYAN}UPDATING DEV DEPENDENCIES${CLEAR}\n";
-    _x_workflow_dev "pdm update --no-self --dev -v";
+    cd $PDM_DIR;
+    pdm update --no-self --dev -v;
+    _x_library_pdm_to_repo_dev;
 }
 
 # SESSION-FUNCTIONS-------------------------------------------------------------
