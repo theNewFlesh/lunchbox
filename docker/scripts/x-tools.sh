@@ -1,199 +1,139 @@
 # EXPORTS-----------------------------------------------------------------------
-export PATH=:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/bin
-export PYTHONPATH=/home/ubuntu/lunchbox/python:/home/ubuntu/.local/share/pdm/venv/lib/python3.10/site-packages/pdm/pep582:/home/ubuntu/.local/lib:/home/ubuntu/dev/__pypackages__/3.10/lib
+export HOME="/home/ubuntu"
+export PATH=":$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib"
 export REPO="lunchbox"
-export REPO_PATH="/home/ubuntu/$REPO"
-export BUILD_PATH="/home/ubuntu/build"
-export GEN_PATH="$REPO_PATH/docker/scripts/toml_gen.py"
-export PROJ_PATH="$REPO_PATH/docker/pyproject.toml"
-export DEV_SOURCE="$REPO_PATH/docker/dev"
-export DEV_TARGET="/home/ubuntu/dev"
-export PROD_SOURCE="$REPO_PATH/docker/prod"
-export PROD_TARGET="/home/ubuntu/prod"
+export REPO_DIR="$HOME/$REPO"
+export CONFIG_DIR="$REPO_DIR/docker/config"
+export PYTHONPATH="$REPO_DIR/python:$HOME/.local/lib"
+export BUILD_DIR="$HOME/build"
+export PDM_DIR="$HOME/pdm"
+export GEN_FILE="$REPO_DIR/docker/scripts/toml_gen.py"
+export PDM_FILE="$CONFIG_DIR/pdm.toml"
+export PROJ_FILE="$CONFIG_DIR/pyproject.toml"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
-export X_TOOLS_PATH="$REPO_PATH/docker/scripts/x-tools.sh"
+export X_TOOLS_PATH="$REPO_DIR/docker/scripts/x-tools.sh"
 
 # HELPER-FUNCTIONS--------------------------------------------------------------
-_x_link () {
-    # Link given __pypackages__ directory to /home/ubuntu/__pypackages__
-    # args: pypackages directory
-    rm -f /home/ubuntu/__pypackages__;
-    ln -s $1 /home/ubuntu/__pypackages__;
-}
-
-_x_link_dev () {
-    # Link /home/ubuntu/dev/__pypackages__ to /home/ubuntu/__pypackages__
-    _x_link $DEV_TARGET/__pypackages__;
-}
-
-_x_link_prod () {
-    # Link /home/ubuntu/prod/__pypackages__ to /home/ubuntu/__pypackages__
-    _x_link $PROD_TARGET/__pypackages__;
-}
-
-_x_dir_copy () {
-    # copy all contents of source into target, skipping __pypackages__ directory
-    # args: source, target
-    ls -pA $1 | grep -v '/' \
-    | parallel "cp --force $1/{} $2/{}";
-}
-
-_x_from_dev_path () {
-    # Copy lunchbox/docker/dev to /home/ubuntu/dev
-    _x_dir_copy $DEV_SOURCE $DEV_TARGET;
-}
-
-_x_from_prod_path () {
-    # Copy lunchbox/docker/prod to /home/ubuntu/prod
-    _x_dir_copy $PROD_SOURCE $PROD_TARGET;
-}
-
-_x_to_dev_path () {
-    # Copy /home/ubuntu/dev to lunchbox/docker/dev
-    _x_dir_copy $DEV_TARGET $DEV_SOURCE;
-}
-
-_x_to_prod_path () {
-    # Copy /home/ubuntu/prod to lunchbox/docker/prod
-    _x_dir_copy $PROD_TARGET $PROD_SOURCE;
-}
-
 _x_build () {
     # Build production version of repo for publishing
     # args: type (test or prod)
-    _x_link_dev;
-    cd $REPO_PATH;
-    rm -rf $BUILD_PATH;
+    cd $REPO_DIR;
+    rm -rf $BUILD_DIR;
     python3 docker/scripts/rolling_pin_command.py \
         docker/config/build.yaml \
         --groups base,$1;
 }
 
-_x_workflow_dev () {
-    # Copies docker/dev to ~/dev, run a given command, and copies ~/dev back to
-    # docker/dev
-    # args: command string
-    local CWD=`pwd`;
-    _x_link_dev;
-    _x_dir_copy $DEV_SOURCE $DEV_TARGET;
-    cd $DEV_TARGET;
-    eval "$1";
-    _x_dir_copy $DEV_TARGET $DEV_SOURCE;
-    cd $CWD;
+_x_get_env_path () {
+    # gets path of given environment
+    # args: environment name
+    cd $PDM_DIR;
+    pdm venv list | grep $1 | awk '{print $3}';
 }
 
-_x_workflow_prod () {
-    # Copies docker/prod to ~/prod, run a given command, and copies ~/prod back
-    # to docker/prod
-    # args: command string
-    local CWD=`pwd`;
-    _x_link_dev;
-    _x_generate_prod;
-    _x_dir_copy $PROD_SOURCE $PROD_TARGET;
-    cd $PROD_TARGET;
-    eval "$1";
-    _x_dir_copy $PROD_TARGET $PROD_SOURCE;
-    cd $CWD;
+_x_env_exists () {
+    # determines if given env exists
+    # args: environment name
+    cd $PDM_DIR;
+    if [[ `pdm venv list | grep $1` ]]; then
+        echo "true";
+    else
+        echo "false";
+    fi;
 }
 
-_x_generate_dev () {
-    # Generate ~/dev/pyproject.toml from docker/pyproject.toml.j2
-    _x_link_dev;
-    jinja docker/pyproject.toml.j2 --define mode prod \
-    > $PROD_SOURCE/pyproject.toml;
-    _x_from_prod_path;
+_x_get_env_python () {
+    # gets python interpreter path of given environment
+    # args: mode, python version
+    local env=`_x_get_env_path $1-$2`;
+    if [[ $env ]]; then
+        echo $env;
+    else
+        echo /usr/bin/python$2;
+    fi;
 }
 
-_x_generate_prod () {
-    # Generate ~/prod/pyproject.toml from docker/pyproject.toml.j2
-    _x_link_dev;
-    python3 $GEN_PATH $PROJ_PATH \
-        --replace 'project.requires-python,>=3.7' \
-        --delete 'tool.pdm.dev-dependencies.lab' \
-        --delete 'tool.pdm.dev-dependencies.dev' \
-    > $PROD_SOURCE/pyproject.toml;
-    python3 $GEN_PATH $PDM_PATH \
-        --replace 'venv.prompt,prod-{python_version}' \
-        --replace "python.path,$path";
-    > $PROD_SOURCE/.pdm.toml;
-    cp --force $REPO_PATH/docker/prod.lock /home/ubuntu/pdm/pdm.lock;
-    _x_from_prod_path;
+_x_generate_pdm_files () {
+    # Generate pyproject.tom, .pdm.toml and pdm.lock files
+    # args: mode, python version
+
+    # pdm.lock
+    rm -f $PDM_DIR/pdm.lock;
+    cp $CONFIG_DIR/$1.lock $PDM_DIR/pdm.lock;
+
+    # get python path
+    local pypath=`_x_get_env_python $1 $2`;
+
+    # .pdm.toml
+    python3 $GEN_FILE $PDM_FILE \
+        --replace "venv.prompt,$1-{python_version}" \
+        --replace "python.path,$pypath" \
+        > $PDM_DIR/.pdm.toml;
+
+    # pyproject.toml
+    if [[ $1 == "dev" ]]; then
+        python3 $GEN_FILE $PROJ_FILE \
+            --replace "project.name,lunchbox-dev" \
+            > $PDM_DIR/pyproject.toml;
+    else
+        python3 $GEN_FILE $PROJ_FILE \
+            --replace "project.requires-python,>=3.7" \
+            --delete "tool.pdm.dev-dependencies.lab" \
+            --delete "tool.pdm.dev-dependencies.dev" \
+            > $PDM_DIR/pyproject.toml;
+    fi;
 }
 
 # ENV-FUNCTIONS-----------------------------------------------------------------
-x_env_setup () {
-    # Configure pdm directory according to given a mode and python version
-    # args: mode, python_version
-    cd /home/ubuntu/pdm;
-    cp --force $1.lock pdm.lock;
-    jinja pyproject.toml.j2 --define mode $1 > pyproject.toml;
-    jinja pdm.toml.j2 \
-        --define mode $1 \
-        --define python_path /usr/bin/python$2 \
-        > .pdm.toml;
-}
-
 x_env_create () {
     # Create a virtual env given a mode and python version
     # args: mode, python_version
-    cd /home/ubuntu/pdm;
-    x_env_setup $1 $2;
+    cd $PDM_DIR;
+    _x_generate_pdm_files $1 $2;
     pdm venv create -n $1-$2;
 }
 
 x_env_activate () {
     # Activate a virtual env given a mode and python version
     # args: mode, python_version
-    cd /home/ubuntu/pdm;
-    local temp=`pdm venv list | grep $1-$2 | awk '{print $3}'`/bin/python;
-    jinja pdm.toml.j2 \
-        --define mode $1 \
-        --define python_path $temp \
-        > .pdm.toml;
+    cd $PDM_DIR;
+    _x_generate_pdm_files $1 $2;
     . `pdm venv activate $1-$2 | awk '{print $2}'`;
-}
-
-x_env_install () {
-    # Resolve and install dependencies into a virtual env specified by a given
-    # mode and python version
-    # args: mode, python_version
-    cd /home/ubuntu/pdm;
-    x_env_activate $1 $2;
-    pdm install --no-self --dev -v;
-    deactivate;
 }
 
 x_env_lock () {
     # Resolve dependencies listed in pyrproject.toml into a pdm.lock file
     # args: mode, python_version
-    cd /home/ubuntu/pdm;
-    pdm lock --no-self --dev -v;
+    cd $PDM_DIR;
+    x_env_activate $1 $2 && \
+    pdm lock -v && \
+    cat $PDM_DIR/pdm.lock > $CONFIG_DIR/$1.lock;
 }
 
 x_env_sync () {
     # Install dependencies from a pdm.lock into a virtual env specified by a
     # given mode and python version
     # args: mode, python_version
-    cd /home/ubuntu/pdm;
-    x_env_activate $1 $2;
-    pdm sync --no-self --dev --clean -v;
+    cd $PDM_DIR;
+    x_env_activate $1 $2 && \
+    pdm sync --no-self --dev --clean -v && \
     deactivate;
 }
 
 x_env_init () {
     # Create a virtual env with dependencies given a mode and python version
     # args: mode, python_version
-    cd /home/ubuntu/pdm;
+    cd $PDM_DIR;
     x_env_create $1 $2;
     x_env_sync $1 $2;
 }
 
 # TASK-FUNCTIONS----------------------------------------------------------------
 x_build_pip_package () {
-    # Generate pip package of repo in /home/ubuntu/build/repo
+    # Generate pip package of repo in $HOME/build/repo
     x_library_install_prod;
     x_build_prod;
-    cd $BUILD_PATH/repo;
+    cd $BUILD_DIR/repo;
     echo "${CYAN}BUILDING PIP PACKAGE${CLEAR}\n";
     pdm build -v;
 }
@@ -208,12 +148,12 @@ x_build_publish () {
     # Publish pip package of repo to PyPi
     # args: user, password, comment
     x_test_lint;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     x_test_prod;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     x_build_pip_package;
     echo "${CYAN}PUBLISHING PIP PACKAGE TO PYPI${CLEAR}\n";
-    cd $BUILD_PATH/repo;
+    cd $BUILD_DIR/repo;
     pdm publish \
         --no-build \
         --username "$1" \
@@ -232,7 +172,7 @@ x_docs () {
     # Generate sphinx documentation
     echo "${CYAN}GENERATING DOCS${CLEAR}\n";
     _x_link_dev;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     mkdir -p docs;
     pandoc README.md -o sphinx/intro.rst;
     sphinx-build sphinx docs;
@@ -247,7 +187,7 @@ x_docs_architecture () {
     _x_link_dev;
     python3 -c "import rolling_pin.repo_etl as rpo; \
 rpo.write_repo_architecture( \
-    '/home/ubuntu/$REPO/python', \
+    '$HOME/$REPO/python', \
     'docs/architecture.svg', \
     exclude_regex='test|mock', \
     orient='lr', \
@@ -264,7 +204,7 @@ x_docs_metrics () {
     # Generate code metrics report, plots and tables
     echo "${CYAN}GENERATING METRICS${CLEAR}\n";
     _x_link_dev;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     python3 -c "import rolling_pin.repo_etl as rpo; \
 rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 }
@@ -300,13 +240,13 @@ x_library_graph_prod () {
 }
 
 x_library_install_dev () {
-    # Install all dependencies of dev/pyproject.toml into /home/ubuntu/dev
+    # Install all dependencies of dev/pyproject.toml into $HOME/dev
     echo "${CYAN}INSTALL DEV${CLEAR}\n";
     _x_workflow_dev "pdm install --no-self --dev -v";
 }
 
 x_library_install_prod () {
-    # Install all dependencies of prod/pyproject.toml into /home/ubuntu/prod
+    # Install all dependencies of prod/pyproject.toml into $HOME/prod
     echo "${CYAN}INSTALL PROD${CLEAR}\n";
     _x_generate_prod;
     cd $PROD_TARGET;
@@ -332,7 +272,7 @@ x_library_list_prod () {
 }
 
 x_library_lock () {
-    # Update /home/ubuntu/dev/pdm.lock file
+    # Update $HOME/dev/pdm.lock file
     echo "${CYAN}DEV DEPENDENCY LOCK${CLEAR}\n";
     _x_workflow_dev "pdm lock -v";
 }
@@ -393,7 +333,7 @@ x_test_coverage () {
     # Generate test coverage report
     echo "${CYAN}GENERATING TEST COVERAGE REPORT${CLEAR}\n";
     _x_link_dev;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     mkdir -p docs;
     pytest \
         -c docker/dev/pyproject.toml \
@@ -408,7 +348,7 @@ x_test_dev () {
     # Run all tests
     echo "${CYAN}TESTING DEV${CLEAR}\n";
     _x_link_dev;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     pytest -c docker/dev/pyproject.toml --numprocesses $PROCS python;
 }
 
@@ -416,7 +356,7 @@ x_test_fast () {
     # Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator
     echo "${CYAN}FAST TESTING DEV${CLEAR}\n";
     _x_link_dev;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     SKIP_SLOW_TESTS=true \
     pytest -c docker/dev/pyproject.toml --numprocesses $PROCS python;
 }
@@ -424,7 +364,7 @@ x_test_fast () {
 x_test_lint () {
     # Run linting and type checking
     _x_link_dev;
-    cd $REPO_PATH;
+    cd $REPO_DIR;
     echo "${CYAN}LINTING${CLEAR}\n";
     flake8 python --config docker/config/flake8.ini;
     echo "${CYAN}TYPE CHECKING${CLEAR}\n";
@@ -437,7 +377,7 @@ x_test_prod () {
     x_build_test;
     _x_link_prod;
     echo "${CYAN}TESTING PROD${CLEAR}\n";
-    cd $BUILD_PATH/repo;
+    cd $BUILD_DIR/repo;
     tox --parallel -v;
 }
 
