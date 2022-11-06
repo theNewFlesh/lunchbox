@@ -376,13 +376,9 @@ x_library_remove () {
 x_library_search () {
     # Search for pip packages
     # args: package name
+    x_env_activate_dev;
+    cd $PDM_DIR;
     pdm search $1;
-}
-
-x_library_sync () {
-    # Sync dev dependencies
-    echo "${CYAN}SYNCING DEV DEPENDENCIES${CLEAR}\n";
-    _x_workflow_dev "pdm sync --no-self --dev -v";
 }
 
 x_library_update () {
