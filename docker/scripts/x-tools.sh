@@ -14,7 +14,32 @@ export MIN_PYTHON_VERSION="3.7"
 export X_TOOLS_PATH="$SCRIPT_DIR/x-tools.sh"
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
-_x_generate_pdm_files () {
+_x_gen_pyproject_dev () {
+    # Generates pyproject.toml content for development
+    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+        --replace "project.name,lunchbox-dev";
+}
+
+_x_gen_pyproject_test () {
+    # Generates pyproject.toml content for testing
+    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+        --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
+        --delete "tool.pdm.dev-dependencies.lab" \
+        --delete "tool.pdm.dev-dependencies.dev";
+}
+
+_x_gen_pyproject_prod () {
+    # Generates pyproject.toml content for production
+    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+        --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
+        --delete "tool.pdm.dev-dependencies" \
+        --delete "tool.mypy" \
+        --delete "tool.pdm" \
+        --delete "tool.pytest" \
+        --delete "tool.tox";
+}
+
+_x_gen_pdm_files () {
     # Generate pyproject.tom, .pdm.toml and pdm.lock files
     # args: mode, python version
 
@@ -33,15 +58,9 @@ _x_generate_pdm_files () {
 
     # pyproject.toml
     if [[ $1 == "dev" ]]; then
-        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-            --replace "project.name,lunchbox-dev" \
-            > $PDM_DIR/pyproject.toml;
+        _x_gen_pyproject_dev > $PDM_DIR/pyproject.toml;
     else
-        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
-            --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
-            --delete "tool.pdm.dev-dependencies.lab" \
-            --delete "tool.pdm.dev-dependencies.dev" \
-            > $PDM_DIR/pyproject.toml;
+        _x_gen_pyproject_test > $PDM_DIR/pyproject.toml;
     fi;
 }
 
@@ -79,7 +98,7 @@ _x_env_create () {
     # Create a virtual env given a mode and python version
     # args: mode, python_version
     cd $PDM_DIR;
-    _x_generate_pdm_files $1 $2;
+    _x_gen_pdm_files $1 $2;
     pdm venv create -n $1-$2;
 }
 
@@ -87,7 +106,7 @@ _x_env_activate () {
     # Activate a virtual env given a mode and python version
     # args: mode, python_version
     cd $PDM_DIR;
-    _x_generate_pdm_files $1 $2;
+    _x_gen_pdm_files $1 $2;
     . `pdm venv activate $1-$2 | awk '{print $2}'`;
 }
 
@@ -142,11 +161,12 @@ _x_build () {
 
 x_build_pip_package () {
     # Generate pip package of repo in $HOME/build/repo
-    x_library_install_prod;
+    x_env_activate_dev;
     x_build_prod;
     cd $BUILD_DIR/repo;
     echo "${CYAN}BUILDING PIP PACKAGE${CLEAR}\n";
-    pdm build -v;
+    pdm build --dest $BUILD_DIR/dist -v;
+    rm -rf $BUILD_DIR/repo/build;
 }
 
 x_build_prod () {
@@ -176,7 +196,7 @@ x_build_publish () {
 x_build_test () {
     # Build test version of repo for tox testing
     echo "${CYAN}BUILDING TEST REPO${CLEAR}\n";
-    x_build test;
+    _x_build test;
 }
 
 # DOCS-FUNCTIONS----------------------------------------------------------------
@@ -261,7 +281,7 @@ x_library_install_dev () {
 x_library_install_prod () {
     # Install all dependencies of prod/pyproject.toml into $HOME/prod
     echo "${CYAN}INSTALL PROD${CLEAR}\n";
-    _x_generate_prod;
+    _x_gen_prod;
     cd $PROD_TARGET;
     _x_from_prod_path;
     pdm install --no-self --dev -v;
@@ -388,7 +408,7 @@ x_test_lint () {
 
 x_test_prod () {
     # Run tests across all support python versions
-    _x_generate_prod;
+    _x_gen_prod;
     x_build_test;
     _x_link_prod;
     echo "${CYAN}TESTING PROD${CLEAR}\n";
