@@ -50,7 +50,7 @@ def main():
     print(text)
 
 
-class PyprojectEncoder(toml.TomlArraySeparatorEncoder):
+class PrettyEncoder(toml.TomlArraySeparatorEncoder):
     def __init__(self, _dict=dict, preserve=False, separator=','):
         super().__init__(_dict, preserve, ',\n   ')
 
@@ -96,7 +96,7 @@ def generate(filepath, replacements, deletions):
         temp, k = lookup(key, data)
         del temp[k]
 
-    return toml.dumps(data, encoder=PyprojectEncoder())
+    return toml.dumps(data, encoder=PrettyEncoder())
 
 
 if __name__ == '__main__':
