@@ -43,10 +43,10 @@ def main():
     )
 
     args = parser.parse_args()
-    template, repls, dels = args.template[0], args.replace, args.delete
+    filepath, repls, dels = args.filepath[0], args.replace, args.delete
     repls = [x[0].split(',') for x in repls]
     dels = [x[0] for x in dels]
-    text = generate(template, repls, dels)
+    text = generate(filepath, repls, dels)
     print(text)
 
 
