@@ -363,7 +363,7 @@ x_library_remove () {
     # args: package, group
     x_env_activate_dev;
     echo "${CYAN}REMOVING PACKAGE FROM DEV DEPENDENCIES${CLEAR}\n";
-    cd $DEV_TARGET;
+    cd $PDM_DIR;
     if [[ $2 == 'none' ]]; then
         pdm remove $1 -v;
     else
