@@ -1,17 +1,15 @@
 # EXPORTS-----------------------------------------------------------------------
 export HOME="/home/ubuntu"
-export PATH=":$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib"
 export REPO="lunchbox"
 export REPO_DIR="$HOME/$REPO"
-export CONFIG_DIR="$REPO_DIR/docker/config"
+export PATH=":$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib"
 export PYTHONPATH="$REPO_DIR/python:$HOME/.local/lib"
 export BUILD_DIR="$HOME/build"
+export CONFIG_DIR="$REPO_DIR/docker/config"
 export PDM_DIR="$HOME/pdm"
-export GEN_FILE="$REPO_DIR/docker/scripts/toml_gen.py"
-export PDM_FILE="$CONFIG_DIR/pdm.toml"
-export PROJ_FILE="$CONFIG_DIR/pyproject.toml"
+export SCRIPT_DIR="$REPO_DIR/docker/scripts"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
-export X_TOOLS_PATH="$REPO_DIR/docker/scripts/x-tools.sh"
+export X_TOOLS_PATH="$SCRIPT_DIR/x-tools.sh"
 
 # HELPER-FUNCTIONS--------------------------------------------------------------
 _x_build () {
@@ -65,18 +63,18 @@ _x_generate_pdm_files () {
     local pypath=`_x_get_env_python $1 $2`;
 
     # .pdm.toml
-    python3 $GEN_FILE $PDM_FILE \
+    python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pdm.toml \
         --replace "venv.prompt,$1-{python_version}" \
         --replace "python.path,$pypath" \
         > $PDM_DIR/.pdm.toml;
 
     # pyproject.toml
     if [[ $1 == "dev" ]]; then
-        python3 $GEN_FILE $PROJ_FILE \
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
             --replace "project.name,lunchbox-dev" \
             > $PDM_DIR/pyproject.toml;
     else
-        python3 $GEN_FILE $PROJ_FILE \
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
             --replace "project.requires-python,>=3.7" \
             --delete "tool.pdm.dev-dependencies.lab" \
             --delete "tool.pdm.dev-dependencies.dev" \
