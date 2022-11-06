@@ -150,7 +150,7 @@ _x_build () {
     _x_gen_pyproject $1 > $BUILD_DIR/repo/pyproject.toml;
 }
 
-x_build_pip_package () {
+x_build_package () {
     # Generate pip package of repo in $HOME/build/repo
     x_env_activate_dev;
     x_build_prod;
@@ -173,7 +173,7 @@ x_build_publish () {
     cd $REPO_DIR;
     x_test_prod;
     cd $REPO_DIR;
-    x_build_pip_package;
+    x_build_package;
     echo "${CYAN}PUBLISHING PIP PACKAGE TO PYPI${CLEAR}\n";
     cd $BUILD_DIR/repo;
     pdm publish \
