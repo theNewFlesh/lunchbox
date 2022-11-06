@@ -126,7 +126,7 @@ x_env_init () {
     x_env_sync $1 $2;
 }
 
-# TASK-FUNCTIONS----------------------------------------------------------------
+# BUILD-FUNCTIONS---------------------------------------------------------------
 x_build_pip_package () {
     # Generate pip package of repo in $HOME/build/repo
     x_library_install_prod;
@@ -166,6 +166,7 @@ x_build_test () {
     _x_build test;
 }
 
+# DOCS-FUNCTIONS----------------------------------------------------------------
 x_docs () {
     # Generate sphinx documentation
     echo "${CYAN}GENERATING DOCS${CLEAR}\n";
@@ -207,6 +208,7 @@ x_docs_metrics () {
 rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
 }
 
+# LIBRARY-FUNCTIONS-------------------------------------------------------------
 x_library_add () {
     # Add a given package to a given dependency group
     # args: package, group
@@ -307,6 +309,7 @@ x_library_update () {
     _x_workflow_dev "pdm update --no-self --dev -v";
 }
 
+# SESSION-FUNCTIONS-------------------------------------------------------------
 x_session_app () {
     # Run lunchbox app
     echo "${CYAN}APP${CLEAR}\n";
@@ -327,6 +330,7 @@ x_session_python () {
     python3.10;
 }
 
+# TEST-FUNCTIONS----------------------------------------------------------------
 x_test_coverage () {
     # Generate test coverage report
     echo "${CYAN}GENERATING TEST COVERAGE REPORT${CLEAR}\n";
@@ -379,6 +383,7 @@ x_test_prod () {
     tox --parallel -v;
 }
 
+# VERSION-FUNCTIONS-------------------------------------------------------------
 x_version () {
     # Full resolution of repo: dependencies, linting, tests, docs, etc
     _x_link_dev;
