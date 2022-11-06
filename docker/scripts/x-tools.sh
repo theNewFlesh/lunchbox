@@ -151,7 +151,6 @@ _x_build () {
     # Build production version of repo for publishing
     # args: type (test or prod)
     x_env_activate_dev;
-    x_env_activate_dev;
     rm -rf $BUILD_DIR;
     python3 \
         $SCRIPT_DIR/rolling_pin_command.py \
@@ -285,24 +284,23 @@ x_library_graph_prod () {
     echo "${CYAN}PROD DEPENDENCY GRAPH${CLEAR}\n";
     cd $PDM_DIR;
     pdm list --graph;
+    deactivate;
     x_env_activate_dev;
 }
 
-# x_library_install_dev () {
-#     # Install all dependencies of dev/pyproject.toml into $HOME/dev
-#     echo "${CYAN}INSTALL DEV${CLEAR}\n";
-#     _x_workflow_dev "pdm install --no-self --dev -v";
-# }
+x_library_install_dev () {
+    # Install all dependencies into dev environment
+    echo "${CYAN}INSTALL DEV DEPENDENCIES${CLEAR}\n";
+    _x_library_lock_dev;
+    _x_library_sync_dev;
+}
 
-# x_library_install_prod () {
-#     # Install all dependencies of prod/pyproject.toml into $HOME/prod
-#     echo "${CYAN}INSTALL PROD${CLEAR}\n";
-#     _x_gen_prod;
-#     cd $PROD_TARGET;
-#     _x_from_prod_path;
-#     pdm install --no-self --dev -v;
-#     _x_to_prod_path;
-# }
+x_library_install_prod () {
+    # Install all dependencies into prod environment
+    echo "${CYAN}INSTALL PROD DEPENDENCIES${CLEAR}\n";
+    _x_library_lock_prod;
+    _x_library_sync_prod;
+}
 
 x_library_list_dev () {
     # List packages in dev environment
@@ -318,6 +316,7 @@ x_library_list_prod () {
     echo "${CYAN}PROD DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     pdm list;
+    deactivate;
     x_env_activate_dev;
 }
 
@@ -337,12 +336,32 @@ _x_library_lock_prod () {
     cd $PDM_DIR;
     pdm lock -v;
     _x_library_pdm_to_repo_prod;
+    deactivate;
+    x_env_activate_dev;
+}
+
+_x_library_sync_dev () {
+    # Sync dev.lock with dev environment
+    x_env_activate_dev;
+    echo "${CYAN}DEV DEPENDENCY SYNC${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm sync --no-self --dev --clean -v;
+}
+
+_x_library_sync_prod () {
+    # Sync prod.lock with prod environment
+    x_env_activate_prod;
+    echo "${CYAN}PROD DEPENDENCY SYNC${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm sync --no-self --dev --clean -v;
+    deactivate;
     x_env_activate_dev;
 }
 
 x_library_remove () {
     # Remove a given package from a given dependency group
     # args: package, group
+    x_env_activate_dev;
     echo "${CYAN}REMOVING PACKAGE FROM DEV DEPENDENCIES${CLEAR}\n";
     _x_from_dev_path;
     cd $DEV_TARGET;
@@ -351,7 +370,7 @@ x_library_remove () {
     else
         pdm remove -dG $2 $1 -v;
     fi;
-    _x_to_dev_path;
+    _x_library_pdm_to_repo_dev;
 }
 
 x_library_search () {
