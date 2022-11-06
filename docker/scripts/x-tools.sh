@@ -256,6 +256,44 @@ _x_library_pdm_to_repo_prod () {
     cp -f $PDM_DIR/pdm.lock $CONFIG_DIR/prod.lock;
 }
 
+_x_library_lock_dev () {
+    # Update dev.lock
+    x_env_activate_dev;
+    echo "${CYAN}DEV DEPENDENCY LOCK${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm lock -v;
+    _x_library_pdm_to_repo_dev;
+}
+
+_x_library_lock_prod () {
+    # Update prod.lock
+    x_env_activate_prod;
+    echo "${CYAN}PROD DEPENDENCY LOCK${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm lock -v;
+    _x_library_pdm_to_repo_prod;
+    deactivate;
+    x_env_activate_dev;
+}
+
+_x_library_sync_dev () {
+    # Sync dev.lock with dev environment
+    x_env_activate_dev;
+    echo "${CYAN}DEV DEPENDENCY SYNC${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm sync --no-self --dev --clean -v;
+}
+
+_x_library_sync_prod () {
+    # Sync prod.lock with prod environment
+    x_env_activate_prod;
+    echo "${CYAN}PROD DEPENDENCY SYNC${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm sync --no-self --dev --clean -v;
+    deactivate;
+    x_env_activate_dev;
+}
+
 x_library_add () {
     # Add a given package to a given dependency group
     # args: package, group
@@ -316,44 +354,6 @@ x_library_list_prod () {
     echo "${CYAN}PROD DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     pdm list;
-    deactivate;
-    x_env_activate_dev;
-}
-
-_x_library_lock_dev () {
-    # Update dev.lock
-    x_env_activate_dev;
-    echo "${CYAN}DEV DEPENDENCY LOCK${CLEAR}\n";
-    cd $PDM_DIR;
-    pdm lock -v;
-    _x_library_pdm_to_repo_dev;
-}
-
-_x_library_lock_prod () {
-    # Update prod.lock
-    x_env_activate_prod;
-    echo "${CYAN}PROD DEPENDENCY LOCK${CLEAR}\n";
-    cd $PDM_DIR;
-    pdm lock -v;
-    _x_library_pdm_to_repo_prod;
-    deactivate;
-    x_env_activate_dev;
-}
-
-_x_library_sync_dev () {
-    # Sync dev.lock with dev environment
-    x_env_activate_dev;
-    echo "${CYAN}DEV DEPENDENCY SYNC${CLEAR}\n";
-    cd $PDM_DIR;
-    pdm sync --no-self --dev --clean -v;
-}
-
-_x_library_sync_prod () {
-    # Sync prod.lock with prod environment
-    x_env_activate_prod;
-    echo "${CYAN}PROD DEPENDENCY SYNC${CLEAR}\n";
-    cd $PDM_DIR;
-    pdm sync --no-self --dev --clean -v;
     deactivate;
     x_env_activate_dev;
 }
