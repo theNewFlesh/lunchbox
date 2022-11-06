@@ -288,21 +288,21 @@ x_library_graph_prod () {
     x_env_activate_dev;
 }
 
-x_library_install_dev () {
-    # Install all dependencies of dev/pyproject.toml into $HOME/dev
-    echo "${CYAN}INSTALL DEV${CLEAR}\n";
-    _x_workflow_dev "pdm install --no-self --dev -v";
-}
+# x_library_install_dev () {
+#     # Install all dependencies of dev/pyproject.toml into $HOME/dev
+#     echo "${CYAN}INSTALL DEV${CLEAR}\n";
+#     _x_workflow_dev "pdm install --no-self --dev -v";
+# }
 
-x_library_install_prod () {
-    # Install all dependencies of prod/pyproject.toml into $HOME/prod
-    echo "${CYAN}INSTALL PROD${CLEAR}\n";
-    _x_gen_prod;
-    cd $PROD_TARGET;
-    _x_from_prod_path;
-    pdm install --no-self --dev -v;
-    _x_to_prod_path;
-}
+# x_library_install_prod () {
+#     # Install all dependencies of prod/pyproject.toml into $HOME/prod
+#     echo "${CYAN}INSTALL PROD${CLEAR}\n";
+#     _x_gen_prod;
+#     cd $PROD_TARGET;
+#     _x_from_prod_path;
+#     pdm install --no-self --dev -v;
+#     _x_to_prod_path;
+# }
 
 x_library_list_dev () {
     # List packages in dev environment
@@ -321,10 +321,23 @@ x_library_list_prod () {
     x_env_activate_dev;
 }
 
-x_library_lock () {
-    # Update $HOME/dev/pdm.lock file
+_x_library_lock_dev () {
+    # Update dev.lock
+    x_env_activate_dev;
     echo "${CYAN}DEV DEPENDENCY LOCK${CLEAR}\n";
-    _x_workflow_dev "pdm lock -v";
+    cd $PDM_DIR;
+    pdm lock -v;
+    _x_library_pdm_to_repo_dev;
+}
+
+_x_library_lock_prod () {
+    # Update prod.lock
+    x_env_activate_prod;
+    echo "${CYAN}PROD DEPENDENCY LOCK${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm lock -v;
+    _x_library_pdm_to_repo_prod;
+    x_env_activate_dev;
 }
 
 x_library_remove () {
