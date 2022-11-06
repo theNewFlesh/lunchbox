@@ -133,6 +133,11 @@ x_env_activate_dev () {
     _x_env_activate dev $MAX_PYTHON_VERSION;
 }
 
+x_env_activate_prod () {
+    # Activates prod environment
+    _x_env_activate prod $MAX_PYTHON_VERSION;
+}
+
 x_env_init () {
     # Create a virtual env with dependencies given a mode and python version
     # args: mode, python_version
@@ -145,6 +150,7 @@ x_env_init () {
 _x_build () {
     # Build production version of repo for publishing
     # args: type (test or prod)
+    x_env_activate_dev;
     x_env_activate_dev;
     rm -rf $BUILD_DIR;
     python3 \
@@ -260,18 +266,19 @@ x_library_add () {
 
 x_library_graph_dev () {
     # Graph dependencies in dev environment
-    _x_from_dev_path;
+    x_env_activate_dev;
     echo "${CYAN}DEV DEPENDENCY GRAPH${CLEAR}\n";
-    cd $DEV_TARGET;
+    cd $PDM_DIR;
     pdm list --graph;
 }
 
 x_library_graph_prod () {
     # Graph dependencies in prod environment
-    _x_from_prod_path;
+    x_env_activate_prod;
     echo "${CYAN}PROD DEPENDENCY GRAPH${CLEAR}\n";
-    cd $PROD_TARGET;
+    cd $PDM_DIR;
     pdm list --graph;
+    x_env_activate_dev;
 }
 
 x_library_install_dev () {
@@ -292,18 +299,19 @@ x_library_install_prod () {
 
 x_library_list_dev () {
     # List packages in dev environment
-    _x_from_dev_path;
+    x_env_activate_dev;
     echo "${CYAN}DEV DEPENDENCIES${CLEAR}\n";
-    cd $DEV_TARGET;
+    cd $PDM_DIR;
     pdm list;
 }
 
 x_library_list_prod () {
     # List packages in prod environment
-    _x_from_prod_path;
+    x_env_activate_prod;
     echo "${CYAN}PROD DEPENDENCIES${CLEAR}\n";
-    cd $PROD_TARGET;
+    cd $PDM_DIR;
     pdm list;
+    x_env_activate_dev;
 }
 
 x_library_lock () {
