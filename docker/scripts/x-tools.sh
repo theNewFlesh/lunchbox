@@ -221,7 +221,7 @@ rpo.write_repo_architecture( \
 x_docs_full () {
     # Generate documentation, coverage report, architecture diagram and code
     # metrics
-    x_docs && x_test_coverage && x_docs_architecture && x_docs_metrics;
+    x_docs && x_docs_metrics && x_docs_architecture && x_test_coverage;
 }
 
 x_docs_metrics () {
