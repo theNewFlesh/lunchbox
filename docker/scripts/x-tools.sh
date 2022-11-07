@@ -110,9 +110,11 @@ _x_env_create () {
 _x_env_activate () {
     # Activate a virtual env given a mode and python version
     # args: mode, python_version
+    local CWD=`pwd`;
     cd $PDM_DIR;
     _x_gen_pdm_files $1 $2;
     . `pdm venv activate $1-$2 | awk '{print $2}'`;
+    cd $CWD;
 }
 
 _x_env_lock () {
