@@ -86,7 +86,6 @@
                     "'${input:pypi_password}'",
                     "'${input:pypi_comment}'"
                 ]
-                // "type": "shell"
             },
             {
                 "label": "[build] test",
@@ -215,7 +214,6 @@
             //         "source $X_TOOLS_PATH &&",
             //         "x_session_app"
             //     ],
-            //     "type": "shell"
             // },
             {
                 "label": "[session] lab",
