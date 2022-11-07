@@ -36,13 +36,29 @@ export _COLS=`tput cols`
 export SPACER=`repeat $_COLS printf '-'; print`
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
+_x_resolve_exit_code () {
+    # Returns error code if either code is not 0
+    # args: exit code 1, exit code 2
+    if [ "$1" -ne "0" ]; then
+        echo $1;
+        return;
+    elif [ "$2" -ne "0" ]; then
+        echo $2;
+        return;
+    fi;
+    echo 0;
+}
+
 _x_for_each_version () {
     # Runs a given command against multiple python versions
     # Expands version variable in command string
     # args: command (string)
+    local exit_code=0;
     for VERSION in $PYTHON_VERSIONS; do
         eval "$1";
+        exit_code=`_x_resolve_exit_code $exit_code $?`;
     done;
+    return $exit_code;
 }
 
 _x_gen_pyproject () {
