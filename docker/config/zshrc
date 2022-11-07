@@ -21,5 +21,5 @@ alias l='ls -hl'
 alias ll='ls -hlA'
 alias tree='tree -Ca'
 git config --global --add safe.directory /home/ubuntu/lunchbox
-source /home/ubuntu/lunchbox/docker/scripts/x-tools.sh
+source /home/ubuntu/lunchbox/docker/scripts/x_tools.sh
 x_env_activate_dev;

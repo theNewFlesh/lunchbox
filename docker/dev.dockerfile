@@ -117,7 +117,7 @@ COPY --chown=ubuntu:ubuntu scripts/* /home/ubuntu/scripts/
 RUN /bin/bash -c 'echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
     mkdir pdm && \
     cd pdm && \
-    . /home/ubuntu/scripts/x-tools.sh && \
+    . /home/ubuntu/scripts/x_tools.sh && \
     export CONFIG_DIR=/home/ubuntu/config && \
     export SCRIPT_DIR=/home/ubuntu/scripts && \
     x_env_init dev 3.10 && \

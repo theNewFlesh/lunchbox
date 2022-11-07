@@ -48,7 +48,7 @@
         "options": {
             "cwd": "${workspaceFolder}",
             "env": {
-                "X_TOOLS_PATH": "${workspaceFolder}/docker/scripts/x-tools.sh",
+                "X_TOOLS_PATH": "${workspaceFolder}/docker/scripts/x_tools.sh",
             }
         },
         "tasks": [
