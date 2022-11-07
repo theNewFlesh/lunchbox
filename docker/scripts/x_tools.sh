@@ -479,6 +479,26 @@ _x_test_lint () {
     x_env_activate_dev;
 }
 
+x_test_run () {
+    # Run test in given environment
+    # args: mode, python_version
+    x_build_test;
+    cd $BUILD_DIR/repo;
+    x_env_activate $1 $2;
+    
+    echo "${CYAN}LINTING $1-$2${CLEAR}\n";
+    flake8 $REPO --config flake8.ini;
+
+    echo "${CYAN}TYPE CHECKING $1-$2${CLEAR}\n";
+    mypy $REPO --config-file pyproject.toml;
+
+    echo "${CYAN}TESTING $1-$2${CLEAR}\n";
+    pytest $REPO -c pyproject.toml;
+
+    deactivate;
+    x_env_activate_dev;
+}
+
 x_test_prod () {
     # Run tests across all support python versions
     _x_test_lint;
