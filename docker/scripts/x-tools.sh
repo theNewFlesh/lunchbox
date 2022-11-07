@@ -203,7 +203,7 @@ x_build_publish () {
 }
 
 x_build_test () {
-    # Build test version of repo for tox testing
+    # Build test version of repo for prod testing
     echo "${CYAN}BUILDING TEST REPO${CLEAR}\n";
     _x_build test;
 }
