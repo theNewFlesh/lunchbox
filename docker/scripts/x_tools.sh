@@ -229,22 +229,32 @@ x_build_prod () {
     _x_gen_pyproject package > $BUILD_DIR/repo/pyproject.toml;
 }
 
-x_build_publish () {
+_x_build_publish () {
     # Publish pip package of repo to PyPi
     # args: user, password, comment
-    x_test_lint;
-    cd $REPO_DIR;
-    x_test_prod;
-    cd $REPO_DIR;
     x_build_package;
-    echo "${CYAN}PUBLISHING PIP PACKAGE TO PYPI${CLEAR}\n";
     cd $BUILD_DIR/repo;
+    echo "${CYAN2}PUBLISHING PIP PACKAGE TO PYPI${CLEAR}\n";
     pdm publish \
         --no-build \
         --username "$1" \
         --password "$2" \
         --comment "$3" \
         --verbose;
+}
+
+x_build_publish () {
+    # Run production tests first then publish pip package of repo to PyPi
+    # args: user, password, comment
+    x_test_prod;
+    # break out if tests produced errors
+    if [ "$?" -ne "0" ]; then
+        echo "\n$SPACER";
+        echo "${RED2}ERROR: Encountered error in testing, exiting before publish.${CLEAR}" >&2;
+        return $?;
+    else
+        _x_build_publish $1 $2 $3;
+    fi;
 }
 
 x_build_test () {
