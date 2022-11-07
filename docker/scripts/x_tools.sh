@@ -9,9 +9,8 @@ export CONFIG_DIR="$REPO_DIR/docker/config"
 export PDM_DIR="$HOME/pdm"
 export SCRIPT_DIR="$REPO_DIR/docker/scripts"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
-export MAX_PYTHON_VERSION="3.10"
 export MIN_PYTHON_VERSION="3.7"
-export PYTHON_VERSIONS=("3.7" "3.8" "3.9" "3.10")
+export MAX_PYTHON_VERSION="3.10"
 export X_TOOLS_PATH="$SCRIPT_DIR/x_tools.sh"
 alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
 
@@ -33,9 +32,22 @@ export WHITE='\033[0;97m'
 export YELLOW1='\033[0;93m'
 export CLEAR='\033[0m'
 export _COLS=`tput cols`
-export SPACER=`repeat $_COLS printf '-'; print`
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
+_x_repeat () {
+    # Echo a given character until it reaches the width of the current terminal
+    # args: character
+    local width=`tput cols`;
+    for i in {1..$width}; do
+        if [ "$SHELL" = "/usr/bin/zsh" ]; then
+            echo -n - $1;
+        else
+            echo -n $1;
+        fi;
+    done;
+}
+export SPACER=`_x_repeat -`
+
 _x_resolve_exit_code () {
     # Returns error code if either code is not 0
     # args: exit code 1, exit code 2
@@ -53,8 +65,17 @@ _x_for_each_version () {
     # Runs a given command against multiple python versions
     # Expands version variable in command string
     # args: command (string)
+
+    # create version array
+    local min=`echo $MIN_PYTHON_VERSION | sed 's/3.//'`;
+    local max=`echo $MAX_PYTHON_VERSION | sed 's/3.//'`;
+    for i in {$min..$max}; do
+        __versions[$i]="3.$i";
+    done;
+
+    # run command for each version
     local exit_code=0;
-    for VERSION in $PYTHON_VERSIONS; do
+    for VERSION in $__versions; do
         eval "$1";
         exit_code=`_x_resolve_exit_code $exit_code $?`;
     done;
@@ -64,26 +85,26 @@ _x_for_each_version () {
 _x_gen_pyproject () {
     # Generates pyproject.toml content given a mode
     # args: mode (dev, test or prod)
-    if [[ $1 == "dev" ]]; then
+    if [ "$1" = "dev" ]; then
         # toml_gen mangles formatting so use sed
         # add -dev to project.name to avoid circular and ambiguous dependencies
         cat $CONFIG_DIR/pyproject.toml \
             |  sed -E "s/name.*$REPO.*/name = \"$REPO-dev\"/" \
             > $PDM_DIR/pyproject.toml;
 
-    elif [[ $1 == "test" ]]; then
+    elif [ "$1" = "test" ]; then
         python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
             --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
             --delete "tool.pdm.dev-dependencies.lab" \
             --delete "tool.pdm.dev-dependencies.dev";
 
-    elif [[ $1 == "prod" ]]; then
+    elif [ "$1" = "prod" ]; then
         python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
             --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
             --delete "tool.pdm.dev-dependencies.lab" \
             --delete "tool.pdm.dev-dependencies.dev";
 
-    elif [[ $1 == "package" ]]; then
+    elif [ "$1" = "package" ]; then
         python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
             --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
             --delete "tool.pdm.dev-dependencies" \
@@ -126,7 +147,8 @@ _x_env_exists () {
     # determines if given env exists
     # args: environment name
     cd $PDM_DIR;
-    if [[ `pdm venv list | grep $1` ]]; then
+    local temp=`pdm venv list | grep $1`;
+    if [ -n "$temp" ]; then
         echo "true";
     else
         echo "false";
@@ -136,9 +158,9 @@ _x_env_exists () {
 _x_get_env_python () {
     # gets python interpreter path of given environment
     # args: mode, python version
-    local env=`_x_get_env_path $1-$2`;
-    if [[ $env ]]; then
-        echo $env;
+    local penv=`_x_get_env_path $1-$2`;
+    if [ -n "$penv" ]; then
+        echo $penv;
     else
         echo /usr/bin/python$2;
     fi;
@@ -364,7 +386,7 @@ x_library_add () {
     x_env_activate_dev;
     echo "${CYAN2}ADDING PACKAGE TO DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
-    if [[ $2 == 'none' ]]; then
+    if [ "$2" = '' ] || [ "$2" = 'none' ]; then
         pdm add $1 -v;
     else
         pdm add -dG $2 $1 -v;
@@ -428,7 +450,7 @@ x_library_remove () {
     x_env_activate_dev;
     echo "${CYAN2}REMOVING PACKAGE FROM DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
-    if [[ $2 == 'none' ]]; then
+    if [ "$2" = '' ] || [ "$2" = 'none' ]; then
         pdm remove $1 -v;
     else
         pdm remove -dG $2 $1 -v;
