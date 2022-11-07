@@ -482,18 +482,27 @@ x_version () {
 
 x_version_bump_major () {
     # Bump repo's major version
+    x_env_activate_dev;
     echo "${CYAN}BUMPING MAJOR VERSION${CLEAR}\n";
-    _x_workflow_dev "pdm bump major";
+    cd $PDM_DIR
+    pdm bump major;
+    _x_library_pdm_to_repo_dev;
 }
 
 x_version_bump_minor () {
     # Bump repo's minor version
+    x_env_activate_dev;
     echo "${CYAN}BUMPING MINOR VERSION${CLEAR}\n";
-    _x_workflow_dev "pdm bump minor";
+    cd $PDM_DIR
+    pdm bump minor;
+    _x_library_pdm_to_repo_dev;
 }
 
 x_version_bump_patch () {
     # Bump repo's patch version
+    x_env_activate_dev;
     echo "${CYAN}BUMPING PATCH VERSION${CLEAR}\n";
-    _x_workflow_dev "pdm bump patch";
+    cd $PDM_DIR
+    pdm bump patch;
+    _x_library_pdm_to_repo_dev;
 }
