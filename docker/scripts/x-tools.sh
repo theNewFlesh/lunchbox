@@ -34,6 +34,12 @@ _x_gen_pyproject () {
     elif [[ $1 == "prod" ]]; then
         python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
             --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
+            --delete "tool.pdm.dev-dependencies.lab" \
+            --delete "tool.pdm.dev-dependencies.dev";
+
+    elif [[ $1 == "package" ]]; then
+        python3 $SCRIPT_DIR/toml_gen.py $CONFIG_DIR/pyproject.toml \
+            --replace "project.requires-python,>=$MIN_PYTHON_VERSION" \
             --delete "tool.pdm.dev-dependencies" \
             --delete "tool.mypy" \
             --delete "tool.pdm" \
@@ -148,7 +154,7 @@ x_env_init () {
 
 # BUILD-FUNCTIONS---------------------------------------------------------------
 _x_build () {
-    # Build production version of repo for publishing
+    # Build repo for testing, packaging and publishing
     # args: type (test or prod)
     x_env_activate_dev;
     rm -rf $BUILD_DIR;
@@ -173,6 +179,7 @@ x_build_prod () {
     # Build production version of repo for publishing
     echo "${CYAN}BUILDING PROD REPO${CLEAR}\n";
     _x_build prod;
+    _x_gen_pyproject package > $BUILD_DIR/repo/pyproject.toml;
 }
 
 x_build_publish () {
@@ -459,7 +466,7 @@ x_test_prod () {
     echo "${CYAN}TESTING PROD${CLEAR}\n";
     x_env_activate_prod;
     cd $BUILD_DIR/repo;
-    tox --parallel -v;
+    tox --parallel -v -c pyproject.toml;
     deactivate;
     x_env_activate_dev;
 }

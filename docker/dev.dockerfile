@@ -122,9 +122,6 @@ RUN /bin/bash -c 'echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
     export SCRIPT_DIR=/home/ubuntu/scripts && \
     x_env_init dev 3.10 && \
     x_env_init prod 3.10 && \
-    x_env_init prod 3.9 && \
-    x_env_init prod 3.8 && \
-    x_env_init prod 3.7 && \
     cd /home/ubuntu && \
     rm -rf config scripts'
 
