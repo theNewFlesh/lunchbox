@@ -1,4 +1,4 @@
-# EXPORTS-----------------------------------------------------------------------
+# VARIABLES---------------------------------------------------------------------
 export HOME="/home/ubuntu"
 export REPO="lunchbox"
 export REPO_DIR="$HOME/$REPO"
@@ -14,6 +14,26 @@ export MIN_PYTHON_VERSION="3.7"
 export PYTHON_VERSIONS=("3.7" "3.8" "3.9" "3.10")
 export X_TOOLS_PATH="$SCRIPT_DIR/x_tools.sh"
 alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
+
+# COLORS------------------------------------------------------------------------
+export BLUE1='\033[0;34m'
+export BLUE2='\033[0;94m'
+export CYAN1='\033[0;36m'
+export CYAN2='\033[0;96m'
+export GREEN1='\033[0;32m'
+export GREEN2='\033[0;92m'
+export GREY1='\033[0;90m'
+export GREY2='\033[0;37m'
+export ORANGE='\033[0;33m'
+export PURPLE1='\033[0;35m'
+export PURPLE2='\033[0;95m'
+export RED1='\033[0;31m'
+export RED2='\033[0;91m'
+export WHITE='\033[0;97m'
+export YELLOW1='\033[0;93m'
+export CLEAR='\033[0m'
+export _COLS=`tput cols`
+export SPACER=`repeat $_COLS printf '-'; print`
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
 _x_for_each_version () {
@@ -181,14 +201,14 @@ x_build_package () {
     x_env_activate_dev;
     x_build_prod;
     cd $BUILD_DIR/repo;
-    echo "${CYAN}BUILDING PIP PACKAGE${CLEAR}\n";
+    echo "${CYAN2}BUILDING PIP PACKAGE${CLEAR}\n";
     pdm build --dest $BUILD_DIR/dist -v;
     rm -rf $BUILD_DIR/repo/build;
 }
 
 x_build_prod () {
     # Build production version of repo for publishing
-    echo "${CYAN}BUILDING PROD REPO${CLEAR}\n";
+    echo "${CYAN2}BUILDING PROD REPO${CLEAR}\n";
     _x_build prod;
     _x_gen_pyproject package > $BUILD_DIR/repo/pyproject.toml;
 }
@@ -213,7 +233,7 @@ x_build_publish () {
 
 x_build_test () {
     # Build test version of repo for prod testing
-    echo "${CYAN}BUILDING TEST REPO${CLEAR}\n";
+    echo "${CYAN2}BUILDING TEST REPO${CLEAR}\n";
     _x_build test;
 }
 
@@ -222,7 +242,7 @@ x_docs () {
     # Generate sphinx documentation
     x_env_activate_dev;
     cd $REPO_DIR;
-    echo "${CYAN}GENERATING DOCS${CLEAR}\n";
+    echo "${CYAN2}GENERATING DOCS${CLEAR}\n";
     mkdir -p docs;
     pandoc README.md -o sphinx/intro.rst;
     sphinx-build sphinx docs;
@@ -233,7 +253,7 @@ x_docs () {
 
 x_docs_architecture () {
     # Generate architecture.svg diagram from all import statements
-    echo "${CYAN}GENERATING ARCHITECTURE DIAGRAM${CLEAR}\n";
+    echo "${CYAN2}GENERATING ARCHITECTURE DIAGRAM${CLEAR}\n";
     x_env_activate_dev;
     python3 -c "import rolling_pin.repo_etl as rpo; \
 rpo.write_repo_architecture( \
@@ -252,7 +272,7 @@ x_docs_full () {
 
 x_docs_metrics () {
     # Generate code metrics report, plots and tables
-    echo "${CYAN}GENERATING METRICS${CLEAR}\n";
+    echo "${CYAN2}GENERATING METRICS${CLEAR}\n";
     x_env_activate_dev;
     cd $REPO_DIR;
     python3 -c "import rolling_pin.repo_etl as rpo; \
@@ -277,7 +297,7 @@ _x_library_pdm_to_repo_prod () {
 _x_library_lock_dev () {
     # Update dev.lock
     x_env_activate_dev;
-    echo "${CYAN}DEV DEPENDENCY LOCK${CLEAR}\n";
+    echo "${CYAN2}DEV DEPENDENCY LOCK${CLEAR}\n";
     cd $PDM_DIR;
     pdm lock -v;
     _x_library_pdm_to_repo_dev;
@@ -286,7 +306,7 @@ _x_library_lock_dev () {
 _x_library_lock_prod () {
     # Update prod.lock
     x_env_activate_prod;
-    echo "${CYAN}PROD DEPENDENCY LOCK${CLEAR}\n";
+    echo "${CYAN2}PROD DEPENDENCY LOCK${CLEAR}\n";
     cd $PDM_DIR;
     pdm lock -v;
     _x_library_pdm_to_repo_prod;
@@ -297,7 +317,7 @@ _x_library_lock_prod () {
 _x_library_sync_dev () {
     # Sync dev.lock with dev environment
     x_env_activate_dev;
-    echo "${CYAN}DEV DEPENDENCY SYNC${CLEAR}\n";
+    echo "${CYAN2}DEV DEPENDENCY SYNC${CLEAR}\n";
     cd $PDM_DIR;
     pdm sync --no-self --dev --clean -v;
 }
@@ -305,7 +325,7 @@ _x_library_sync_dev () {
 _x_library_sync_prod () {
     # Sync prod.lock with prod environment
     x_env_activate_prod;
-    echo "${CYAN}PROD DEPENDENCY SYNC${CLEAR}\n";
+    echo "${CYAN2}PROD DEPENDENCY SYNC${CLEAR}\n";
     cd $PDM_DIR;
     pdm sync --no-self --dev --clean -v;
     deactivate;
@@ -316,7 +336,7 @@ x_library_add () {
     # Add a given package to a given dependency group
     # args: package, group
     x_env_activate_dev;
-    echo "${CYAN}ADDING PACKAGE TO DEV DEPENDENCIES${CLEAR}\n";
+    echo "${CYAN2}ADDING PACKAGE TO DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     if [[ $2 == 'none' ]]; then
         pdm add $1 -v;
@@ -329,7 +349,7 @@ x_library_add () {
 x_library_graph_dev () {
     # Graph dependencies in dev environment
     x_env_activate_dev;
-    echo "${CYAN}DEV DEPENDENCY GRAPH${CLEAR}\n";
+    echo "${CYAN2}DEV DEPENDENCY GRAPH${CLEAR}\n";
     cd $PDM_DIR;
     pdm list --graph;
 }
@@ -337,7 +357,7 @@ x_library_graph_dev () {
 x_library_graph_prod () {
     # Graph dependencies in prod environment
     x_env_activate_prod;
-    echo "${CYAN}PROD DEPENDENCY GRAPH${CLEAR}\n";
+    echo "${CYAN2}PROD DEPENDENCY GRAPH${CLEAR}\n";
     cd $PDM_DIR;
     pdm list --graph;
     deactivate;
@@ -346,14 +366,14 @@ x_library_graph_prod () {
 
 x_library_install_dev () {
     # Install all dependencies into dev environment
-    echo "${CYAN}INSTALL DEV DEPENDENCIES${CLEAR}\n";
+    echo "${CYAN2}INSTALL DEV DEPENDENCIES${CLEAR}\n";
     _x_library_lock_dev;
     _x_library_sync_dev;
 }
 
 x_library_install_prod () {
     # Install all dependencies into prod environment
-    echo "${CYAN}INSTALL PROD DEPENDENCIES${CLEAR}\n";
+    echo "${CYAN2}INSTALL PROD DEPENDENCIES${CLEAR}\n";
     _x_library_lock_prod;
     _x_library_sync_prod;
 }
@@ -361,7 +381,7 @@ x_library_install_prod () {
 x_library_list_dev () {
     # List packages in dev environment
     x_env_activate_dev;
-    echo "${CYAN}DEV DEPENDENCIES${CLEAR}\n";
+    echo "${CYAN2}DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     pdm list --sort name --fields name,version,groups;
 }
@@ -369,7 +389,7 @@ x_library_list_dev () {
 x_library_list_prod () {
     # List packages in prod environment
     x_env_activate_prod;
-    echo "${CYAN}PROD DEPENDENCIES${CLEAR}\n";
+    echo "${CYAN2}PROD DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     pdm list --sort name --fields name,version,groups;
     deactivate;
@@ -380,7 +400,7 @@ x_library_remove () {
     # Remove a given package from a given dependency group
     # args: package, group
     x_env_activate_dev;
-    echo "${CYAN}REMOVING PACKAGE FROM DEV DEPENDENCIES${CLEAR}\n";
+    echo "${CYAN2}REMOVING PACKAGE FROM DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     if [[ $2 == 'none' ]]; then
         pdm remove $1 -v;
@@ -401,7 +421,7 @@ x_library_search () {
 x_library_update () {
     # Update dev dependencies
     x_env_activate_dev;
-    echo "${CYAN}UPDATING DEV DEPENDENCIES${CLEAR}\n";
+    echo "${CYAN2}UPDATING DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     pdm update --no-self --dev -v;
     _x_library_pdm_to_repo_dev;
@@ -411,14 +431,14 @@ x_library_update () {
 x_session_app () {
     # Run app
     x_env_activate_dev;
-    echo "${CYAN}APP${CLEAR}\n";
+    echo "${CYAN2}APP${CLEAR}\n";
     python3.10 $REPO_PATH/python/$REPO/server/app.py;
 }
 
 x_session_lab () {
     # Run jupyter lab server
     x_env_activate_dev;
-    echo "${CYAN}JUPYTER LAB${CLEAR}\n";
+    echo "${CYAN2}JUPYTER LAB${CLEAR}\n";
     jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
 }
 
@@ -432,7 +452,7 @@ x_session_python () {
 x_test_coverage () {
     # Generate test coverage report
     x_env_activate_dev;
-    echo "${CYAN}GENERATING TEST COVERAGE REPORT${CLEAR}\n";
+    echo "${CYAN2}GENERATING TEST COVERAGE REPORT${CLEAR}\n";
     cd $REPO_DIR;
     mkdir -p docs;
     pytest \
@@ -447,7 +467,7 @@ x_test_coverage () {
 x_test_dev () {
     # Run all tests
     x_env_activate_dev;
-    echo "${CYAN}TESTING DEV${CLEAR}\n";
+    echo "${CYAN2}TESTING DEV${CLEAR}\n";
     cd $REPO_DIR;
     pytest -c $CONFIG_DIR/pyproject.toml --numprocesses $PROCS $REPO_DIR/python;
 }
@@ -455,7 +475,7 @@ x_test_dev () {
 x_test_fast () {
     # Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator
     x_env_activate_dev;
-    echo "${CYAN}FAST TESTING DEV${CLEAR}\n";
+    echo "${CYAN2}FAST TESTING DEV${CLEAR}\n";
     cd $REPO_DIR;
     SKIP_SLOW_TESTS=true \
     pytest -c $CONFIG_DIR/pyproject.toml --numprocesses $PROCS $REPO_DIR/python;
@@ -465,9 +485,9 @@ x_test_lint () {
     # Run linting and type checking
     x_env_activate_dev;
     cd $REPO_DIR;
-    echo "${CYAN}LINTING${CLEAR}\n";
+    echo "${CYAN2}LINTING${CLEAR}\n";
     flake8 python --config $CONFIG_DIR/flake8.ini;
-    echo "${CYAN}TYPE CHECKING${CLEAR}\n";
+    echo "${CYAN2}TYPE CHECKING${CLEAR}\n";
     mypy python --config-file $CONFIG_DIR/pyproject.toml;
 }
 
@@ -477,18 +497,23 @@ x_test_run () {
     x_build_test;
     cd $BUILD_DIR/repo;
     x_env_activate $1 $2;
-    
-    echo "${CYAN}LINTING $1-$2${CLEAR}\n";
+    local exit_code=$?;
+
+    echo "${CYAN2}LINTING $1-$2${CLEAR}\n";
     flake8 $REPO --config flake8.ini;
+    exit_code=`_x_resolve_exit_code $exit_code $?`;
 
-    echo "${CYAN}TYPE CHECKING $1-$2${CLEAR}\n";
+    echo "${CYAN2}TYPE CHECKING $1-$2${CLEAR}\n";
     mypy $REPO --config-file pyproject.toml;
+    exit_code=`_x_resolve_exit_code $exit_code $?`;
 
-    echo "${CYAN}TESTING $1-$2${CLEAR}\n";
+    echo "${CYAN2}TESTING $1-$2${CLEAR}\n";
     pytest $REPO -c pyproject.toml;
+    exit_code=`_x_resolve_exit_code $exit_code $?`;
 
     deactivate;
     x_env_activate_dev;
+    return $exit_code;
 }
 
 x_test_prod () {
@@ -509,7 +534,7 @@ x_version () {
 x_version_bump_major () {
     # Bump repo's major version
     x_env_activate_dev;
-    echo "${CYAN}BUMPING MAJOR VERSION${CLEAR}\n";
+    echo "${CYAN2}BUMPING MAJOR VERSION${CLEAR}\n";
     cd $PDM_DIR
     pdm bump major;
     _x_library_pdm_to_repo_dev;
@@ -518,7 +543,7 @@ x_version_bump_major () {
 x_version_bump_minor () {
     # Bump repo's minor version
     x_env_activate_dev;
-    echo "${CYAN}BUMPING MINOR VERSION${CLEAR}\n";
+    echo "${CYAN2}BUMPING MINOR VERSION${CLEAR}\n";
     cd $PDM_DIR
     pdm bump minor;
     _x_library_pdm_to_repo_dev;
@@ -527,7 +552,7 @@ x_version_bump_minor () {
 x_version_bump_patch () {
     # Bump repo's patch version
     x_env_activate_dev;
-    echo "${CYAN}BUMPING PATCH VERSION${CLEAR}\n";
+    echo "${CYAN2}BUMPING PATCH VERSION${CLEAR}\n";
     cd $PDM_DIR
     pdm bump patch;
     _x_library_pdm_to_repo_dev;
