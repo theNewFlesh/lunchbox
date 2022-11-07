@@ -54,7 +54,7 @@
         "tasks": [
             {
                 "label": "[build]-package",
-                "detail": "Generate pip package of repo in ~/build/repo",
+                "detail": "Generate pip package of repo in $HOME/build/repo",
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_build_package"
@@ -84,7 +84,7 @@
             },
             {
                 "label": "[build]-test",
-                "detail": "Build test version of repo for tox testing",
+                "detail": "Build test version of repo for prod testing",
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_build_test"
@@ -111,7 +111,7 @@
             },
             {
                 "label": "[docs]-full",
-                "detail": "Generate documentation, coverage report, architecture diagram and code metrics",
+                "detail": "Generate documentation, coverage report, architecture diagram and code",
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_docs_full"
@@ -209,15 +209,6 @@
                 "type": "shell"
             },
             {
-                "label": "[library]-sync",
-                "detail": "Sync dev dependencies",
-                "command": [
-                    "source $X_TOOLS_PATH &&",
-                    "x_library_sync"
-                ],
-                "type": "shell"
-            },
-            {
                 "label": "[library]-update",
                 "detail": "Update dev dependencies",
                 "command": [
@@ -228,7 +219,7 @@
             },
             // {
             //     "label": "[session]-app",
-            //     "detail": "Run app server",
+            //     "detail": "Run app",
             //     "command": [
             //         "source $X_TOOLS_PATH &&",
             //         "x_session_app"
