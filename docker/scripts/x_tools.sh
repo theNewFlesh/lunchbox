@@ -18,9 +18,10 @@ alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
 # GENERATE-FUNCTIONS------------------------------------------------------------
 _x_for_each_version () {
     # Runs a given command against multiple python versions
+    # Expands version variable in command string
     # args: command (string)
-    for version in $PYTHON_VERSIONS; do
-        eval "$1 $VERSION";
+    for VERSION in $PYTHON_VERSIONS; do
+        eval "$1";
     done;
 }
 
@@ -493,7 +494,7 @@ x_test_run () {
 x_test_prod () {
     # Run tests across all support python versions
     x_env_activate_dev;
-    _x_for_each_version ". $X_TOOLS_PATH; x_test_run prod";
+    _x_for_each_version 'x_test_run prod $VERSION';
 }
 
 # VERSION-FUNCTIONS-------------------------------------------------------------
