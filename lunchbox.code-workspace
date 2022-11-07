@@ -48,6 +48,7 @@
     "tasks": {
         "version": "2.0.0",
         "type": "shell",
+        "dependsOrder": "sequence",
         "options": {
             "cwd": "${workspaceFolder}",
             "env": {
@@ -81,10 +82,13 @@
                 "detail": "Publish pip package of repo to PyPi",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x_build_publish",
+                    "_x_build_publish",
                     "'${input:pypi_user}'",
                     "'${input:pypi_password}'",
                     "'${input:pypi_comment}'"
+                ],
+                "dependsOn": [
+                    "[test] prod"
                 ]
             },
             {
