@@ -284,15 +284,15 @@ def version_variable():
 def x_tools(command, args=[]):
     # type: (str, list[str]) -> str
     '''
-    Creates a x-tools command string.
+    Creates a x_tools command string.
 
     Args:
-        command (str): x-tools command
+        command (str): x_tools command
         args (list, optional): List of arguments to be passed to the command.
             Default: []
 
     Returns:
-        str: x-tools command.
+        str: x_tools command.
     '''
 
     cmd = 'source /home/ubuntu/.zshrc && {cmd}'.format(cmd=command)
@@ -564,15 +564,15 @@ def stop_command():
 def x_tools_command(command, args=[]):
     # type: (str, list[str]) -> str
     '''
-    Runs a x-tools command.
+    Runs a x_tools command.
 
     Args:
-        command (str): x-tools command
+        command (str): x_tools command
         args (list, optional): List of arguments to be passed to the command.
             Default: []
 
     Returns:
-        str: x-tools command.
+        str: x_tools command.
     '''
     cmds = [
         enter_repo(),
