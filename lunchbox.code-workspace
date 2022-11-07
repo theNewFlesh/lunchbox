@@ -264,7 +264,7 @@
                 ]
             },
             {
-                "label": "[test]-prod",
+                "label": "test:prod",
                 "detail": "Run tests across all support python versions",
                 "command": [
                     "source $X_TOOLS_PATH &&",
