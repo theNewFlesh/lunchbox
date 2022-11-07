@@ -269,11 +269,11 @@ def version_variable():
     # type: () -> str
     '''
     Returns:
-        str: Command to set version variable from dev/pyproject.toml.
+        str: Command to set version variable from pyproject.toml.
     '''
     return line('''
-        export VERSION=`cat docker/dev/pyproject.toml
-            | grep version
+        export VERSION=`cat docker/config/pyproject.toml
+            | grep -E '^version *='
             | awk '{{print $3}}'
             | sed 's/\"//g'`
     ''')
