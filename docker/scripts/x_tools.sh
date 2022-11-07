@@ -11,11 +11,19 @@ export SCRIPT_DIR="$REPO_DIR/docker/scripts"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
 export MAX_PYTHON_VERSION="3.10"
 export MIN_PYTHON_VERSION="3.7"
-export PYTHON_VERSIONS="3.10\n3.9\n3.8\n3.7"
+export PYTHON_VERSIONS=("3.7" "3.8" "3.9" "3.10")
 export X_TOOLS_PATH="$SCRIPT_DIR/x_tools.sh"
 alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
+_x_for_each_version () {
+    # Runs a given command against multiple python versions
+    # args: command (string)
+    for version in $PYTHON_VERSIONS; do
+        eval "$1 $VERSION";
+    done;
+}
+
 _x_gen_pyproject () {
     # Generates pyproject.toml content given a mode
     # args: mode (dev, test or prod)
@@ -295,12 +303,10 @@ _x_library_sync_dev () {
 
 _x_library_sync_prod () {
     # Sync prod.lock with prod environment
+    x_env_activate_prod;
+    echo "${CYAN}PROD DEPENDENCY SYNC${CLEAR}\n";
     cd $PDM_DIR;
-    echo $PYTHON_VERSIONS \
-        | parallel ". $X_TOOLS_PATH; \
-            echo '${CYAN}TESTING PROD-{}${CLEAR}\n'; \
-            x_env_activate prod {}; \
-            pdm sync --no-self --dev --clean -v";
+    pdm sync --no-self --dev --clean -v;
     deactivate;
     x_env_activate_dev;
 }
@@ -464,21 +470,6 @@ x_test_lint () {
     mypy python --config-file $CONFIG_DIR/pyproject.toml;
 }
 
-_x_test_lint () {
-    # Run linting and type checking across all support python versions
-    x_build_test;
-    cd $BUILD_DIR/repo;
-    echo $PYTHON_VERSIONS \
-        | parallel ". $X_TOOLS_PATH; \
-            x_env_activate prod {}; \
-            echo '${CYAN}LINTING PROD {}${CLEAR}\n';
-            flake8 $REPO --config $CONFIG_DIR/flake8.ini;
-            echo '${CYAN}TYPE CHECKING PROD {}${CLEAR}\n';
-            mypy $REPO --config-file $CONFIG_DIR/pyproject.toml";
-    deactivate;
-    x_env_activate_dev;
-}
-
 x_test_run () {
     # Run test in given environment
     # args: mode, python_version
@@ -501,16 +492,8 @@ x_test_run () {
 
 x_test_prod () {
     # Run tests across all support python versions
-    _x_test_lint;
-    x_build_test;
-    cd $BUILD_DIR/repo;
-    echo $PYTHON_VERSIONS \
-        | parallel ". $X_TOOLS_PATH; \
-            echo '${CYAN}TESTING PROD-{}${CLEAR}\n'; \
-            x_env_activate prod {}; \
-            pytest $REPO -c pyproject.toml";
-    deactivate;
     x_env_activate_dev;
+    _x_for_each_version ". $X_TOOLS_PATH; x_test_run prod";
 }
 
 # VERSION-FUNCTIONS-------------------------------------------------------------
