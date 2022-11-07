@@ -2,6 +2,7 @@
 export HOME="/home/ubuntu"
 export REPO="lunchbox"
 export REPO_DIR="$HOME/$REPO"
+export REPO_APP_FILE="$REPO_DIR/python/$REPO/server/app.py"
 export PATH=":$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib"
 export PYTHONPATH="$REPO_DIR/python:$HOME/.local/lib"
 export BUILD_DIR="$HOME/build"
@@ -479,7 +480,7 @@ x_session_app () {
     # Run app
     x_env_activate_dev;
     echo "${CYAN2}APP${CLEAR}\n";
-    python3.10 $REPO_PATH/python/$REPO/server/app.py;
+    python3.10 $REPO_APP_FILE;
 }
 
 x_session_lab () {
