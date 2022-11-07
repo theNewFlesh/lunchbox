@@ -31,7 +31,6 @@ export RED2='\033[0;91m'
 export WHITE='\033[0;97m'
 export YELLOW1='\033[0;93m'
 export CLEAR='\033[0m'
-export _COLS=`tput cols`
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
 _x_repeat () {
