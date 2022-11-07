@@ -53,11 +53,11 @@
         },
         "tasks": [
             {
-                "label": "[build]-pip-package",
+                "label": "[build]-package",
                 "detail": "Generate pip package of repo in ~/build/repo",
                 "command": [
                     "source $X_TOOLS_PATH &&",
-                    "x_build_pip_package"
+                    "x_build_package"
                 ],
                 "type": "shell"
             },
@@ -156,7 +156,7 @@
             },
             {
                 "label": "[library]-install-dev",
-                "detail": "Install all dependencies of dev/pyproject.toml into ~/dev",
+                "detail": "Install all dependencies into dev environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_install_dev"
@@ -165,7 +165,7 @@
             },
             {
                 "label": "[library]-install-prod",
-                "detail": "Install all dependencies of prod/pyproject.toml into ~/prod",
+                "detail": "Install all dependencies into prod environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_install_prod"
@@ -187,15 +187,6 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_list_prod"
-                ],
-                "type": "shell"
-            },
-            {
-                "label": "[library]-lock",
-                "detail": "Update ~/dev/pdm.lock file",
-                "command": [
-                    "source $X_TOOLS_PATH &&",
-                    "x_library_lock"
                 ],
                 "type": "shell"
             },
