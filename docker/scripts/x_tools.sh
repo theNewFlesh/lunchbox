@@ -57,7 +57,7 @@ _x_gen_pdm_files () {
 
     # pdm.lock
     rm -f $PDM_DIR/pdm.lock;
-    cp $CONFIG_DIR/$1.lock $PDM_DIR/pdm.lock;
+    cp -f $CONFIG_DIR/$1.lock $PDM_DIR/pdm.lock;
 
     # get python path
     local pypath=`_x_get_env_python $1 $2`;
