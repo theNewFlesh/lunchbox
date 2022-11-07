@@ -81,7 +81,7 @@ isolated_build = True
 setenv =
     PYTHONPATH = ''
 groups = test
-commands = pytest rolling_pin -c pyproject.toml
+commands = pytest lunchbox -c pyproject.toml
 """
 
 [tool.mypy]
