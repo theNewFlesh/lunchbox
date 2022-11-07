@@ -114,7 +114,7 @@ RUN echo "\n${CYAN}INSTALL PDM AND TOML${CLEAR}"; \
 # install python dependencies
 COPY --chown=ubuntu:ubuntu config/* /home/ubuntu/config/
 COPY --chown=ubuntu:ubuntu scripts/* /home/ubuntu/scripts/
-RUN /bin/bash -c 'echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
+RUN echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
     mkdir pdm && \
     cd pdm && \
     . /home/ubuntu/scripts/x_tools.sh && \
@@ -126,7 +126,7 @@ RUN /bin/bash -c 'echo "\n${CYAN}INSTALL PYTHON ENVIRONMENTS${CLEAR}"; \
     x_env_init prod 3.8 && \
     x_env_init prod 3.7 && \
     cd /home/ubuntu && \
-    rm -rf config scripts'
+    rm -rf config scripts
 
 ENV REPO='lunchbox'
 ENV PYTHONPATH ":/home/ubuntu/$REPO/python:/home/ubuntu/.local/lib"
