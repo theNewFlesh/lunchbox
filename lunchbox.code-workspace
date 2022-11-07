@@ -45,6 +45,7 @@
     },
     "tasks": {
         "version": "2.0.0",
+        "type": "shell",
         "options": {
             "cwd": "${workspaceFolder}",
             "env": {
@@ -59,7 +60,6 @@
                     "source $X_TOOLS_PATH &&",
                     "x_build_package"
                 ],
-                "type": "shell"
             },
             {
                 "label": "[build]-prod",
@@ -67,8 +67,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_build_prod"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[build]-publish",
@@ -79,8 +78,8 @@
                     "'${input:pypi_user}'",
                     "'${input:pypi_password}'",
                     "'${input:pypi_comment}'"
-                ],
-                "type": "shell"
+                ]
+                // "type": "shell"
             },
             {
                 "label": "[build]-test",
@@ -88,8 +87,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_build_test"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[docs]",
@@ -97,8 +95,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_docs"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[docs]-architecture",
@@ -106,8 +103,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_docs_architecture"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[docs]-full",
@@ -115,8 +111,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_docs_full"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[docs]-metrics",
@@ -124,8 +119,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_docs_metrics"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-add",
@@ -133,8 +127,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_add ${input:pdm_package} ${input:pdm_group}"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-graph-dev",
@@ -142,8 +135,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_graph_dev"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-graph-prod",
@@ -151,8 +143,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_graph_prod"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-install-dev",
@@ -160,8 +151,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_install_dev"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-install-prod",
@@ -169,8 +159,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_install_prod"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-list-dev",
@@ -178,8 +167,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_list_dev"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-list-prod",
@@ -187,8 +175,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_list_prod"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-remove",
@@ -196,8 +183,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_remove ${input:pdm_package} ${input:pdm_group}"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-search",
@@ -205,8 +191,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_search ${input:pdm_package}"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[library]-update",
@@ -214,8 +199,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_library_update"
-                ],
-                "type": "shell"
+                ]
             },
             // {
             //     "label": "[session]-app",
@@ -232,8 +216,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_session_lab"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[session]-python",
@@ -241,8 +224,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_session_python"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[test]-coverage",
@@ -250,8 +232,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_test_coverage"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[test]-dev",
@@ -259,8 +240,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_test_dev"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[test]-fast",
@@ -268,8 +248,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_test_fast"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[test]-lint",
@@ -277,8 +256,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_test_lint"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[test]-prod",
@@ -286,8 +264,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_test_prod"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[version]",
@@ -295,8 +272,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_version"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[version]-bump-major",
@@ -304,8 +280,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_version_bump_major"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[version]-bump-minor",
@@ -313,8 +288,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_version_bump_minor"
-                ],
-                "type": "shell"
+                ]
             },
             {
                 "label": "[version]-bump-patch",
@@ -322,8 +296,7 @@
                 "command": [
                     "source $X_TOOLS_PATH &&",
                     "x_version_bump_patch"
-                ],
-                "type": "shell"
+                ]
             }
         ],
     "inputs": [

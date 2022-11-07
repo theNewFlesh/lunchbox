@@ -13,7 +13,7 @@ export MAX_PYTHON_VERSION="3.10"
 export MIN_PYTHON_VERSION="3.7"
 export PYTHON_VERSIONS="3.10\n3.9\n3.8\n3.7"
 export X_TOOLS_PATH="$SCRIPT_DIR/x_tools.sh"
-unalias cp  # "cp -i" alias asks you if you want to clobber files
+alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
 _x_gen_pyproject () {
