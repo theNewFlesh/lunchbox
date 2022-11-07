@@ -354,7 +354,7 @@ x_library_list_dev () {
     x_env_activate_dev;
     echo "${CYAN}DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
-    pdm list;
+    pdm list --sort name;
 }
 
 x_library_list_prod () {
@@ -362,7 +362,7 @@ x_library_list_prod () {
     x_env_activate_prod;
     echo "${CYAN}PROD DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
-    pdm list;
+    pdm list --sort name;
     deactivate;
     x_env_activate_dev;
 }
