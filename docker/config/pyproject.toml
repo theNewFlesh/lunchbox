@@ -29,11 +29,10 @@ lab = [
     "rolling-pin>=0.7.0",
 ]
 dev = [
-    "pdm",
     "pdm-bump",
+    "pdm",
     "sphinx-rtd-theme",
     "sphinx>=5.3.0",
-    "toml>=0.10.2",
 ]
 test = [
     "flake8",
@@ -42,8 +41,7 @@ test = [
     "pytest-forked",
     "pytest-xdist",
     "pytest",
-    "tox-pdm>=0.6.0",
-    "tox>=3.26.0",
+    "toml>=0.10.2",
 ]
 
 [tool.pytest.ini_options]
@@ -67,22 +65,6 @@ omit = [
     "*/mock_*.py",
     "*/conftest.py",
 ]
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py3{10,9,8,7}
-distdir = /home/ubuntu/build/dist
-setupdir = /home/ubuntu/build/repo
-toxworkdir = /home/ubuntu/build/tox
-isolated_build = True
-
-[testenv]
-setenv =
-    PYTHONPATH = ''
-groups = test
-commands = pytest lunchbox -c pyproject.toml
-"""
 
 [tool.mypy]
 python_version = "3.10"

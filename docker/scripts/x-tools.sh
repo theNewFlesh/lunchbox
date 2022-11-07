@@ -11,6 +11,7 @@ export SCRIPT_DIR="$REPO_DIR/docker/scripts"
 export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
 export MAX_PYTHON_VERSION="3.10"
 export MIN_PYTHON_VERSION="3.7"
+export PYTHON_VERSIONS="3.10\n3.9\n3.8\n3.7"
 export X_TOOLS_PATH="$SCRIPT_DIR/x-tools.sh"
 unalias cp  # "cp -i" alias asks you if you want to clobber files
 
@@ -43,8 +44,7 @@ _x_gen_pyproject () {
             --delete "tool.pdm.dev-dependencies" \
             --delete "tool.mypy" \
             --delete "tool.pdm" \
-            --delete "tool.pytest" \
-            --delete "tool.tox";
+            --delete "tool.pytest";
     fi;
 }
 
@@ -107,7 +107,7 @@ _x_env_create () {
     pdm venv create -n $1-$2;
 }
 
-_x_env_activate () {
+x_env_activate () {
     # Activate a virtual env given a mode and python version
     # args: mode, python_version
     local CWD=`pwd`;
@@ -121,7 +121,7 @@ _x_env_lock () {
     # Resolve dependencies listed in pyrproject.toml into a pdm.lock file
     # args: mode, python_version
     cd $PDM_DIR;
-    _x_env_activate $1 $2 && \
+    x_env_activate $1 $2 && \
     pdm lock -v && \
     cat $PDM_DIR/pdm.lock > $CONFIG_DIR/$1.lock;
 }
@@ -131,19 +131,19 @@ _x_env_sync () {
     # given mode and python version
     # args: mode, python_version
     cd $PDM_DIR;
-    _x_env_activate $1 $2 && \
+    x_env_activate $1 $2 && \
     pdm sync --no-self --dev --clean -v && \
     deactivate;
 }
 
 x_env_activate_dev () {
     # Activates dev environment
-    _x_env_activate dev $MAX_PYTHON_VERSION;
+    x_env_activate dev $MAX_PYTHON_VERSION;
 }
 
 x_env_activate_prod () {
     # Activates prod environment
-    _x_env_activate prod $MAX_PYTHON_VERSION;
+    x_env_activate prod $MAX_PYTHON_VERSION;
 }
 
 x_env_init () {
@@ -295,10 +295,12 @@ _x_library_sync_dev () {
 
 _x_library_sync_prod () {
     # Sync prod.lock with prod environment
-    x_env_activate_prod;
-    echo "${CYAN}PROD DEPENDENCY SYNC${CLEAR}\n";
     cd $PDM_DIR;
-    pdm sync --no-self --dev --clean -v;
+    echo $PYTHON_VERSIONS \
+        | parallel ". $X_TOOLS_PATH; \
+            echo '${CYAN}TESTING PROD-{}${CLEAR}\n'; \
+            x_env_activate prod {}; \
+            pdm sync --no-self --dev --clean -v";
     deactivate;
     x_env_activate_dev;
 }
@@ -462,13 +464,31 @@ x_test_lint () {
     mypy python --config-file $CONFIG_DIR/pyproject.toml;
 }
 
+_x_test_lint () {
+    # Run linting and type checking across all support python versions
+    x_build_test;
+    cd $BUILD_DIR/repo;
+    echo $PYTHON_VERSIONS \
+        | parallel ". $X_TOOLS_PATH; \
+            x_env_activate prod {}; \
+            echo '${CYAN}LINTING PROD {}${CLEAR}\n';
+            flake8 $REPO --config $CONFIG_DIR/flake8.ini;
+            echo '${CYAN}TYPE CHECKING PROD {}${CLEAR}\n';
+            mypy $REPO --config-file $CONFIG_DIR/pyproject.toml";
+    deactivate;
+    x_env_activate_dev;
+}
+
 x_test_prod () {
     # Run tests across all support python versions
+    _x_test_lint;
     x_build_test;
-    echo "${CYAN}TESTING PROD${CLEAR}\n";
-    x_env_activate_prod;
     cd $BUILD_DIR/repo;
-    tox --parallel -v -c pyproject.toml;
+    echo $PYTHON_VERSIONS \
+        | parallel ". $X_TOOLS_PATH; \
+            echo '${CYAN}TESTING PROD-{}${CLEAR}\n'; \
+            x_env_activate prod {}; \
+            pytest $REPO -c pyproject.toml";
     deactivate;
     x_env_activate_dev;
 }
