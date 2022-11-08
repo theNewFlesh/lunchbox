@@ -543,10 +543,10 @@ x_test_run () {
     # Run test in given environment
     # args: mode, python_version
     x_build_test;
-    cd $BUILD_DIR/repo;
     x_env_activate $1 $2;
     local exit_code=$?;
 
+    cd $BUILD_DIR/repo;
     echo "${CYAN2}LINTING $1-$2${CLEAR}\n";
     flake8 $REPO --config flake8.ini;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
