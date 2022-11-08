@@ -387,9 +387,9 @@ x_library_add () {
     echo "${CYAN2}ADDING PACKAGE TO DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     if [ "$2" = '' ] || [ "$2" = 'none' ]; then
-        pdm add $1 -v;
+        pdm add --no-self $1 -v;
     else
-        pdm add -dG $2 $1 -v;
+        pdm add --no-self -dG $2 $1 -v;
     fi;
     _x_library_pdm_to_repo_dev;
 }
