@@ -201,6 +201,10 @@ _x_env_sync () {
     # args: mode, python_version
     cd $PDM_DIR;
     x_env_activate $1 $2 && \
+    # run `pdm lock`` if lock file is empty
+    if [ `cat pdm.lock | wc -l` = 0]; then
+        pdm lock -v
+    fi && \
     pdm sync --no-self --dev --clean -v && \
     deactivate;
 }
@@ -584,25 +588,6 @@ x_test_prod () {
     # Run tests across all support python versions
     x_env_activate_dev;
     _x_for_each_version 'x_test_run prod $VERSION';
-}
-
-x_test_tox () {
-    # Run tox testing on prod environment
-    x_build_test;
-    x_env_activate_prod;
-    cd $BUILD_DIR/repo;
-
-    echo "${CYAN2}LINTING PROD${CLEAR}\n";
-    flake8 --config flake8.ini $REPO_SUBPACKAGE;
-
-    echo "${CYAN2}TYPE CHECKING PROD${CLEAR}\n";
-    mypy --config-file pyproject.toml $REPO_SUBPACKAGE;
-
-    echo "${CYAN2}TOX TESTING PROD${CLEAR}\n";
-    tox -c pyproject.toml --parallel -v $REPO_SUBPACKAGE;
-
-    deactivate;
-    x_env_activate_dev;
 }
 
 # VERSION-FUNCTIONS-------------------------------------------------------------
