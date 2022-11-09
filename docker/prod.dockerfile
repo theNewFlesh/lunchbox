@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 AS base
+FROM ubuntu:22.04 AS base
 
 USER root
 
@@ -24,14 +24,15 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
     apt update && \
     apt install -y \
         software-properties-common \
-        wget
+        wget && \
+    rm -rf /var/lib/apt/lists/*
 
 # install python3.10 and pip
 RUN echo "\n${CYAN}SETUP PYTHON3.10${CLEAR}"; \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt update && \
-    apt install --fix-missing -y \
-        python3.10 && \
+    apt install --fix-missing -y python3.10 && \
+    rm -rf /var/lib/apt/lists/* && \
     wget https://bootstrap.pypa.io/get-pip.py && \
     python3.10 get-pip.py && \
     rm -rf /home/ubuntu/get-pip.py
@@ -41,6 +42,4 @@ USER ubuntu
 ENV REPO='lunchbox'
 ENV PYTHONPATH "${PYTHONPATH}:/home/ubuntu/$REPO/python"
 RUN echo "\n${CYAN}INSTALL LUNCHBOX{CLEAR}"; \
-    pip3.10 install lunchbox
-
-
+    pip3.10 install --user --upgrade lunchbox
