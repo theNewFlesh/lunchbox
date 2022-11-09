@@ -130,6 +130,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "pdm-pep517"
+version = "1.0.5"
+requires_python = ">=3.7"
+summary = "A PEP 517 backend for PDM that supports PEP 621 metadata"
+
+[[package]]
 name = "platformdirs"
 version = "2.5.3"
 requires_python = ">=3.7"
@@ -307,7 +313,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:99357859134e955631e792a4bd91e4a000ab19455b4eb1e48b80a50678f91c0f"
+content_hash = "sha256:a7dd85983d061b4eb4263bc8e0b46dd19b6ea3c92acd74b81199d03e3a118476"
 
 [metadata.files]
 "attrs 22.1.0" = [
@@ -449,6 +455,10 @@ content_hash = "sha256:99357859134e955631e792a4bd91e4a000ab19455b4eb1e48b80a5067
 "packaging 21.3" = [
     {url = "https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
     {url = "https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
+]
+"pdm-pep517 1.0.5" = [
+    {url = "https://files.pythonhosted.org/packages/2d/59/15ff8715a14fb26fec56a0d66f7a53d27e5d14a550fc12fefd446fc74684/pdm-pep517-1.0.5.tar.gz", hash = "sha256:74ece9694c4ff5f903fba000ec43f075143872c41248daccecf7464f98ce680c"},
+    {url = "https://files.pythonhosted.org/packages/fb/7b/249d92feb0f897b0a163776f45564a8e0ef95a378157fea1ed91887dba5c/pdm_pep517-1.0.5-py3-none-any.whl", hash = "sha256:17b92b3caaac7695f49eadef554a373f06736db34c444b56c52d99a8f1f3cb5b"},
 ]
 "platformdirs 2.5.3" = [
     {url = "https://files.pythonhosted.org/packages/2b/65/6750814157aba2e560993260d0a5a802536b3bf64bad7e54afc4334eddcc/platformdirs-2.5.3-py3-none-any.whl", hash = "sha256:0cb405749187a194f444c25c82ef7225232f11564721eabffc6ec70df83b11cb"},

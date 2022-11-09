@@ -108,6 +108,7 @@ setenv =
     PYTHONPATH = ''
 groups = test
 commands = pytest -c pyproject.toml --numprocesses auto lunchbox
+skip_install = true
 """
 
 [build-system]
