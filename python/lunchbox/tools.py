@@ -362,7 +362,7 @@ class LogRuntime:
 
 # HTTP-REQUESTS-----------------------------------------------------------------
 def post_to_slack(url, channel, message):
-    # type (str, str, str) -> urllib.request.HttpRespons
+    # type (str, str, str) -> urllib.request.HttpResponse
     '''
     Post a given message to a given slack channel.
 
