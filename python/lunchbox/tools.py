@@ -501,7 +501,7 @@ def dir_table(obj, public=True, semiprivate=True, private=False, max_width=100):
 
 def api_function(wrapped=None, **kwargs):
     # type: (Optional[Callable], Any) -> Callable
-    '''
+    r'''
     A decorator that enforces keyword argument only function signatures and
     required keyword argument values when called.
 
