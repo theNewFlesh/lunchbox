@@ -91,7 +91,7 @@ class EnforceTests(unittest.TestCase):
         EnforceFooBar(Foo(1), '==', Bar(1), 'value')
 
         expected = 'value of <Foo> is not equal to value of <Bar>. 1 != 2.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'equal', Bar(2), 'value')
 
     def test_init_not_eq(self):
@@ -102,7 +102,7 @@ class EnforceTests(unittest.TestCase):
         EnforceFooBar(Foo(1), '!=', Bar(2), 'value')
 
         expected = 'value of <Foo> is equal to value of <Bar>. 1 == 1.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'not equal', Bar(1), 'value')
 
     def test_init_gt(self):
@@ -113,7 +113,7 @@ class EnforceTests(unittest.TestCase):
         EnforceFooBar(Foo(2), '>', Bar(1), 'value')
 
         expected = 'value of <Foo> is not greater than value of <Bar>. 1 <= 1.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'greater', Bar(1), 'value')
 
     def test_init_gte(self):
@@ -124,7 +124,7 @@ class EnforceTests(unittest.TestCase):
         EnforceFooBar(Foo(1), '>=', Bar(1), 'value')
 
         expected = 'value of <Foo> is less than value of <Bar>. 1 < 2.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'greater or equal', Bar(2), 'value')
 
     def test_init_lt(self):
@@ -135,7 +135,7 @@ class EnforceTests(unittest.TestCase):
         EnforceFooBar(Foo(1), '<', Bar(2), 'value')
 
         expected = 'value of <Foo> is not less than value of <Bar>. 1 >= 1.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'lesser', Bar(1), 'value')
 
     def test_init_lte(self):
@@ -146,7 +146,7 @@ class EnforceTests(unittest.TestCase):
         EnforceFooBar(Foo(1), '<=', Bar(1), 'value')
 
         expected = 'value of <Foo> is greater than value of <Bar>. 2 > 1.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(2), 'lesser or equal', Bar(1), 'value')
 
     def test_init_similar(self):
@@ -158,7 +158,7 @@ class EnforceTests(unittest.TestCase):
 
         expected = 'value of <Foo> is not similar to value of <Bar>. Delta 1 is'
         expected += ' greater than epsilon 1.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'similar', Bar(2), 'value', epsilon=1)
 
     def test_init_not_similar(self):
@@ -170,7 +170,7 @@ class EnforceTests(unittest.TestCase):
 
         expected = 'value of <Foo> is similar to value of <Bar>. Delta 1 is'
         expected += ' not greater than epsilon 2.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'not similar', Bar(2), 'value', epsilon=2)
 
     def test_init_in(self):
@@ -182,14 +182,14 @@ class EnforceTests(unittest.TestCase):
         Enforce('foo', 'in', ['foo', 'bar'])
 
         expected = r"foo is not in \['boo', 'bar'\]\."
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             Enforce('foo', 'in', ['boo', 'bar'])
 
         # attribute
         EnforceFooBar(Foo(1), 'in', [Bar(1), Foo(2)], 'value')
 
         expected = r"value of <Foo> is not in value of \[<Bar>, <Bar>\]\."
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'in', [Bar(2), Bar(3)], 'value')
 
     def test_init_not_in(self):
@@ -201,14 +201,14 @@ class EnforceTests(unittest.TestCase):
         Enforce('foo', 'not in', ['taco', 'bar'])
 
         expected = r"foo is in \['foo', 'bar'\]\."
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             Enforce('foo', 'not in', ['foo', 'bar'])
 
         # attribute
         EnforceFooBar(Foo(1), 'not in', [Bar(2), Foo(2)], 'value')
 
         expected = r"value of <Foo> is in value of \[<Bar>, <Bar>\]\."
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             EnforceFooBar(Foo(1), 'not in', [Bar(1), Bar(3)], 'value')
 
     def test_init_instance_of(self):
@@ -219,7 +219,7 @@ class EnforceTests(unittest.TestCase):
         Enforce(Taco(), 'instance of', Food)
 
         expected = r'1 is not instance of \[.*str.*, .*float.*\]\.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             Enforce(1, 'instance of', [str, float])
 
     def test_init_not_instance_of(self):
@@ -230,11 +230,11 @@ class EnforceTests(unittest.TestCase):
         Enforce(Taco(), 'not instance of', Exception)
 
         expected = r'1 is instance of \[.*int.*, .*float.*\]\.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             Enforce(1, 'not instance of', [int, float])
 
         expected = r'.*Taco.* is instance of \[.*Food.*, .*float.*\]\.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             Enforce(Taco(), 'not instance of', [Food, float])
 
     # MESSAGE-------------------------------------------------------------------

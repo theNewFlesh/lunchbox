@@ -221,20 +221,20 @@ class ToolsTests(unittest.TestCase):
 
     def test_truncate_list_errors(self):
         expected = 'Items must be a list.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             lbt.truncate_list('foo')
 
         items = [1, 2, 3, 4, 5]
         expected = 'Size must be an integer greater than -1. Given value: foo.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             lbt.truncate_list(items, size='foo')
 
         expected = 'Size must be an integer greater than -1. Given value: 9.2.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             lbt.truncate_list(items, size=9.2)
 
         expected = 'Size must be an integer greater than -1. Given value: -1.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             lbt.truncate_list(items, size=-1)
 
     def test_truncate_blob_lists(self):
@@ -300,7 +300,7 @@ class ToolsTests(unittest.TestCase):
 
     def test_truncate_blob_lists_errors(self):
         expected = 'Blob must be a dict.'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             lbt.truncate_blob_lists('foo')
 
     # LOGGING-------------------------------------------------------------------
@@ -361,7 +361,7 @@ class ToolsTests(unittest.TestCase):
 
         expected = 'URL must begin with https://hooks.slack.com/services/. '
         expected += 'Given URL: http://foo.com/bar'
-        with self.assertRaisesRegexp(EnforceError, expected):
+        with self.assertRaisesRegex(EnforceError, expected):
             lbt.post_to_slack('http://foo.com/bar', 'channel', 'message')
 
     # API-----------------------------------------------------------------------
@@ -459,15 +459,15 @@ class LogRuntimeTest(unittest.TestCase):
         expected += r'critical: 50, fatal: 50\]\.'
 
         # level int
-        with self.assertRaisesRegexp(EnforceError, expected.format(99)):
+        with self.assertRaisesRegex(EnforceError, expected.format(99)):
             lbt.LogRuntime(level=99)
 
         # level str
-        with self.assertRaisesRegexp(EnforceError, expected.format(99)):
+        with self.assertRaisesRegex(EnforceError, expected.format(99)):
             lbt.LogRuntime(level=99)
 
         # level bool
-        with self.assertRaisesRegexp(EnforceError, expected.format(1.0)):
+        with self.assertRaisesRegex(EnforceError, expected.format(1.0)):
             lbt.LogRuntime(level=1.0)
 
     def test_with(self):
