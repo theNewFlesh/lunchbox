@@ -39,7 +39,7 @@ export CLEAR='\033[0m'
 _x_repeat () {
     # Echo a given character until it reaches the width of the current terminal
     # args: character
-    local width=`tput cols`;
+    local width=`tput cols -T xterm`;
     for i in {1..$width}; do
         if [ "$SHELL" = "/usr/bin/zsh" ]; then
             echo -n - $1;
@@ -584,6 +584,25 @@ x_test_prod () {
     # Run tests across all support python versions
     x_env_activate_dev;
     _x_for_each_version 'x_test_run prod $VERSION';
+}
+
+x_test_tox () {
+    # Run tox testing on prod environment
+    x_build_test;
+    x_env_activate_prod;
+    cd $BUILD_DIR/repo;
+
+    echo "${CYAN2}LINTING PROD${CLEAR}\n";
+    flake8 --config flake8.ini $REPO_SUBPACKAGE;
+
+    echo "${CYAN2}TYPE CHECKING PROD${CLEAR}\n";
+    mypy --config-file pyproject.toml $REPO_SUBPACKAGE;
+
+    echo "${CYAN2}TOX TESTING PROD${CLEAR}\n";
+    tox -c pyproject.toml --parallel -v $REPO_SUBPACKAGE;
+
+    deactivate;
+    x_env_activate_dev;
 }
 
 # VERSION-FUNCTIONS-------------------------------------------------------------
