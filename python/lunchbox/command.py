@@ -12,7 +12,7 @@ Command line interface to lunchbox library
 
 @click.group()
 def main():
-    pass  # pragma: no cover
+    pass
 
 
 @main.command()
@@ -29,7 +29,7 @@ def slack(url, channel, message):
 
           MESSAGE - message to be posted
     '''
-    lbt.post_to_slack(url, channel, message)  # pragma: no cover
+    lbt.post_to_slack(url, channel, message)
 
 
 @main.command()
@@ -37,10 +37,10 @@ def bash_completion():
     '''
         BASH completion code to be written to a _lunchbox completion file.
     '''
-    cmd = '_LUNCHBOX_COMPLETE=bash_source lunchbox'  # pragma: no cover
-    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)  # pragma: no cover
-    result.wait()  # pragma: no cover
-    click.echo(result.stdout.read())  # pragma: no cover
+    cmd = '_LUNCHBOX_COMPLETE=bash_source lunchbox'
+    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    result.wait()
+    click.echo(result.stdout.read())
 
 
 @main.command()
@@ -48,11 +48,11 @@ def zsh_completion():
     '''
         ZSH completion code to be written to a _lunchbox completion file.
     '''
-    cmd = '_LUNCHBOX_COMPLETE=zsh_source lunchbox'  # pragma: no cover
-    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)  # pragma: no cover
-    result.wait()  # pragma: no cover
-    click.echo(result.stdout.read())  # pragma: no cover
+    cmd = '_LUNCHBOX_COMPLETE=zsh_source lunchbox'
+    result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    result.wait()
+    click.echo(result.stdout.read())
 
 
 if __name__ == '__main__':
-    main()  # pragma: no cover
+    main()

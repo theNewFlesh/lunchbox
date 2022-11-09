@@ -3,8 +3,7 @@ name = "lunchbox"
 version = "0.3.0"
 description = "A library of various tools for common python tasks"
 authors = [
-    {name = "Alex Braun"},
-    {email = "alexander.g.braun@gmail.com"},
+    {name = "Alex Braun", email = "alexander.g.braun@gmail.com"},
 ]
 readme = "README.md"
 license = "MIT"
@@ -71,7 +70,7 @@ markers = [
     "flaky:Flaky test",
 ]
 
-[tool.pytest.ini_options.report]
+[tool.coverage.report]
 show_missing = true
 omit = [
     "*/__init__.py",
@@ -79,6 +78,7 @@ omit = [
     "*/*_test.py",
     "*/*_tests.py",
     "*/cli.py",
+    "*/command.py",
     "*/mock_*.py",
     "*/conftest.py",
 ]
