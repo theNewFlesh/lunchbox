@@ -2,17 +2,19 @@
 export HOME="/home/ubuntu"
 export REPO="lunchbox"
 export REPO_DIR="$HOME/$REPO"
-export REPO_APP_FILE="$REPO_DIR/python/$REPO/server/app.py"
+export REPO_SUBPACKAGE=$REPO_DIR/python/`echo $REPO | sed 's/-/_/g'`
+export REPO_COMMAND_FILE="$REPO_SUBPACKAGE/command.py"
 export PATH=":$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib"
 export PYTHONPATH="$REPO_DIR/python:$HOME/.local/lib"
 export BUILD_DIR="$HOME/build"
 export CONFIG_DIR="$REPO_DIR/docker/config"
 export PDM_DIR="$HOME/pdm"
 export SCRIPT_DIR="$REPO_DIR/docker/scripts"
-export PROCS=`python3 -c 'import os; print(os.cpu_count())'`
 export MIN_PYTHON_VERSION="3.7"
 export MAX_PYTHON_VERSION="3.10"
-export X_TOOLS_PATH="$SCRIPT_DIR/x_tools.sh"
+export TEST_VERBOSITY=0
+export TEST_PROCS="auto"
+export TEST_PROCS=1
 alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
 
 # COLORS------------------------------------------------------------------------
@@ -232,6 +234,7 @@ _x_build () {
         $CONFIG_DIR/build.yaml \
         --groups base,$1;
     _x_gen_pyproject $1 > $BUILD_DIR/repo/pyproject.toml;
+    touch $BUILD_DIR/repo/py.typed
 }
 
 x_build_package () {
@@ -480,7 +483,7 @@ x_session_app () {
     # Run app
     x_env_activate_dev;
     echo "${CYAN2}APP${CLEAR}\n";
-    python3.10 $REPO_APP_FILE;
+    python3.10 $REPO_SUBPACKAGE/server/app.py;
 }
 
 x_session_lab () {
@@ -505,7 +508,8 @@ x_test_coverage () {
     mkdir -p docs;
     pytest \
         -c $CONFIG_DIR/pyproject.toml \
-        --numprocesses $PROCS \
+        --numprocesses $TEST_PROCS \
+        --verbosity $TEST_VERBOSITY \
         --cov=python \
         --cov-config=$CONFIG_DIR/pyproject.toml \
         --cov-report=html:docs/htmlcov \
@@ -517,7 +521,11 @@ x_test_dev () {
     x_env_activate_dev;
     echo "${CYAN2}TESTING DEV${CLEAR}\n";
     cd $REPO_DIR;
-    pytest -c $CONFIG_DIR/pyproject.toml --numprocesses $PROCS $REPO_DIR/python;
+    pytest \
+        -c $CONFIG_DIR/pyproject.toml \
+        --numprocesses $TEST_PROCS \
+        --verbosity $TEST_VERBOSITY \
+        $REPO_DIR/python;
 }
 
 x_test_fast () {
@@ -526,7 +534,11 @@ x_test_fast () {
     echo "${CYAN2}FAST TESTING DEV${CLEAR}\n";
     cd $REPO_DIR;
     SKIP_SLOW_TESTS=true \
-    pytest -c $CONFIG_DIR/pyproject.toml --numprocesses $PROCS $REPO_DIR/python;
+    pytest \
+        -c $CONFIG_DIR/pyproject.toml \
+        --numprocesses $TEST_PROCS \
+        --verbosity $TEST_VERBOSITY \
+        $REPO_DIR/python;
 }
 
 x_test_lint () {
@@ -548,15 +560,19 @@ x_test_run () {
 
     cd $BUILD_DIR/repo;
     echo "${CYAN2}LINTING $1-$2${CLEAR}\n";
-    flake8 $REPO --config flake8.ini;
+    flake8 --config flake8.ini $REPO_SUBPACKAGE;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
 
     echo "${CYAN2}TYPE CHECKING $1-$2${CLEAR}\n";
-    mypy $REPO --config-file pyproject.toml;
+    mypy --config-file pyproject.toml $REPO_SUBPACKAGE;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
 
     echo "${CYAN2}TESTING $1-$2${CLEAR}\n";
-    pytest $REPO -c pyproject.toml;
+    pytest \
+        -c pyproject.toml \
+        --numprocesses $TEST_PROCS \
+        --verbosity $TEST_VERBOSITY \
+        $REPO_SUBPACKAGE;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
 
     deactivate;
