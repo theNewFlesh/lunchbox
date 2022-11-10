@@ -381,7 +381,7 @@
                 ]
             }
         ],
-    "inputs": [
+        "inputs": [
             {
                 "id": "pdm_group",
                 "type": "pickString",
