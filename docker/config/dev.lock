@@ -430,7 +430,7 @@ dependencies = [
 
 [[package]]
 name = "jupyter-client"
-version = "7.4.4"
+version = "7.4.5"
 requires_python = ">=3.7"
 summary = "Jupyter protocol implementation and client libraries"
 dependencies = [
@@ -1053,7 +1053,7 @@ summary = "Python for Window Extensions"
 name = "pywinpty"
 version = "2.0.9"
 requires_python = ">=3.7"
-summary = "Pseudo terminal support for Windows from Python."
+summary = ""
 
 [[package]]
 name = "pyyaml"
@@ -1119,16 +1119,18 @@ dependencies = [
 
 [[package]]
 name = "rolling-pin"
-version = "0.7.0"
-summary = "A library of generic tools for ETL work and visualization of JSON blobs and python repositories."
+version = "0.8.0"
+requires_python = ">=3.8"
+summary = "A library of generic tools for ETL work and visualization of JSON blobs and python repositories"
 dependencies = [
+    "click>=8.1.3",
     "cufflinks",
     "graphviz",
     "ipython",
     "lunchbox",
     "networkx",
-    "numpy",
-    "pandas>=1.3.5",
+    "numpy>=1.23.4",
+    "pandas>=1.1.5",
     "pydot",
     "pyyaml",
     "radon",
@@ -1386,7 +1388,7 @@ summary = "Module for decorators, wrappers and monkey patching."
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:b0f5098fe19b2e6a6c6efffb7d5881401197f7d499f5e591f15197e8fe9884e7"
+content_hash = "sha256:c0c98139d5a3d810822fd1f14ef7ddf065af7af4bfbdfe23db068dfa2d06dd6a"
 
 [metadata.files]
 "alabaster 0.7.12" = [
@@ -1744,9 +1746,9 @@ content_hash = "sha256:b0f5098fe19b2e6a6c6efffb7d5881401197f7d499f5e591f15197e8f
     {url = "https://files.pythonhosted.org/packages/3a/3d/0653047b9b2ed03d3e96012bc90cfc96227221193fbedd4dc0cbf5a0e342/jsonschema-4.17.0.tar.gz", hash = "sha256:5bfcf2bca16a087ade17e02b282d34af7ccd749ef76241e7f9bd7c0cb8a9424d"},
     {url = "https://files.pythonhosted.org/packages/f2/c5/8e4cdbcbf81c5003a88722c34009bbda692d495dbccc2bf23edf9402d83d/jsonschema-4.17.0-py3-none-any.whl", hash = "sha256:f660066c3966db7d6daeaea8a75e0b68237a48e51cf49882087757bb59916248"},
 ]
-"jupyter-client 7.4.4" = [
-    {url = "https://files.pythonhosted.org/packages/7b/31/2d74aee388c124b5b833f99817bf4b57784ea1b1a828a342c052c48a4f64/jupyter_client-7.4.4-py3-none-any.whl", hash = "sha256:1c1d418ef32a45a1fae0b243e6f01cc9bf65fa8ddbd491a034b9ba6ac6502951"},
-    {url = "https://files.pythonhosted.org/packages/fc/26/809f5025845c84fd88553a5d0be505553c69ee4fd7e95d8efe803446c721/jupyter_client-7.4.4.tar.gz", hash = "sha256:5616db609ac720422e6a4b893d6572b8d655ff41e058367f4459a0d2c0726832"},
+"jupyter-client 7.4.5" = [
+    {url = "https://files.pythonhosted.org/packages/44/7e/66ddb15931e90d13097446a19d550e894a8f869ef4185d46aa6d719654ab/jupyter_client-7.4.5.tar.gz", hash = "sha256:63eae06c40e1f2d9afa14447511fddc065c95dea3f2491fda2acccf91221954a"},
+    {url = "https://files.pythonhosted.org/packages/7c/2c/9a15fa5ea373c05a8deea126bac17043f33186e28db38a72291724f21b05/jupyter_client-7.4.5-py3-none-any.whl", hash = "sha256:feaad9c04871254067d3b8c41192b7aba8e9bbbf9df9830ecf2673939510c5b7"},
 ]
 "jupyter-core 5.0.0" = [
     {url = "https://files.pythonhosted.org/packages/62/0c/c48e8ae6c87548b066a5d968efa1a4376814eb61fec188ccaa4eb321579f/jupyter_core-5.0.0.tar.gz", hash = "sha256:4ed68b7c606197c7e344a24b7195eef57898157075a69655a886074b6beb7043"},
@@ -2364,8 +2366,9 @@ content_hash = "sha256:b0f5098fe19b2e6a6c6efffb7d5881401197f7d499f5e591f15197e8f
     {url = "https://files.pythonhosted.org/packages/11/23/814edf09ec6470d52022b9e95c23c1bef77f0bc451761e1504ebd09606d3/rich-12.6.0.tar.gz", hash = "sha256:ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"},
     {url = "https://files.pythonhosted.org/packages/32/60/81ac2e7d1e3b861ab478a72e3b20fc91c4302acd2274822e493758941829/rich-12.6.0-py3-none-any.whl", hash = "sha256:a4eb26484f2c82589bd9a17c73d32a010b1e29d89f1604cd9bf3a2097b81bb5e"},
 ]
-"rolling-pin 0.7.0" = [
-    {url = "https://files.pythonhosted.org/packages/d5/fb/6a51dd53d8ef5d12521ad73714fecbd3b52fe15fa78ec7bfff2c05a400d7/rolling-pin-0.7.0.tar.gz", hash = "sha256:1006b7d0e841b4c87e9fb731f6a9936a6146c97c3b18d403436cd3234f4d65f0"},
+"rolling-pin 0.8.0" = [
+    {url = "https://files.pythonhosted.org/packages/54/93/f85aeb50fc76855788ca92802b52502860f9dcd5bd713d92f235129a1813/rolling-pin-0.8.0.tar.gz", hash = "sha256:df8f41f008911e79040328ca2a7235449e361aa178f5fe65ef1ee28d39bc1aca"},
+    {url = "https://files.pythonhosted.org/packages/5e/d3/24d2de4f06bb91ed7de71b9733c3702c2acfd8f01176eadffc2cfcff6e54/rolling_pin-0.8.0-py3-none-any.whl", hash = "sha256:e616c716e979878b83130bd5778d994aed28f465219785d2e224b838ef5bc5f6"},
 ]
 "schematics 2.1.1" = [
     {url = "https://files.pythonhosted.org/packages/a5/e1/c9dca73caf001f82e8479e382a66820cbd29f461f465a12d4b3d7e0b929a/schematics-2.1.1-py2.py3-none-any.whl", hash = "sha256:be2d451bfb86789975e5ec0864aec569b63cea9010f0d24cbbd992a4e564c647"},
