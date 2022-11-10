@@ -274,6 +274,7 @@
                 "detail": "Run tests in prod-3.7 environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
+                    "TEST_PROCS=1 &&",
                     "x_test_run prod 3.7"
                 ],
                 "hide": true,
@@ -287,6 +288,7 @@
                 "detail": "Run tests in prod-3.8 environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
+                    "TEST_PROCS=1 &&",
                     "x_test_run prod 3.8"
                 ],
                 "hide": true,
@@ -300,6 +302,7 @@
                 "detail": "Run tests in prod-3.9 environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
+                    "TEST_PROCS=1 &&",
                     "x_test_run prod 3.9"
                 ],
                 "hide": true,
@@ -313,6 +316,7 @@
                 "detail": "Run tests in prod-3.10 environment",
                 "command": [
                     "source $X_TOOLS_PATH &&",
+                    "TEST_PROCS=1 &&",
                     "x_test_run prod 3.10"
                 ],
                 "hide": true,
@@ -322,7 +326,7 @@
                 }
             },
             {
-                "label": "[test] prod",
+                "label": "_[test] prod",
                 "detail": "Run tests across all support python versions",
                 "dependsOn": [
                     "_[test] prod-3.7",
@@ -332,9 +336,17 @@
                 ],
                 "dependsOrder": "parallel",
                 "presentation": {
-                    "group": "test",
-                    "panel": "dedicated"
+                    "group": "test"
                 }
+            },
+            {
+                "label": "[test] prod",
+                "detail": "Run tests across all support python versions",
+                "dependsOn": [
+                    "[build] test",
+                    "_[test] prod"
+                ],
+                "dependsOrder": "sequence"
             },
             {
                 "label": "[version] version",

@@ -14,7 +14,6 @@ export MIN_PYTHON_VERSION="3.7"
 export MAX_PYTHON_VERSION="3.10"
 export TEST_VERBOSITY=0
 export TEST_PROCS="auto"
-export TEST_PROCS=1
 alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
 
 # COLORS------------------------------------------------------------------------
@@ -529,7 +528,7 @@ x_test_fast () {
     x_env_activate_dev;
     echo "${CYAN2}FAST TESTING DEV${CLEAR}\n";
     cd $REPO_DIR;
-    SKIP_SLOW_TESTS=true \
+    SKIP_SLOW_TESTS=true && \
     pytest \
         -c $CONFIG_DIR/pyproject.toml \
         --numprocesses $TEST_PROCS \
@@ -550,7 +549,6 @@ x_test_lint () {
 x_test_run () {
     # Run test in given environment
     # args: mode, python_version
-    x_build_test;
     x_env_activate $1 $2;
     local exit_code=$?;
 
@@ -579,6 +577,7 @@ x_test_run () {
 x_test_prod () {
     # Run tests across all support python versions
     x_env_activate_dev;
+    x_build_test;
     _x_for_each_version 'x_test_run prod $VERSION';
 }
 
