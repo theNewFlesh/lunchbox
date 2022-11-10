@@ -235,8 +235,7 @@ _x_build () {
     # args: type (test or prod)
     x_env_activate_dev;
     rm -rf $BUILD_DIR;
-    python3 \
-        $SCRIPT_DIR/rolling_pin_command.py \
+    rolling-pin conform \
         $CONFIG_DIR/build.yaml \
         --groups base,$1;
     _x_gen_pyproject $1 > $BUILD_DIR/repo/pyproject.toml;
@@ -325,13 +324,10 @@ x_docs_architecture () {
     # Generate architecture.svg diagram from all import statements
     echo "${CYAN2}GENERATING ARCHITECTURE DIAGRAM${CLEAR}\n";
     x_env_activate_dev;
-    python3 -c "import rolling_pin.repo_etl as rpo; \
-rpo.write_repo_architecture( \
-    '$REPO_DIR/python', \
-    '$REPO_DIR/docs/architecture.svg', \
-    exclude_regex='test|mock', \
-    orient='lr', \
-)";
+    rolling-pin graph \
+        $REPO_DIR/python $REPO_DIR/docs/architecture.svg \
+        --exclude 'test|mock' \
+        --orient 'lr';
 }
 
 x_docs_full () {
@@ -345,8 +341,10 @@ x_docs_metrics () {
     echo "${CYAN2}GENERATING METRICS${CLEAR}\n";
     x_env_activate_dev;
     cd $REPO_DIR;
-    python3 -c "import rolling_pin.repo_etl as rpo; \
-rpo.write_repo_plots_and_tables('python', 'docs/plots.html', 'docs')"
+    rolling-pin plot \
+        $REPO_DIR/python $REPO_DIR/docs/plots.html;
+    rolling-pin table \
+        $REPO_DIR/python $REPO_DIR/docs;
 }
 
 # LIBRARY-FUNCTIONS-------------------------------------------------------------

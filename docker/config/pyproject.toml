@@ -42,7 +42,7 @@ lab = [
     "jupyterlab-henanigans>=0.2.2",
     "jupyterlab-sublime",
     "jupyterlab",
-    "rolling-pin>=0.8.0",
+    "rolling-pin>=0.8.1",
 ]
 dev = [
     "pdm-bump",
