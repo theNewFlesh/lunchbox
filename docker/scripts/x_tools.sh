@@ -369,18 +369,10 @@ _x_library_lock_prod () {
     x_env_activate_dev;
 }
 
-_x_library_sync_dev () {
-    # Sync dev.lock with dev environment
-    x_env_activate_dev;
-    echo "${CYAN2}DEV DEPENDENCY SYNC${CLEAR}\n";
-    cd $PDM_DIR;
-    pdm sync --no-self --dev --clean -v;
-}
-
-_x_library_sync_prod () {
-    # Sync prod.lock with prod environment
-    x_env_activate_prod;
-    echo "${CYAN2}PROD DEPENDENCY SYNC${CLEAR}\n";
+_x_library_sync () {
+    # Sync lock with given environment
+    x_env_activate $1 $2;
+    echo "${CYAN2}DEPENDENCY SYNC $1-$2${CLEAR}\n";
     cd $PDM_DIR;
     pdm sync --no-self --dev --clean -v;
     deactivate;
@@ -423,14 +415,14 @@ x_library_install_dev () {
     # Install all dependencies into dev environment
     echo "${CYAN2}INSTALL DEV DEPENDENCIES${CLEAR}\n";
     _x_library_lock_dev;
-    _x_library_sync_dev;
+    _x_library_sync dev $MAX_PYTHON_VERSION;
 }
 
 x_library_install_prod () {
     # Install all dependencies into prod environment
     echo "${CYAN2}INSTALL PROD DEPENDENCIES${CLEAR}\n";
     _x_library_lock_prod;
-    _x_library_sync_prod;
+    _x_for_each_version '_x_library_sync prod $VERSION';
 }
 
 x_library_list_dev () {
@@ -487,7 +479,7 @@ x_session_app () {
     # Run app
     x_env_activate_dev;
     echo "${CYAN2}APP${CLEAR}\n";
-    python3.10 $REPO_SUBPACKAGE/server/app.py;
+    python3 $REPO_SUBPACKAGE/server/app.py;
 }
 
 x_session_lab () {
