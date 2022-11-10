@@ -38,10 +38,10 @@ lunchbox = "lunchbox.command:main"
 [tool.pdm.dev-dependencies]
 lab = [
     "cufflinks",
-    "jupyterlab-git",
+    "jupyterlab-git>=0.39.3",
     "jupyterlab-henanigans>=0.2.2",
     "jupyterlab-sublime",
-    "jupyterlab>=3.5.0rc0",
+    "jupyterlab",
     "rolling-pin>=0.7.0",
 ]
 dev = [
