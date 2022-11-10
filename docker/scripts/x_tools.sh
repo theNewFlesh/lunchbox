@@ -14,6 +14,7 @@ export MIN_PYTHON_VERSION="3.7"
 export MAX_PYTHON_VERSION="3.10"
 export TEST_VERBOSITY=0
 export TEST_PROCS="auto"
+export JUPYTER_PLATFORM_DIRS=1
 alias cp=cp  # "cp -i" default alias asks you if you want to clobber files
 
 # COLORS------------------------------------------------------------------------
@@ -466,11 +467,16 @@ x_library_search () {
 }
 
 x_library_update () {
-    # Update dev dependencies
+    # Update a given package, or all packages, from a given dependency group
+    # args: package, group
     x_env_activate_dev;
     echo "${CYAN2}UPDATING DEV DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
-    pdm update --no-self --dev -v;
+    if [ "$2" = '' ] || [ "$2" = 'none' ]; then
+        pdm update --no-self --dev $1 -v;
+    else
+        pdm update --no-self --dev -dG $2 $1 -v;
+    fi;
     _x_library_pdm_to_repo_dev;
 }
 
@@ -486,7 +492,11 @@ x_session_lab () {
     # Run jupyter lab server
     x_env_activate_dev;
     echo "${CYAN2}JUPYTER LAB${CLEAR}\n";
-    jupyter lab --allow-root --ip=0.0.0.0 --no-browser;
+    jupyter lab \
+        --allow-root \
+        --ip=0.0.0.0 \
+        --no-browser \
+        --config /home/ubuntu/.jupyter/jupyter_lab_config.py;
 }
 
 x_session_python () {
