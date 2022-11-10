@@ -14,7 +14,9 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -28,7 +30,7 @@
             <a href="../../index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.2.6
+                0.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -38,12 +40,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html#installation">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html">enforce</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.singleton">singleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.stopwatch">stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.tools">tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer CLI</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../cli.html">cli</a></li>
 </ul>
 
@@ -60,9 +70,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>lunchbox.tools</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lunchbox.tools</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -436,7 +446,7 @@
 
 <span class="c1"># HTTP-REQUESTS-----------------------------------------------------------------</span>
 <div class="viewcode-block" id="post_to_slack"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.post_to_slack">[docs]</a><span class="k">def</span> <span class="nf">post_to_slack</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="c1"># type (str, str, str) -&gt; urllib.request.HttpRespons</span>
+    <span class="c1"># type (str, str, str) -&gt; urllib.request.HttpResponse</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Post a given message to a given slack channel.</span>
 
@@ -575,7 +585,7 @@
 
 <div class="viewcode-block" id="api_function"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.api_function">[docs]</a><span class="k">def</span> <span class="nf">api_function</span><span class="p">(</span><span class="n">wrapped</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="c1"># type: (Optional[Callable], Any) -&gt; Callable</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A decorator that enforces keyword argument only function signatures and</span>
 <span class="sd">    required keyword argument values when called.</span>
 
@@ -967,7 +977,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Alex Braun &lt;alexander.g.braun@gmail.com&gt;.</p>
+    <p>&#169; Copyright 2022, Alex Braun &lt;alexander.g.braun@gmail.com&gt;.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.3.0
+                0.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -42,14 +42,19 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#installation">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html">enforce</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html#module-lunchbox.singleton">singleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html#module-lunchbox.stopwatch">stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html#module-lunchbox.tools">tools</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">CLI</span></p>
+<p class="caption" role="heading"><span class="caption-text">Developer CLI</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">cli</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cli.PORT"><code class="docutils literal notranslate"><span class="pre">PORT</span></code></a></li>
@@ -100,8 +105,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>cli</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">cli</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cli.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -444,7 +449,7 @@ resolving ‘{…}’ substrings.</p>
 <span class="sig-prename descclassname"><span class="pre">cli.</span></span><span class="sig-name descname"><span class="pre">version_variable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/cli.html#version_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.version_variable" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Command to set version variable from dev/pyproject.toml.</p>
+<dd class="field-odd"><p>Command to set version variable from pyproject.toml.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>str</p>
@@ -455,17 +460,17 @@ resolving ‘{…}’ substrings.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.x_tools">
 <span class="sig-prename descclassname"><span class="pre">cli.</span></span><span class="sig-name descname"><span class="pre">x_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/cli.html#x_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.x_tools" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a x-tools command string.</p>
+<dd><p>Creates a x_tools command string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<em>str</em>) – x-tools command</p></li>
+<li><p><strong>command</strong> (<em>str</em>) – x_tools command</p></li>
 <li><p><strong>args</strong> (<em>list</em><em>, </em><em>optional</em>) – List of arguments to be passed to the command.
 Default: []</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>x-tools command.</p>
+<dd class="field-even"><p>x_tools command.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
@@ -476,17 +481,17 @@ Default: []</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="cli.x_tools_command">
 <span class="sig-prename descclassname"><span class="pre">cli.</span></span><span class="sig-name descname"><span class="pre">x_tools_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/cli.html#x_tools_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli.x_tools_command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs a x-tools command.</p>
+<dd><p>Runs a x_tools command.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<em>str</em>) – x-tools command</p></li>
+<li><p><strong>command</strong> (<em>str</em>) – x_tools command</p></li>
 <li><p><strong>args</strong> (<em>list</em><em>, </em><em>optional</em>) – List of arguments to be passed to the command.
 Default: []</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>x-tools command.</p>
+<dd class="field-even"><p>x_tools command.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>

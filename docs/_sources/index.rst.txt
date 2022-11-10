@@ -4,13 +4,19 @@ Welcome to lunchbox's documentation!
 ==========================================
 .. toctree::
    :maxdepth: 1
+   :caption: Getting Started
+
+   intro
+
+.. toctree::
+   :maxdepth: 1
    :caption: Python API
 
    lunchbox
 
 .. toctree::
    :maxdepth: 1
-   :caption: CLI
+   :caption: Developer CLI
 
    cli
 

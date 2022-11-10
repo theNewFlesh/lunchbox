@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lunchbox &mdash; lunchbox  documentation</title>
+  <title>Introduction &mdash; lunchbox  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
@@ -20,7 +20,9 @@
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="enforce" href="lunchbox.html" />
+    <link rel="prev" title="Welcome to lunchbox’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.3.0
+                0.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -41,14 +43,24 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-for-developers">Docker For Developers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html">enforce</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html#module-lunchbox.singleton">singleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html#module-lunchbox.stopwatch">stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lunchbox.html#module-lunchbox.tools">tools</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">CLI</span></p>
+<p class="caption" role="heading"><span class="caption-text">Developer CLI</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">cli</a></li>
 </ul>
@@ -66,8 +78,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Lunchbox</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -77,9 +89,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="lunchbox">
-<h1>Lunchbox<a class="headerlink" href="#lunchbox" title="Permalink to this heading">¶</a></h1>
-<p>A library of various tools for common python tasks</p>
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
+<p>Lunchbox is a library of various tools for common python tasks.</p>
 <p>See <a class="reference external" href="https://theNewFlesh.github.io/lunchbox/">documentation</a> for
 details.</p>
 </section>
@@ -92,24 +104,15 @@ details.</p>
 <section id="docker">
 <h2>Docker<a class="headerlink" href="#docker" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Install
-<a class="reference external" href="https://docs.docker.com/v17.09/engine/installation">docker</a></p></li>
-<li><p>Install
-<a class="reference external" href="https://docs.docker.com/machine/install-machine">docker-machine</a>
-(if running on macOS or Windows)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">theNewFlesh/lunchbox:[version]</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">--name</span> <span class="pre">lunchbox-prod</span> <span class="pre">theNewFlesh/lunchbox:[version]</span></code></p></li>
+<li><p>Install <a class="reference external" href="https://docs.docker.com/desktop/">docker-desktop</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">thenewflesh/lunchbox:latest</span></code></p></li>
 </ol>
 </section>
 <section id="docker-for-developers">
 <h2>Docker For Developers<a class="headerlink" href="#docker-for-developers" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Install
-<a class="reference external" href="https://docs.docker.com/v17.09/engine/installation">docker</a></p></li>
-<li><p>Install
-<a class="reference external" href="https://docs.docker.com/machine/install-machine">docker-machine</a>
-(if running on macOS or Windows)</p></li>
-<li><p>Ensure docker-machine has at least 4 GB of memory allocated to it.</p></li>
+<li><p>Install <a class="reference external" href="https://docs.docker.com/desktop/">docker-desktop</a></p></li>
+<li><p>Ensure docker-desktop has at least 4 GB of memory allocated to it.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:theNewFlesh/lunchbox.git</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">lunchbox</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">bin/lunchbox</span></code></p></li>
@@ -123,7 +126,10 @@ details.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to lunchbox’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lunchbox.html" class="btn btn-neutral float-right" title="enforce" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

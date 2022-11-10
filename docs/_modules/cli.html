@@ -30,7 +30,7 @@
             <a href="../index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.3.0
+                0.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -40,14 +40,19 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html#installation">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../lunchbox.html">enforce</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lunchbox.html#module-lunchbox.singleton">singleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lunchbox.html#module-lunchbox.stopwatch">stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lunchbox.html#module-lunchbox.tools">tools</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">CLI</span></p>
+<p class="caption" role="heading"><span class="caption-text">Developer CLI</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">cli</a></li>
 </ul>
@@ -65,9 +70,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Module code</a> &raquo;</li>
-      <li>cli</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cli</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -127,10 +132,10 @@
         <span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Command to run in </span><span class="si">{repo}</span><span class="s1"> app.</span>
-<span class="s1">    build-pip-package    - Generate pip package of repo in ~/build/repo</span>
-<span class="s1">    build-prod           - Build production version of repo for publishing</span>
-<span class="s1">    build-publish        - Publish pip package of repo to PyPi</span>
-<span class="s1">    build-test           - Build test version of repo for tox testing</span>
+<span class="s1">    build-package        - Build production version of repo for publishing</span>
+<span class="s1">    build-prod           - Publish pip package of repo to PyPi</span>
+<span class="s1">    build-publish        - Run production tests first then publish pip package of repo to PyPi</span>
+<span class="s1">    build-test           - Build test version of repo for prod testing</span>
 <span class="s1">    docker-build         - Build image of </span><span class="si">{repo}</span><span class="s1"></span>
 <span class="s1">    docker-build-prod    - Build production image of </span><span class="si">{repo}</span><span class="s1"></span>
 <span class="s1">    docker-container     - Display the Docker container id of </span><span class="si">{repo}</span><span class="s1"></span>
@@ -146,21 +151,19 @@
 <span class="s1">    docker-stop          - Stop </span><span class="si">{repo}</span><span class="s1"> container</span>
 <span class="s1">    docs                 - Generate sphinx documentation</span>
 <span class="s1">    docs-architecture    - Generate architecture.svg diagram from all import statements</span>
-<span class="s1">    docs-full            - Generate documentation, coverage report, diagram and code metrics</span>
+<span class="s1">    docs-full            - Generate documentation, coverage report, diagram and code</span>
 <span class="s1">    docs-metrics         - Generate code metrics report, plots and tables</span>
 <span class="s1">    library-add          - Add a given package to a given dependency group</span>
 <span class="s1">    library-graph-dev    - Graph dependencies in dev environment</span>
 <span class="s1">    library-graph-prod   - Graph dependencies in prod environment</span>
-<span class="s1">    library-install-dev  - Install all dependencies of dev/pyproject.toml into ~/dev</span>
-<span class="s1">    library-install-prod - Install all dependencies of prod/pyproject.toml into ~/prod</span>
+<span class="s1">    library-install-dev  - Install all dependencies into dev environment</span>
+<span class="s1">    library-install-prod - Install all dependencies into prod environment</span>
 <span class="s1">    library-list-dev     - List packages in dev environment</span>
 <span class="s1">    library-list-prod    - List packages in prod environment</span>
-<span class="s1">    library-lock         - Update ~/dev/pdm.lock file</span>
 <span class="s1">    library-remove       - Remove a given package from a given dependency group</span>
 <span class="s1">    library-search       - Search for pip packages</span>
-<span class="s1">    library-sync         - Sync dev dependencies</span>
 <span class="s1">    library-update       - Update dev dependencies</span>
-<span class="s1">    session-app          - Run app server</span>
+<span class="s1">    session-app          - Run app</span>
 <span class="s1">    session-lab          - Run jupyter lab server</span>
 <span class="s1">    session-python       - Run python session with dev dependencies</span>
 <span class="s1">    state                - State of </span><span class="si">{repo}</span><span class="s1"></span>
@@ -350,11 +353,11 @@
     <span class="c1"># type: () -&gt; str</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        str: Command to set version variable from dev/pyproject.toml.</span>
+<span class="sd">        str: Command to set version variable from pyproject.toml.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">line</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">        export VERSION=`cat docker/dev/pyproject.toml</span>
-<span class="s1">            | grep version</span>
+<span class="s1">        export VERSION=`cat docker/config/pyproject.toml</span>
+<span class="s1">            | grep -E &#39;^version *=&#39;</span>
 <span class="s1">            | awk &#39;{{print $3}}&#39;</span>
 <span class="s1">            | sed &#39;s/</span><span class="se">\&quot;</span><span class="s1">//g&#39;`</span>
 <span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span></div>
@@ -363,15 +366,15 @@
 <div class="viewcode-block" id="x_tools"><a class="viewcode-back" href="../cli.html#cli.x_tools">[docs]</a><span class="k">def</span> <span class="nf">x_tools</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[]):</span>
     <span class="c1"># type: (str, list[str]) -&gt; str</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Creates a x-tools command string.</span>
+<span class="sd">    Creates a x_tools command string.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        command (str): x-tools command</span>
+<span class="sd">        command (str): x_tools command</span>
 <span class="sd">        args (list, optional): List of arguments to be passed to the command.</span>
 <span class="sd">            Default: []</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: x-tools command.</span>
+<span class="sd">        str: x_tools command.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;source /home/ubuntu/.zshrc &amp;&amp; </span><span class="si">{cmd}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="o">=</span><span class="n">command</span><span class="p">)</span>
@@ -394,7 +397,7 @@
 <span class="s1">            cd docker;</span>
 <span class="s1">            docker build</span>
 <span class="s1">                --file dev.dockerfile</span>
-<span class="s1">                --tag </span><span class="si">{repo}</span><span class="s1">:latest .;</span>
+<span class="s1">                --tag </span><span class="si">{repo}</span><span class="s1">:dev .;</span>
 <span class="s1">            cd ..</span>
 <span class="s1">        &#39;&#39;&#39;</span><span class="p">),</span>
         <span class="n">exit_repo</span><span class="p">(),</span>
@@ -643,15 +646,15 @@
 <div class="viewcode-block" id="x_tools_command"><a class="viewcode-back" href="../cli.html#cli.x_tools_command">[docs]</a><span class="k">def</span> <span class="nf">x_tools_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[]):</span>
     <span class="c1"># type: (str, list[str]) -&gt; str</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Runs a x-tools command.</span>
+<span class="sd">    Runs a x_tools command.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        command (str): x-tools command</span>
+<span class="sd">        command (str): x_tools command</span>
 <span class="sd">        args (list, optional): List of arguments to be passed to the command.</span>
 <span class="sd">            Default: []</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: x-tools command.</span>
+<span class="sd">        str: x_tools command.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">enter_repo</span><span class="p">(),</span>
@@ -671,7 +674,7 @@
     <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">enter_repo</span><span class="p">(),</span>
         <span class="n">start</span><span class="p">(),</span>
-        <span class="n">docker_exec</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; -e REPO_ENV=True </span><span class="si">{repo}</span><span class="s1"> zsh&#39;</span><span class="p">,</span>
+        <span class="n">docker_exec</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{repo}</span><span class="s1"> zsh&#39;</span><span class="p">,</span>
         <span class="n">exit_repo</span><span class="p">(),</span>
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">resolve</span><span class="p">(</span><span class="n">cmds</span><span class="p">)</span></div>
@@ -750,10 +753,10 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">mode</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">get_info</span><span class="p">()</span>
     <span class="n">lut</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;build-pip-package&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-build-pip-package&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;build-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-build-prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;build-publish&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-build-publish&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;build-test&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-build-test&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;build-package&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_package&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;build-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;build-publish&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_publish&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;build-test&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_test&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
         <span class="s1">&#39;docker-build&#39;</span><span class="p">:</span> <span class="n">build_dev_command</span><span class="p">(),</span>
         <span class="s1">&#39;docker-build-prod&#39;</span><span class="p">:</span> <span class="n">build_prod_command</span><span class="p">(),</span>
         <span class="s1">&#39;docker-container&#39;</span><span class="p">:</span> <span class="n">container_id_command</span><span class="p">(),</span>
@@ -766,35 +769,33 @@
         <span class="s1">&#39;docker-restart&#39;</span><span class="p">:</span> <span class="n">restart_command</span><span class="p">(),</span>
         <span class="s1">&#39;docker-start&#39;</span><span class="p">:</span> <span class="n">start_command</span><span class="p">(),</span>
         <span class="s1">&#39;docker-stop&#39;</span><span class="p">:</span> <span class="n">stop_command</span><span class="p">(),</span>
-        <span class="s1">&#39;docs&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-docs&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;docs-architecture&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-docs-architecture&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;docs-full&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-docs-full&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;docs-metrics&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-docs-metrics&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-add&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-add&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-graph-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-graph-dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-graph-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-graph-prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-install-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-install-dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-install-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-install-prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-list-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-list-dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-list-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-list-prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-lock&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-lock&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-remove&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-remove&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-search&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-search&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-sync&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-sync&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;library-update&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-library-update&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;session-app&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-session-app&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;session-lab&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-session-lab&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;session-python&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-session-python&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;docs&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_docs&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;docs-architecture&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_docs_architecture&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;docs-full&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_docs_full&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;docs-metrics&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_docs_metrics&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-add&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_add&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-graph-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_graph_dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-graph-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_graph_prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-install-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_install_dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-install-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_install_prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-list-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_list_dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-list-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_list_prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-remove&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_remove&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-search&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_search&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;library-update&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_library_update&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;session-app&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_session_app&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;session-lab&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_session_lab&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;session-python&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_session_python&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
         <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">state_command</span><span class="p">(),</span>
-        <span class="s1">&#39;test-coverage&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-test-coverage&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;test-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-test-dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;test-fast&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-test-fast&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;test-lint&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-test-lint&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;test-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-test-prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-version&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;version-bump-major&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-version-bump-major&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;version-bump-minor&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-version-bump-minor&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
-        <span class="s1">&#39;version-bump-patch&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x-version-bump-patch&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;test-coverage&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_test_coverage&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;test-dev&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_test_dev&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;test-fast&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_test_fast&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;test-lint&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_test_lint&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;test-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_test_prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_version&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;version-bump-major&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_version_bump_major&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;version-bump-minor&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_version_bump_minor&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;version-bump-patch&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_version_bump_patch&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
         <span class="s1">&#39;zsh&#39;</span><span class="p">:</span> <span class="n">zsh_command</span><span class="p">(),</span>
         <span class="s1">&#39;zsh-complete&#39;</span><span class="p">:</span> <span class="n">zsh_complete_command</span><span class="p">(),</span>
         <span class="s1">&#39;zsh-root&#39;</span><span class="p">:</span> <span class="n">zsh_root_command</span><span class="p">(),</span>

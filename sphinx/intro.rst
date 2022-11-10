@@ -18,13 +18,13 @@ Docker
 ~~~~~~
 
 1. Install `docker-desktop <https://docs.docker.com/desktop/>`__
-2. ``docker pull thenewflesh/rolling-pin:latest``
+2. ``docker pull thenewflesh/lunchbox:latest``
 
 Docker For Developers
 ~~~~~~~~~~~~~~~~~~~~~
 
 1. Install `docker-desktop <https://docs.docker.com/desktop/>`__
-2. Ensure docker-machine has at least 4 GB of memory allocated to it.
+2. Ensure docker-desktop has at least 4 GB of memory allocated to it.
 3. ``git clone git@github.com:theNewFlesh/lunchbox.git``
 4. ``cd lunchbox``
 5. ``chmod +x bin/lunchbox``
