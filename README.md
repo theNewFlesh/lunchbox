@@ -13,7 +13,7 @@ See [documentation](https://theNewFlesh.github.io/lunchbox/) for details.
 
 ### Docker For Developers
 1. Install [docker-desktop](https://docs.docker.com/desktop/)
-2. Ensure docker-machine has at least 4 GB of memory allocated to it.
+2. Ensure docker-desktop has at least 4 GB of memory allocated to it.
 4. `git clone git@github.com:theNewFlesh/lunchbox.git`
 5. `cd lunchbox`
 6. `chmod +x bin/lunchbox`
