@@ -9,7 +9,7 @@ See [documentation](https://theNewFlesh.github.io/lunchbox/) for details.
 
 ### Docker
 1. Install [docker-desktop](https://docs.docker.com/desktop/)
-2. `docker pull thenewflesh/rolling-pin:latest`
+2. `docker pull thenewflesh/lunchbox:latest`
 
 ### Docker For Developers
 1. Install [docker-desktop](https://docs.docker.com/desktop/)
