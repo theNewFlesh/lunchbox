@@ -2,7 +2,7 @@ version: "3.8"
 services:
   lunchbox:
     container_name: lunchbox
-    image: lunchbox
+    image: lunchbox:dev
     build:
       context: .
       dockerfile: dev.dockerfile
