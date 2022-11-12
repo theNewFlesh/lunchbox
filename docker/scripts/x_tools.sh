@@ -242,6 +242,12 @@ _x_build () {
     touch $BUILD_DIR/repo/$REPO_SNAKE_CASE/py.typed;
 }
 
+_x_build_show_dir () {
+    # Run tree command on build directory
+    exa --tree --all $BUILD_DIR;
+    echo;
+}
+
 _x_build_show_package () {
     # Run tree command on untarred pip package
     cd $BUILD_DIR/dist;
@@ -251,12 +257,6 @@ _x_build_show_package () {
     echo "\n${CYAN2}$package${CLEAR}";
     exa --tree --all /tmp/dist;
     rm -rf /tmp/dist;
-    echo;
-}
-
-_x_build_show_dir () {
-    # Run tree command on build directory
-    exa --tree --all $BUILD_DIR;
     echo;
 }
 
