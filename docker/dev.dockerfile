@@ -121,23 +121,23 @@ RUN echo "\n${CYAN}SETUP DIRECTORIES${CLEAR}"; \
     mkdir pdm
 
 WORKDIR /home/ubuntu/pdm
-# RUN echo "\n${CYAN}INSTALL DEV ENVIRONMENT${CLEAR}"; \
-#     . /home/ubuntu/scripts/x_tools.sh && \
-#     export CONFIG_DIR=/home/ubuntu/config && \
-#     export SCRIPT_DIR=/home/ubuntu/scripts && \
-#     x_env_init dev 3.10 && \
-#     cd /home/ubuntu && \
-#     ln -s `_x_env_get_path dev 3.10` .dev-env && \
-#     ln -s `_x_env_get_path dev 3.10`/lib/python3.10/site-packages .dev-packages
+RUN echo "\n${CYAN}INSTALL DEV ENVIRONMENT${CLEAR}"; \
+    . /home/ubuntu/scripts/x_tools.sh && \
+    export CONFIG_DIR=/home/ubuntu/config && \
+    export SCRIPT_DIR=/home/ubuntu/scripts && \
+    x_env_init dev 3.10 && \
+    cd /home/ubuntu && \
+    ln -s `_x_env_get_path dev 3.10` .dev-env && \
+    ln -s `_x_env_get_path dev 3.10`/lib/python3.10/site-packages .dev-packages
 
-# RUN echo "\n${CYAN}INSTALL PROD ENVIRONMENTS${CLEAR}"; \
-#     . /home/ubuntu/scripts/x_tools.sh && \
-#     export CONFIG_DIR=/home/ubuntu/config && \
-#     export SCRIPT_DIR=/home/ubuntu/scripts && \
-#     x_env_init prod 3.10 && \
-#     x_env_init prod 3.9 && \
-#     x_env_init prod 3.8 && \
-#     x_env_init prod 3.7
+RUN echo "\n${CYAN}INSTALL PROD ENVIRONMENTS${CLEAR}"; \
+    . /home/ubuntu/scripts/x_tools.sh && \
+    export CONFIG_DIR=/home/ubuntu/config && \
+    export SCRIPT_DIR=/home/ubuntu/scripts && \
+    x_env_init prod 3.10 && \
+    x_env_init prod 3.9 && \
+    x_env_init prod 3.8 && \
+    x_env_init prod 3.7
 
 WORKDIR /home/ubuntu
 RUN echo "\n${CYAN}REMOVE DIRECTORIES${CLEAR}"; \
