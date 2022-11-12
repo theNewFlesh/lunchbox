@@ -28,13 +28,13 @@ export GREEN1='\033[0;32m'
 export GREEN2='\033[0;92m'
 export GREY1='\033[0;90m'
 export GREY2='\033[0;37m'
-export ORANGE='\033[0;33m'
 export PURPLE1='\033[0;35m'
 export PURPLE2='\033[0;95m'
 export RED1='\033[0;31m'
 export RED2='\033[0;91m'
 export WHITE='\033[0;97m'
-export YELLOW1='\033[0;93m'
+export YELLOW1='\033[0;33m'
+export YELLOW2='\033[0;93m'
 export CLEAR='\033[0m'
 
 # GENERATE-FUNCTIONS------------------------------------------------------------
@@ -362,26 +362,6 @@ _x_library_pdm_to_repo_prod () {
     cp -f $PDM_DIR/pdm.lock $CONFIG_DIR/prod.lock;
 }
 
-_x_library_lock_dev () {
-    # Update dev.lock
-    x_env_activate_dev;
-    echo "${CYAN2}DEV DEPENDENCY LOCK${CLEAR}\n";
-    cd $PDM_DIR;
-    pdm lock -v;
-    _x_library_pdm_to_repo_dev;
-}
-
-_x_library_lock_prod () {
-    # Update prod.lock
-    x_env_activate_prod;
-    echo "${CYAN2}PROD DEPENDENCY LOCK${CLEAR}\n";
-    cd $PDM_DIR;
-    pdm lock -v;
-    _x_library_pdm_to_repo_prod;
-    deactivate;
-    x_env_activate_dev;
-}
-
 _x_library_sync () {
     # Sync lock with given environment
     # args: mode, python_version
@@ -427,16 +407,14 @@ x_library_graph_prod () {
 
 x_library_install_dev () {
     # Install all dependencies into dev environment
-    echo "${CYAN2}INSTALL DEV DEPENDENCIES${CLEAR}\n";
-    _x_library_lock_dev;
-    _x_library_sync dev $MAX_PYTHON_VERSION;
+    x_library_lock_dev;
+    x_library_sync_dev;
 }
 
 x_library_install_prod () {
     # Install all dependencies into prod environment
-    echo "${CYAN2}INSTALL PROD DEPENDENCIES${CLEAR}\n";
-    _x_library_lock_prod;
-    _x_for_each_version '_x_library_sync prod $VERSION';
+    x_library_lock_prod;
+    x_library_sync_prod;
 }
 
 x_library_list_dev () {
@@ -453,6 +431,26 @@ x_library_list_prod () {
     echo "${CYAN2}PROD DEPENDENCIES${CLEAR}\n";
     cd $PDM_DIR;
     pdm list --sort name --fields name,version,groups;
+    deactivate;
+    x_env_activate_dev;
+}
+
+x_library_lock_dev () {
+    # Resolve dev.lock file
+    x_env_activate_dev;
+    echo "${CYAN2}DEV DEPENDENCY LOCK${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm lock -v;
+    _x_library_pdm_to_repo_dev;
+}
+
+x_library_lock_prod () {
+    # Resolve prod.lock file
+    x_env_activate_prod;
+    echo "${CYAN2}PROD DEPENDENCY LOCK${CLEAR}\n";
+    cd $PDM_DIR;
+    pdm lock -v;
+    _x_library_pdm_to_repo_prod;
     deactivate;
     x_env_activate_dev;
 }
@@ -477,6 +475,18 @@ x_library_search () {
     x_env_activate_dev;
     cd $PDM_DIR;
     pdm search $1;
+}
+
+x_library_sync_dev () {
+    # Sync dev environment with packages listed in dev.lock
+    echo "${CYAN2}SYNC DEV DEPENDENCIES${CLEAR}\n";
+    _x_library_sync dev $MAX_PYTHON_VERSION;
+}
+
+x_library_sync_prod () {
+    # Sync prod environment with packages listed in prod.lock
+    echo "${CYAN2}SYNC PROD DEPENDENCIES${CLEAR}\n";
+    _x_for_each_version '_x_library_sync prod $VERSION';
 }
 
 x_library_update () {
