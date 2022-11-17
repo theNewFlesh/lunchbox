@@ -444,6 +444,9 @@ class ToolsTests(unittest.TestCase):
             expected = getattr(logging, level.upper())
             self.assertEqual(result, expected)
 
+        result = lbt.log_level_to_int(50)
+        self.assertEqual(result, 50)
+
     def test_log_level_to_int_error(self):
         expected = r'Log level must be an integer or string\. '
         expected += r'Given value: {}\. '
