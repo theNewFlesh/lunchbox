@@ -30,7 +30,7 @@
             <a href="../../index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.3.1
+                0.3.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -283,8 +283,10 @@
 
 
 <span class="c1"># LOGGING-----------------------------------------------------------------------</span>
-<div class="viewcode-block" id="log_runtime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.log_runtime">[docs]</a><span class="k">def</span> <span class="nf">log_runtime</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_testing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="c1"># type (Callable, ..., Optional[str], bool, ...) -&gt; Any</span>
+<div class="viewcode-block" id="log_runtime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.log_runtime">[docs]</a><span class="k">def</span> <span class="nf">log_runtime</span><span class="p">(</span>
+    <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_testing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+    <span class="c1"># type (Callable, ..., Optional[str], bool, str, ...) -&gt; Any</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Logs the duration of given function called with given arguments.</span>
 
@@ -293,11 +295,17 @@
 <span class="sd">        \*args (object, optional): Arguments.</span>
 <span class="sd">        message_ (str, optional): Message to be returned. Default: None.</span>
 <span class="sd">        _testing (bool, optional): Returns message if True. Default: False.</span>
+<span class="sd">        log_level (str, optional): Log level. Default: info.</span>
 <span class="sd">        \*\*kwargs (object, optional): Keyword arguments.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        EnforceError: If log level is illegal.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        object: function(*args, **kwargs).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">log_level_to_int</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+
     <span class="c1"># this may silently break file writes in multiprocessing</span>
     <span class="n">stopwatch</span> <span class="o">=</span> <span class="n">StopWatch</span><span class="p">()</span>
     <span class="n">stopwatch</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -315,7 +323,7 @@
     <span class="k">if</span> <span class="n">_testing</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">message_</span>
 
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message_</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">message_</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">output</span></div>
 
 
@@ -336,6 +344,44 @@
 <span class="sd">        function: Wrapped function.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">log_runtime</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="log_level_to_int"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.log_level_to_int">[docs]</a><span class="k">def</span> <span class="nf">log_level_to_int</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
+    <span class="c1"># type: (Union[str, int]) -&gt; int</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Convert a given string or integer into a log level integer.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        level (str or int): Log level.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        EnforceError: If level is illegal.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: Log level as integer.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;critical&#39;</span><span class="p">,</span> <span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;fatal&#39;</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s1">&#39;warn&#39;</span><span class="p">,</span> <span class="s1">&#39;warning&#39;</span><span class="p">]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
+    <span class="n">lut</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>  <span class="c1"># type: Dict[str, int]</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Log level must be an integer or string. Given value: </span><span class="si">{a}</span><span class="s1">. &#39;</span>
+    <span class="n">lut_msg</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">)])</span>
+    <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;Legal values: [</span><span class="si">{</span><span class="n">lut_msg</span><span class="si">}</span><span class="s1">].&#39;</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">Enforce</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">level</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">Enforce</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">lut</span><span class="p">[</span><span class="n">level</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">EnforceError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">level</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">output</span></div>
 
 
 <div class="viewcode-block" id="LogRuntime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime">[docs]</a><span class="k">class</span> <span class="nc">LogRuntime</span><span class="p">:</span>
@@ -385,32 +431,12 @@
         <span class="n">Enforce</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
         <span class="n">Enforce</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
         <span class="n">Enforce</span><span class="p">(</span><span class="n">suppress</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
-
-        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s1">&#39;warn&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;critical&#39;</span><span class="p">,</span> <span class="s1">&#39;fatal&#39;</span><span class="p">]</span>
-        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
-        <span class="n">lut</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>  <span class="c1"># type: Dict[str, int]</span>
-
-        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Log level must be an integer or string. Given value: </span><span class="si">{a}</span><span class="s1">. &#39;</span>
-        <span class="n">lut_msg</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">)])</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;Legal values: [</span><span class="si">{</span><span class="n">lut_msg</span><span class="si">}</span><span class="s1">].&#39;</span>
-
-        <span class="n">level_</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">Enforce</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
-
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="n">Enforce</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
-            <span class="n">level_</span> <span class="o">=</span> <span class="n">lut</span><span class="p">[</span><span class="n">level</span><span class="p">]</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">EnforceError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">level</span><span class="p">))</span>
         <span class="c1"># ----------------------------------------------------------------------</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span> <span class="o">=</span> <span class="n">StopWatch</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">log_level_to_int</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_suppress</span> <span class="o">=</span> <span class="n">suppress</span></div>
 
 <div class="viewcode-block" id="LogRuntime.__enter__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
