@@ -335,6 +335,16 @@ class ToolsTests(unittest.TestCase):
         with self.assertRaisesRegex(EnforceError, expected):
             lbt.log_runtime(func, log_level='foobar')
 
+    def test_log_runtime_log_level(self):
+        def func():
+            time.sleep(0.001)
+
+        with self.assertLogs('lunchbox.tools', level=logging.WARNING):
+            lbt.log_runtime(func, log_level='warning')
+
+        with self.assertLogs('lunchbox.tools', level=logging.ERROR):
+            lbt.log_runtime(func, log_level='error')
+
     def test_log_runtime_multiprocessing(self):
         args = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
         with multiprocessing.Pool(processes=2) as pool:
