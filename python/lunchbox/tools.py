@@ -220,11 +220,7 @@ def log_runtime(
     Returns:
         object: function(*args, **kwargs).
     '''
-    level = log_level.lower()
-    legal = ['critical', 'debug', 'error', 'fatal', 'info', 'info', 'warning']
-    msg = f'Illegal log level: {level}. Legal levels: {legal}.'
-    Enforce(level, 'in', legal, message=msg)
-    # --------------------------------------------------------------------------
+    level = log_level_to_int(log_level)
 
     # this may silently break file writes in multiprocessing
     stopwatch = StopWatch()
@@ -243,7 +239,7 @@ def log_runtime(
     if _testing:
         return message_
 
-    getattr(LOGGER, level)(message_)
+    LOGGER.log(level, message_)
     return output
 
 
@@ -264,6 +260,44 @@ def runtime(wrapped, instance, args, kwargs):
         function: Wrapped function.
     '''
     return log_runtime(wrapped, *args, **kwargs)
+
+
+def log_level_to_int(level):
+    # type: (Union[str, int]) -> int
+    '''
+    Convert a given string or integer into a log level integer.
+
+    Args:
+        level (str or int): Log level.
+
+    Raises:
+        EnforceError: If level is illegal.
+
+    Returns:
+        int: Log level as integer.
+    '''
+    keys = ['critical', 'debug', 'error', 'fatal', 'info', 'warn', 'warning']
+    values = [getattr(logging, x.upper()) for x in keys]
+    lut = dict(zip(keys, values))  # type: Dict[str, int]
+
+    msg = 'Log level must be an integer or string. Given value: {a}. '
+    lut_msg = ', '.join([f'{k}: {v}' for k, v in zip(keys, values)])
+    msg += f'Legal values: [{lut_msg}].'
+
+    output = 0
+    if isinstance(level, int):
+        Enforce(level, 'in', values, message=msg)
+        output = level
+
+    elif isinstance(level, str):
+        level = level.lower()
+        Enforce(level, 'in', keys, message=msg)
+        output = lut[level]
+
+    else:
+        raise EnforceError(msg.format(a=level))
+
+    return output
 
 
 class LogRuntime:
@@ -313,32 +347,12 @@ class LogRuntime:
         Enforce(message, 'instance of', str)
         Enforce(name, 'instance of', str)
         Enforce(suppress, 'instance of', bool)
-
-        keys = ['debug', 'info', 'warn', 'error', 'critical', 'fatal']
-        values = [getattr(logging, x.upper()) for x in keys]
-        lut = dict(zip(keys, values))  # type: Dict[str, int]
-
-        msg = 'Log level must be an integer or string. Given value: {a}. '
-        lut_msg = ', '.join([f'{k}: {v}' for k, v in zip(keys, values)])
-        msg += f'Legal values: [{lut_msg}].'
-
-        level_ = 0
-        if isinstance(level, int):
-            Enforce(level, 'in', values, message=msg)
-
-        elif isinstance(level, str):
-            level = level.lower()
-            Enforce(level, 'in', keys, message=msg)
-            level_ = lut[level]
-
-        else:
-            raise EnforceError(msg.format(a=level))
         # ----------------------------------------------------------------------
 
         self._message = message
         self._stopwatch = StopWatch()
         self._logger = logging.getLogger(name)
-        self._level = level_
+        self._level = log_level_to_int(level)
         self._suppress = suppress
 
     def __enter__(self):

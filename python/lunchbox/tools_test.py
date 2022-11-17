@@ -325,16 +325,6 @@ class ToolsTests(unittest.TestCase):
         expected = 'foo\n         Runtime: 0.01 seconds'
         self.assertEqual(result, expected)
 
-    def test_log_runtime_error(self):
-        def func():
-            pass
-
-        legal = ['critical', 'debug', 'error', 'fatal', 'info', 'info', 'warning']
-        legal = str(legal)[1:-1]
-        expected = f'Illegal log level: foobar. Legal levels: \\[{legal}\\].'
-        with self.assertRaisesRegex(EnforceError, expected):
-            lbt.log_runtime(func, log_level='foobar')
-
     def test_log_runtime_log_level(self):
         def func():
             time.sleep(0.001)
@@ -445,6 +435,33 @@ class ToolsTests(unittest.TestCase):
         expected = [0, 1, 2, 3, 4, 5]
         self.assertEqual(result, expected)
 
+    def test_log_level_to_int(self):
+        levels = [
+            'critical', 'debug', 'error', 'fatal', 'info', 'warn', 'warning'
+        ]
+        for level in levels:
+            result = lbt.log_level_to_int(level)
+            expected = getattr(logging, level.upper())
+            self.assertEqual(result, expected)
+
+    def test_log_level_to_int_error(self):
+        expected = r'Log level must be an integer or string\. '
+        expected += r'Given value: {}\. '
+        expected += r'Legal values: \[critical: 50, debug: 10, error: 40, '
+        expected += r'fatal: 50, info: 20, warn: 30, warning: 30\]\.'
+
+        # level int
+        with self.assertRaisesRegex(EnforceError, expected.format(99)):
+            lbt.log_level_to_int(99)
+
+        # level str
+        with self.assertRaisesRegex(EnforceError, expected.format('foobar')):
+            lbt.log_level_to_int('foobar')
+
+        # level float
+        with self.assertRaisesRegex(EnforceError, expected.format(1.0)):
+            lbt.log_level_to_int(1.0)
+
 
 class LogRuntimeTest(unittest.TestCase):
     def test_init(self):
@@ -472,23 +489,6 @@ class LogRuntimeTest(unittest.TestCase):
         # suppress
         with self.assertRaises(EnforceError):
             lbt.LogRuntime(suppress=99)
-
-        expected = r'Log level must be an integer or string\. '
-        expected += r'Given value: {}\. '
-        expected += r'Legal values: \[debug: 10, info: 20, warn: 30, error: 40, '
-        expected += r'critical: 50, fatal: 50\]\.'
-
-        # level int
-        with self.assertRaisesRegex(EnforceError, expected.format(99)):
-            lbt.LogRuntime(level=99)
-
-        # level str
-        with self.assertRaisesRegex(EnforceError, expected.format(99)):
-            lbt.LogRuntime(level=99)
-
-        # level bool
-        with self.assertRaisesRegex(EnforceError, expected.format(1.0)):
-            lbt.LogRuntime(level=1.0)
 
     def test_with(self):
         msg = 'Foo the bars'
