@@ -325,6 +325,16 @@ class ToolsTests(unittest.TestCase):
         expected = 'foo\n         Runtime: 0.01 seconds'
         self.assertEqual(result, expected)
 
+    def test_log_runtime_error(self):
+        def func():
+            pass
+
+        legal = ['critical', 'debug', 'error', 'fatal', 'info', 'info', 'warning']
+        legal = str(legal)[1:-1]
+        expected = f'Illegal log level: foobar. Legal levels: \\[{legal}\\].'
+        with self.assertRaisesRegex(EnforceError, expected):
+            lbt.log_runtime(func, log_level='foobar')
+
     def test_log_runtime_multiprocessing(self):
         args = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
         with multiprocessing.Pool(processes=2) as pool:

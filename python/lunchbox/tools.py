@@ -199,8 +199,10 @@ def truncate_blob_lists(blob, size=3):
 
 
 # LOGGING-----------------------------------------------------------------------
-def log_runtime(function, *args, message_=None, _testing=False, **kwargs):
-    # type (Callable, ..., Optional[str], bool, ...) -> Any
+def log_runtime(
+    function, *args, message_=None, _testing=False, log_level='info', **kwargs
+):
+    # type (Callable, ..., Optional[str], bool, str, ...) -> Any
     r'''
     Logs the duration of given function called with given arguments.
 
@@ -209,11 +211,21 @@ def log_runtime(function, *args, message_=None, _testing=False, **kwargs):
         \*args (object, optional): Arguments.
         message_ (str, optional): Message to be returned. Default: None.
         _testing (bool, optional): Returns message if True. Default: False.
+        log_level (str, optional): Log level. Default: info.
         \*\*kwargs (object, optional): Keyword arguments.
+
+    Raises:
+        EnforceError: If log level is illegal.
 
     Returns:
         object: function(*args, **kwargs).
     '''
+    level = log_level.lower()
+    legal = ['critical', 'debug', 'error', 'fatal', 'info', 'info', 'warning']
+    msg = f'Illegal log level: {level}. Legal levels: {legal}.'
+    Enforce(level, 'in', legal, message=msg)
+    # --------------------------------------------------------------------------
+
     # this may silently break file writes in multiprocessing
     stopwatch = StopWatch()
     stopwatch.start()
@@ -231,7 +243,7 @@ def log_runtime(function, *args, message_=None, _testing=False, **kwargs):
     if _testing:
         return message_
 
-    LOGGER.info(message_)
+    getattr(LOGGER, level)(message_)
     return output
 
 
