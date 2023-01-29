@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>enforce &mdash; lunchbox  documentation</title>
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.3.2
+                0.3.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -133,6 +133,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#lunchbox.tools.LogRuntime.__init__"><code class="docutils literal notranslate"><span class="pre">LogRuntime.__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lunchbox.tools.LogRuntime.__module__"><code class="docutils literal notranslate"><span class="pre">LogRuntime.__module__</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lunchbox.tools.LogRuntime.__weakref__"><code class="docutils literal notranslate"><span class="pre">LogRuntime.__weakref__</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.tools.LogRuntime._default_message_func"><code class="docutils literal notranslate"><span class="pre">LogRuntime._default_message_func()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lunchbox.tools._dir_table"><code class="docutils literal notranslate"><span class="pre">_dir_table()</span></code></a></li>
@@ -271,7 +272,7 @@
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negation_symbol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Comparator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Comparator.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs Comparator instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>function</strong> (<em>str</em>) – Enforce function name.</p></li>
 <li><p><strong>text</strong> (<em>str</em>) – Comparator as text.</p></li>
@@ -294,7 +295,7 @@
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">canonical</span></span><a class="headerlink" href="#lunchbox.enforce.Comparator.canonical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Canonical name of Comparator</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -305,13 +306,13 @@
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lunchbox.enforce.Comparator" title="lunchbox.enforce.Comparator"><span class="pre">Comparator</span></a></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Comparator.from_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Comparator.from_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs Comparator from given string.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>string</strong> (<em>str</em>) – Comparator name.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Comparator.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#lunchbox.enforce.Comparator" title="lunchbox.enforce.Comparator">Comparator</a></p>
 </dd>
 </dl>
@@ -369,7 +370,7 @@
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates predicate specified in constructor.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – First object to be tested.</p></li>
 <li><p><strong>comparator</strong> (<em>str</em>) – String representation of Comparator.</p></li>
@@ -380,13 +381,13 @@
 Default: 0.01.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If predicate fails.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Enforce instance.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#lunchbox.enforce.Enforce" title="lunchbox.enforce.Enforce">Enforce</a></p>
 </dd>
 </dl>
@@ -409,16 +410,16 @@ Default: 0.01.</p></li>
 <dd><p>Creates an unformatted error message given an attribute name and
 comparator.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>attribute</strong> (<em>str</em><em> or </em><em>None</em>) – Attribute name.</p></li>
 <li><p><strong>comparator</strong> (<a class="reference internal" href="#lunchbox.enforce.Comparator" title="lunchbox.enforce.Comparator"><em>Comparator</em></a>) – Comparator instance.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Error message.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -429,16 +430,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.difference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates difference between a and b.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – First object.</p></li>
 <li><p><strong>b</strong> (<em>object</em>) – Second object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Difference between a and b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -449,16 +450,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.eq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.eq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a and b are equal.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – First object.</p></li>
 <li><p><strong>b</strong> (<em>object</em>) – Second object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if a equals b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -469,13 +470,13 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">get_type_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.get_type_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.get_type_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets __class__.__name__ of given item.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>item</strong> (<em>object</em>) – Item.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>item.__class__.__name__</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -486,16 +487,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">gt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.gt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.gt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is greater than b.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – First object.</p></li>
 <li><p><strong>b</strong> (<em>object</em>) – Second object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if a is greater than b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -506,16 +507,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">gte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.gte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.gte" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is greater than or equal to b.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – First object.</p></li>
 <li><p><strong>b</strong> (<em>object</em>) – Second object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if a is greater than or equal to b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -526,16 +527,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">in_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.in_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.in_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is in b.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – Member object.</p></li>
 <li><p><strong>b</strong> (<em>list</em><em> or </em><em>set</em><em> or </em><em>tuple</em>) – Container object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if a is in b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -546,16 +547,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">instance_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.instance_of"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.instance_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is instance of b.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>type</em><em> or </em><em>list</em><em>[</em><em>type</em><em>]</em>) – Instance object.</p></li>
 <li><p><strong>b</strong> (<em>object</em>) – Class object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if a is instance of b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -566,16 +567,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.lt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.lt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is lesser than b.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – First object.</p></li>
 <li><p><strong>b</strong> (<em>object</em>) – Second object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if a is lesser than b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -586,16 +587,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">lte</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.lte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.lte" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a is lesser than or equal to b.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>object</em>) – First object.</p></li>
 <li><p><strong>b</strong> (<em>object</em>) – Second object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if a is lesser than or equal to b.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -606,16 +607,16 @@ comparator.</p>
 <span class="sig-name descname"><span class="pre">similar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">difference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/enforce.html#Enforce.similar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enforce.Enforce.similar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a/b difference given error threshold episilon.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>difference</strong> (<em>int</em><em> or </em><em>float</em>) – Difference between a and b.</p></li>
 <li><p><strong>epsilon</strong> (<em>float</em><em>, </em><em>optional</em>) – Error threshold. Default: 0.01.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if difference is less than epsilon.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -668,10 +669,10 @@ __init__ initilaizes it.</p>
 returns it if it already exists, and creates, assigns and returns it if
 it does not.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Singular instance of class.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>object</p>
 </dd>
 </dl>
@@ -751,7 +752,7 @@ it does not.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="lunchbox.tools.LogRuntime">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">LogRuntime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LogRuntime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/tools.html#LogRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.LogRuntime" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">LogRuntime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LogRuntime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#lunchbox.stopwatch.StopWatch" title="lunchbox.stopwatch.StopWatch"><span class="pre">StopWatch</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/tools.html#LogRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.LogRuntime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>LogRuntime is a class for logging the runtime of arbitrary code.</p>
 <dl class="py attribute">
@@ -759,7 +760,7 @@ it does not.</p>
 <span class="sig-name descname"><span class="pre">message</span></span><a class="headerlink" href="#lunchbox.tools.LogRuntime.message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logging message with runtime line.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -770,7 +771,7 @@ it does not.</p>
 <span class="sig-name descname"><span class="pre">delta</span></span><a class="headerlink" href="#lunchbox.tools.LogRuntime.delta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runtime.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>datetime.timedelta</p>
 </dd>
 </dl>
@@ -781,7 +782,7 @@ it does not.</p>
 <span class="sig-name descname"><span class="pre">human_readable_delta</span></span><a class="headerlink" href="#lunchbox.tools.LogRuntime.human_readable_delta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runtime in human readable format.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -806,7 +807,7 @@ it does not.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lunchbox.tools.LogRuntime.__dict__">
-<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'lunchbox.tools',</span> <span class="pre">'__doc__':</span> <span class="pre">&quot;\n</span>&#160;&#160;&#160; <span class="pre">LogRuntime</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">class</span> <span class="pre">for</span> <span class="pre">logging</span> <span class="pre">the</span> <span class="pre">runtime</span> <span class="pre">of</span> <span class="pre">arbitrary</span> <span class="pre">code.\n\n</span>&#160;&#160;&#160; <span class="pre">Attributes:\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">message</span> <span class="pre">(str):</span> <span class="pre">Logging</span> <span class="pre">message</span> <span class="pre">with</span> <span class="pre">runtime</span> <span class="pre">line.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">delta</span> <span class="pre">(datetime.timedelta):</span> <span class="pre">Runtime.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">human_readable_delta</span> <span class="pre">(str):</span> <span class="pre">Runtime</span> <span class="pre">in</span> <span class="pre">human</span> <span class="pre">readable</span> <span class="pre">format.\n\n</span>&#160;&#160;&#160; <span class="pre">Example:\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">import</span> <span class="pre">time\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">def</span> <span class="pre">foobar():\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">time.sleep(1)\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">with</span> <span class="pre">LogRuntime('Foo</span> <span class="pre">the</span> <span class="pre">bars',</span> <span class="pre">name=foobar.__name__,</span> <span class="pre">level='debug'):\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">foobar()\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">DEBUG:foobar:Foo</span> <span class="pre">the</span> <span class="pre">bars</span> <span class="pre">-</span> <span class="pre">Runtime:</span> <span class="pre">0:00:01.001069</span> <span class="pre">(1</span> <span class="pre">second)\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">with</span> <span class="pre">LogRuntime(message='Fooing</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">bars',</span> <span class="pre">suppress=True)</span> <span class="pre">as</span> <span class="pre">log:\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">foobar()\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">print(log.message)\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Fooing</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">bars</span> <span class="pre">-</span> <span class="pre">Runtime:</span> <span class="pre">0:00:01.001069</span> <span class="pre">(1</span> <span class="pre">second)\n</span>&#160;&#160;&#160; <span class="pre">&quot;,</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">LogRuntime.__init__&gt;,</span> <span class="pre">'__enter__':</span> <span class="pre">&lt;function</span> <span class="pre">LogRuntime.__enter__&gt;,</span> <span class="pre">'__exit__':</span> <span class="pre">&lt;function</span> <span class="pre">LogRuntime.__exit__&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'LogRuntime'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'LogRuntime'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#lunchbox.tools.LogRuntime.__dict__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'lunchbox.tools',</span> <span class="pre">'__doc__':</span> <span class="pre">&quot;\n</span>&#160;&#160;&#160; <span class="pre">LogRuntime</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">class</span> <span class="pre">for</span> <span class="pre">logging</span> <span class="pre">the</span> <span class="pre">runtime</span> <span class="pre">of</span> <span class="pre">arbitrary</span> <span class="pre">code.\n\n</span>&#160;&#160;&#160; <span class="pre">Attributes:\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">message</span> <span class="pre">(str):</span> <span class="pre">Logging</span> <span class="pre">message</span> <span class="pre">with</span> <span class="pre">runtime</span> <span class="pre">line.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">delta</span> <span class="pre">(datetime.timedelta):</span> <span class="pre">Runtime.\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">human_readable_delta</span> <span class="pre">(str):</span> <span class="pre">Runtime</span> <span class="pre">in</span> <span class="pre">human</span> <span class="pre">readable</span> <span class="pre">format.\n\n</span>&#160;&#160;&#160; <span class="pre">Example:\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">import</span> <span class="pre">time\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">def</span> <span class="pre">foobar():\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">time.sleep(1)\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">with</span> <span class="pre">LogRuntime('Foo</span> <span class="pre">the</span> <span class="pre">bars',</span> <span class="pre">name=foobar.__name__,</span> <span class="pre">level='debug'):\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">foobar()\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">DEBUG:foobar:Foo</span> <span class="pre">the</span> <span class="pre">bars</span> <span class="pre">-</span> <span class="pre">Runtime:</span> <span class="pre">0:00:01.001069</span> <span class="pre">(1</span> <span class="pre">second)\n\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">with</span> <span class="pre">LogRuntime(message='Fooing</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">bars',</span> <span class="pre">suppress=True)</span> <span class="pre">as</span> <span class="pre">log:\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">foobar()\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">&gt;&gt;&gt;</span> <span class="pre">print(log.message)\n</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">Fooing</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">bars</span> <span class="pre">-</span> <span class="pre">Runtime:</span> <span class="pre">0:00:01.001069</span> <span class="pre">(1</span> <span class="pre">second)\n</span>&#160;&#160;&#160; <span class="pre">&quot;,</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">LogRuntime.__init__&gt;,</span> <span class="pre">'_default_message_func':</span> <span class="pre">&lt;staticmethod(&lt;function</span> <span class="pre">LogRuntime._default_message_func&gt;)&gt;,</span> <span class="pre">'__enter__':</span> <span class="pre">&lt;function</span> <span class="pre">LogRuntime.__enter__&gt;,</span> <span class="pre">'__exit__':</span> <span class="pre">&lt;function</span> <span class="pre">LogRuntime.__exit__&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'LogRuntime'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'LogRuntime'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#lunchbox.tools.LogRuntime.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -814,10 +815,10 @@ it does not.</p>
 <span class="sig-name descname"><span class="pre">__enter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lunchbox.tools.LogRuntime" title="lunchbox.tools.LogRuntime"><span class="pre">LogRuntime</span></a></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#LogRuntime.__enter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.LogRuntime.__enter__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts stopwatch.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>self.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#lunchbox.tools.LogRuntime" title="lunchbox.tools.LogRuntime">LogRuntime</a></p>
 </dd>
 </dl>
@@ -831,19 +832,23 @@ it does not.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.tools.LogRuntime.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LogRuntime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#LogRuntime.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.LogRuntime.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LogRuntime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#lunchbox.stopwatch.StopWatch" title="lunchbox.stopwatch.StopWatch"><span class="pre">StopWatch</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#LogRuntime.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.LogRuntime.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a LogRuntime instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>str</em><em>, </em><em>optional</em>) – Logging message. Default: ‘’.</p></li>
 <li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of logger. Default: ‘LogRuntime’.</p></li>
 <li><p><strong>level</strong> (<em>str</em><em> or </em><em>int</em><em>, </em><em>optional</em>) – Log level. Default: info.</p></li>
 <li><p><strong>suppress</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to suppress logging.
 Default: False.</p></li>
+<li><p><strong>message_func</strong> (<em>function</em><em>, </em><em>optional</em>) – Custom message function of the
+signature (message, StopWatch) -&gt; str. Default: None.</p></li>
+<li><p><strong>callback</strong> (<em>function</em><em>, </em><em>optional</em>) – Callback function of the signature
+(message) -&gt; Any. Default: None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If message is not a string.</p></li>
 <li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If name is not a string.</p></li>
@@ -865,6 +870,32 @@ Default: False.</p></li>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="lunchbox.tools.LogRuntime._default_message_func">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_default_message_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwatch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#lunchbox.stopwatch.StopWatch" title="lunchbox.stopwatch.StopWatch"><span class="pre">StopWatch</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#LogRuntime._default_message_func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.LogRuntime._default_message_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add runtime information to message given StopWatch instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>str</em>) – Message.</p></li>
+<li><p><strong>stopwatch</strong> (<a class="reference internal" href="#lunchbox.stopwatch.StopWatch" title="lunchbox.stopwatch.StopWatch"><em>StopWatch</em></a>) – StopWatch instance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>EnforeceError</strong> – If Message is not a string.</p></li>
+<li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If stopwatch is not a StopWatch instance.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Message with runtime information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -872,7 +903,7 @@ Default: False.</p></li>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">_dir_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">semiprivate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#_dir_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools._dir_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a table from results of calling dir(obj).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>object</em>) – Object to call dir on.</p></li>
 <li><p><strong>public</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include public attributes in table.
@@ -884,10 +915,10 @@ Default: False.</p></li>
 <li><p><strong>max_width</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum table width: Default: 100.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Table.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -899,19 +930,19 @@ Default: False.</p></li>
 <dd><p>A decorator that enforces keyword argument only function signatures and
 required keyword argument values when called.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>wrapped</strong> (<em>function</em>) – For dev use. Default: None.</p></li>
 <li><p><strong>**kwargs</strong> (<em>dict</em>) – Keyword arguments. # noqa: W605</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>TypeError</strong> – If non-keyword argument found in functionn signature.</p></li>
 <li><p><strong>ValueError</strong> – If keyword arg with value of ‘&lt;required&gt;’ is found.</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>api function.</p>
 </dd>
 </dl>
@@ -922,7 +953,7 @@ required keyword argument values when called.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">dir_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">semiprivate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#dir_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.dir_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints a table from results of calling dir(obj).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>object</em>) – Object to call dir on.</p></li>
 <li><p><strong>public</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include public attributes in table.
@@ -943,13 +974,13 @@ Default: False.</p></li>
 <dd><p>Inspect a given function and return its arguments as a list and its keyword
 arguments as a dict.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>function</strong> (<em>function</em>) – Function to be inspected.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>args and kwargs.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -960,13 +991,13 @@ arguments as a dict.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">get_ordered_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#get_ordered_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.get_ordered_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a unique list of items in same order they were received in.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>items</strong> (<em>list</em>) – List of items.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Unique ordered list.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -977,13 +1008,13 @@ arguments as a dict.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">is_standard_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#is_standard_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.is_standard_module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if given module name is a python builtin.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Python module name.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Whether string names a python module.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -994,16 +1025,16 @@ arguments as a dict.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">log_level_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#log_level_to_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.log_level_to_int" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a given string or integer into a log level integer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>level</strong> (<em>str</em><em> or </em><em>int</em>) – Log level.</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If level is illegal.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Log level as integer.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
@@ -1014,7 +1045,7 @@ arguments as a dict.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">log_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_testing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/tools.html#log_runtime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.log_runtime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logs the duration of given function called with given arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>function</strong> (<em>function</em>) – Function to be called.</p></li>
 <li><p><strong>*args</strong> (<em>object</em><em>, </em><em>optional</em>) – Arguments.</p></li>
@@ -1024,13 +1055,13 @@ arguments as a dict.</p>
 <li><p><strong>**kwargs</strong> (<em>object</em><em>, </em><em>optional</em>) – Keyword arguments.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If log level is illegal.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>function(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs).</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>object</p>
 </dd>
 </dl>
@@ -1041,14 +1072,14 @@ arguments as a dict.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">post_to_slack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/tools.html#post_to_slack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.post_to_slack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Post a given message to a given slack channel.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<em>str</em>) – <a class="reference external" href="https://hooks.slack.com/services">https://hooks.slack.com/services</a> URL.</p></li>
 <li><p><strong>channel</strong> (<em>str</em>) – Channel name.</p></li>
 <li><p><strong>message</strong> (<em>str</em>) – Message to be posted.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If URL is not a string.</p></li>
 <li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If URL does not start with <a class="reference external" href="https://hooks.slack.com/services">https://hooks.slack.com/services</a></p></li>
@@ -1056,10 +1087,10 @@ arguments as a dict.</p>
 <li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If message is not a string.</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Response.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>HTTPResponse</p>
 </dd>
 </dl>
@@ -1070,16 +1101,16 @@ arguments as a dict.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">relative_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#relative_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.relative_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve path given current module’s file path and given suffix.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>module</strong> (<em>str</em><em> or </em><em>Path</em>) – Always __file__ of current module.</p></li>
 <li><p><strong>path</strong> (<em>str</em><em> or </em><em>Path</em>) – Path relative to __file__.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Resolved Path object.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Path</p>
 </dd>
 </dl>
@@ -1091,7 +1122,7 @@ arguments as a dict.</p>
 <dd><p>Decorator for logging the duration of given function called with given
 arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>wrapped</strong> (<em>function</em>) – Function to be called.</p></li>
 <li><p><strong>instance</strong> (<em>object</em>) – Needed by wrapt.</p></li>
@@ -1099,10 +1130,10 @@ arguments.</p>
 <li><p><strong>**kwargs</strong> (<em>object</em><em>, </em><em>optional</em>) – Keyword arguments.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Wrapped function.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>function</p>
 </dd>
 </dl>
@@ -1113,13 +1144,13 @@ arguments.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">to_snakecase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#to_snakecase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.to_snakecase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a given string to snake_case.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>string</strong> (<em>str</em>) – String to be converted.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>snake_case string.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -1130,19 +1161,19 @@ arguments.</p>
 <span class="sig-prename descclassname"><span class="pre">lunchbox.tools.</span></span><span class="sig-name descname"><span class="pre">truncate_blob_lists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/lunchbox/tools.html#truncate_blob_lists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.tools.truncate_blob_lists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Truncates lists inside given JSON blob to a given size.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>blob</strong> (<em>dict</em>) – Blob to be truncated.</p></li>
 <li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of lists. Default 3.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If blob is not a dict.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Truncated blob.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -1154,22 +1185,22 @@ arguments.</p>
 <dd><p>Truncates a given list to a given size, replaces the middle contents with
 “…”.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>items</strong> (<em>list</em>) – List of objects.</p></li>
 <li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of output list.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If item is not a list.</p></li>
 <li><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If size is not an integer greater than -1.</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of given size.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
 </dd>
 </dl>
@@ -1181,14 +1212,14 @@ arguments.</p>
 <dd><p>Call given function on given item, catch any exceptions and return given
 return item.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>function</strong> (<em>function</em>) – Function of signature lambda x: x.</p></li>
 <li><p><strong>item</strong> (<em>object</em>) – Item used to call function.</p></li>
 <li><p><strong>return_item</strong> (<em>object</em><em>, </em><em>optional</em>) – Item to be returned. Default: “item”.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><p>Original item if return_item is “item”.
 Exception: If return_item is “error”.
 object: Object return by function call if return_item is not “item” or</p>
@@ -1197,7 +1228,7 @@ object: Object return by function call if return_item is not “item” or</p>
 </div></blockquote>
 </p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>object</p>
 </dd>
 </dl>

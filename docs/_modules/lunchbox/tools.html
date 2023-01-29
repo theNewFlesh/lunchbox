@@ -30,7 +30,7 @@
             <a href="../../index.html" class="icon icon-home"> lunchbox
           </a>
               <div class="version">
-                0.3.2
+                0.3.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -411,9 +411,15 @@
 <span class="sd">        Fooing all the bars - Runtime: 0:00:01.001069 (1 second)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="LogRuntime.__init__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;LogRuntime&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># type: str</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;LogRuntime&#39;</span><span class="p">,</span>  <span class="c1"># type: str</span>
+        <span class="n">level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span>  <span class="c1"># type: str</span>
+        <span class="n">suppress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># type: bool</span>
+        <span class="n">message_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: Optional[Callable[[str, StopWatch], None]]</span>
+        <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: Optional[Callable[[str], Any]]</span>
     <span class="p">):</span>
-        <span class="c1"># type: (str, str, Union[str, int], bool) -&gt; None</span>
+        <span class="c1"># type: (...) -&gt; None</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructs a LogRuntime instance.</span>
 
@@ -423,6 +429,10 @@
 <span class="sd">            level (str or int, optional): Log level. Default: info.</span>
 <span class="sd">            suppress (bool, optional): Whether to suppress logging.</span>
 <span class="sd">                Default: False.</span>
+<span class="sd">            message_func (function, optional): Custom message function of the</span>
+<span class="sd">                signature (message, StopWatch) -&gt; str. Default: None.</span>
+<span class="sd">            callback (function, optional): Callback function of the signature</span>
+<span class="sd">                (message) -&gt; Any. Default: None.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            EnforceError: If message is not a string.</span>
@@ -439,7 +449,36 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span> <span class="o">=</span> <span class="n">StopWatch</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">log_level_to_int</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_suppress</span> <span class="o">=</span> <span class="n">suppress</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suppress</span> <span class="o">=</span> <span class="n">suppress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message_func</span> <span class="o">=</span> <span class="n">message_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
+
+<div class="viewcode-block" id="LogRuntime._default_message_func"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime._default_message_func">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_default_message_func</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">stopwatch</span><span class="p">):</span>
+        <span class="c1"># type: (str, StopWatch) -&gt; str</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add runtime information to message given StopWatch instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message (str): Message.</span>
+<span class="sd">            stopwatch (StopWatch): StopWatch instance.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            EnforeceError: If Message is not a string.</span>
+<span class="sd">            EnforceError: If stopwatch is not a StopWatch instance.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Message with runtime information.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">Enforce</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="n">Enforce</span><span class="p">(</span><span class="n">stopwatch</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="n">StopWatch</span><span class="p">)</span>
+        <span class="c1"># ----------------------------------------------------------------------</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Runtime: </span><span class="si">{</span><span class="n">stopwatch</span><span class="o">.</span><span class="n">delta</span><span class="si">}</span><span class="s1"> &#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">if</span> <span class="n">message</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="n">msg</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
 
 <div class="viewcode-block" id="LogRuntime.__enter__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># type: () -&gt; LogRuntime</span>
@@ -457,19 +496,19 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Stops stopwatch and logs message.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-
-        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Runtime: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">delta</span><span class="si">}</span><span class="s1"> &#39;</span>
-        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span><span class="s1">)&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="n">msg</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">msg</span>
-
+        <span class="n">stopwatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span>
+        <span class="n">stopwatch</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">delta</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">human_readable_delta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span>
 
+        <span class="n">msg_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_func</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_message_func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">msg_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">,</span> <span class="n">stopwatch</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suppress</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">))</span></div></div>
 
 
 <span class="c1"># HTTP-REQUESTS-----------------------------------------------------------------</span>
