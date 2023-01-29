@@ -325,9 +325,15 @@ class LogRuntime:
         Fooing all the bars - Runtime: 0:00:01.001069 (1 second)
     '''
     def __init__(
-        self, message='', name='LogRuntime', level='info', suppress=False
+        self,
+        message='',  # type: str
+        name='LogRuntime',  # type: str
+        level='info',  # type: str
+        suppress=False,  # type: bool
+        message_func=None,  # type: Optional[Callable[[str, StopWatch], None]]
+        callback=None,  # type: Optional[Callable[[str], Any]]
     ):
-        # type: (str, str, Union[str, int], bool) -> None
+        # type: (...) -> None
         '''
         Constructs a LogRuntime instance.
 
@@ -337,6 +343,10 @@ class LogRuntime:
             level (str or int, optional): Log level. Default: info.
             suppress (bool, optional): Whether to suppress logging.
                 Default: False.
+            message_func (function, optional): Custom message function of the
+                signature (message, StopWatch) -> str. Default: None.
+            callback (function, optional): Callback function of the signature
+                (message) -> Any. Default: None.
 
         Raises:
             EnforceError: If message is not a string.
@@ -354,6 +364,35 @@ class LogRuntime:
         self._logger = logging.getLogger(name)
         self._level = log_level_to_int(level)
         self._suppress = suppress
+        self._message_func = message_func
+        self._callback = callback
+
+    @staticmethod
+    def _default_message_func(message, stopwatch):
+        # type: (str, StopWatch) -> str
+        '''
+        Add runtime information to message given StopWatch instance.
+
+        Args:
+            message (str): Message.
+            stopwatch (StopWatch): StopWatch instance.
+
+        Raises:
+            EnforeceError: If Message is not a string.
+            EnforceError: If stopwatch is not a StopWatch instance.
+
+        Returns:
+            str: Message with runtime information.
+        '''
+        Enforce(message, 'instance of', str)
+        Enforce(stopwatch, 'instance of', StopWatch)
+        # ----------------------------------------------------------------------
+
+        msg = f'Runtime: {stopwatch.delta} '
+        msg += f'({stopwatch.human_readable_delta})'
+        if message != '':
+            msg = message + ' - ' + msg
+        return msg
 
     def __enter__(self):
         # type: () -> LogRuntime
@@ -371,19 +410,19 @@ class LogRuntime:
         '''
         Stops stopwatch and logs message.
         '''
-        self._stopwatch.stop()
-
-        msg = f'Runtime: {self._stopwatch.delta} '
-        msg += f'({self._stopwatch.human_readable_delta})'
-        if self._message != '':
-            msg = self._message + ' - ' + msg
-        self.message = msg
-
+        stopwatch = self._stopwatch
+        stopwatch.stop()
         self.delta = self._stopwatch.delta
         self.human_readable_delta = self._stopwatch.human_readable_delta
 
+        msg_func = self._message_func or self._default_message_func
+        self.message = msg_func(self._message, stopwatch)
+
         if not self._suppress:
-            self._logger.log(self._level, msg)
+            self._logger.log(self._level, self.message)
+
+        if self._callback is not None:
+            self._callback(str(self.message))
 
 
 # HTTP-REQUESTS-----------------------------------------------------------------

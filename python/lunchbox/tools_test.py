@@ -5,6 +5,7 @@ import time
 import unittest
 
 from lunchbox.enforce import EnforceError
+from lunchbox.stopwatch import StopWatch
 import lunchbox.tools as lbt
 # ------------------------------------------------------------------------------
 
@@ -509,3 +510,57 @@ class LogRuntimeTest(unittest.TestCase):
         with lbt.LogRuntime(suppress=True) as log:
             time.sleep(0.001)
         self.assertRegex(log.message, expected)
+
+    def test_default_message_func(self):
+        stopwatch = StopWatch()
+        stopwatch.start()
+        time.sleep(0.001)
+        stopwatch.stop()
+        expected = r'foobar - Runtime: 0:00:00\..* \(.* seconds?\)'
+        result = lbt.LogRuntime._default_message_func('foobar', stopwatch)
+        self.assertRegex(result, expected)
+
+    def test_default_message_func_errors(self):
+        stopwatch = StopWatch()
+        stopwatch.start()
+        stopwatch.stop()
+        with self.assertRaises(EnforceError):
+            lbt.LogRuntime._default_message_func(10, stopwatch)
+
+        with self.assertRaises(EnforceError):
+            lbt.LogRuntime._default_message_func('msg', None)
+
+    def test_callback(self):
+        result = []
+
+        def func(x):
+            result.append(x)
+
+        with lbt.LogRuntime(suppress=True, callback=func) as log:
+            time.sleep(0.001)
+        self.assertEqual(result[0], log.message)
+
+    def test_message_func(self):
+        def func(msg, stopwatch):
+            return 'foobar - ' + str(stopwatch.delta.seconds)
+
+        with lbt.LogRuntime(suppress=True, message_func=func) as log:
+            time.sleep(0.001)
+        expected = r'foobar - \d+$'
+        self.assertRegex(log.message, expected)
+
+    def test_message_func_with_callback(self):
+        result = []
+
+        def callback(x):
+            result.append(x)
+
+        def msg_func(msg, stopwatch):
+            return 'foobar - ' + str(stopwatch.delta.seconds)
+
+        with lbt.LogRuntime(
+            suppress=True, message_func=msg_func, callback=callback
+        ):
+            time.sleep(0.001)
+        expected = r'foobar - \d+$'
+        self.assertRegex(result[0], expected)
