@@ -62,8 +62,8 @@ Its usage pattern is: `lunchbox COMMAND [ARGS] [-h --help]`
 | Command         | Description                                                              | Args                  |
 | --------------- | -------------------------------------------------------------------------| --------------------- |
 | slack           | Posts a slack message to a given channel                                 | url, channel, message |
-| bash-completion | Prints BASH completion code to be written to a _lunchbox completion file |                       |
-| zsh-completion  | Prints ZSH completion code to be written to a _lunchbox completion file  |                       |
+| bash-completion | Prints BASH completion code to be written to a _lunchbox completion file | -                     |
+| zsh-completion  | Prints ZSH completion code to be written to a _lunchbox completion file  | -                     |
 
 # Development CLI
 bin/lunchbox is a command line interface (defined in cli.py) that works with
@@ -132,4 +132,4 @@ Its usage pattern is: `bin/lunchbox COMMAND [-a --args]=ARGS [-h --help] [--dryr
 | ----- | --------- | ---------------------------------------------------- |
 | -a    | --args    | Additional arguments, this can generally be ignored  |
 | -h    | --help    | Prints command help message to stdout                |
-|       | --dryrun  | Prints command that would otherwise be run to stdout |
+| -     | --dryrun  | Prints command that would otherwise be run to stdout |
