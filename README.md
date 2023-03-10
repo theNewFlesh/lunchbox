@@ -26,6 +26,7 @@
     </a>
 </p>
 
+[![PyPI version](https://badge.fury.io/py/lunchbox.svg)](https://badge.fury.io/py/lunchbox)
 
 # Introduction
 Lunchbox is a library of various tools for common python tasks.
