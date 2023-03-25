@@ -26,7 +26,12 @@
     </a>
 </p>
 
-[![PyPI version](https://badge.fury.io/py/lunchbox.svg)](https://badge.fury.io/py/lunchbox)
+<img src="sphinx/images/logo.png" height="335px">
+
+[![Generic badge](https://img.shields.io/badge/License-MIT-red.svg?style=for-the-badge)](https://github.com/qubvel/segmentation_models.pytorch/blob/master/LICENSE)
+[![Python - Version](https://img.shields.io/badge/PYTHON-3.7+-green?style=for-the-badge&logo=python&logoColor=white)](https://pepy.tech/project/segmentation-models-pytorch)
+[![PyPI](https://img.shields.io/pypi/v/lunchbox.svg?color=blue&style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/lunchbox/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/lunchbox?style=for-the-badge&color=blue)](https://pepy.tech/project/lunchbox)
 
 # Introduction
 Lunchbox is a library of various tools for common python tasks.
