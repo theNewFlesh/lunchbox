@@ -26,7 +26,7 @@
     </a>
 </p>
 
-<img src="sphinx/images/logo.png" height="335px">
+<img id="logo" src="resources/logo.png" style="max-width: 650px">
 
 [![Generic badge](https://img.shields.io/badge/License-MIT-red.svg?style=for-the-badge)](https://github.com/qubvel/segmentation_models.pytorch/blob/master/LICENSE)
 [![Python - Version](https://img.shields.io/badge/PYTHON-3.7+-green?style=for-the-badge&logo=python&logoColor=white)](https://pepy.tech/project/segmentation-models-pytorch)
