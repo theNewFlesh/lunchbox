@@ -28,7 +28,7 @@
 
 <img id="logo" src="resources/logo.png" style="max-width: 717px">
 
-[![](https://img.shields.io/badge/License-MIT-F77E70.svg?style=for-the-badge)](https://github.com/theNewFlesh/lunchbox/blob/master/LICENSE)
+[![](https://img.shields.io/badge/License-MIT-F77E70?style=for-the-badge)](https://github.com/theNewFlesh/lunchbox/blob/master/LICENSE)
 [![](https://img.shields.io/pypi/pyversions/lunchbox?style=for-the-badge&label=Python&color=A0D17B&logo=python&logoColor=A0D17B)](https://github.com/theNewFlesh/lunchbox/blob/master/docker/config/pyproject.toml)
 [![](https://img.shields.io/pypi/v/lunchbox?style=for-the-badge&label=PyPI&color=5F95DE&logo=pypi&logoColor=5F95DE)](https://pypi.org/project/lunchbox/)
 [![](https://img.shields.io/pypi/dm/lunchbox?style=for-the-badge&label=Downloads&color=5F95DE)](https://pepy.tech/project/lunchbox)
