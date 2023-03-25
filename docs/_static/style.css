@@ -267,7 +267,7 @@ h1 {
 }
 
 /* Logo */
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 717px) {
     #logo {
         max-width: 100% !important;
     }
