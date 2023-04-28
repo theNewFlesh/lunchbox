@@ -52,7 +52,7 @@ See [documentation](https://theNewFlesh.github.io/lunchbox/) for details.
 4. `git clone git@github.com:theNewFlesh/lunchbox.git`
 5. `cd lunchbox`
 6. `chmod +x bin/lunchbox`
-7. `bin/lunchbox start`
+7. `bin/lunchbox docker-start`
 
 The service should take a few minutes to start up.
 
