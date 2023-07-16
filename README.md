@@ -88,7 +88,6 @@ Its usage pattern is: `bin/lunchbox COMMAND [-a --args]=ARGS [-h --help] [--dryr
 | docker-build         | Build image of lunchbox                                             |
 | docker-build-prod    | Build production image of lunchbox                                  |
 | docker-container     | Display the Docker container id of lunchbox                         |
-| docker-coverage      | Generate coverage report for lunchbox                               |
 | docker-destroy       | Shutdown lunchbox container and destroy its image                   |
 | docker-destroy-prod  | Shutdown lunchbox production container and destroy its image        |
 | docker-image         | Display the Docker image id of lunchbox                             |
