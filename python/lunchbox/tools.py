@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Union  # noqa: F401
 
 from itertools import dropwhile, takewhile
 from pathlib import Path
