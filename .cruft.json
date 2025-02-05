@@ -2,6 +2,19 @@
   "template": "/home/alex/Documents/projects/cookiecutter-datalus",
   "commit": "54f0161d77c4975f111564f761d3e27e3e2ca0f0",
   "checkout": null,
+  "skip": [
+    "__init__\\.py$",
+    "\\.gitignore$",
+    "\\.gitkeep$",
+    "docker/config/.*\\.lock$",
+    "docker/config/build\\.yaml",
+    "docs/.*",
+    "mkdocs/md/(?!index\\.md|style\\.css)",
+    "public/.*",
+    "python/lunchbox/.*(?!command\\.py$)",
+    "resources/.*",
+    "sphinx/.*rst$"
+  ],
   "context": {
     "cookiecutter": {
       "repo": "lunchbox",

@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.2.2-base-ubuntu22.04 AS base
+FROM ubuntu:22.04 AS base
 
 USER root
 
@@ -149,7 +149,6 @@ ENV LC_ALL "C.UTF-8"
 # ------------------------------------------------------------------------------
 
 FROM base AS dev
-
 USER ubuntu
 WORKDIR /home/ubuntu
 
