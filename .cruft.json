@@ -1,0 +1,39 @@
+{
+  "template": "/home/alex/Documents/projects/cookiecutter-datalus",
+  "commit": "54f0161d77c4975f111564f761d3e27e3e2ca0f0",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "repo": "lunchbox",
+      "repo_type": "library",
+      "include_black": "no",
+      "include_gcc": "no",
+      "include_helm": "no",
+      "include_mkdocs": "no",
+      "include_nvidia": "no",
+      "include_openexr": "no",
+      "include_prod_cli": "yes",
+      "include_prod_envs": "yes",
+      "include_secret_env": "no",
+      "include_vscode_server": "no",
+      "port_prefix": "40",
+      "git_user": "theNewFlesh",
+      "git_host": "github",
+      "git_organization": "thenewflesh",
+      "docker_registry": "dockerhub",
+      "organization_url": "github.com",
+      "description": "A library of various tools for common python tasks",
+      "author": "Alex Braun",
+      "email": "alexander.g.braun@gmail.com",
+      "website": "http://www.alexgbraun.com",
+      "volume": "",
+      "keywords": "tool, tools, general, slack, enforce",
+      "year": "2025",
+      "python_min_version": "7",
+      "python_max_version": "10",
+      "initial_repo_version": "0.3.3",
+      "_template": "/home/alex/Documents/projects/cookiecutter-datalus"
+    }
+  },
+  "directory": null
+}

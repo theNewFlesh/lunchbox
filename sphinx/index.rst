@@ -1,12 +1,12 @@
 .. lunchbox documentation master file
 
 Welcome to lunchbox's documentation!
-==========================================
+====================================
 .. toctree::
    :maxdepth: 1
    :caption: Getting Started
 
-   intro
+   readme
 
 .. toctree::
    :maxdepth: 1

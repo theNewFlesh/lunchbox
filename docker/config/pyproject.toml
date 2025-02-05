@@ -27,8 +27,8 @@ dependencies = [
 ]
 
 [project.urls]
-repository = "https://github.com/theNewFlesh/lunchbox"
-documentation = "https://thenewflesh.github.io/lunchbox"
+repository = "https://github.com/thenewflesh/lunchbox"
+documentation = "https://theNewFlesh.github.io/lunchbox"
 
 [project.scripts]
 lunchbox = "lunchbox.command:main"
@@ -44,9 +44,9 @@ lab = [
     "jupyterlab",
 ]
 dev = [
-    "m2r2",
+    "myst-parser>=4.0.0",
     "sphinx-autodoc-typehints>=1.22",
-    "sphinx-rtd-theme",
+    "sphinx-rtd-theme>=2.0.0",
     "sphinx>=5.3.0",
     "sphinxcontrib-jquery>=4.1",
     "toml>=0.10.2",
@@ -65,8 +65,7 @@ cache_dir = "/home/ubuntu/.pytest_cache"
 filterwarnings = [
     # "ignore::UserWarning",
     # "ignore::DeprecationWarning",
-    # "ignore::PendingDeprecationWarning",
-    "ignore:The --rsyncdir command line argument"
+    # "ignore::PendingDeprecationWarning"
 ]
 markers = [
     "flaky:Flaky test",
@@ -84,6 +83,9 @@ omit = [
     "*/mock_*.py",
     "*/conftest.py",
 ]
+
+[tool.uv]
+cache-dir = "/home/ubuntu/pdm/cache"
 
 [tool.mypy]
 cache_dir = "/home/ubuntu/.mypy_cache"

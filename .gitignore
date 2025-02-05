@@ -1,5 +1,6 @@
 # ansible
 devops/ansible/**/*.retry
+ansible/password.txt
 
 # c
 *.so
@@ -13,6 +14,7 @@ flask_monitoringdashboard*
 .ipynb_checkpoints
 *.jupyterlab-workspace
 **/jupyter/migrated
+**/jupyter/serverconfig
 **/jupyter/workspaces
 */ipython/*
 
@@ -21,8 +23,10 @@ flask_monitoringdashboard*
 
 # misc
 .DS_Store
+.Trash*
 
 # packaging
+docker/dist/*
 .eggs
 .installed.cfg
 .Python
@@ -66,3 +70,6 @@ vscode
 # web
 /.npm/*
 node_modules
+
+# zsh
+**/.zsh_cache
