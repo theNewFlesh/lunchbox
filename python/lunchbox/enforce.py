@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Set, Tuple, Union
+from typing import Any, List, Optional, Set, Tuple, Union  # noqa: F401
 
 from enum import Enum
 # ------------------------------------------------------------------------------
