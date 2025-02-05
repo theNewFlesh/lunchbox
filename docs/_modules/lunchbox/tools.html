@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>lunchbox.tools &mdash; lunchbox  documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -27,14 +28,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> lunchbox
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lunchbox
           </a>
               <div class="version">
-                0.3.3
+                0.3.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -42,17 +47,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../intro.html#installation">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../intro.html#production-cli">Production CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../intro.html#development-cli">Development CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#installation-for-developers">Installation for Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#installation-for-production">Installation for Production</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#quickstart-guide">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#development-cli">Development CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#production-cli">Production CLI</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html">enforce</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.singleton">singleton</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.stopwatch">stopwatch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.tools">tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">enforce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.singleton">singleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.stopwatch">stopwatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.tools">tools</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development CLI</span></p>
 <ul>
@@ -72,7 +79,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">lunchbox.tools</li>
       <li class="wy-breadcrumbs-aside">
@@ -84,22 +91,22 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lunchbox.tools</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>  <span class="c1"># noqa: F401</span>
 
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">dropwhile</span><span class="p">,</span> <span class="n">takewhile</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">dropwhile</span><span class="p">,</span> <span class="n">takewhile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pformat</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
 
-<span class="kn">import</span> <span class="nn">wrapt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">wrapt</span>
 
-<span class="kn">from</span> <span class="nn">lunchbox.enforce</span> <span class="kn">import</span> <span class="n">Enforce</span><span class="p">,</span> <span class="n">EnforceError</span>
-<span class="kn">from</span> <span class="nn">lunchbox.stopwatch</span> <span class="kn">import</span> <span class="n">StopWatch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lunchbox.enforce</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enforce</span><span class="p">,</span> <span class="n">EnforceError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lunchbox.stopwatch</span><span class="w"> </span><span class="kn">import</span> <span class="n">StopWatch</span>
 
 <span class="n">LOG_LEVEL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LOG_LEVEL&#39;</span><span class="p">,</span> <span class="s1">&#39;WARNING&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">LOG_LEVEL</span><span class="p">)</span>
@@ -112,9 +119,11 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="to_snakecase"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.to_snakecase">[docs]</a><span class="k">def</span> <span class="nf">to_snakecase</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<div class="viewcode-block" id="to_snakecase">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.to_snakecase">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_snakecase</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
     <span class="c1"># type: (str) -&gt; str</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Converts a given string to snake_case.</span>
 
 <span class="sd">    Args:</span>
@@ -133,9 +142,12 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
-<div class="viewcode-block" id="try_"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.try_">[docs]</a><span class="k">def</span> <span class="nf">try_</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">return_item</span><span class="o">=</span><span class="s1">&#39;item&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="try_">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.try_">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">try_</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">return_item</span><span class="o">=</span><span class="s1">&#39;item&#39;</span><span class="p">):</span>
     <span class="c1"># type: (Callable[[Any], Any], Any, Any) -&gt; Any</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Call given function on given item, catch any exceptions and return given</span>
 <span class="sd">    return item.</span>
 
@@ -160,9 +172,12 @@
         <span class="k">return</span> <span class="n">return_item</span></div>
 
 
-<div class="viewcode-block" id="get_ordered_unique"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.get_ordered_unique">[docs]</a><span class="k">def</span> <span class="nf">get_ordered_unique</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+
+<div class="viewcode-block" id="get_ordered_unique">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.get_ordered_unique">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_ordered_unique</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
     <span class="c1"># type: (List) -&gt; List</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Generates a unique list of items in same order they were received in.</span>
 
 <span class="sd">    Args:</span>
@@ -180,9 +195,12 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
-<div class="viewcode-block" id="relative_path"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.relative_path">[docs]</a><span class="k">def</span> <span class="nf">relative_path</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+
+<div class="viewcode-block" id="relative_path">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.relative_path">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">relative_path</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="c1"># type: (Union[str, Path], Union[str, Path]) -&gt; Path</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Resolve path given current module&#39;s file path and given suffix.</span>
 
 <span class="sd">    Args:</span>
@@ -205,9 +223,12 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
-<div class="viewcode-block" id="truncate_list"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.truncate_list">[docs]</a><span class="k">def</span> <span class="nf">truncate_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+
+<div class="viewcode-block" id="truncate_list">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.truncate_list">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">truncate_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="c1"># type (list, int) -&gt; list</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Truncates a given list to a given size, replaces the middle contents with</span>
 <span class="sd">    &quot;...&quot;.</span>
 
@@ -243,9 +264,12 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
-<div class="viewcode-block" id="truncate_blob_lists"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.truncate_blob_lists">[docs]</a><span class="k">def</span> <span class="nf">truncate_blob_lists</span><span class="p">(</span><span class="n">blob</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+
+<div class="viewcode-block" id="truncate_blob_lists">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.truncate_blob_lists">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">truncate_blob_lists</span><span class="p">(</span><span class="n">blob</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="c1"># type: (dict, int) -&gt; dict</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Truncates lists inside given JSON blob to a given size.</span>
 
 <span class="sd">    Args:</span>
@@ -261,7 +285,7 @@
     <span class="n">Enforce</span><span class="p">(</span><span class="n">blob</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Blob must be a dict.&#39;</span><span class="p">)</span>
     <span class="c1"># --------------------------------------------------------------------------</span>
 
-    <span class="k">def</span> <span class="nf">recurse_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recurse_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">truncate_list</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -271,7 +295,7 @@
             <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span>
 
-    <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recurse</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -284,12 +308,15 @@
     <span class="k">return</span> <span class="n">recurse</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span></div>
 
 
+
 <span class="c1"># LOGGING-----------------------------------------------------------------------</span>
-<div class="viewcode-block" id="log_runtime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.log_runtime">[docs]</a><span class="k">def</span> <span class="nf">log_runtime</span><span class="p">(</span>
+<div class="viewcode-block" id="log_runtime">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.log_runtime">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_runtime</span><span class="p">(</span>
     <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_testing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
     <span class="c1"># type (Callable, ..., Optional[str], bool, str, ...) -&gt; Any</span>
-    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Logs the duration of given function called with given arguments.</span>
 
 <span class="sd">    Args:</span>
@@ -317,9 +344,9 @@
     <span class="k">if</span> <span class="n">message_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">message_</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">         Runtime: </span><span class="si">{</span><span class="n">stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">message_</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span><span class="si">{</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"></span>
-<span class="s1">         Runtime: </span><span class="si">{</span><span class="n">stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span><span class="s1"></span>
-<span class="s1">            Args: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="si">}</span><span class="s1"></span>
+        <span class="n">message_</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span><span class="si">{</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span>
+<span class="s1">         Runtime: </span><span class="si">{</span><span class="n">stopwatch</span><span class="o">.</span><span class="n">human_readable_delta</span><span class="si">}</span>
+<span class="s1">            Args: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="si">}</span>
 <span class="s1">          Kwargs: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span>
 
     <span class="k">if</span> <span class="n">_testing</span><span class="p">:</span>
@@ -329,10 +356,13 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
-<div class="viewcode-block" id="runtime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.runtime">[docs]</a><span class="nd">@wrapt</span><span class="o">.</span><span class="n">decorator</span>
-<span class="k">def</span> <span class="nf">runtime</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="runtime">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.runtime">[docs]</a>
+<span class="nd">@wrapt</span><span class="o">.</span><span class="n">decorator</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">runtime</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
     <span class="c1"># type: (Callable, Any, Any, Any) -&gt; Any</span>
-    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Decorator for logging the duration of given function called with given</span>
 <span class="sd">    arguments.</span>
 
@@ -348,9 +378,12 @@
     <span class="k">return</span> <span class="n">log_runtime</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="log_level_to_int"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.log_level_to_int">[docs]</a><span class="k">def</span> <span class="nf">log_level_to_int</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
+
+<div class="viewcode-block" id="log_level_to_int">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.log_level_to_int">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_level_to_int</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
     <span class="c1"># type: (Union[str, int]) -&gt; int</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Convert a given string or integer into a log level integer.</span>
 
 <span class="sd">    Args:</span>
@@ -386,8 +419,11 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
-<div class="viewcode-block" id="LogRuntime"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime">[docs]</a><span class="k">class</span> <span class="nc">LogRuntime</span><span class="p">:</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="LogRuntime">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.LogRuntime">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LogRuntime</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    LogRuntime is a class for logging the runtime of arbitrary code.</span>
 
 <span class="sd">    Attributes:</span>
@@ -410,7 +446,9 @@
 <span class="sd">        &gt;&gt;&gt; print(log.message)</span>
 <span class="sd">        Fooing all the bars - Runtime: 0:00:01.001069 (1 second)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-<div class="viewcode-block" id="LogRuntime.__init__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="LogRuntime.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.LogRuntime.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># type: str</span>
         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;LogRuntime&#39;</span><span class="p">,</span>  <span class="c1"># type: str</span>
@@ -420,7 +458,7 @@
         <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: Optional[Callable[[str], Any]]</span>
     <span class="p">):</span>
         <span class="c1"># type: (...) -&gt; None</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructs a LogRuntime instance.</span>
 
 <span class="sd">        Args:</span>
@@ -453,10 +491,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_message_func</span> <span class="o">=</span> <span class="n">message_func</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span></div>
 
-<div class="viewcode-block" id="LogRuntime._default_message_func"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime._default_message_func">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_default_message_func</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">stopwatch</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LogRuntime._default_message_func">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.LogRuntime._default_message_func">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_default_message_func</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">stopwatch</span><span class="p">):</span>
         <span class="c1"># type: (str, StopWatch) -&gt; str</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Add runtime information to message given StopWatch instance.</span>
 
 <span class="sd">        Args:</span>
@@ -480,9 +521,12 @@
             <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span> <span class="o">+</span> <span class="s1">&#39; - &#39;</span> <span class="o">+</span> <span class="n">msg</span>
         <span class="k">return</span> <span class="n">msg</span></div>
 
-<div class="viewcode-block" id="LogRuntime.__enter__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LogRuntime.__enter__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.LogRuntime.__enter__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># type: () -&gt; LogRuntime</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Starts stopwatch.</span>
 
 <span class="sd">        Returns:</span>
@@ -491,9 +535,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="LogRuntime.__exit__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.LogRuntime.__exit__">[docs]</a>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LogRuntime.__exit__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.LogRuntime.__exit__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="c1"># type: (Any) -&gt; None</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Stops stopwatch and logs message.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">stopwatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stopwatch</span>
@@ -508,13 +555,17 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">))</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">))</span></div>
+</div>
+
 
 
 <span class="c1"># HTTP-REQUESTS-----------------------------------------------------------------</span>
-<div class="viewcode-block" id="post_to_slack"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.post_to_slack">[docs]</a><span class="k">def</span> <span class="nf">post_to_slack</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="post_to_slack">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.post_to_slack">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">post_to_slack</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="c1"># type (str, str, str) -&gt; urllib.request.HttpResponse</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Post a given message to a given slack channel.</span>
 
 <span class="sd">    Args:</span>
@@ -554,10 +605,13 @@
     <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
 
 
+
 <span class="c1"># API---------------------------------------------------------------------------</span>
-<div class="viewcode-block" id="get_function_signature"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.get_function_signature">[docs]</a><span class="k">def</span> <span class="nf">get_function_signature</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+<div class="viewcode-block" id="get_function_signature">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.get_function_signature">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_function_signature</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
     <span class="c1"># type: (Callable) -&gt; Dict</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Inspect a given function and return its arguments as a list and its keyword</span>
 <span class="sd">    arguments as a dict.</span>
 
@@ -577,9 +631,12 @@
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="_dir_table"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools._dir_table">[docs]</a><span class="k">def</span> <span class="nf">_dir_table</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">semiprivate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">private</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_dir_table">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools._dir_table">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_dir_table</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">semiprivate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">private</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="c1"># type: (Any, bool, bool, bool, int) -&gt; str</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Create a table from results of calling dir(obj).</span>
 
 <span class="sd">    Args:</span>
@@ -626,9 +683,12 @@
     <span class="k">return</span> <span class="n">output</span></div>
 
 
-<div class="viewcode-block" id="dir_table"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.dir_table">[docs]</a><span class="k">def</span> <span class="nf">dir_table</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">semiprivate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">private</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+
+<div class="viewcode-block" id="dir_table">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.dir_table">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dir_table</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">semiprivate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">private</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="c1"># type: (Any, bool, bool, bool, int) -&gt; None</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Prints a table from results of calling dir(obj).</span>
 
 <span class="sd">    Args:</span>
@@ -650,9 +710,12 @@
     <span class="p">))</span>  <span class="c1"># pragma: no cover</span></div>
 
 
-<div class="viewcode-block" id="api_function"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.api_function">[docs]</a><span class="k">def</span> <span class="nf">api_function</span><span class="p">(</span><span class="n">wrapped</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="api_function">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.api_function">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">api_function</span><span class="p">(</span><span class="n">wrapped</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="c1"># type: (Optional[Callable], Any) -&gt; Callable</span>
-    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A decorator that enforces keyword argument only function signatures and</span>
 <span class="sd">    required keyword argument values when called.</span>
 
@@ -668,7 +731,7 @@
 <span class="sd">        api function.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="nd">@wrapt</span><span class="o">.</span><span class="n">decorator</span>
-    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="n">sig</span> <span class="o">=</span> <span class="n">get_function_signature</span><span class="p">(</span><span class="n">wrapped</span><span class="p">)</span>
 
         <span class="c1"># ensure no arguments are present</span>
@@ -688,12 +751,15 @@
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">wrapped</span><span class="si">}</span><span class="s1"> called with </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">wrapped</span><span class="p">)</span></div>
+
 <span class="c1"># ------------------------------------------------------------------------------</span>
 
 
-<div class="viewcode-block" id="is_standard_module"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.tools.is_standard_module">[docs]</a><span class="k">def</span> <span class="nf">is_standard_module</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="is_standard_module">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.is_standard_module">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_standard_module</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="c1"># type: (str) -&gt; bool</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Determines if given module name is a python builtin.</span>
 
 <span class="sd">    Args:</span>
@@ -703,6 +769,7 @@
 <span class="sd">        bool: Whether string names a python module.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_PYTHON_STANDARD_MODULES</span></div>
+
 
 
 <span class="n">_PYTHON_STANDARD_MODULES</span> <span class="o">=</span> <span class="p">[</span>
@@ -1044,7 +1111,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Alex Braun &lt;alexander.g.braun@gmail.com&gt;.</p>
+    <p>&#169; Copyright 2025, Alex Braun &lt;alexander.g.braun@gmail.com&gt;.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

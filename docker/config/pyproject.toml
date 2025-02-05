@@ -1,13 +1,19 @@
 [project]
 name = "lunchbox"
-version = "0.3.3"
+version = "0.3.4"
 description = "A library of various tools for common python tasks"
 authors = [
-    {name = "Alex Braun", email = "alexander.g.braun@gmail.com"},
+    { name = "Alex Braun", email = "alexander.g.braun@gmail.com" },
 ]
 readme = "README.md"
 license = "MIT"
-keywords = ["tool", "tools", "general", "slack", "enforce"]
+keywords = [
+    "tool",
+    "tools",
+    "general",
+    "slack",
+    "enforce",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -62,11 +68,7 @@ test = [
 
 [tool.pytest.ini_options]
 cache_dir = "/home/ubuntu/.pytest_cache"
-filterwarnings = [
-    # "ignore::UserWarning",
-    # "ignore::DeprecationWarning",
-    # "ignore::PendingDeprecationWarning"
-]
+filterwarnings = []
 markers = [
     "flaky:Flaky test",
 ]
@@ -96,5 +98,7 @@ pretty = true
 warn_unused_ignores = true
 
 [build-system]
-requires = ["pdm-pep517>=1.0.0"]
+requires = [
+    "pdm-pep517>=1.0.0",
+]
 build-backend = "pdm.pep517.api"

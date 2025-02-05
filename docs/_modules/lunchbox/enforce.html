@@ -1,167 +1,99 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>lunchbox.enforce &mdash; lunchbox  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="../../index.html" class="icon icon-home"> lunchbox
           
-
-          
+          <a href="../../index.html" class="icon icon-home">
+            lunchbox
           </a>
-
-          
-            
-            
               <div class="version">
-                0.1.2
+                0.3.4
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html">enforce</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.stopwatch">stopwatch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lunchbox.html#module-lunchbox.tools">tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#installation-for-developers">Installation for Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#installation-for-production">Installation for Production</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#quickstart-guide">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#development-cli">Development CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#production-cli">Production CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">enforce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.singleton">singleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.stopwatch">stopwatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.tools">tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development CLI</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../cli.html">cli</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">lunchbox</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>lunchbox.enforce</li>
-    
-    
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lunchbox.enforce</li>
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for lunchbox.enforce</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>  <span class="c1"># noqa: F401</span>
 
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 <span class="c1"># ------------------------------------------------------------------------------</span>
 
 
@@ -171,8 +103,10 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="Comparator"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Comparator">[docs]</a><span class="k">class</span> <span class="nc">Comparator</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Comparator">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Comparator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Comparator</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Enum for comparison operators used by Enforce.</span>
 
 <span class="sd">    Includes:</span>
@@ -203,11 +137,13 @@
     <span class="n">INSTANCE_OF</span>     <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;instance_of&#39;</span><span class="p">,</span> <span class="s1">&#39;instance of&#39;</span><span class="p">,</span>      <span class="s1">&#39;isinstance&#39;</span><span class="p">,</span>     <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;not isinstance&#39;</span><span class="p">,</span> <span class="s1">&#39;not instance of&#39;</span> <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
     <span class="n">NOT_INSTANCE_OF</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;instance_of&#39;</span><span class="p">,</span> <span class="s1">&#39;not instance of&#39;</span><span class="p">,</span>  <span class="s1">&#39;not isinstance&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>  <span class="s1">&#39;isinstance&#39;</span><span class="p">,</span>     <span class="s1">&#39;instance of&#39;</span>     <span class="p">)</span>  <span class="c1"># noqa: E241, E202, E501, E221</span>
 
-<div class="viewcode-block" id="Comparator.__init__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Comparator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="Comparator.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Comparator.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">negation</span><span class="p">,</span> <span class="n">negation_symbol</span><span class="p">,</span> <span class="n">message</span>
     <span class="p">):</span>
         <span class="c1"># type: (str, str, str, bool, str, str) -&gt; None</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructs Comparator instance.</span>
 
 <span class="sd">        Args:</span>
@@ -225,18 +161,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">negation_symbol</span> <span class="o">=</span> <span class="n">negation_symbol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">canonical</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">canonical</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># type: () -&gt; str</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        str: Canonical name of Comparator</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Comparator.from_string"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Comparator.from_string">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<div class="viewcode-block" id="Comparator.from_string">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Comparator.from_string">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
         <span class="c1"># type: (str) -&gt; Comparator</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructs Comparator from given string.</span>
 
 <span class="sd">        Args:</span>
@@ -249,19 +188,26 @@
         <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">Comparator</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">lut</span><span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">text</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
             <span class="n">lut</span><span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-        <span class="k">return</span> <span class="n">lut</span><span class="p">[</span><span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span></div></div>
+        <span class="k">return</span> <span class="n">lut</span><span class="p">[</span><span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span></div>
+</div>
 
 
-<div class="viewcode-block" id="EnforceError"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.EnforceError">[docs]</a><span class="k">class</span> <span class="nc">EnforceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="EnforceError">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.EnforceError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnforceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Enforce error class.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">pass</span></div>
+
 <span class="c1"># ------------------------------------------------------------------------------</span>
 
 
-<div class="viewcode-block" id="Enforce"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce">[docs]</a><span class="k">class</span> <span class="nc">Enforce</span><span class="p">:</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Enforce">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Enforce</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Faciltates inline testing. Super class for Enforcer subclasses.</span>
 
 <span class="sd">    Example:</span>
@@ -299,7 +245,9 @@
 <span class="sd">        &lt;Foo&gt; is not like &lt;Bar&gt;. Please adjust your epsilon: 2, to be higher \</span>
 <span class="sd">than 4. A value: 1. B value: 5.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-<div class="viewcode-block" id="Enforce.__init__"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="Enforce.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">a</span><span class="p">,</span>
         <span class="n">comparator</span><span class="p">,</span>
@@ -309,7 +257,7 @@
         <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span>
     <span class="p">):</span>
         <span class="c1"># type: (Any, str, Any, Optional[str], Optional[str], float) -&gt; None</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Validates predicate specified in constructor.</span>
 
 <span class="sd">        Args:</span>
@@ -371,9 +319,12 @@
         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">EnforceError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Enforce._get_message"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce._get_message">[docs]</a>    <span class="k">def</span> <span class="nf">_get_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">comparator</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce._get_message">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce._get_message">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">comparator</span><span class="p">):</span>
         <span class="c1"># type: (Optional[str], Comparator) -&gt; str</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Creates an unformatted error message given an attribute name and</span>
 <span class="sd">        comparator.</span>
 
@@ -405,10 +356,13 @@
 
         <span class="k">return</span> <span class="n">message</span></div>
 
+
     <span class="c1"># COMPARATORS---------------------------------------------------------------</span>
-<div class="viewcode-block" id="Enforce.eq"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.eq">[docs]</a>    <span class="k">def</span> <span class="nf">eq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="viewcode-block" id="Enforce.eq">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.eq">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Any) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a and b are equal.</span>
 
 <span class="sd">        Args:</span>
@@ -420,9 +374,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span></div>
 
-<div class="viewcode-block" id="Enforce.gt"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.gt">[docs]</a>    <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.gt">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.gt">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Any) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a is greater than b.</span>
 
 <span class="sd">        Args:</span>
@@ -434,9 +391,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span></div>
 
-<div class="viewcode-block" id="Enforce.gte"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.gte">[docs]</a>    <span class="k">def</span> <span class="nf">gte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.gte">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.gte">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Any) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a is greater than or equal to b.</span>
 
 <span class="sd">        Args:</span>
@@ -448,9 +408,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span></div>
 
-<div class="viewcode-block" id="Enforce.lt"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.lt">[docs]</a>    <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.lt">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.lt">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Any) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a is lesser than b.</span>
 
 <span class="sd">        Args:</span>
@@ -462,9 +425,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span></div>
 
-<div class="viewcode-block" id="Enforce.lte"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.lte">[docs]</a>    <span class="k">def</span> <span class="nf">lte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.lte">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.lte">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Any) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a is lesser than or equal to b.</span>
 
 <span class="sd">        Args:</span>
@@ -476,9 +442,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span></div>
 
-<div class="viewcode-block" id="Enforce.similar"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.similar">[docs]</a>    <span class="k">def</span> <span class="nf">similar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">difference</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.similar">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.similar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">similar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">difference</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
         <span class="c1"># type: (Union[int, float], float) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a/b difference given error threshold episilon.</span>
 
 <span class="sd">        Args:</span>
@@ -490,9 +459,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">difference</span> <span class="o">&lt;</span> <span class="n">epsilon</span></div>
 
-<div class="viewcode-block" id="Enforce.in_"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.in_">[docs]</a>    <span class="k">def</span> <span class="nf">in_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.in_">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.in_">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">in_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Union[List, Set, Tuple]) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a is in b.</span>
 
 <span class="sd">        Args:</span>
@@ -504,9 +476,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">b</span></div>
 
-<div class="viewcode-block" id="Enforce.instance_of"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.instance_of">[docs]</a>    <span class="k">def</span> <span class="nf">instance_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.instance_of">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.instance_of">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">instance_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Any) -&gt; bool</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Determines if a is instance of b.</span>
 
 <span class="sd">        Args:</span>
@@ -522,9 +497,12 @@
             <span class="n">b</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Enforce.difference"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.difference">[docs]</a>    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Enforce.difference">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.difference">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c1"># type: (Any, Any) -&gt; float</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates difference between a and b.</span>
 
 <span class="sd">        Args:</span>
@@ -536,10 +514,13 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span></div>
 
+
     <span class="c1"># ATTRIBUTE-GETTERS---------------------------------------------------------</span>
-<div class="viewcode-block" id="Enforce.get_type_name"><a class="viewcode-back" href="../../lunchbox.html#lunchbox.enforce.Enforce.get_type_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<div class="viewcode-block" id="Enforce.get_type_name">
+<a class="viewcode-back" href="../../modules.html#lunchbox.enforce.Enforce.get_type_name">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="c1"># type: (Any) -&gt; str</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Gets __class__.__name__ of given item.</span>
 
 <span class="sd">        Args:</span>
@@ -548,50 +529,36 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: item.__class__.__name__</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div></div>
+        <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>
+</div>
+
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, Alex Braun &lt;TheNewFlesh@github.com&gt;.
-
-    </p>
+    <p>&#169; Copyright 2025, Alex Braun &lt;alexander.g.braun@gmail.com&gt;.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

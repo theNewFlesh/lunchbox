@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Coverage report</title>
-    <link rel="icon" sizes="32x32" href="favicon_32.png">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <script type="text/javascript" src="coverage_html.js" defer></script>
+    <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
+    <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
+    <script src="coverage_html_cb_6fb7b396.js" defer></script>
 </head>
 <body class="indexfile">
 <header>
@@ -16,13 +16,13 @@
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
             <label for="help_panel_state">
-                <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts" />
+                <img id="keyboard_icon" src="keybd_closed_cb_ce680311.png" alt="Show/hide keyboard shortcuts">
             </label>
             <div id="help_panel">
                 <p class="legend">Shortcuts on this page</p>
                 <div class="keyhelp">
                     <p>
-                        <kbd>n</kbd>
+                        <kbd>f</kbd>
                         <kbd>s</kbd>
                         <kbd>m</kbd>
                         <kbd>x</kbd>
@@ -41,11 +41,20 @@
             </div>
         </aside>
         <form id="filter_container">
-            <input id="filter" type="text" value="" placeholder="filter..." />
+            <input id="filter" type="text" value="" placeholder="filter...">
+            <div>
+                <input id="hide100" type="checkbox" >
+                <label for="hide100">hide covered</label>
+            </div>
         </form>
+        <h2>
+                <a class="button current">Files</a>
+                <a class="button" href="function_index.html">Functions</a>
+                <a class="button" href="class_index.html">Classes</a>
+        </h2>
         <p class="text">
-            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v7.1.0</a>,
-            created at 2023-11-15 00:57 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
+            created at 2025-02-05 22:07 +0000
         </p>
     </div>
 </header>
@@ -53,37 +62,37 @@
     <table class="index" data-sortable>
         <thead>
             <tr class="tablehead" title="Click to sort">
-                <th class="name left" aria-sort="none" data-shortcut="n">Module</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="s">statements</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="m">missing</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="x">excluded</th>
-                <th class="right" aria-sort="none" data-shortcut="c">coverage</th>
+                <th id="file" class="name left" aria-sort="none" data-shortcut="f">File<span class="arrows"></span></th>
+                <th id="statements" aria-sort="none" data-default-sort-order="descending" data-shortcut="s">statements<span class="arrows"></span></th>
+                <th id="missing" aria-sort="none" data-default-sort-order="descending" data-shortcut="m">missing<span class="arrows"></span></th>
+                <th id="excluded" aria-sort="none" data-default-sort-order="descending" data-shortcut="x">excluded<span class="arrows"></span></th>
+                <th id="coverage" class="right" aria-sort="none" data-shortcut="c">coverage<span class="arrows"></span></th>
             </tr>
         </thead>
         <tbody>
-            <tr class="file">
-                <td class="name left"><a href="d_23f94f3c6ce8e7f9_enforce_py.html">/home/ubuntu/lunchbox/python/lunchbox/enforce.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_23f94f3c6ce8e7f9_enforce_py.html">/home/ubuntu/lunchbox/python/lunchbox/enforce.py</a></td>
                 <td>99</td>
                 <td>0</td>
                 <td>0</td>
                 <td class="right" data-ratio="99 99">100%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_23f94f3c6ce8e7f9_singleton_py.html">/home/ubuntu/lunchbox/python/lunchbox/singleton.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_23f94f3c6ce8e7f9_singleton_py.html">/home/ubuntu/lunchbox/python/lunchbox/singleton.py</a></td>
                 <td>5</td>
                 <td>0</td>
                 <td>0</td>
                 <td class="right" data-ratio="5 5">100%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_23f94f3c6ce8e7f9_stopwatch_py.html">/home/ubuntu/lunchbox/python/lunchbox/stopwatch.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_23f94f3c6ce8e7f9_stopwatch_py.html">/home/ubuntu/lunchbox/python/lunchbox/stopwatch.py</a></td>
                 <td>20</td>
                 <td>0</td>
                 <td>0</td>
                 <td class="right" data-ratio="20 20">100%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_23f94f3c6ce8e7f9_tools_py.html">/home/ubuntu/lunchbox/python/lunchbox/tools.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_23f94f3c6ce8e7f9_tools_py.html">/home/ubuntu/lunchbox/python/lunchbox/tools.py</a></td>
                 <td>225</td>
                 <td>0</td>
                 <td>1</td>
@@ -107,16 +116,16 @@
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v7.1.0</a>,
-            created at 2023-11-15 00:57 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
+            created at 2025-02-05 22:07 +0000
         </p>
     </div>
     <aside class="hidden">
-        <a id="prevFileLink" class="nav" href="d_23f94f3c6ce8e7f9_tools_py.html"/>
-        <a id="nextFileLink" class="nav" href="d_23f94f3c6ce8e7f9_enforce_py.html"/>
-        <button type="button" class="button_prev_file" data-shortcut="["/>
-        <button type="button" class="button_next_file" data-shortcut="]"/>
-        <button type="button" class="button_show_hide_help" data-shortcut="?"/>
+        <a id="prevFileLink" class="nav" href="z_23f94f3c6ce8e7f9_tools_py.html"></a>
+        <a id="nextFileLink" class="nav" href="z_23f94f3c6ce8e7f9_enforce_py.html"></a>
+        <button type="button" class="button_prev_file" data-shortcut="["></button>
+        <button type="button" class="button_next_file" data-shortcut="]"></button>
+        <button type="button" class="button_show_hide_help" data-shortcut="?"></button>
     </aside>
 </footer>
 </body>
