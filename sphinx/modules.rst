@@ -25,6 +25,15 @@ stopwatch
    :undoc-members:
    :show-inheritance:
 
+theme
+-----
+.. automodule:: lunchbox.theme
+   :members:
+   :private-members:
+   :special-members:
+   :undoc-members:
+   :show-inheritance:
+
 tools
 -----
 .. automodule:: lunchbox.tools

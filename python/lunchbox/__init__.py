@@ -9,4 +9,5 @@ from lunchbox import command  # noqa F401
 from lunchbox import enforce  # noqa F401
 from lunchbox import singleton  # noqa F401
 from lunchbox import stopwatch  # noqa F401
+from lunchbox import theme  # noqa F401
 from lunchbox import tools  # noqa F401
