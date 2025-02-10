@@ -338,6 +338,7 @@ class ToolsTests(unittest.TestCase):
 
     def test_log_runtime_multiprocessing(self):
         args = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        # TODO: solve deprecation warning here
         with multiprocessing.Pool(processes=2) as pool:
             result = pool.starmap(_log_runtime_func, args)
         self.assertEqual(sum(result), 45)
@@ -348,6 +349,7 @@ class ToolsTests(unittest.TestCase):
 
     def test_runtime_multiprocessing(self):
         args = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        # TODO: solve deprecation warning here
         with multiprocessing.Pool(processes=2) as pool:
             result = pool.starmap(_runtime_func, args)
         self.assertEqual(sum(result), 45)
