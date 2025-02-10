@@ -42,8 +42,8 @@
       "volume": "",
       "keywords": "tool, tools, general, slack, enforce",
       "year": "2025",
-      "python_min_version": "7",
-      "python_max_version": "10",
+      "python_min_version": "10",
+      "python_max_version": "13",
       "initial_repo_version": "0.3.3",
       "_template": "/home/alex/Documents/projects/cookiecutter-datalus"
     }
