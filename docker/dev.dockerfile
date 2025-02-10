@@ -37,6 +37,7 @@ RUN echo "\n${CYAN}INSTALL GENERIC DEPENDENCIES${CLEAR}"; \
         bat \
         btop \
         ca-certificates \
+        cargo \
         curl \
         exa \
         git \
@@ -66,10 +67,8 @@ RUN echo "\n${CYAN}INSTALL PYTHON${CLEAR}"; \
         python3-pydot \
         python3.13-dev \
         python3.13-venv \
-        python3.13-distutils \
         python3.12-dev \
         python3.12-venv \
-        python3.12-distutils \
         python3.11-dev \
         python3.11-venv \
         python3.11-distutils \
