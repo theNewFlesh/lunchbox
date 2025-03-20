@@ -48,6 +48,9 @@ Run `bin/lunchbox --help` for more help on the command line tool.
 ### Python
 `pip install lunchbox`
 
+Please see the prod.dockerfile for an official example of how to build a docker
+image with lunchbox.
+
 ### Docker
 1. Install [docker-desktop](https://docs.docker.com/desktop/)
 2. `docker pull theNewFlesh/lunchbox:[mode]-[version]`
@@ -175,6 +178,7 @@ The following is a complete list of all available development commands:
 | test-coverage              | Generate test coverage report                                       |
 | test-dev                   | Run all tests                                                       |
 | test-fast                  | Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator  |
+| test-format                | Format all python files                                             |
 | test-lint                  | Run linting and type checking                                       |
 | test-prod                  | Run tests across all support python versions                        |
 | version                    | Full resolution of repo: dependencies, linting, tests, docs, etc    |

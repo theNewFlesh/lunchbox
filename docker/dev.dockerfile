@@ -71,9 +71,9 @@ RUN echo "\n${CYAN}INSTALL PYTHON${CLEAR}"; \
         python3.12-venv \
         python3.11-dev \
         python3.11-venv \
-        python3.11-distutils \
         python3.10-dev \
         python3.10-venv \
+        python3.11-distutils \
         python3.10-distutils \
     && rm -rf /var/lib/apt/lists/*
 
@@ -159,7 +159,7 @@ RUN echo "\n${CYAN}INSTALL DEV DEPENDENCIES${CLEAR}"; \
     pip3.13 install --upgrade --user \
         'pdm>=2.19.1' \
         'pdm-bump<0.7.0' \
-        'rolling-pin>=0.10.1' \
+        'rolling-pin>=0.11.1' \
         'uv' && \
     mkdir -p /home/ubuntu/.oh-my-zsh/custom/completions && \
     pdm self update --pip-args='--user' && \

@@ -356,6 +356,7 @@ x_docs () {
     rm -rf $DOCS_DIR;
     mkdir -p $DOCS_DIR;
     cp $REPO_DIR/README.md $REPO_DIR/sphinx/readme.md;
+    sed --in-place -E 's/sphinx\/images/_images/g' $REPO_DIR/sphinx/readme.md;
     sphinx-build sphinx $DOCS_DIR;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
     rm -f $REPO_DIR/sphinx/readme.md;
@@ -363,6 +364,7 @@ x_docs () {
     touch $DOCS_DIR/.nojekyll;
     # mkdir -p $DOCS_DIR/resources;
     # cp resources/* $DOCS_DIR/resources/;
+    cp sphinx/images/logo.png $DOCS_DIR/_images/;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
     return $exit_code;
 }
@@ -652,17 +654,24 @@ x_test_fast () {
         $REPO_SUBPACKAGE;
 }
 
+x_test_format () {
+    # Run ruff formatting on all python code
+    x_env_activate_dev;
+    echo "${CYAN2}FORMATTING${CLEAR}\n";
+    ruff format --config $CONFIG_DIR/pyproject.toml python;
+}
+
 x_test_lint () {
     # Run linting and type checking
     x_env_activate_dev;
     local exit_code=$?;
     cd $REPO_DIR;
 
-    echo "${CYAN2}LINTING${CLEAR}\n";
-    flake8 python --config $CONFIG_DIR/flake8.ini;
+    echo "${CYAN2}LINTING${CLEAR}";
+    ruff check --config $CONFIG_DIR/pyproject.toml python;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
 
-    echo "${CYAN2}TYPE CHECKING${CLEAR}\n";
+    echo "\n${CYAN2}TYPE CHECKING${CLEAR}\n";
     mypy python --config-file $CONFIG_DIR/pyproject.toml;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
 
@@ -677,7 +686,7 @@ x_test_run () {
 
     cd $BUILD_DIR/repo;
     echo "${CYAN2}LINTING $1-$2${CLEAR}\n";
-    flake8 --config flake8.ini $REPO_SUBPACKAGE;
+    ruff check --config $CONFIG_DIR/pyproject.toml $REPO_SUBPACKAGE;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
 
     echo "${CYAN2}TYPE CHECKING $1-$2${CLEAR}\n";
