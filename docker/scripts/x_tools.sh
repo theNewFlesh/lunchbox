@@ -364,6 +364,7 @@ x_docs () {
     touch $DOCS_DIR/.nojekyll;
     # mkdir -p $DOCS_DIR/resources;
     # cp resources/* $DOCS_DIR/resources/;
+    mkdir -p $DOCS_DIR/_images/;
     cp sphinx/images/logo.png $DOCS_DIR/_images/;
     exit_code=`_x_resolve_exit_code $exit_code $?`;
     return $exit_code;
