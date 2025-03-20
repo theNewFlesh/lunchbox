@@ -121,7 +121,7 @@
 <a class="reference external" href="https://github.com/thenewflesh/lunchbox/blob/master/docker/config/pyproject.toml"><img alt="" src="https://img.shields.io/pypi/pyversions/lunchbox?style=for-the-badge&amp;label=Python&amp;color=A0D17B&amp;logo=python&amp;logoColor=A0D17B" /></a>
 <a class="reference external" href="https://pypi.org/project/lunchbox/"><img alt="" src="https://img.shields.io/pypi/v/lunchbox?style=for-the-badge&amp;label=PyPI&amp;color=5F95DE&amp;logo=pypi&amp;logoColor=5F95DE" /></a>
 <a class="reference external" href="https://pepy.tech/project/lunchbox"><img alt="" src="https://img.shields.io/pypi/dm/lunchbox?style=for-the-badge&amp;label=Downloads&amp;color=5F95DE" /></a></p>
-<p><img src="sphinx/images/logo.png"width="666px" height="360px"></p>
+<p><img src="_images/logo.png"width="666px" height="360px"></p>
 <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
 <p>A library of various tools for common python tasks</p>
@@ -180,6 +180,8 @@ tab to cycle through</p></li>
 <section id="python">
 <h2>Python<a class="headerlink" href="#python" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">lunchbox</span></code></p>
+<p>Please see the prod.dockerfile for an official example of how to build a docker
+image with lunchbox.</p>
 </section>
 <section id="id1">
 <h2>Docker<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
@@ -479,34 +481,37 @@ Commands generally do not expect any arguments or flags.</p>
 <tr class="row-odd"><td><p>test-fast</p></td>
 <td><p>Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator</p></td>
 </tr>
-<tr class="row-even"><td><p>test-lint</p></td>
+<tr class="row-even"><td><p>test-format</p></td>
+<td><p>Format all python files</p></td>
+</tr>
+<tr class="row-odd"><td><p>test-lint</p></td>
 <td><p>Run linting and type checking</p></td>
 </tr>
-<tr class="row-odd"><td><p>test-prod</p></td>
+<tr class="row-even"><td><p>test-prod</p></td>
 <td><p>Run tests across all support python versions</p></td>
 </tr>
-<tr class="row-even"><td><p>version</p></td>
+<tr class="row-odd"><td><p>version</p></td>
 <td><p>Full resolution of repo: dependencies, linting, tests, docs, etc</p></td>
 </tr>
-<tr class="row-odd"><td><p>version-bump-major</p></td>
+<tr class="row-even"><td><p>version-bump-major</p></td>
 <td><p>Bump pyproject major version</p></td>
 </tr>
-<tr class="row-even"><td><p>version-bump-minor</p></td>
+<tr class="row-odd"><td><p>version-bump-minor</p></td>
 <td><p>Bump pyproject minor version</p></td>
 </tr>
-<tr class="row-odd"><td><p>version-bump-patch</p></td>
+<tr class="row-even"><td><p>version-bump-patch</p></td>
 <td><p>Bump pyproject patch version</p></td>
 </tr>
-<tr class="row-even"><td><p>version-commit</p></td>
+<tr class="row-odd"><td><p>version-commit</p></td>
 <td><p>Tag with version and commit changes to master</p></td>
 </tr>
-<tr class="row-odd"><td><p>zsh</p></td>
+<tr class="row-even"><td><p>zsh</p></td>
 <td><p>Run ZSH session inside Docker container</p></td>
 </tr>
-<tr class="row-even"><td><p>zsh-complete</p></td>
+<tr class="row-odd"><td><p>zsh-complete</p></td>
 <td><p>Generate oh-my-zsh completions</p></td>
 </tr>
-<tr class="row-odd"><td><p>zsh-root</p></td>
+<tr class="row-even"><td><p>zsh-root</p></td>
 <td><p>Run ZSH session as root inside Docker container</p></td>
 </tr>
 </tbody>

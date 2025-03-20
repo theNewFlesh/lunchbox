@@ -3,7 +3,7 @@
 [![](https://img.shields.io/pypi/v/lunchbox?style=for-the-badge&label=PyPI&color=5F95DE&logo=pypi&logoColor=5F95DE)](https://pypi.org/project/lunchbox/)
 [![](https://img.shields.io/pypi/dm/lunchbox?style=for-the-badge&label=Downloads&color=5F95DE)](https://pepy.tech/project/lunchbox)
 
-<p><img src="sphinx/images/logo.png"width="666px" height="360px"></p>
+<p><img src="_images/logo.png"width="666px" height="360px"></p>
 
 # Introduction
 
@@ -47,6 +47,9 @@ Run `bin/lunchbox --help` for more help on the command line tool.
 
 ### Python
 `pip install lunchbox`
+
+Please see the prod.dockerfile for an official example of how to build a docker
+image with lunchbox.
 
 ### Docker
 1. Install [docker-desktop](https://docs.docker.com/desktop/)
@@ -175,6 +178,7 @@ The following is a complete list of all available development commands:
 | test-coverage              | Generate test coverage report                                       |
 | test-dev                   | Run all tests                                                       |
 | test-fast                  | Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator  |
+| test-format                | Format all python files                                             |
 | test-lint                  | Run linting and type checking                                       |
 | test-prod                  | Run tests across all support python versions                        |
 | version                    | Full resolution of repo: dependencies, linting, tests, docs, etc    |
