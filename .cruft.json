@@ -19,7 +19,6 @@
     "cookiecutter": {
       "repo": "lunchbox",
       "repo_type": "library",
-      "include_black": "no",
       "include_gcc": "no",
       "include_helm": "no",
       "include_mkdocs": "no",
