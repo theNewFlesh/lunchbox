@@ -167,7 +167,9 @@ class ColorFormatter(click.HelpFormatter):
         self._write_calls += 1
         data = []
         for k, v in rows:
-            k = '  {dl}{k}{clear}'.format(dl=self._dl_color, k=k, **self._colors)
+            k = '  {dl}{k}{clear}'.format(
+                dl=self._dl_color, k=k, **self._colors
+            )
             v = v.format(**self._colors)
             data.append((k, v))
         super().write_dl(data, col_max, col_spacing)
