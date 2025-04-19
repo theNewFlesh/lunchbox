@@ -6,7 +6,23 @@ import click
 # ------------------------------------------------------------------------------
 
 
-class Colorscheme(Enum):
+class EnumBase(Enum):
+    '''
+    Base class for enums.
+    '''
+    @classmethod
+    def to_dict(cls):
+        # type: () -> dict
+        '''
+        Convert enum to a dictionary.
+
+        Returns:
+            dict: (name, value) dictionary.
+        '''
+        return {x.name: x.value for x in cls.__members__.values()}
+
+
+class Colorscheme(EnumBase):
     '''
     Henanigans color scheme.
     '''
@@ -35,6 +51,29 @@ class Colorscheme(Enum):
     PURPLE2 = '#AC92DE'
 
 
+class TerminalColorscheme(EnumBase):
+    '''
+    Terminal color scheme.
+    '''
+    BLUE1 = '\033[0;34m'
+    BLUE2 = '\033[0;94m'
+    CYAN1 = '\033[0;36m'
+    CYAN2 = '\033[0;96m'
+    GREEN1 = '\033[0;32m'
+    GREEN2 = '\033[0;92m'
+    GREY1 = '\033[0;90m'
+    GREY2 = '\033[0;37m'
+    PURPLE1 = '\033[0;35m'
+    PURPLE2 = '\033[0;95m'
+    RED1 = '\033[0;31m'
+    RED2 = '\033[0;91m'
+    WHITE = '\033[0;97m'
+    YELLOW1 = '\033[0;33m'
+    YELLOW2 = '\033[0;93m'
+    CLEAR = '\033[0m'
+
+
+# ------------------------------------------------------------------------------
 def get_plotly_template(colorscheme=Colorscheme):
     # type: (Type[Colorscheme]) -> dict
     '''
@@ -141,24 +180,7 @@ class ColorFormatter(click.HelpFormatter):
         self._sep = '='
         self._line_width = 80
         self._write_calls = 0
-        self._colors = dict(
-            blue1='\033[0;34m',
-            blue2='\033[0;94m',
-            cyan1='\033[0;36m',
-            cyan2='\033[0;96m',
-            green1='\033[0;32m',
-            green2='\033[0;92m',
-            grey1='\033[0;90m',
-            grey2='\033[0;37m',
-            purple1='\033[0;35m',
-            purple2='\033[0;95m',
-            red1='\033[0;31m',
-            red2='\033[0;91m',
-            white='\033[0;97m',
-            yellow1='\033[0;33m',
-            yellow2='\033[0;93m',
-            clear='\033[0m',
-        )
+        self._colors = {k.lower(): v for k, v in TerminalColorscheme.to_dict().items()}
         if grayscale:
             self._colors = {k: '' for k in self._colors.keys()}
         self._heading_color = self._colors[heading_color]
