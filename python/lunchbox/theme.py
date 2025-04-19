@@ -103,6 +103,7 @@ def get_plotly_template(colorscheme=Colorscheme):
     return template
 
 
+# ------------------------------------------------------------------------------
 class ColorFormatter(click.HelpFormatter):
     '''
     ColorForatter makes click CLI output pretty.
@@ -167,7 +168,8 @@ class ColorFormatter(click.HelpFormatter):
     def write_text(self, text):
         # type: (str) -> None
         '''
-        Write given text.
+        Writes re-indented text into the buffer. This rewraps and preserves
+        paragraphs.
 
         Args:
             text (str): Text to write.
@@ -187,7 +189,7 @@ class ColorFormatter(click.HelpFormatter):
     def write_usage(self, prog, *args, **kwargs):
         # type: (str, ..., ...) -> None
         '''
-        Write usage text at top of help output.
+        Writes a usage line into the buffer.
 
         Args:
             prog (str): Program name.
@@ -205,12 +207,14 @@ class ColorFormatter(click.HelpFormatter):
     def write_dl(self, rows, col_max=30, col_spacing=2):
         # type: (list[tuple[str, str]], int, int) -> None
         '''
-        Write description list.
+        Writes a definition list into the buffer. This is how options and
+        commands are usually formatted.
 
         Args:
-            rows (list): List of (key, value) tuples.
-            col_max (int, optional): Maximum column width. Default: 30.
-            col_spacing (int, optional): Spacing between columns. Default: 2.
+            rows (list): List of (term, value) tuples.
+            col_max (int, optional): Maximum width of first column. Default: 30.
+            col_spacing (int, optional): Spacing between first and second
+                columns. Default: 2.
         '''
         self._write_calls += 1
         data = []
@@ -232,7 +236,7 @@ class ColorFormatter(click.HelpFormatter):
     def write_heading(self, heading):
         # type: (str) -> None
         '''
-        Write section heading.
+        Write section heading into buffer.
 
         Commands is converted to COMMANDS.
         Options is converted to FLAGS.
