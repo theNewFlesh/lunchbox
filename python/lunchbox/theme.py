@@ -1,4 +1,4 @@
-from typing import Type  # noqa: F401
+from typing import Any, Sequence, Type  # noqa: F401
 
 from enum import Enum
 
@@ -124,8 +124,8 @@ class ColorFormatter(click.HelpFormatter):
         grayscale=False,
         **kwargs,
     ):
-        # type: (..., str, str, str, bool, ...) -> None
-        '''
+        # type: (Any, str, str, str, bool, Any) -> None
+        r'''
         Constructs a ColorFormatter instance for use with click.
 
         Args:
@@ -187,8 +187,8 @@ class ColorFormatter(click.HelpFormatter):
         self.write('\n')
 
     def write_usage(self, prog, *args, **kwargs):
-        # type: (str, ..., ...) -> None
-        '''
+        # type: (str, Any, Any) -> None
+        r'''
         Writes a usage line into the buffer.
 
         Args:
@@ -205,7 +205,7 @@ class ColorFormatter(click.HelpFormatter):
         self.write(text)
 
     def write_dl(self, rows, col_max=30, col_spacing=2):
-        # type: (list[tuple[str, str]], int, int) -> None
+        # type: (Sequence[tuple[str, str]], int, int) -> None
         '''
         Writes a definition list into the buffer. This is how options and
         commands are usually formatted.
