@@ -2,12 +2,16 @@ import subprocess
 
 import click
 
+import lunchbox.theme as lbc
 import lunchbox.tools as lbt
 # ------------------------------------------------------------------------------
 
 '''
 Command line interface to lunchbox library
 '''
+
+
+click.Context.formatter_class = lbc.ThemeFormatter
 
 
 @click.group()
@@ -21,13 +25,13 @@ def main():
 @click.argument('message', type=str, nargs=1)
 def slack(url, channel, message):
     '''
-        Posts a slack message to a given channel.
+    {white}Posts a slack message to a given channel.{clear}
 
-          URL     - https://hooks.slack.com/services URL
-
-          CHANNEL - slack channel name
-
-          MESSAGE - message to be posted
+    \b
+    {cyan2}ARGUMENTS{clear}
+           {cyan2}url{clear}  https://hooks.slack.com/services URL
+       {cyan2}channel{clear}  slack channel name
+       {cyan2}message{clear}  message to be posted
     '''
     lbt.post_to_slack(url, channel, message)
 
@@ -35,7 +39,7 @@ def slack(url, channel, message):
 @main.command()
 def bash_completion():
     '''
-    BASH completion code to be written to a _lunchbox completion file.
+    {white}BASH completion code to be written to a _lunchbox completion file.{clear}
     '''
     cmd = '_LUNCHBOX_COMPLETE=bash_source lunchbox'
     result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
@@ -46,7 +50,7 @@ def bash_completion():
 @main.command()
 def zsh_completion():
     '''
-    ZSH completion code to be written to a _lunchbox completion file.
+    {white}ZSH completion code to be written to a _lunchbox completion file.{clear}
     '''
     cmd = '_LUNCHBOX_COMPLETE=zsh_source lunchbox'
     result = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
