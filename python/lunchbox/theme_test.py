@@ -61,3 +61,37 @@ class ThemeTests(unittest.TestCase):
         self.assertEqual(result['yaxis']['gridcolor'], expected)
         self.assertEqual(result['yaxis']['zerolinecolor'], expected)
         self.assertEqual(result['yaxis']['tickfont']['color'], expected)
+
+
+class ThemeFormatterTests(unittest.TestCase):
+    def test_init(self):
+        result = lbc.ThemeFormatter()
+
+        expected = lbc.TerminalColorscheme.to_dict().items()
+        expected = {k.lower(): v for k, v in expected}
+        self.assertEqual(result.current_indent, 4)
+        self.assertEqual(result._sep, '=')
+        self.assertEqual(result._line_width, 80)
+        self.assertEqual(result._write_calls, 0)
+        self.assertEqual(result._colors, expected)
+        self.assertEqual(result._heading_color, expected['blue2'])
+        self.assertEqual(result._command_color, expected['cyan2'])
+        self.assertEqual(result._flag_color, expected['green2'])
+
+    def test_init_grayscale(self):
+        result = lbc.ThemeFormatter(grayscale=True)
+        expected = lbc.TerminalColorscheme.to_dict().keys()
+        expected = {k.lower(): '' for k in expected}
+        self.assertEqual(result._colors, expected)
+
+    def test_write_text(self):
+        pass
+
+    def test_write_usage(self):
+        pass
+
+    def test_write_dl(self):
+        pass
+
+    def test_write_heading(self):
+        pass

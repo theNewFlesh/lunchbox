@@ -143,16 +143,16 @@ def get_plotly_template(colorscheme=Colorscheme):
 
 
 # ------------------------------------------------------------------------------
-class ColorFormatter(click.HelpFormatter):
+class ThemeFormatter(click.HelpFormatter):
     '''
-    ColorForatter makes click CLI output pretty.
+    ThemeFormatter makes click CLI output prettier.
 
     Include the following code to add it to click:
 
     .. code-block:: python
 
         import lunchbox.theme as lbc
-        click.Context.formatter_class = lbc.ColorFormatter
+        click.Context.formatter_class = lbc.ThemeFormatter
     '''
     def __init__(
         self,
@@ -165,7 +165,7 @@ class ColorFormatter(click.HelpFormatter):
     ):
         # type: (Any, str, str, str, bool, Any) -> None
         r'''
-        Constructs a ColorFormatter instance for use with click.
+        Constructs a ThemeFormatter instance for use with click.
 
         Args:
             \*args (optional): Positional arguments.
