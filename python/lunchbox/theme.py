@@ -1,6 +1,8 @@
 from typing import Type  # noqa: F401
 
 from enum import Enum
+
+import click
 # ------------------------------------------------------------------------------
 
 
@@ -99,3 +101,96 @@ def get_plotly_template(colorscheme=Colorscheme):
         )
     )
     return template
+
+
+class ColorFormatter(click.HelpFormatter):
+    '''
+    ColorForatter makes click CLI output pretty.
+
+    Include the following code to add it to click:
+    ```
+    from lunchbox.theme import ColorFormatter
+
+    click.Context.formatter_class = ColorFormatter
+    ```
+    '''
+    def __init__(self, *args, grayscale=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.current_indent = 4
+        self._sep = '='
+        self._line_width = 80
+        self._write_calls = 0
+        self._colors = dict(
+            blue1='\033[0;34m',
+            blue2='\033[0;94m',
+            cyan1='\033[0;36m',
+            cyan2='\033[0;96m',
+            green1='\033[0;32m',
+            green2='\033[0;92m',
+            grey1='\033[0;90m',
+            grey2='\033[0;37m',
+            purple1='\033[0;35m',
+            purple2='\033[0;95m',
+            red1='\033[0;31m',
+            red2='\033[0;91m',
+            white='\033[0;97m',
+            yellow1='\033[0;33m',
+            yellow2='\033[0;93m',
+            clear='\033[0m',
+        )
+        if grayscale:
+            self._colors = {k: '' for k in self._colors.keys()}
+        self._dl_color = self._colors['green2']
+
+    def write_text(self, text):
+        self._write_calls += 1
+        self.write(
+            click.formatting.wrap_text(
+                text.format(**self._colors),
+                self.width,
+                initial_indent='    ',
+                subsequent_indent='    ',
+                preserve_paragraphs=True,
+            )
+        )
+        self.write('\n')
+
+    def write_usage(self, prog, args='', prefix=None):
+        self._write_calls += 1
+        text = prog.split(' ')[-1].upper() + ' '
+        text = text.rjust(8, self._sep)
+        text = text.ljust(self._line_width, self._sep)
+        text = '{blue2}{text}{clear}\n'.format(text=text, **self._colors)
+        self.write(text)
+
+    def write_dl(self, rows, col_max=30, col_spacing=2):
+        self._write_calls += 1
+        data = []
+        for k, v in rows:
+            k = '  {dl}{k}{clear}'.format(dl=self._dl_color, k=k, **self._colors)
+            v = v.format(**self._colors)
+            data.append((k, v))
+        super().write_dl(data, col_max, col_spacing)
+
+        if self._write_calls in [4, 5]:
+            line = self._sep * self._line_width
+            line = '\n{blue2}{line}{clear}\n'.format(line=line, **self._colors)
+            self.write(line)
+
+    def write_heading(self, heading):
+        self._write_calls += 1
+        color = self._colors['blue2']
+        if heading == 'Options':
+            heading = 'FLAGS'
+            color = self._colors['green2']
+        elif heading == 'Commands':
+            heading = 'COMMANDS'
+            color = self._colors['cyan2']
+            self._dl_color = color
+        heading += ' '
+        buff = f"{'':>{self.current_indent}}"
+        text = "{color}{buff}{heading}{clear}\n"
+        text = text.format(
+            buff=buff, heading=heading, color=color, **self._colors
+        )
+        self.write(text)
