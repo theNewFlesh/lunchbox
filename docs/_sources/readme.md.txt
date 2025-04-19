@@ -1,3 +1,31 @@
+<p>
+    <a href="https://www.linkedin.com/in/alexandergbraun" rel="nofollow noreferrer">
+        <img src="https://www.gomezaparicio.com/wp-content/uploads/2012/03/linkedin-logo-1-150x150.png"
+             alt="linkedin" width="30px" height="30px"
+        >
+    </a>
+    <a href="https://github.com/theNewFlesh" rel="nofollow noreferrer">
+        <img src="https://tadeuzagallo.com/GithubPulse/assets/img/app-icon-github.png"
+             alt="github" width="30px" height="30px"
+        >
+    </a>
+    <a href="https://pypi.org/user/the-new-flesh" rel="nofollow noreferrer">
+        <img src="https://cdn.iconscout.com/icon/free/png-256/python-2-226051.png"
+             alt="pypi" width="30px" height="30px"
+        >
+    </a>
+    <a href="http://vimeo.com/user3965452" rel="nofollow noreferrer">
+        <img src="https://cdn1.iconfinder.com/data/icons/somacro___dpi_social_media_icons_by_vervex-dfjq/500/vimeo.png"
+             alt="vimeo" width="30px" height="30px"
+        >
+    </a>
+    <a href="https://alexgbraun.com" rel="nofollow noreferrer">
+        <img src="https://i.ibb.co/fvyMkpM/logo.png"
+             alt="alexgbraun" width="30px" height="30px"
+        >
+    </a>
+</p>
+
 [![](https://img.shields.io/badge/License-MIT-F77E70?style=for-the-badge)](https://github.com/thenewflesh/lunchbox/blob/master/LICENSE)
 [![](https://img.shields.io/pypi/pyversions/lunchbox?style=for-the-badge&label=Python&color=A0D17B&logo=python&logoColor=A0D17B)](https://github.com/thenewflesh/lunchbox/blob/master/docker/config/pyproject.toml)
 [![](https://img.shields.io/pypi/v/lunchbox?style=for-the-badge&label=PyPI&color=5F95DE&logo=pypi&logoColor=5F95DE)](https://pypi.org/project/lunchbox/)

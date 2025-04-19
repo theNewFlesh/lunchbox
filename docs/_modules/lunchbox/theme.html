@@ -35,7 +35,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.5.1
+                0.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -92,15 +92,39 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lunchbox.theme</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Type</span>  <span class="c1"># noqa: F401</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span>  <span class="c1"># noqa: F401</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">click</span>
 <span class="c1"># ------------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="EnumBase">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.EnumBase">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnumBase</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Base class for enums.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="EnumBase.to_dict">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.EnumBase.to_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="c1"># type: () -&gt; dict</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Convert enum to a dictionary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: (name, value) dictionary.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">()}</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="Colorscheme">
 <a class="viewcode-back" href="../../modules.html#lunchbox.theme.Colorscheme">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">Colorscheme</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Colorscheme</span><span class="p">(</span><span class="n">EnumBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Henanigans color scheme.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -130,6 +154,32 @@
 
 
 
+<div class="viewcode-block" id="TerminalColorscheme">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.TerminalColorscheme">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TerminalColorscheme</span><span class="p">(</span><span class="n">EnumBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Terminal color scheme.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">BLUE1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;34m&#39;</span>
+    <span class="n">BLUE2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;94m&#39;</span>
+    <span class="n">CYAN1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;36m&#39;</span>
+    <span class="n">CYAN2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;96m&#39;</span>
+    <span class="n">GREEN1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;32m&#39;</span>
+    <span class="n">GREEN2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;92m&#39;</span>
+    <span class="n">GREY1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;90m&#39;</span>
+    <span class="n">GREY2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;37m&#39;</span>
+    <span class="n">PURPLE1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;35m&#39;</span>
+    <span class="n">PURPLE2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;95m&#39;</span>
+    <span class="n">RED1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;31m&#39;</span>
+    <span class="n">RED2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;91m&#39;</span>
+    <span class="n">WHITE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;97m&#39;</span>
+    <span class="n">YELLOW1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;33m&#39;</span>
+    <span class="n">YELLOW2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;93m&#39;</span>
+    <span class="n">CLEAR</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span></div>
+
+
+
+<span class="c1"># ------------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="get_plotly_template">
 <a class="viewcode-back" href="../../modules.html#lunchbox.theme.get_plotly_template">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_plotly_template</span><span class="p">(</span><span class="n">colorscheme</span><span class="o">=</span><span class="n">Colorscheme</span><span class="p">):</span>
@@ -198,6 +248,166 @@
         <span class="p">)</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">template</span></div>
+
+
+
+<span class="c1"># ------------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="ThemeFormatter">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.ThemeFormatter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ThemeFormatter</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">HelpFormatter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    ThemeFormatter makes click CLI output prettier.</span>
+
+<span class="sd">    Include the following code to add it to click:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import lunchbox.theme as lbc</span>
+<span class="sd">        click.Context.formatter_class = lbc.ThemeFormatter</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="ThemeFormatter.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.ThemeFormatter.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">heading_color</span><span class="o">=</span><span class="s1">&#39;blue2&#39;</span><span class="p">,</span>
+        <span class="n">command_color</span><span class="o">=</span><span class="s1">&#39;cyan2&#39;</span><span class="p">,</span>
+        <span class="n">flag_color</span><span class="o">=</span><span class="s1">&#39;green2&#39;</span><span class="p">,</span>
+        <span class="n">grayscale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="c1"># type: (Any, str, str, str, bool, Any) -&gt; None</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructs a ThemeFormatter instance for use with click.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            \*args (optional): Positional arguments.</span>
+<span class="sd">            heading_color (str, optional): Heading color. Default: blue2.</span>
+<span class="sd">            command_color (str, optional): Command color. Default: cyan2.</span>
+<span class="sd">            flag_color (str, optional): Flag color. Default: green2.</span>
+<span class="sd">            grayscale (bool, optional): Grayscale colors only. Default: False.</span>
+<span class="sd">            \*\*kwargs (optional): Keyword arguments.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_indent</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span> <span class="o">=</span> <span class="s1">&#39;=&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_width</span> <span class="o">=</span> <span class="mi">80</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_calls</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">TerminalColorscheme</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">if</span> <span class="n">grayscale</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_heading_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span><span class="p">[</span><span class="n">heading_color</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span><span class="p">[</span><span class="n">command_color</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flag_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span><span class="p">[</span><span class="n">flag_color</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ThemeFormatter.write_text">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.ThemeFormatter.write_text">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="c1"># type: (str) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Writes re-indented text into the buffer. This rewraps and preserves</span>
+<span class="sd">        paragraphs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): Text to write.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">formatting</span><span class="o">.</span><span class="n">wrap_text</span><span class="p">(</span>
+                <span class="n">text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_colors</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                <span class="n">initial_indent</span><span class="o">=</span><span class="s1">&#39;    &#39;</span><span class="p">,</span>
+                <span class="n">subsequent_indent</span><span class="o">=</span><span class="s1">&#39;    &#39;</span><span class="p">,</span>
+                <span class="n">preserve_paragraphs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ThemeFormatter.write_usage">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.ThemeFormatter.write_usage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prog</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (str, Any, Any) -&gt; None</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Writes a usage line into the buffer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            prog (str): Program name.</span>
+<span class="sd">            \*args (optional): Positional arguments.</span>
+<span class="sd">            \*\*kwargs (optional): Keyword arguments.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">prog</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{h}{text}{clear}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_heading_color</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_colors</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ThemeFormatter.write_dl">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.ThemeFormatter.write_dl">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_dl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">col_max</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">col_spacing</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="c1"># type: (Sequence[tuple[str, str]], int, int) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Writes a definition list into the buffer. This is how options and</span>
+<span class="sd">        commands are usually formatted.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rows (list): List of (term, value) tuples.</span>
+<span class="sd">            col_max (int, optional): Maximum width of first column. Default: 30.</span>
+<span class="sd">            col_spacing (int, optional): Spacing between first and second</span>
+<span class="sd">                columns. Default: 2.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="s1">&#39;  </span><span class="si">{f}{k}{clear}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">f</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_flag_color</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_colors</span>
+            <span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_colors</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">write_dl</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">col_max</span><span class="p">,</span> <span class="n">col_spacing</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_calls</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_width</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{h}{line}{clear}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_heading_color</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_colors</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ThemeFormatter.write_heading">
+<a class="viewcode-back" href="../../modules.html#lunchbox.theme.ThemeFormatter.write_heading">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heading</span><span class="p">):</span>
+        <span class="c1"># type: (str) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Write section heading into buffer.</span>
+
+<span class="sd">        Commands is converted to COMMANDS.</span>
+<span class="sd">        Options is converted to FLAGS.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            heading (str): Heading text.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heading_color</span>
+        <span class="k">if</span> <span class="n">heading</span> <span class="o">==</span> <span class="s1">&#39;Options&#39;</span><span class="p">:</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="s1">&#39;FLAGS&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flag_color</span>
+        <span class="k">elif</span> <span class="n">heading</span> <span class="o">==</span> <span class="s1">&#39;Commands&#39;</span><span class="p">:</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="s1">&#39;COMMANDS&#39;</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command_color</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flag_color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="n">heading</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+        <span class="n">buff</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;&#39;</span><span class="si">:</span><span class="s2">&gt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_indent</span><span class="si">}}</span><span class="s2">&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{color}{buff}{heading}{clear}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">buff</span><span class="o">=</span><span class="n">buff</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="n">heading</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_colors</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+</div>
 
 </pre></div>
 
