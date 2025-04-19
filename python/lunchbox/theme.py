@@ -168,7 +168,6 @@ class ColorFormatter(click.HelpFormatter):
     def write_usage(self, prog, *args, **kwargs):
         self._write_calls += 1
         text = prog.split(' ')[-1].upper() + ' '
-        text = text.rjust(8, self._sep)
         text = text.ljust(self._line_width, self._sep)
         text = '{h}{text}{clear}\n'.format(
             text=text, h=self._heading_color, **self._colors
