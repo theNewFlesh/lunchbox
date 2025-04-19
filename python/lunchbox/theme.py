@@ -155,7 +155,7 @@ class ColorFormatter(click.HelpFormatter):
         )
         self.write('\n')
 
-    def write_usage(self, prog, args='', prefix=None):
+    def write_usage(self, prog, **kwargs):
         self._write_calls += 1
         text = prog.split(' ')[-1].upper() + ' '
         text = text.rjust(8, self._sep)
