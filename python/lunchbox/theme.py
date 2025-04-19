@@ -114,7 +114,15 @@ class ColorFormatter(click.HelpFormatter):
     click.Context.formatter_class = ColorFormatter
     ```
     '''
-    def __init__(self, *args, grayscale=False, **kwargs):
+    def __init__(
+        self,
+        *args,
+        heading_color='blue2',
+        command_color='cyan2',
+        flag_color='green2',
+        grayscale=False,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self.current_indent = 4
         self._sep = '='
@@ -140,7 +148,9 @@ class ColorFormatter(click.HelpFormatter):
         )
         if grayscale:
             self._colors = {k: '' for k in self._colors.keys()}
-        self._dl_color = self._colors['green2']
+        self._heading_color = self._colors[heading_color]
+        self._command_color = self._colors[command_color]
+        self._flag_color = self._colors[flag_color]
 
     def write_text(self, text):
         self._write_calls += 1
@@ -155,20 +165,22 @@ class ColorFormatter(click.HelpFormatter):
         )
         self.write('\n')
 
-    def write_usage(self, prog, **kwargs):
+    def write_usage(self, prog, *args, **kwargs):
         self._write_calls += 1
         text = prog.split(' ')[-1].upper() + ' '
         text = text.rjust(8, self._sep)
         text = text.ljust(self._line_width, self._sep)
-        text = '{blue2}{text}{clear}\n'.format(text=text, **self._colors)
+        text = '{h}{text}{clear}\n'.format(
+            text=text, h=self._heading_color, **self._colors
+        )
         self.write(text)
 
     def write_dl(self, rows, col_max=30, col_spacing=2):
         self._write_calls += 1
         data = []
         for k, v in rows:
-            k = '  {dl}{k}{clear}'.format(
-                dl=self._dl_color, k=k, **self._colors
+            k = '  {f}{k}{clear}'.format(
+                f=self._flag_color, k=k, **self._colors
             )
             v = v.format(**self._colors)
             data.append((k, v))
@@ -176,19 +188,21 @@ class ColorFormatter(click.HelpFormatter):
 
         if self._write_calls in [4, 5]:
             line = self._sep * self._line_width
-            line = '\n{blue2}{line}{clear}\n'.format(line=line, **self._colors)
+            line = '\n{h}{line}{clear}\n'.format(
+                line=line, h=self._heading_color, **self._colors
+            )
             self.write(line)
 
     def write_heading(self, heading):
         self._write_calls += 1
-        color = self._colors['blue2']
+        color = self._heading_color
         if heading == 'Options':
             heading = 'FLAGS'
-            color = self._colors['green2']
+            color = self._flag_color
         elif heading == 'Commands':
             heading = 'COMMANDS'
-            color = self._colors['cyan2']
-            self._dl_color = color
+            color = self._command_color
+            self._flag_color = color
         heading += ' '
         buff = f"{'':>{self.current_indent}}"
         text = "{color}{buff}{heading}{clear}\n"
