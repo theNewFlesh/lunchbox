@@ -85,13 +85,76 @@ class ThemeFormatterTests(unittest.TestCase):
         self.assertEqual(result._colors, expected)
 
     def test_write_text(self):
-        pass
+        result = lbc.ThemeFormatter()
+        result.write_text('foo\n{cyan2}bar{clear}')
+        colors = lbc.TerminalColorscheme.to_dict()
+        expected = [
+            '    foo {CYAN2}bar{CLEAR}'.format(**colors),
+            '\n'
+        ]
+        self.assertEqual(result.buffer, expected)
 
     def test_write_usage(self):
-        pass
+        result = lbc.ThemeFormatter()
+        result.write_usage('FOOBAR')
+        colors = lbc.TerminalColorscheme.to_dict()
+        sep = '=' * 73
+        expected = ["{BLUE2}FOOBAR {sep}{CLEAR}\n".format(sep=sep, **colors)]
+        self.assertEqual(result.buffer, expected)
 
     def test_write_dl(self):
-        pass
+        cyan2 = lbc.TerminalColorscheme.CYAN2.value
+        green2 = lbc.TerminalColorscheme.GREEN2.value
+        clear = lbc.TerminalColorscheme.CLEAR.value
+
+        tmp = lbc.ThemeFormatter()
+        tmp.write_dl([
+            ('key1', 'value1'),
+            ('key2', '{cyan2}value2{clear}')
+        ])
+
+        result = tmp.buffer
+        self.assertEqual(result[0], f'      {green2}key1{clear}')
+        self.assertEqual(result[1], '  ')
+        self.assertEqual(result[2], 'value1\n')
+        self.assertEqual(result[3], f'      {green2}key2{clear}')
+        self.assertEqual(result[4], '  ')
+        self.assertEqual(result[5], f'{cyan2}value2{clear}\n')
+
+    def test_write_dl_end_section(self):
+        blue2 = lbc.TerminalColorscheme.BLUE2.value
+        clear = lbc.TerminalColorscheme.CLEAR.value
+
+        tmp = lbc.ThemeFormatter()
+        tmp._write_calls = 4
+        tmp.write_dl([
+            ('key1', 'value1'),
+            ('key2', '{blue2}value2{clear}')
+        ])
+        result = tmp.buffer[-1]
+
+        sep = '=' * 80
+        expected = f'\n{blue2}{sep}{clear}\n'
+        self.assertEqual(result, expected)
 
     def test_write_heading(self):
-        pass
+        blue2 = lbc.TerminalColorscheme.BLUE2.value
+        cyan2 = lbc.TerminalColorscheme.CYAN2.value
+        green2 = lbc.TerminalColorscheme.GREEN2.value
+        clear = lbc.TerminalColorscheme.CLEAR.value
+        tmp = lbc.ThemeFormatter()
+
+        # other
+        tmp.write_heading('pizza')
+        result = tmp.buffer[0]
+        self.assertEqual(result, f'{blue2}    pizza {clear}\n')
+
+        # options
+        tmp.write_heading('Options')
+        result = tmp.buffer[1]
+        self.assertEqual(result, f'{green2}    FLAGS {clear}\n')
+
+        # commands
+        tmp.write_heading('Commands')
+        result = tmp.buffer[2]
+        self.assertEqual(result, f'{cyan2}    COMMANDS {clear}\n')
