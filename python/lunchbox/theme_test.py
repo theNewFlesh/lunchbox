@@ -2,7 +2,7 @@ import unittest
 
 from enum import Enum
 
-import lunchbox.theme as lbtheme
+import lunchbox.theme as lbc
 # ------------------------------------------------------------------------------
 
 
@@ -34,7 +34,7 @@ class FakeColorscheme(Enum):
 
 class ThemeTests(unittest.TestCase):
     def test_to_dict(self):
-        class TestEnum(lbtheme.EnumBase):
+        class TestEnum(lbc.EnumBase):
             FOO = 'foo'
             BAR = 'bar'
 
@@ -43,7 +43,7 @@ class ThemeTests(unittest.TestCase):
         self.assertEqual(result, expected)
 
     def test_get_plotly_template(self):
-        result = lbtheme.get_plotly_template(FakeColorscheme)
+        result = lbc.get_plotly_template(FakeColorscheme)
         result = result['layout']
         expected = '#000000'
 
