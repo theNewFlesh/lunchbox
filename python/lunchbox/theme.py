@@ -108,11 +108,11 @@ class ColorFormatter(click.HelpFormatter):
     ColorForatter makes click CLI output pretty.
 
     Include the following code to add it to click:
-    ```
-    import lunchbox.theme as lbc
 
-    click.Context.formatter_class = lbc.ColorFormatter
-    ```
+    .. code-block:: python
+
+        import lunchbox.theme as lbc
+        click.Context.formatter_class = lbc.ColorFormatter
     '''
     def __init__(
         self,
