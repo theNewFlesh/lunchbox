@@ -109,9 +109,9 @@ class ColorFormatter(click.HelpFormatter):
 
     Include the following code to add it to click:
     ```
-    from lunchbox.theme import ColorFormatter
+    import lunchbox.theme as lbc
 
-    click.Context.formatter_class = ColorFormatter
+    click.Context.formatter_class = lbc.ColorFormatter
     ```
     '''
     def __init__(
@@ -123,6 +123,18 @@ class ColorFormatter(click.HelpFormatter):
         grayscale=False,
         **kwargs,
     ):
+        # type: (..., str, str, str, bool, ...) -> None
+        '''
+        Constructs a ColorFormatter instance for use with click.
+
+        Args:
+            \*args (optional): Positional arguments.
+            heading_color (str, optional): Heading color. Default: blue2.
+            command_color (str, optional): Command color. Default: cyan2.
+            flag_color (str, optional): Flag color. Default: green2.
+            grayscale (bool, optional): Grayscale colors only. Default: False.
+            \*\*kwargs (optional): Keyword arguments.
+        '''
         super().__init__(*args, **kwargs)
         self.current_indent = 4
         self._sep = '='
@@ -153,6 +165,13 @@ class ColorFormatter(click.HelpFormatter):
         self._flag_color = self._colors[flag_color]
 
     def write_text(self, text):
+        # type: (str) -> None
+        '''
+        Write given text.
+
+        Args:
+            text (str): Text to write.
+        '''
         self._write_calls += 1
         self.write(
             click.formatting.wrap_text(
@@ -166,6 +185,15 @@ class ColorFormatter(click.HelpFormatter):
         self.write('\n')
 
     def write_usage(self, prog, *args, **kwargs):
+        # type: (str, ..., ...) -> None
+        '''
+        Write usage text at top of help output.
+
+        Args:
+            prog (str): Program name.
+            \*args (optional): Positional arguments.
+            \*\*kwargs (optional): Keyword arguments.
+        '''
         self._write_calls += 1
         text = prog.split(' ')[-1].upper() + ' '
         text = text.ljust(self._line_width, self._sep)
@@ -175,6 +203,15 @@ class ColorFormatter(click.HelpFormatter):
         self.write(text)
 
     def write_dl(self, rows, col_max=30, col_spacing=2):
+        # type: (list[tuple[str, str]], int, int) -> None
+        '''
+        Write description list.
+
+        Args:
+            rows (list): List of (key, value) tuples.
+            col_max (int, optional): Maximum column width. Default: 30.
+            col_spacing (int, optional): Spacing between columns. Default: 2.
+        '''
         self._write_calls += 1
         data = []
         for k, v in rows:
@@ -193,6 +230,16 @@ class ColorFormatter(click.HelpFormatter):
             self.write(line)
 
     def write_heading(self, heading):
+        # type: (str) -> None
+        '''
+        Write section heading.
+
+        Commands is converted to COMMANDS.
+        Options is converted to FLAGS.
+
+        Args:
+            heading (str): Heading text.
+        '''
         self._write_calls += 1
         color = self._heading_color
         if heading == 'Options':
