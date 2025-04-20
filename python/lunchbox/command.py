@@ -10,7 +10,6 @@ import lunchbox.tools as lbt
 Command line interface to lunchbox library
 '''
 
-
 click.Context.formatter_class = lbc.ThemeFormatter
 
 
