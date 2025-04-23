@@ -67,7 +67,7 @@ class TerminalColorscheme(EnumBase):
     PURPLE2 = '\033[0;95m'
     RED1 = '\033[0;31m'
     RED2 = '\033[0;91m'
-    WHITE = '\033[0;97m'
+    WHITE = '\033[1;97m'
     YELLOW1 = '\033[0;33m'
     YELLOW2 = '\033[0;93m'
     CLEAR = '\033[0m'
