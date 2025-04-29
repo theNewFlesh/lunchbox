@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/theNewFlesh/cookiecutter-datalus",
-  "commit": "406ba133d49e0550cec8a6f7a322499a3d53dd8a",
+  "commit": "40c122ae85e2a67cea9252b9e388f3cfac5fa3f1",
   "checkout": null,
   "skip": [
     "__init__\\.py$",
