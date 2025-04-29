@@ -249,4 +249,3 @@ Usage: `lunchbox bash-completion`
 Prints ZSH completion code to be written to a _lunchbox completion file
 
 Usage: `lunchbox zsh-completion`
-

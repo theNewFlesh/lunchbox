@@ -4,11 +4,11 @@
   "checkout": null,
   "skip": [
     "__init__\\.py$",
-    "\\.gitignore$",
     "\\.gitkeep$",
     "docker/config/.*\\.lock$",
     "docker/config/build\\.yaml",
     "docs/.*",
+    "LICENSE",
     "mkdocs/md/(?!index\\.md|style\\.css)",
     "public/.*",
     "python/lunchbox/.*(?!command\\.py$)",
