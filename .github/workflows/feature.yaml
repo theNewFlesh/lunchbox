@@ -5,10 +5,10 @@ on:
     branches: [ github-workflows ]
 
 env:
-  repo: ${{ github.event.repository.name }}
+  repo: "${{ github.event.repository.name }}"
   cli: "bin/${{ github.event.repository.name }}"
-  org: "{{ cc.git_organization }}"
-  org_url: "{{ cc.organization_url }}"
+  org: "thenewflesh"
+  org_url: "github.com"
 
 jobs:
   build:
@@ -22,14 +22,8 @@ jobs:
     #     with:
     #       compose-file: "./docker/docker-compose.yml"
 
-      - name: env
-        run: |
-            env
+      - name: Pull Image
+        run: $($cli docker-pull-dev) || echo "docker image not found"
 
-      - name: pwd
-        run: |
-            pwd
-
-      - name: ls
-        run: |
-            ls
+      - name: Build Image
+        run: $cli docker-build-from-cache
