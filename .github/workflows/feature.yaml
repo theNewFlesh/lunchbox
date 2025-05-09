@@ -22,10 +22,14 @@ jobs:
     #     with:
     #       compose-file: "./docker/docker-compose.yml"
 
-      - name: Build Image
+      - name: env
         run: |
             env
 
       - name: pwd
         run: |
             pwd
+
+      - name: ls
+        run: |
+            ls
