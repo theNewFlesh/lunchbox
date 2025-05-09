@@ -34,29 +34,17 @@ jobs:
       - name: Start container
         run: $cli docker-start
 
-  docs:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Docs
+      - name: Generate docs
         run: $cli docs
 
-      - name: Metrics
+      - name: Generate code metrics
         run: $cli docs-metrics
 
-      - name: Architecture
+      - name: Generate architecture diagram
         run: $cli docs-architecture
 
-  lint:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Lint
+      - name: Lint code
         run: $cli test-lint
 
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Test
+      - name: Run tests
         run: $cli test-coverage
