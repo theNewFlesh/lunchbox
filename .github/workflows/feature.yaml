@@ -17,10 +17,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-    #   - name: Build Image
-    #     uses: hoverkraft-tech/compose-action@v2.0.1
-    #     with:
-    #       compose-file: "./docker/docker-compose.yml"
+    #   - name: Docker Login
+    #     run: docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
 
       - name: Pull Image
         run: $($cli docker-pull-dev) || echo "docker image not found"
