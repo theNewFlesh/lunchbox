@@ -30,3 +30,33 @@ jobs:
 
       - name: Build image
         run: $cli docker-build-from-cache
+
+      - name: Start container
+        run: $cli docker-start
+
+  docs:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Docs
+        run: $cli docs
+
+      - name: Metrics
+        run: $cli docs-metrics
+
+      - name: Architecture
+        run: $cli docs-architecture
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Lint
+        run: $cli test-lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Test
+        run: $cli test-coverage
