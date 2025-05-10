@@ -1,10 +1,13 @@
-name: Feature
-run-name: "Feature - ${{ github.head_ref }} - ${{ github.actor }}"
+# Please ensure the following GitHub repository action secrets are set up:
+#  - DOCKER_REGISTRY_USER
+#  - DOCKER_REGISTRY_PASSWORD
+
+name: Prod
+run-name: "Prod - ${{ github.head_ref }} - ${{ github.actor }}"
 
 on:
-  pull_request:
-    branches: [ master ]
-    types: [ opened, synchronize, reopened ]
+  push:
+    branches: [ prod ]
 
 env:
   repo: "${{ github.event.repository.name }}"
@@ -14,10 +17,11 @@ env:
   docker_registry: "docker.io"
 
 jobs:
-  feature:
+  prod:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Clone repo
         uses: actions/checkout@v4
@@ -38,20 +42,24 @@ jobs:
       - name: Build image
         run: $cli docker-build-from-cache
 
+      - name: Tag image
+        run: docker tag $repo:dev-latest $repo:dev
+
       - name: Start container
         run: $cli docker-start
 
-      - name: Generate docs
-        run: $cli docs
+      - name: Run prod tests
+        run: $cli test-prod
 
-      - name: Generate code metrics
-        run: $cli docs-metrics
+      - name: Publish python package
+        run: $cli build-publish -a ${{ secrets.PYPI_ACCESS_TOKEN }}
 
-      - name: Generate architecture diagram
-        run: $cli docs-architecture
+      - name: Build prod image
+        run: $cli docker-build-prod-no-cache
 
-      - name: Lint code
-        run: $cli test-lint
+      - name: Push prod image
+        run: $cli docker-push-prod
 
-      - name: Run tests
-        run: $cli test-coverage
+      - name: Push prod-latest image
+        run: $cli docker-push-prod-latest
+
