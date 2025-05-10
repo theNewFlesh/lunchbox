@@ -20,33 +20,36 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v4
 
-      - name: Docker login
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.docker_registry }}
-          username: ${{ secrets.DOCKER_REGISTRY_USER }}
-          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      - name: debug
+        run: ls -la
 
-      - name: Pull image
-        run: $($cli docker-pull-dev) || echo "docker image not found"
+    #   - name: Docker login
+    #     uses: docker/login-action@v3
+    #     with:
+    #       registry: ${{ env.docker_registry }}
+    #       username: ${{ secrets.DOCKER_REGISTRY_USER }}
+    #       password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
 
-      - name: Build image
-        run: $cli docker-build-from-cache
+    #   - name: Pull image
+    #     run: $($cli docker-pull-dev) || echo "docker image not found"
 
-      - name: Start container
-        run: $cli docker-start
+    #   - name: Build image
+    #     run: $cli docker-build-from-cache
 
-      - name: Generate docs
-        run: $cli docs
+    #   - name: Start container
+    #     run: $cli docker-start
 
-      - name: Generate code metrics
-        run: $cli docs-metrics
+    #   - name: Generate docs
+    #     run: $cli docs
 
-      - name: Generate architecture diagram
-        run: $cli docs-architecture
+    #   - name: Generate code metrics
+    #     run: $cli docs-metrics
 
-      - name: Lint code
-        run: $cli test-lint
+    #   - name: Generate architecture diagram
+    #     run: $cli docs-architecture
 
-      - name: Run tests
-        run: $cli test-coverage
+    #   - name: Lint code
+    #     run: $cli test-lint
+
+    #   - name: Run tests
+    #     run: $cli test-coverage
