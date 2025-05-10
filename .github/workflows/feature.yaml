@@ -1,4 +1,6 @@
 name: Feature
+run-name: "Feature - ${{ github.head_ref }} - ${{ github.actor }}"
+
 
 on:
   pull_request:
