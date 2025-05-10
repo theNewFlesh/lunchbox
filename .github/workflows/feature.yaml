@@ -20,6 +20,9 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v4
 
+      - name: Change repo permissions
+        run: chmod -R +w ./
+
       - name: debug
         run: ls -la
 
