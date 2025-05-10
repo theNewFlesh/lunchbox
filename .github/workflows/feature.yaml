@@ -1,5 +1,5 @@
 name: Feature
-run-name: "Feature - branch: ${{ github.head_ref }} - author: ${{ github.actor }} - pr: ${{ github.event.number }}"
+run-name: "Feature - ${{ github.head_ref }} - ${{ github.actor }}"
 
 on:
   pull_request:
