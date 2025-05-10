@@ -3,7 +3,7 @@
 #  - DOCKER_REGISTRY_PASSWORD
 
 name: Master Pull Request
-run-name: "Master Pull Request - ${{ github.head_ref }} - ${{ github.actor }}"
+run-name: "${{ github.head_ref }} --> master PR - ${{ github.actor }}"
 
 on:
   pull_request:
