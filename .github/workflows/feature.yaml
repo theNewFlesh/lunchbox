@@ -12,8 +12,10 @@ env:
   docker_registry: "docker.io"
 
 jobs:
-  build:
+  feature:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Clone repo
         uses: actions/checkout@v4
