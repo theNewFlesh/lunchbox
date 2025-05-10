@@ -1,5 +1,4 @@
 name: Feature
-run-name: "Feature - ${{ github.inputs.name }} - ${{ github.head_ref }} - ${{ github.actor }}"
 
 on:
   pull_request:
