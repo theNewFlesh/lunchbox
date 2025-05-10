@@ -23,36 +23,33 @@ jobs:
       - name: Change repo permissions
         run: chmod -R o+w ../
 
-      - name: debug
-        run: ls -la
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.docker_registry }}
+          username: ${{ secrets.DOCKER_REGISTRY_USER }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
 
-    #   - name: Docker login
-    #     uses: docker/login-action@v3
-    #     with:
-    #       registry: ${{ env.docker_registry }}
-    #       username: ${{ secrets.DOCKER_REGISTRY_USER }}
-    #       password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      - name: Pull image
+        run: $($cli docker-pull-dev) || echo "docker image not found"
 
-    #   - name: Pull image
-    #     run: $($cli docker-pull-dev) || echo "docker image not found"
+      - name: Build image
+        run: $cli docker-build-from-cache
 
-    #   - name: Build image
-    #     run: $cli docker-build-from-cache
+      - name: Start container
+        run: $cli docker-start
 
-    #   - name: Start container
-    #     run: $cli docker-start
+      - name: Generate docs
+        run: $cli docs
 
-    #   - name: Generate docs
-    #     run: $cli docs
+      - name: Generate code metrics
+        run: $cli docs-metrics
 
-    #   - name: Generate code metrics
-    #     run: $cli docs-metrics
+      - name: Generate architecture diagram
+        run: $cli docs-architecture
 
-    #   - name: Generate architecture diagram
-    #     run: $cli docs-architecture
+      - name: Lint code
+        run: $cli test-lint
 
-    #   - name: Lint code
-    #     run: $cli test-lint
-
-    #   - name: Run tests
-    #     run: $cli test-coverage
+      - name: Run tests
+        run: $cli test-coverage
