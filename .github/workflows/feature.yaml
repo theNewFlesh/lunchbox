@@ -1,8 +1,9 @@
 name: Feature
 
 on:
-  push:
-    branches: [ github-workflows ]
+  pull_request:
+    branches: [ master ]
+    types: [ opened, synchronize, reopened ]
 
 env:
   repo: "${{ github.event.repository.name }}"
