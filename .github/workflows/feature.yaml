@@ -12,7 +12,6 @@ env:
   org: "thenewflesh"
   org_url: "github.com"
   docker_registry: "docker.io"
-  BUILDKIT_PROGRESS: tty
 
 jobs:
   feature:
