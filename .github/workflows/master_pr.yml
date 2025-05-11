@@ -3,10 +3,12 @@
 #  - DOCKER_REGISTRY_PASSWORD
 
 name: Master Pull Request
-run-name: "${{ github.event.head_commit.message }} | PR: ${{ github.base_ref }} --> master | ${{ github.actor }}"
+run-name: "PR: ${{ github.head_ref }} > master | ${{ github.actor }}"
 
 on:
-  push:
+  pull_request:
+    branches: [ master ]
+    types: [ opened, synchronize ]
 
 env:
   repo: "${{ github.event.repository.name }}"
@@ -16,27 +18,8 @@ env:
   docker_registry: "docker.io"
 
 jobs:
-  event-check:
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    outputs:
-      abort: ${{ steps.event-check.outputs.abort }}
-    steps:
-      - name: Check CI Event
-        if: github.ref_name != 'master' && github.event_name == 'push'
-        id: event-check
-        run: |
-          pr_branches=$(gh pr list --json headRefName --repo "$GITHUB_REPOSITORY")
-          if [[ $(echo "$pr_branches" | jq -r --arg ref_name "$GITHUB_REF_NAME" '.[] | select(.headRefName == $ref_name)') ]]; then
-            echo "This push is associated with a pull request."
-            echo "abort=false" >> $GITHUB_OUTPUT
-          fi
-
   master-pr:
     runs-on: ubuntu-latest
-    needs: event-check
-    if: needs.event-check.outputs.abort != 'true'
     permissions:
       contents: write
 
