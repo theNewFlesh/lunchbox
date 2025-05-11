@@ -3,6 +3,7 @@
 #  - DOCKER_REGISTRY_PASSWORD
 
 name: Master Pull Request
+run-name: ""
 
 on:
   pull_request:
