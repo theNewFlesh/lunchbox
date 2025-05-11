@@ -4,12 +4,12 @@
 #  - PYPI_ACCESS_TOKEN
 
 name: Prod Pull Request
-run-name: "Prod Pull Request - ${{ github.head_ref }} - ${{ github.actor }}"
+run-name: "PR: ${{ github.head_ref }} --> prod | ${{ github.actor }}"
 
 on:
   pull_request:
     branches: [ prod ]
-    types: [ opened, synchronize, reopened ]
+    types: [ opened, synchronize ]
 
 env:
   repo: "${{ github.event.repository.name }}"

@@ -3,7 +3,7 @@
 #  - DOCKER_REGISTRY_PASSWORD
 
 name: Master
-run-name: "Master - ${{ github.head_ref }} - ${{ github.actor }}"
+run-name: "Push: ${{ github.head_ref }} | ${{ github.actor }}"
 
 on:
   push:
