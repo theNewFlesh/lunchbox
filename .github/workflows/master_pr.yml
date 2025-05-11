@@ -7,9 +7,6 @@ run-name: "PR: ${{ github.head_ref }} --> master | ${{ github.actor }} - ${{ git
 
 on:
   push:
-  pull_request:
-    branches: [ master ]
-    types: [ opened, synchronize ]
 
 env:
   repo: "${{ github.event.repository.name }}"
@@ -39,7 +36,7 @@ jobs:
   master-pr:
     runs-on: ubuntu-latest
     needs: event-check
-    if: needs.event-check.outputs.abort != 'false'
+    if: needs.event-check.outputs.abort != 'true'
     permissions:
       contents: write
 
