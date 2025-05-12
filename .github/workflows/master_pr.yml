@@ -3,7 +3,7 @@
 #  - DOCKER_REGISTRY_PASSWORD
 
 name: Master Pull Request
-run-name: "${{ github.event.head_commit.message }} | PR: ${{ github.head_ref }} --> master | ${{ github.actor }}"
+run-name: "${{ github.event.head_commit.message }} | PR: ${{ github.event.workflow_run.head_branch }} --> master | ${{ github.actor }}"
 
 on:
   push:
