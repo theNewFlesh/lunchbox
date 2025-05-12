@@ -31,9 +31,8 @@ jobs:
 
       - name: Setup git credentials
         run: |
-          git config --global user.name ci && \
-          git config --global user.email "ci@$org_url" && \
-          git remote set-url origin $git_url
+          git config user.name ci && \
+          git config user.email "ci@$org_url"
 
       - name: Docker login
         uses: docker/login-action@v3
