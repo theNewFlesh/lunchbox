@@ -62,4 +62,3 @@ jobs:
 
       - name: Push prod-latest image
         run: $cli docker-push-prod-latest
-
