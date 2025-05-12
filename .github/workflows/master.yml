@@ -29,35 +29,35 @@ jobs:
       - name: Change repo permissions
         run: chmod -R o+w ../
 
-      # - name: Setup git credentials
-      #   run: |
-      #     git config user.name ci && \
-      #     git config user.email "ci@$org_url"
+      - name: Setup git credentials
+        run: |
+          git config user.name ci && \
+          git config user.email "ci@$org_url"
 
-      # - name: Docker login
-      #   uses: docker/login-action@v3
-      #   with:
-      #     registry: ${{ env.docker_registry }}
-      #     username: ${{ secrets.DOCKER_REGISTRY_USER }}
-      #     password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.docker_registry }}
+          username: ${{ secrets.DOCKER_REGISTRY_USER }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
 
-      # - name: Pull image
-      #   run: $($cli docker-pull-dev) || echo "docker image not found"
+      - name: Pull image
+        run: $($cli docker-pull-dev) || echo "docker image not found"
 
-      # - name: Build image
-      #   run: $cli docker-build-from-cache
+      - name: Build image
+        run: $cli docker-build-from-cache
 
-      # - name: Start container
-      #   run: $cli docker-start
+      - name: Start container
+        run: $cli docker-start
 
-      # - name: Version bump
-      #   run: $cli version-bump-patch
+      - name: Version bump
+        run: $cli version-bump-patch
 
-      # - name: Version
-      #   run: $cli version
+      - name: Version
+        run: $cli version
 
-      # - name: Commit new version
-      #   run: $cli version-commit
+      - name: Commit new version
+        run: $cli version-commit
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
