@@ -1,6 +1,7 @@
 # Please ensure the following GitHub repository action secrets are set up:
 #  - DOCKER_REGISTRY_USER
 #  - DOCKER_REGISTRY_PASSWORD
+#  - PYPI_ACCESS_TOKEN
 
 name: Prod
 run-name: "${{ github.event.head_commit.message }} | ${{ github.actor }}"
