@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/theNewFlesh/cookiecutter-datalus",
-  "commit": "c7781a02cdfa76a823b97f7537685a735f857b09",
+  "commit": "3d5f1fb9587880bc76dd2c49e53cbbb56fe12298",
   "checkout": null,
   "skip": [
     "__init__\\.py$",
@@ -33,6 +33,7 @@
       "git_host": "github",
       "git_organization": "thenewflesh",
       "package_registry": "pypi",
+      "docker_registry": "docker.io",
       "organization_url": "github.com",
       "description": "A library of various tools for common python tasks",
       "author": "Alex Braun",
@@ -45,7 +46,7 @@
       "python_max_version": "13",
       "initial_repo_version": "0.3.3",
       "_template": "https://github.com/theNewFlesh/cookiecutter-datalus",
-      "_commit": "c7781a02cdfa76a823b97f7537685a735f857b09"
+      "_commit": "3d5f1fb9587880bc76dd2c49e53cbbb56fe12298"
     }
   },
   "directory": null
