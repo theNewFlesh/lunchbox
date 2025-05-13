@@ -33,7 +33,6 @@
       "git_host": "github",
       "git_organization": "thenewflesh",
       "package_registry": "pypi",
-      "docker_registry": "docker.io",
       "organization_url": "github.com",
       "description": "A library of various tools for common python tasks",
       "author": "Alex Braun",
