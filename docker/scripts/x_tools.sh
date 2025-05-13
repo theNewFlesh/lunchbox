@@ -16,6 +16,7 @@ export MAX_PYTHON_VERSION="3.13"
 export MKDOCS_DIR="$REPO_DIR/mkdocs"
 export PDM_DIR="$HOME/pdm"
 export PYPI_URL="pypi"
+export PYPI_TEST_URL="testpypi"
 export PYTHONPATH="$REPO_DIR/python:$HOME/.local/lib"
 export SCRIPT_DIR="$REPO_DIR/docker/scripts"
 export TEST_MAX_PROCS=16
@@ -337,6 +338,13 @@ x_build_publish () {
     # args: token
     local version=`_x_get_version`;
     _x_build_publish __token__ $1 $version $PYPI_URL;
+}
+
+x_build_publish_test () {
+    # Run tests and then publish pip package of repo to test PyPi
+    # args: token
+    local version=`_x_get_version`;
+    _x_build_publish __token__ $1 $version $PYPI_TEST_URL;
 }
 
 x_build_test () {

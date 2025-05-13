@@ -2,6 +2,7 @@
 #  - DOCKER_REGISTRY_USER
 #  - DOCKER_REGISTRY_PASSWORD
 #  - PYPI_ACCESS_TOKEN
+#  - PYPI_TEST_ACCESS_TOKEN
 
 name: Prod Pull Request
 run-name: "PR: ${{ github.head_ref }} --> prod | ${{ github.actor }}"
@@ -54,7 +55,7 @@ jobs:
         run: $cli test-prod
 
     #   - name: Publish python package
-    #     run: $cli build-publish -a ${{ secrets.PYPI_ACCESS_TOKEN }}
+    #     run: $cli build-publish-test -a ${{ secrets.PYPI_TEST_ACCESS_TOKEN }}
 
     #   - name: Build prod image
     #     run: $cli docker-build-prod-no-cache
