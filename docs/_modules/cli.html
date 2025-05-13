@@ -35,7 +35,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.6.4
+                0.6.5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -243,6 +243,7 @@
 <span class="s1">    build-package              - Generate pip package of repo</span>
 <span class="s1">    build-prod                 - Build production version of repo for publishing</span>
 <span class="s1">    build-publish              - Run production tests first then publish pip package of repo to PyPi</span>
+<span class="s1">    build-publish-test         - Run tests and then publish pip package of repo to test PyPi</span>
 <span class="s1">    build-test                 - Build test version of repo for prod testing</span>
 <span class="s1">    docker-build               - Build development image</span>
 <span class="s1">    docker-build-from-cache    - Build development image from registry cache</span>
@@ -1070,6 +1071,7 @@
         <span class="s1">&#39;build-package&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_package&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
         <span class="s1">&#39;build-prod&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_prod&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
         <span class="s1">&#39;build-publish&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_publish&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
+        <span class="s1">&#39;build-publish-test&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_publish_test&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
         <span class="s1">&#39;build-test&#39;</span><span class="p">:</span> <span class="n">x_tools_command</span><span class="p">(</span><span class="s1">&#39;x_build_test&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span>
         <span class="s1">&#39;docker-build&#39;</span><span class="p">:</span> <span class="n">build_dev_command</span><span class="p">(),</span>
         <span class="s1">&#39;docker-build-from-cache&#39;</span><span class="p">:</span> <span class="n">build_dev_command</span><span class="p">(</span><span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
