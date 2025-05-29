@@ -3,7 +3,7 @@ description: Build dev image
 
 inputs:
   repo:
-    default: "datalus"
+    default: "lunchbox"
     description: Repository name
     required: true
 
