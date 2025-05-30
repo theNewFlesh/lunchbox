@@ -23,8 +23,7 @@ runs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           outputs: type=docker
-          push: true
-          load: true
+          push: false
           tags: localhost:5000/${{ inputs.repo }}:dev-ci
           secret-files: |
             secret-env=docker/config/secret-env
