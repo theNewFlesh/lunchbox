@@ -247,6 +247,19 @@ Usage: `lunchbox bash-completion`
 
 ---
 
+### slack
+Posts a slack message to a given channel
+
+Usage: `lunchbox slack URL CHANNEL MESSAGE`
+
+| Argument | Description                          |
+| -------- | ------------------------------------ |
+| url      | https://hooks.slack.com/services URL |
+| channel  | slack channel name                   |
+| message  | message to be posted                 |
+
+---
+
 ### zsh-completion
 Prints ZSH completion code to be written to a _lunchbox completion file
 
