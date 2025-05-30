@@ -5,11 +5,11 @@ USER root
 # coloring syntax for headers
 ENV CYAN='\033[0;36m'
 ENV CLEAR='\033[0m'
-ENV DEBIAN_FRONTEND='noninteractive'
+ENV DEBIAN_FRONTEND="noninteractive"
 
 # setup ubuntu user
-ARG UID_='1000'
-ARG GID_='1000'
+ARG UID_="1000"
+ARG GID_="1000"
 RUN echo "\n${CYAN}SETUP UBUNTU USER${CLEAR}"; \
     addgroup --gid $GID_ ubuntu && \
     adduser \
