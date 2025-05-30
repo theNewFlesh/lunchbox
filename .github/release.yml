@@ -3,7 +3,7 @@ changelog:
     labels:
       - ignore
     authors:
-      - ci@github
+      - ci@github.com
   categories:
     - title: Breaking Changes
       labels:

@@ -23,7 +23,7 @@ inputs:
     required: true
 
   org_url:
-    default: "mycompany.com"
+    default: "github.com"
     description: Company URL
     required: true
 
