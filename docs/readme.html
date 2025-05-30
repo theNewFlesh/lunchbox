@@ -38,7 +38,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.6.5
+                0.6.6
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -509,7 +509,7 @@ Commands generally do not expect any arguments or flags.</p>
 <td><p>Run all tests</p></td>
 </tr>
 <tr class="row-even"><td><p>test-fast</p></td>
-<td><p>Test all code excepts tests marked with SKIP_SLOWS_TESTS decorator</p></td>
+<td><p>Test all code excepts tests marked with SKIP_SLOW_TESTS decorator</p></td>
 </tr>
 <tr class="row-odd"><td><p>test-format</p></td>
 <td><p>Format all python files</p></td>
@@ -523,25 +523,28 @@ Commands generally do not expect any arguments or flags.</p>
 <tr class="row-even"><td><p>version</p></td>
 <td><p>Full resolution of repo: dependencies, linting, tests, docs, etc</p></td>
 </tr>
-<tr class="row-odd"><td><p>version-bump-major</p></td>
+<tr class="row-odd"><td><p>version-bump</p></td>
+<td><p>Bump repo’s patch version up to x.x.20, then bump minor version</p></td>
+</tr>
+<tr class="row-even"><td><p>version-bump-major</p></td>
 <td><p>Bump pyproject major version</p></td>
 </tr>
-<tr class="row-even"><td><p>version-bump-minor</p></td>
+<tr class="row-odd"><td><p>version-bump-minor</p></td>
 <td><p>Bump pyproject minor version</p></td>
 </tr>
-<tr class="row-odd"><td><p>version-bump-patch</p></td>
+<tr class="row-even"><td><p>version-bump-patch</p></td>
 <td><p>Bump pyproject patch version</p></td>
 </tr>
-<tr class="row-even"><td><p>version-commit</p></td>
+<tr class="row-odd"><td><p>version-commit</p></td>
 <td><p>Tag with version and commit changes to master</p></td>
 </tr>
-<tr class="row-odd"><td><p>zsh</p></td>
+<tr class="row-even"><td><p>zsh</p></td>
 <td><p>Run ZSH session inside Docker container</p></td>
 </tr>
-<tr class="row-even"><td><p>zsh-complete</p></td>
+<tr class="row-odd"><td><p>zsh-complete</p></td>
 <td><p>Generate oh-my-zsh completions</p></td>
 </tr>
-<tr class="row-odd"><td><p>zsh-root</p></td>
+<tr class="row-even"><td><p>zsh-root</p></td>
 <td><p>Run ZSH session as root inside Docker container</p></td>
 </tr>
 </tbody>
