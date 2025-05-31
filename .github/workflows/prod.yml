@@ -9,7 +9,7 @@ env:
   cli: "bin/${{ github.event.repository.name }}"
   GH_TOKEN: "${{ secrets.GH_TOKEN }}"
   pypi_url: "https://pypi.org/project/lunchbox"
-  docker_url: "https://hub.docker.com/r/thenewflesh/hidebound"
+  docker_url: "https://hub.docker.com/r/thenewflesh/lunchbox"
 
 jobs:
   prod:
