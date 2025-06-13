@@ -31,7 +31,7 @@
 [![](https://img.shields.io/pypi/v/lunchbox?style=for-the-badge&label=PyPI&color=5F95DE&logo=pypi&logoColor=5F95DE)](https://pypi.org/project/lunchbox/)
 [![](https://img.shields.io/pypi/dm/lunchbox?style=for-the-badge&label=Downloads&color=5F95DE)](https://pepy.tech/project/lunchbox)
 
-<p><img src="_images/logo.png"width="666px" height="360px"></p>
+<p><img src="_images/logo.png" style="max-width: 100%"></p>
 
 # Introduction
 
