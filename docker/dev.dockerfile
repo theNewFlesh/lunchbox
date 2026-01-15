@@ -166,7 +166,6 @@ RUN echo "\n${CYAN}INSTALL DEV DEPENDENCIES${CLEAR}"; \
     pdm completion zsh > /home/ubuntu/.oh-my-zsh/custom/completions/_pdm
 
 # setup pdm
-COPY --chown=ubuntu:ubuntu config/build.yaml /home/ubuntu/config/
 COPY --chown=ubuntu:ubuntu config/dev.lock /home/ubuntu/config/
 COPY --chown=ubuntu:ubuntu config/pdm.toml /home/ubuntu/config/
 COPY --chown=ubuntu:ubuntu config/prod.lock /home/ubuntu/config/
@@ -226,7 +225,7 @@ RUN echo "\n${CYAN}REMOVE DIRECTORIES${CLEAR}"; \
     rm -rf /home/ubuntu/config /home/ubuntu/scripts
 
 ENV REPO='lunchbox'
-ENV PYTHONPATH="$PYTHONPATH:/home/ubuntu/$REPO/python:/home/ubuntu/.local/lib"
+ENV PYTHONPATH="/home/ubuntu/$REPO/python:/home/ubuntu/.local/lib"
 ENV PYTHONPYCACHEPREFIX="/home/ubuntu/.python_cache"
 ENV HOME="/home/ubuntu"
 ENV JUPYTER_RUNTIME_DIR="/tmp/jupyter_runtime"

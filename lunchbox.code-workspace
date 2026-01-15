@@ -197,6 +197,15 @@
                 ]
             },
             {
+                "label": "[docs] sphinx",
+                "detail": "Generate sphinx rst files",
+                "icon": {"id": "book", "color": "terminal.ansiYellow"},
+                "command": [
+                    "source $X_TOOLS_PATH &&",
+                    "x_docs_sphinx"
+                ]
+            },
+            {
                 "label": "[library] add",
                 "detail": "Add a given package to a given dependency group",
                 "icon": {"id": "package", "color": "terminal.ansiCyan"},
@@ -606,7 +615,7 @@
             },
             {
                 "id": "commit_message",
-                "description": "Git commit message",
+                "description": "Git commit message:",
                 "type": "promptString",
                 "default": ""
             }
