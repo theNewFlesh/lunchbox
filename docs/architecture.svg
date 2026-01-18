@@ -135,29 +135,29 @@
 <path fill="none" stroke="#a0d17b" d="M103.65,-186.6C155.38,-180.66 247.34,-168.96 325,-153 334.17,-151.12 343.75,-148.89 353.19,-146.55"/>
 <polygon fill="#a0d17b" stroke="#a0d17b" points="354.13,-149.92 362.96,-144.07 352.41,-143.14 354.13,-149.92"/>
 </g>
-<!-- wrapt -->
-<g id="node10" class="node">
-<title>wrapt</title>
-<polygon fill="#343434" stroke="#343434" points="271.5,-36 213.5,-36 213.5,0 271.5,0 271.5,-36"/>
-<text text-anchor="middle" x="242.5" y="-14.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">wrapt</text>
-</g>
-<!-- wrapt&#45;&gt;lunchbox\.tools -->
-<g id="edge13" class="edge">
-<title>wrapt&#45;&gt;lunchbox\.tools</title>
-<path fill="none" stroke="#de958e" d="M271.68,-24.67C287.86,-29.14 308.24,-35.89 325,-45 352.94,-60.19 380.85,-83.34 400.23,-101"/>
-<polygon fill="#de958e" stroke="#de958e" points="398.02,-103.72 407.73,-107.96 402.78,-98.59 398.02,-103.72"/>
-</g>
 <!-- humanfriendly -->
-<g id="node11" class="node">
+<g id="node10" class="node">
 <title>humanfriendly</title>
 <polygon fill="#343434" stroke="#343434" points="124,-90 0,-90 0,-54 124,-54 124,-90"/>
 <text text-anchor="middle" x="62" y="-68.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">humanfriendly</text>
 </g>
 <!-- humanfriendly&#45;&gt;lunchbox\.stopwatch -->
-<g id="edge14" class="edge">
+<g id="edge13" class="edge">
 <title>humanfriendly&#45;&gt;lunchbox\.stopwatch</title>
 <path fill="none" stroke="#de958e" d="M124.43,-72C132.62,-72 141.16,-72 149.73,-72"/>
 <polygon fill="#de958e" stroke="#de958e" points="149.78,-75.5 159.78,-72 149.78,-68.5 149.78,-75.5"/>
+</g>
+<!-- wrapt -->
+<g id="node11" class="node">
+<title>wrapt</title>
+<polygon fill="#343434" stroke="#343434" points="271.5,-36 213.5,-36 213.5,0 271.5,0 271.5,-36"/>
+<text text-anchor="middle" x="242.5" y="-14.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">wrapt</text>
+</g>
+<!-- wrapt&#45;&gt;lunchbox\.tools -->
+<g id="edge14" class="edge">
+<title>wrapt&#45;&gt;lunchbox\.tools</title>
+<path fill="none" stroke="#de958e" d="M271.68,-24.67C287.86,-29.14 308.24,-35.89 325,-45 352.94,-60.19 380.85,-83.34 400.23,-101"/>
+<polygon fill="#de958e" stroke="#de958e" points="398.02,-103.72 407.73,-107.96 402.78,-98.59 398.02,-103.72"/>
 </g>
 </g>
 </svg>
