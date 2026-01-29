@@ -62,7 +62,7 @@
             "**/.Trash*": true,
         },
         "workbench.colorCustomizations": {
-            "statusBar.background" : "#9FD07A",
+            "statusBar.background": "#9FD07A",
             "statusBar.foreground": "#000000"
         }
     },
