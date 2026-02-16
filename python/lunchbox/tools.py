@@ -601,7 +601,7 @@ def api_function(wrapped=None, **kwargs):
 
         LOGGER.debug(f'{wrapped} called with {params}.')
         return wrapped(*args, **kwargs)
-    return wrapper(wrapped)
+    return wrapper(wrapped)  # type: ignore
 # ------------------------------------------------------------------------------
 
 
