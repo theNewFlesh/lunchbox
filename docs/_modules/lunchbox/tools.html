@@ -35,7 +35,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.6.13
+                0.7.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -751,7 +751,45 @@
 
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">wrapped</span><span class="si">}</span><span class="s1"> called with </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">wrapped</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">wrapped</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<span class="c1"># ------------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="RegexMatch">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.RegexMatch">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RegexMatch</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A convenience class for using regular expressions in match statements.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="RegexMatch.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.RegexMatch.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="c1"># type: (str) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Construct a RegexMatch instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            string (str): String to match pattern against.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span></div>
+
+
+<div class="viewcode-block" id="RegexMatch.__eq__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.tools.RegexMatch.__eq__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="c1"># type: (object) -&gt; bool</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Check if string matches pattern.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): Regular expression pattern.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if string matches pattern.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">))</span></div>
+</div>
 
 <span class="c1"># ------------------------------------------------------------------------------</span>
 
