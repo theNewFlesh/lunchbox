@@ -566,3 +566,11 @@ class LogRuntimeTest(unittest.TestCase):
             time.sleep(0.001)
         expected = r'foobar - \d+$'
         self.assertRegex(result[0], expected)
+
+    def test_regex_match(self):
+        string = lbt.RegexMatch('foo')
+        match string:
+            case '.*foo.*':
+                pass
+            case _:
+                raise AssertionError

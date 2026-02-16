@@ -605,6 +605,35 @@ def api_function(wrapped=None, **kwargs):
 # ------------------------------------------------------------------------------
 
 
+class RegexMatch:
+    '''
+    A convenience class for using regular expressions in match statements.
+    '''
+    def __init__(self, string):
+        # type: (str) -> None
+        '''
+        Construct a RegexMatch instance.
+
+        Args:
+            string (str): String to match pattern against.
+        '''
+        self.string = string
+
+    def __eq__(self, pattern):
+        # type: (object) -> bool
+        '''
+        Check if string matches pattern.
+
+        Args:
+            pattern (str): Regular expression pattern.
+
+        Returns:
+            bool: True if string matches pattern.
+        '''
+        return bool(re.search(str(pattern), self.string))
+# ------------------------------------------------------------------------------
+
+
 def is_standard_module(name):
     # type: (str) -> bool
     '''
