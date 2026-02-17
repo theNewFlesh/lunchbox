@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Optional, Union  # noqa: F401
+from typing import Any, Callable, Dict, Generator, List, Optional, Union  # noqa: F401
 
 from itertools import dropwhile, takewhile
 from pathlib import Path
@@ -18,6 +18,8 @@ from lunchbox.stopwatch import StopWatch
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'WARNING').upper()
 logging.basicConfig(level=LOG_LEVEL)
 LOGGER = logging.getLogger(__name__)
+
+FilePath = Path | str
 # ------------------------------------------------------------------------------
 
 
@@ -602,6 +604,127 @@ def api_function(wrapped=None, **kwargs):
         LOGGER.debug(f'{wrapped} called with {params}.')
         return wrapped(*args, **kwargs)
     return wrapper(wrapped)  # type: ignore
+
+
+def format_block(text, dedent=0, indent=0, collapse=True):
+    # type: (str, int, int, bool) -> str
+    '''
+    Format text block by a given indent.
+    Also strips leading and trailing newlines.
+
+    Args:
+        text (str): Text to be indented.
+        dedent (int, optional): Amount of indent to be removed. Default: 0.
+        indent (int, optional): Amount of indent. Default: 0.
+        collapse (bool, optional): If text is just whitespace, return a null
+            string. Default: True.
+
+    Returns:
+        str: Indented text.
+    '''
+    if collapse and re.search(r'^\s*$', text):
+        return ''
+
+    line = re.sub('^ *| *$', '', text)
+    lines = line.lstrip('\n').rstrip('\n').split('\n')
+    buff = '^' + ' ' * dedent
+    lines = [re.sub(buff, '', x) for x in lines]
+
+    # indent by given amount
+    ident = ' ' * indent
+    lines = [re.sub('^', ident, x) for x in lines]
+    output = '\n'.join(lines)
+    return output
+
+
+def autoformat_block(text):
+    # type: (str) -> str
+    '''
+    Determine block indentation and format text block with 0 indentation.
+
+    Args:
+        text (str): Text.
+
+    Returns:
+        str: Dedented text.
+    '''
+    lines = text.lstrip('\n').rstrip('\n').split('\n')
+    lines = list(filter(lambda x: not re.search('^ *$', x), lines))
+    tmp = [re.search('^ *', x).group(0) for x in lines]  # type: ignore
+    indents = list(map(len, tmp))
+    if indents == []:
+        indents = [0]
+    indent = min(indents)
+    return format_block(text, dedent=indent)
+
+
+def traverse_directory(
+    directory, include_regex='', exclude_regex='', entry_type='file'
+):
+    # type: (FilePath, str, str, str) -> Generator[Path, None, None]
+    '''
+    Recusively list all files or directories within a given directory.
+
+    Args:
+        directory (str or Path): Directory to walk.
+        include_regex (str, optional): Include filenames that match this regex.
+            Default: ''.
+        exclude_regex (str, optional): Exclude filenames that match this regex.
+            Default: ''.
+        entry_type (str, optional): Kind of directory entry to return. Options
+            include: file, directory. Default: file.
+
+    Raises:
+        FileNotFoundError: If argument is not a directory or does not exist.
+        EnforceError: If entry_type is not file or directory.
+
+    Yields:
+        Path: File.
+    '''
+    etypes = ['file', 'directory']
+    msg = 'Illegal entry type: {a}. Legal entry types: {b}.'
+    Enforce(entry_type, 'in', etypes, message=msg)
+
+    directory = Path(directory)
+    if not directory.is_dir():
+        msg = f'{directory} is not a directory or does not exist.'
+        raise FileNotFoundError(msg)
+    # --------------------------------------------------------------------------
+
+    include_re = re.compile(include_regex)
+    exclude_re = re.compile(exclude_regex)
+
+    for root, dirs, items in os.walk(directory):
+        if entry_type == 'directory':
+            items = dirs
+        for item in items:
+            filepath = Path(root, item)
+
+            output = True
+            temp = filepath.absolute().as_posix()
+            if include_regex != '' and not include_re.search(temp):
+                output = False
+            if exclude_regex != '' and exclude_re.search(temp):
+                output = False
+
+            if output:
+                yield filepath
+
+
+def str_to_bool(string):
+    # type: (str) -> bool
+    '''
+    Converts a string to a boolean value.
+
+    Args:
+        string (str): String to be converted.
+
+    Returns:
+        bool: Boolean
+    '''
+    if string.lower() == 'true':
+        return True
+    return False
 # ------------------------------------------------------------------------------
 
 

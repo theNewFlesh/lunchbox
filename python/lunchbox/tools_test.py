@@ -1,3 +1,5 @@
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import logging
 import multiprocessing
 import os
@@ -469,6 +471,209 @@ class ToolsTests(unittest.TestCase):
             lbt.log_level_to_int(1.0)
 
 
+    def test_regex_match(self):
+        string = lbt.RegexMatch('foo')
+        match string:
+            case '.*foo.*':
+                pass
+            case _:
+                raise AssertionError
+
+    def create_files(self, root):
+        filepaths = [
+            'a/1.foo',
+            'a/b/2.json',
+            'a/b/3.txt',
+            'a/b/c/4.json',
+            'a/b/c/5.txt'
+        ]
+        filepaths = [Path(root, x) for x in filepaths]
+        for filepath in filepaths:
+            os.makedirs(filepath.parent, exist_ok=True)
+            with open(filepath, 'w') as f:
+                f.write('')
+        return filepaths
+
+    def test_format_block(self):
+        text = '''
+            foo
+                bar
+                    baz
+        '''
+        expected = '''
+    foo
+        bar
+            baz
+'''[1:-1]
+        result = lbt.format_block(text, dedent=12, indent=4)
+        self.assertEqual(result, expected)
+
+        text = '''    
+    foo
+        bar
+    '''
+        expected = '''
+foo
+    bar
+'''[1:-1]
+        result = lbt.format_block(text, dedent=4, indent=0)
+        self.assertEqual(result, expected)
+
+    def test_format_block_collapse(self):
+        items = [
+            '', ' ', '\t', ' \t\n',
+            '''
+            '''
+        ]
+        for item in items:
+            result = lbt.format_block(item, indent=5, collapse=True)
+            self.assertEqual(result, '')
+
+    def test_autoformat_block(self):
+        text = '''
+        foo
+            bar
+        '''
+        result = lbt.autoformat_block(text)
+        self.assertEqual(result, 'foo\n    bar')
+
+        text = '''
+        foo
+        bar
+        '''
+        result = lbt.autoformat_block(text)
+        self.assertEqual(result, 'foo\nbar')
+
+        text = '''
+foo
+bar
+'''
+        result = lbt.autoformat_block(text)
+        self.assertEqual(result, 'foo\nbar')
+
+        text = '''
+  foo
+    bar
+'''
+        result = lbt.autoformat_block(text)
+        self.assertEqual(result, 'foo\n  bar')
+
+        text = lbt.format_block('''
+            users = [
+                {'name': 'john', 'role': 'admin'},
+                {'name': 'bill', 'role': 'admin'},
+                {'name': 'jacob', 'role': 'user'},
+            ]
+            result = filter_admin_users(users)
+            assert result == users[:2]
+        ''', dedent=8)
+        expected = lbt.format_block('''
+            users = [
+                {'name': 'john', 'role': 'admin'},
+                {'name': 'bill', 'role': 'admin'},
+                {'name': 'jacob', 'role': 'user'},
+            ]
+            result = filter_admin_users(users)
+            assert result == users[:2]
+        ''', dedent=12)
+        result = lbt.autoformat_block(text)
+        self.assertEqual(result, expected)
+
+    def test_autoformat_block_no_indent(self):
+        result = lbt.autoformat_block('')
+        self.assertEqual(result, '')
+
+    def test_traverse_directory(self):
+        with TemporaryDirectory() as root:
+            expected = sorted(self.create_files(root))
+            result = sorted(list(lbt.traverse_directory(root)))
+            self.assertEqual(result, expected)
+
+    def test_traverse_directory_directory(self):
+        with TemporaryDirectory() as root:
+            self.create_files(root)
+            expected = [
+                Path(root, 'a'),
+                Path(root, 'a/b'),
+                Path(root, 'a/b/c'),
+            ]
+            result = sorted(list(lbt.traverse_directory(root, entry_type='directory')))
+            self.assertEqual(result, expected)
+
+    def test_traverse_directory_error(self):
+        expected = '/foo/bar is not a directory or does not exist.'
+        with self.assertRaisesRegex(FileNotFoundError, expected):
+            next(lbt.traverse_directory('/foo/bar'))
+
+        expected = '/foo.bar is not a directory or does not exist.'
+        with self.assertRaisesRegex(FileNotFoundError, expected):
+            next(lbt.traverse_directory('/foo.bar'))
+
+        expected = 'Illegal entry type: foobar. Legal entry types: '
+        expected += r"\['file', 'directory'\]\."
+        with self.assertRaisesRegex(EnforceError, expected):
+            next(lbt.traverse_directory('/tmp', entry_type='foobar'))
+
+    def test_traverse_directory_include(self):
+        with TemporaryDirectory() as root:
+            regex = r'\.txt'
+
+            self.create_files(root)
+            expected = [
+                Path(root, 'a/b/3.txt'),
+                Path(root, 'a/b/c/5.txt'),
+            ]
+
+            result = lbt.traverse_directory(root, include_regex=regex)
+            result = sorted(list(result))
+            self.assertEqual(result, expected)
+
+    def test_traverse_directory_exclude(self):
+        with TemporaryDirectory() as root:
+            regex = r'\.txt'
+
+            self.create_files(root)
+            expected = [
+                Path(root, 'a/1.foo'),
+                Path(root, 'a/b/2.json'),
+                Path(root, 'a/b/c/4.json'),
+            ]
+
+            result = lbt.traverse_directory(root, exclude_regex=regex)
+            result = sorted(list(result))
+            self.assertEqual(result, expected)
+
+    def test_traverse_directory_include_exclude(self):
+        with TemporaryDirectory() as root:
+            i_regex = r'/a/b'
+            e_regex = r'\.json'
+
+            self.create_files(root)
+            expected = [
+                Path(root, 'a/b/3.txt'),
+                Path(root, 'a/b/c/5.txt'),
+            ]
+
+            result = lbt.traverse_directory(
+                root,
+                include_regex=i_regex,
+                exclude_regex=e_regex
+            )
+            result = sorted(list(result))
+            self.assertEqual(result, expected)
+
+    def test_str_to_bool(self):
+        assert lbt.str_to_bool('true') is True
+        assert lbt.str_to_bool('True') is True
+        assert lbt.str_to_bool('TRUE') is True
+        assert lbt.str_to_bool('TrUe') is True
+
+        assert lbt.str_to_bool('false') is False
+        assert lbt.str_to_bool('False') is False
+        assert lbt.str_to_bool('FALSE') is False
+        assert lbt.str_to_bool('any-string') is False
+
+
 class LogRuntimeTest(unittest.TestCase):
     def test_init(self):
         result = lbt.LogRuntime(
@@ -566,11 +771,3 @@ class LogRuntimeTest(unittest.TestCase):
             time.sleep(0.001)
         expected = r'foobar - \d+$'
         self.assertRegex(result[0], expected)
-
-    def test_regex_match(self):
-        string = lbt.RegexMatch('foo')
-        match string:
-            case '.*foo.*':
-                pass
-            case _:
-                raise AssertionError
