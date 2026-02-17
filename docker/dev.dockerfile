@@ -123,24 +123,24 @@ RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
     echo 'UTC' > /etc/timezone
 
 # install s6-overlay
+ARG ARCH_2="aarch64"
 RUN echo "\n${CYAN}INSTALL S6${CLEAR}"; \
-    export S6_ARCH=$ARCH_2 && \
-    export S6_VERSION="v3.2.2.0" && \
+    export S6_VERSION="v3.1.5.0" && \
     export S6_URL="https://github.com/just-containers/s6-overlay/releases/download" && \
     curl -fsSL "${S6_URL}/${S6_VERSION}/s6-overlay-noarch.tar.xz" \
         -o /tmp/s6-overlay-noarch.tar.xz && \
     curl -fsSL "${S6_URL}/${S6_VERSION}/s6-overlay-noarch.tar.xz.sha256" \
         -o /tmp/s6-overlay-noarch.tar.xz.sha256 && \
-    curl -fsSL "${S6_URL}/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.xz" \
-        -o /tmp/s6-overlay-${S6_ARCH}.tar.xz && \
-    curl -fsSL "${S6_URL}/${S6_VERSION}/s6-overlay-${S6_ARCH}.tar.xz.sha256" \
-        -o /tmp/s6-overlay-${S6_ARCH}.tar.xz.sha256 && \
+    curl -fsSL "${S6_URL}/${S6_VERSION}/s6-overlay-${ARCH_2}.tar.xz" \
+        -o /tmp/s6-overlay-${ARCH_2}.tar.xz && \
+    curl -fsSL "${S6_URL}/${S6_VERSION}/s6-overlay-${ARCH_2}.tar.xz.sha256" \
+        -o /tmp/s6-overlay-${ARCH_2}.tar.xz.sha256 && \
     tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
-    tar -C / -Jxpf /tmp/s6-overlay-${S6_ARCH}.tar.xz && \
+    tar -C / -Jxpf /tmp/s6-overlay-${ARCH_2}.tar.xz && \
     rm /tmp/s6-overlay-noarch.tar.xz \
        /tmp/s6-overlay-noarch.tar.xz.sha256 \
-       /tmp/s6-overlay-${S6_ARCH}.tar.xz \
-       /tmp/s6-overlay-${S6_ARCH}.tar.xz.sha256
+       /tmp/s6-overlay-${ARCH_2}.tar.xz \
+       /tmp/s6-overlay-${ARCH_2}.tar.xz.sha256
 
 USER ubuntu
 ENV PATH="/home/ubuntu/.local/bin:$PATH"
