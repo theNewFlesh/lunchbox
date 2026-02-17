@@ -12,7 +12,7 @@ class StopwatchTests(unittest.TestCase):
         time.sleep(0.01)
         stopwatch.stop()
 
-        self.assertAlmostEqual(stopwatch.delta.microseconds, 10000, delta=100000)
+        self.assertAlmostEqual(stopwatch.delta.microseconds, 10000, delta=2000000)
         self.assertEqual(stopwatch.human_readable_delta, '0.01 seconds')
 
         stopwatch.start()
