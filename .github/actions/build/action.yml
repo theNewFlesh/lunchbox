@@ -27,6 +27,9 @@ runs:
           tags: localhost:5000/${{ inputs.repo }}:dev-ci
           secret-files: |
             secret-env=docker/config/secret-env
+          build-args: |
+            ARCH_1=amd64
+            ARCH_2=amd64
 
       - name: Tag image
         shell: bash
