@@ -232,7 +232,7 @@ def resolve(commands):
     '''
     cmd = ' && '.join(commands)
     arch_1 = PLATFORM.split('/')[1]
-    arch_2 = arch_1
+    arch_2 = 'x86_64'
     if arch_1 == 'arm64':
         arch_2 = 'aarch64'
 
