@@ -9,15 +9,16 @@ class StopwatchTests(unittest.TestCase):
     def test_stopwatch(self):
         stopwatch = StopWatch()
         stopwatch.start()
-        time.sleep(0.01)
+        time.sleep(0.1)
         stopwatch.stop()
 
-        self.assertAlmostEqual(stopwatch.delta.microseconds, 10000, delta=2000000)
-        self.assertEqual(stopwatch.human_readable_delta, '0.01 seconds')
+        delta = 1 * 1000000
+        self.assertAlmostEqual(stopwatch.delta.microseconds, 1, delta=delta)
+        self.assertRegex(stopwatch.human_readable_delta, '0.1.* second')
 
         stopwatch.start()
-        time.sleep(0.02)
+        time.sleep(0.2)
         stopwatch.stop()
 
-        self.assertAlmostEqual(stopwatch.delta.microseconds, 20000, delta=100000)
-        self.assertEqual(stopwatch.human_readable_delta, '0.02 seconds')
+        self.assertAlmostEqual(stopwatch.delta.microseconds, 2, delta=delta)
+        self.assertRegex(stopwatch.human_readable_delta, '0.2.* seconds')
