@@ -3,6 +3,7 @@ import unittest
 import pytest
 
 from lunchbox.enforce import Comparator, Enforce, EnforceError
+import lunchbox.enforce as lbe
 # ------------------------------------------------------------------------------
 
 
@@ -367,3 +368,23 @@ class EnforceTests(unittest.TestCase):
         expected = Taco().__class__.__name__
         result = e.get_type_name(Taco())
         self.assertEqual(result, expected)
+
+
+class EnforceFuncsTests(unittest.TestCase):
+    def test_enforce_homogenous_type(self):
+        lbe.enforce_homogenous_type([1, 2, 3, 4])
+        lbe.enforce_homogenous_type(['foo', 'bar'])
+        lbe.enforce_homogenous_type(range(10))
+
+        expected = 'Iterable may only contain one type of object. '
+        expected += r"Found types: \['int', 'str'\]\."
+        with self.assertRaisesRegex(EnforceError, expected):
+            lbe.enforce_homogenous_type([1, 2, 'foo'])
+
+        with self.assertRaisesRegex(EnforceError, expected):
+            lbe.enforce_homogenous_type(map(lambda x: x, [1, 2, 'foo']))
+
+        expected = 'Foobar may only contain one type of object. '
+        expected += r"Found types: \['int', 'str'\]\."
+        with self.assertRaisesRegex(EnforceError, expected):
+            lbe.enforce_homogenous_type([1, 2, 'foo'], name='Foobar')

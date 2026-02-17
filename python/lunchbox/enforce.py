@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Set, Tuple, Union  # noqa: F401
+from typing import Any, Iterable, List, Optional, Set, Tuple, Union  # noqa: F401
 
 from enum import Enum
 # ------------------------------------------------------------------------------
@@ -388,3 +388,21 @@ than 4. A value: 1. B value: 5.
             str: item.__class__.__name__
         '''
         return item.__class__.__name__
+
+
+def enforce_homogenous_type(iterable, name='Iterable'):
+    # type: (Iterable, str) -> None
+    '''
+    Ensures that iterable only contains only one type of object.
+
+    Args:
+        items (iterable): Iterable.
+        name (str, optional): First word in error message. Default: Iterable.
+
+    Raises:
+        EnforceError: If iterable contains more than one type of object.
+    '''
+    types = [x.__class__.__name__ for x in iterable]
+    types = sorted(list(set(types)))
+    msg = f'{name} may only contain one type of object. Found types: {types}.'
+    Enforce(len(types), '==', 1, message=msg)
