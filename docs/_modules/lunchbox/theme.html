@@ -35,7 +35,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.8.3
+                0.9.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -57,6 +57,7 @@
 <p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">enforce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.enum">enum</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.singleton">singleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.stopwatch">stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.theme">theme</a></li>
@@ -97,34 +98,14 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">click</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lunchbox.enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnumBase</span>
 <span class="c1"># ------------------------------------------------------------------------------</span>
-
-
-<div class="viewcode-block" id="EnumBase">
-<a class="viewcode-back" href="../../modules.html#lunchbox.theme.EnumBase">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">EnumBase</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Base class for enums.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-<div class="viewcode-block" id="EnumBase.to_dict">
-<a class="viewcode-back" href="../../modules.html#lunchbox.theme.EnumBase.to_dict">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="c1"># type: () -&gt; dict</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Convert enum to a dictionary.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: (name, value) dictionary.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__members__</span><span class="o">.</span><span class="n">values</span><span class="p">()}</span></div>
-</div>
-
 
 
 <div class="viewcode-block" id="Colorscheme">
 <a class="viewcode-back" href="../../modules.html#lunchbox.theme.Colorscheme">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">Colorscheme</span><span class="p">(</span><span class="n">EnumBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Colorscheme</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Henanigans color scheme.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -199,7 +180,7 @@
         <span class="n">cs</span><span class="o">.</span><span class="n">YELLOW2</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">LIGHT2</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">DARK2</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">GREY2</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">CYAN1</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">RED1</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">GREEN1</span><span class="p">,</span>
         <span class="n">cs</span><span class="o">.</span><span class="n">BLUE1</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">ORANGE1</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">PURPLE1</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">YELLOW1</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">LIGHT1</span><span class="p">,</span> <span class="n">cs</span><span class="o">.</span><span class="n">DARK1</span><span class="p">,</span>
         <span class="n">cs</span><span class="o">.</span><span class="n">GREY1</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="p">]</span>  <span class="c1"># type: list[Colorscheme]</span>
 
     <span class="n">template</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">layout</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>

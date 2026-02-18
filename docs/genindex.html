@@ -35,7 +35,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.8.3
+                0.9.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -57,6 +57,7 @@
 <p class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">enforce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.enum">enum</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.singleton">singleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.stopwatch">stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.theme">theme</a></li>
@@ -123,6 +124,8 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__annotations__">__annotations__ (lunchbox.enum.EnumBaseMeta attribute)</a>
+</li>
       <li><a href="modules.html#lunchbox.enforce.Enforce.__dict__">__dict__ (lunchbox.enforce.Enforce attribute)</a>
 
       <ul>
@@ -147,6 +150,8 @@
         <li><a href="modules.html#lunchbox.enforce.Enforce.__firstlineno__">(lunchbox.enforce.Enforce attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.enforce.EnforceError.__firstlineno__">(lunchbox.enforce.EnforceError attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__firstlineno__">(lunchbox.enum.EnumBaseMeta attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__firstlineno__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
@@ -186,13 +191,15 @@
 </li>
         <li><a href="modules.html#lunchbox.enforce.EnforceError.__module__">(lunchbox.enforce.EnforceError attribute)</a>
 </li>
+        <li><a href="modules.html#lunchbox.enum.EnumBase.__module__">(lunchbox.enum.EnumBase attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__module__">(lunchbox.enum.EnumBaseMeta attribute)</a>
+</li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__module__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.stopwatch.StopWatch.__module__">(lunchbox.stopwatch.StopWatch attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.theme.Colorscheme.__module__">(lunchbox.theme.Colorscheme attribute)</a>
-</li>
-        <li><a href="modules.html#lunchbox.theme.EnumBase.__module__">(lunchbox.theme.EnumBase attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.theme.TerminalColorscheme.__module__">(lunchbox.theme.TerminalColorscheme attribute)</a>
 </li>
@@ -208,9 +215,13 @@
       <li><a href="modules.html#lunchbox.singleton.Singleton.__new__">__new__() (lunchbox.singleton.Singleton static method)</a>
 
       <ul>
-        <li><a href="modules.html#lunchbox.theme.Colorscheme.__new__">(lunchbox.theme.Colorscheme method)</a>
-</li>
         <li><a href="modules.html#lunchbox.theme.TerminalColorscheme.__new__">(lunchbox.theme.TerminalColorscheme method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#lunchbox.enum.EnumBase.__repr__">__repr__() (lunchbox.enum.EnumBase method)</a>
+
+      <ul>
+        <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__repr__">(lunchbox.enum.EnumBaseMeta method)</a>
 </li>
       </ul></li>
       <li><a href="cli.html#cli.BetterHelpFormatter.__static_attributes__">__static_attributes__ (cli.BetterHelpFormatter attribute)</a>
@@ -219,6 +230,8 @@
         <li><a href="modules.html#lunchbox.enforce.Enforce.__static_attributes__">(lunchbox.enforce.Enforce attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.enforce.EnforceError.__static_attributes__">(lunchbox.enforce.EnforceError attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__static_attributes__">(lunchbox.enum.EnumBaseMeta attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__static_attributes__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
@@ -380,7 +393,9 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#lunchbox.theme.EnumBase">EnumBase (class in lunchbox.theme)</a>
+      <li><a href="modules.html#lunchbox.enum.EnumBase">EnumBase (class in lunchbox.enum)</a>
+</li>
+      <li><a href="modules.html#lunchbox.enum.EnumBaseMeta">EnumBaseMeta (class in lunchbox.enum)</a>
 </li>
       <li><a href="modules.html#lunchbox.enforce.Comparator.EQ">EQ (lunchbox.enforce.Comparator attribute)</a>
 </li>
@@ -396,12 +411,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#lunchbox.tools.FilePath">FilePath (in module lunchbox.tools)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#lunchbox.tools.format_block">format_block() (in module lunchbox.tools)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#lunchbox.enforce.Comparator.from_string">from_string() (lunchbox.enforce.Comparator static method)</a>
+
+      <ul>
+        <li><a href="modules.html#lunchbox.enum.EnumBase.from_string">(lunchbox.enum.EnumBase class method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -512,13 +531,20 @@
 </li>
       <li><a href="modules.html#lunchbox.enforce.Enforce.lte">lte() (lunchbox.enforce.Enforce method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lunchbox.enforce
 
       <ul>
         <li><a href="modules.html#module-lunchbox.enforce">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    lunchbox.enum
+
+      <ul>
+        <li><a href="modules.html#module-lunchbox.enum">module</a>
 </li>
       </ul></li>
       <li>
@@ -557,6 +583,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cli.html#cli.main">main() (in module cli)</a>
 </li>
+      <li><a href="modules.html#lunchbox.enum.EnumBase.members">members() (lunchbox.enum.EnumBase class method)</a>
+</li>
       <li><a href="modules.html#lunchbox.tools.LogRuntime.message">message (lunchbox.tools.LogRuntime attribute)</a>
 </li>
       <li>
@@ -566,6 +594,8 @@
         <li><a href="cli.html#module-cli">cli</a>
 </li>
         <li><a href="modules.html#module-lunchbox.enforce">lunchbox.enforce</a>
+</li>
+        <li><a href="modules.html#module-lunchbox.enum">lunchbox.enum</a>
 </li>
         <li><a href="modules.html#module-lunchbox.singleton">lunchbox.singleton</a>
 </li>
@@ -598,10 +628,12 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#lunchbox.theme.Colorscheme.ORANGE1">ORANGE1 (lunchbox.theme.Colorscheme attribute)</a>
+      <li><a href="modules.html#lunchbox.enum.EnumBase.options">options() (lunchbox.enum.EnumBase class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#lunchbox.theme.Colorscheme.ORANGE1">ORANGE1 (lunchbox.theme.Colorscheme attribute)</a>
+</li>
       <li><a href="modules.html#lunchbox.theme.Colorscheme.ORANGE2">ORANGE2 (lunchbox.theme.Colorscheme attribute)</a>
 </li>
   </ul></td>
@@ -722,7 +754,7 @@
 </li>
       <li><a href="modules.html#lunchbox.theme.ThemeFormatter">ThemeFormatter (class in lunchbox.theme)</a>
 </li>
-      <li><a href="modules.html#lunchbox.theme.EnumBase.to_dict">to_dict() (lunchbox.theme.EnumBase class method)</a>
+      <li><a href="modules.html#lunchbox.enum.EnumBase.to_dict">to_dict() (lunchbox.enum.EnumBase class method)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools.to_snakecase">to_snakecase() (in module lunchbox.tools)</a>
 </li>

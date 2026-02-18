@@ -38,7 +38,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.8.3
+                0.9.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -109,6 +109,26 @@
 <li class="toctree-l2"><a class="reference internal" href="#lunchbox.enforce.enforce_homogenous_type"><code class="docutils literal notranslate"><span class="pre">enforce_homogenous_type()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#module-lunchbox.enum">enum</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lunchbox.enum.EnumBase"><code class="docutils literal notranslate"><span class="pre">EnumBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBase.__module__"><code class="docutils literal notranslate"><span class="pre">EnumBase.__module__</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBase.__repr__"><code class="docutils literal notranslate"><span class="pre">EnumBase.__repr__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBase.from_string"><code class="docutils literal notranslate"><span class="pre">EnumBase.from_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBase.members"><code class="docutils literal notranslate"><span class="pre">EnumBase.members()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBase.options"><code class="docutils literal notranslate"><span class="pre">EnumBase.options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBase.to_dict"><code class="docutils literal notranslate"><span class="pre">EnumBase.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lunchbox.enum.EnumBaseMeta"><code class="docutils literal notranslate"><span class="pre">EnumBaseMeta</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBaseMeta.__annotations__"><code class="docutils literal notranslate"><span class="pre">EnumBaseMeta.__annotations__</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBaseMeta.__firstlineno__"><code class="docutils literal notranslate"><span class="pre">EnumBaseMeta.__firstlineno__</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBaseMeta.__module__"><code class="docutils literal notranslate"><span class="pre">EnumBaseMeta.__module__</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBaseMeta.__repr__"><code class="docutils literal notranslate"><span class="pre">EnumBaseMeta.__repr__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lunchbox.enum.EnumBaseMeta.__static_attributes__"><code class="docutils literal notranslate"><span class="pre">EnumBaseMeta.__static_attributes__</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="#module-lunchbox.singleton">singleton</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#lunchbox.singleton.Singleton"><code class="docutils literal notranslate"><span class="pre">Singleton</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lunchbox.singleton.Singleton.__dict__"><code class="docutils literal notranslate"><span class="pre">Singleton.__dict__</span></code></a></li>
@@ -163,12 +183,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#lunchbox.theme.Colorscheme.YELLOW1"><code class="docutils literal notranslate"><span class="pre">Colorscheme.YELLOW1</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lunchbox.theme.Colorscheme.YELLOW2"><code class="docutils literal notranslate"><span class="pre">Colorscheme.YELLOW2</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lunchbox.theme.Colorscheme.__module__"><code class="docutils literal notranslate"><span class="pre">Colorscheme.__module__</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lunchbox.theme.Colorscheme.__new__"><code class="docutils literal notranslate"><span class="pre">Colorscheme.__new__()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#lunchbox.theme.EnumBase"><code class="docutils literal notranslate"><span class="pre">EnumBase</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lunchbox.theme.EnumBase.__module__"><code class="docutils literal notranslate"><span class="pre">EnumBase.__module__</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lunchbox.theme.EnumBase.to_dict"><code class="docutils literal notranslate"><span class="pre">EnumBase.to_dict()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lunchbox.theme.TerminalColorscheme"><code class="docutils literal notranslate"><span class="pre">TerminalColorscheme</span></code></a><ul>
@@ -785,6 +799,126 @@ comparator.</p>
 </dd></dl>
 
 </section>
+<section id="module-lunchbox.enum">
+<span id="enum"></span><h1>enum<a class="headerlink" href="#module-lunchbox.enum" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.enum.</span></span><span class="sig-name descname"><span class="pre">EnumBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Base class for enums.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBase.__module__">
+<span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lunchbox.enum'</span></em><a class="headerlink" href="#lunchbox.enum.EnumBase.__module__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBase.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBase.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBase.__repr__" title="Link to this definition"></a></dt>
+<dd><p>str: String representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBase.from_string">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBase.from_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBase.from_string" title="Link to this definition"></a></dt>
+<dd><p>Returns enum from a given string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong> (<em>str</em>) – String.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If illegal string is given.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Enum.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>enum</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBase.members">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">members</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBase.members"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBase.members" title="Link to this definition"></a></dt>
+<dd><p>Returns list of enum members.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of enum members.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBase.options">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBase.options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBase.options" title="Link to this definition"></a></dt>
+<dd><p>Returns list of enum options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of enum options.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBase.to_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBase.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBase.to_dict" title="Link to this definition"></a></dt>
+<dd><p>Convert enum to a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(name, value) dictionary.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBaseMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.enum.</span></span><span class="sig-name descname"><span class="pre">EnumBaseMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classdict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBaseMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBaseMeta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumType</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBaseMeta.__annotations__">
+<span class="sig-name descname"><span class="pre">__annotations__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#lunchbox.enum.EnumBaseMeta.__annotations__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBaseMeta.__firstlineno__">
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#lunchbox.enum.EnumBaseMeta.__firstlineno__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBaseMeta.__module__">
+<span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lunchbox.enum'</span></em><a class="headerlink" href="#lunchbox.enum.EnumBaseMeta.__module__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBaseMeta.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/enum.html#EnumBaseMeta.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.enum.EnumBaseMeta.__repr__" title="Link to this definition"></a></dt>
+<dd><p>str: String representation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lunchbox.enum.EnumBaseMeta.__static_attributes__">
+<span class="sig-name descname"><span class="pre">__static_attributes__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#lunchbox.enum.EnumBaseMeta.__static_attributes__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-lunchbox.singleton">
 <span id="singleton"></span><h1>singleton<a class="headerlink" href="#module-lunchbox.singleton" title="Link to this heading"></a></h1>
 <dl class="py class">
@@ -919,7 +1053,7 @@ it does not.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="lunchbox.theme.Colorscheme">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.theme.</span></span><span class="sig-name descname"><span class="pre">Colorscheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/theme.html#Colorscheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.theme.Colorscheme" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#lunchbox.theme.EnumBase" title="lunchbox.theme.EnumBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnumBase</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>Henanigans color scheme.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lunchbox.theme.Colorscheme.BG">
@@ -1041,43 +1175,12 @@ it does not.</p>
 <span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lunchbox.theme'</span></em><a class="headerlink" href="#lunchbox.theme.Colorscheme.__module__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="lunchbox.theme.Colorscheme.__new__">
-<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lunchbox.theme.Colorscheme.__new__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="lunchbox.theme.EnumBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.theme.</span></span><span class="sig-name descname"><span class="pre">EnumBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/theme.html#EnumBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.theme.EnumBase" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>Base class for enums.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="lunchbox.theme.EnumBase.__module__">
-<span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lunchbox.theme'</span></em><a class="headerlink" href="#lunchbox.theme.EnumBase.__module__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="lunchbox.theme.EnumBase.to_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/theme.html#EnumBase.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.theme.EnumBase.to_dict" title="Link to this definition"></a></dt>
-<dd><p>Convert enum to a dictionary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>(name, value) dictionary.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="lunchbox.theme.TerminalColorscheme">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.theme.</span></span><span class="sig-name descname"><span class="pre">TerminalColorscheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/theme.html#TerminalColorscheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.theme.TerminalColorscheme" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#lunchbox.theme.EnumBase" title="lunchbox.theme.EnumBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnumBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#lunchbox.enum.EnumBase" title="lunchbox.enum.EnumBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnumBase</span></code></a></p>
 <p>Terminal color scheme.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lunchbox.theme.TerminalColorscheme.BLUE1">
@@ -1183,7 +1286,7 @@ it does not.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lunchbox.theme.ThemeFormatter.__firstlineno__">
-<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">146</span></em><a class="headerlink" href="#lunchbox.theme.ThemeFormatter.__firstlineno__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">132</span></em><a class="headerlink" href="#lunchbox.theme.ThemeFormatter.__firstlineno__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
