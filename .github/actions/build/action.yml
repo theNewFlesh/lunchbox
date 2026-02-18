@@ -22,6 +22,7 @@ runs:
           file: docker/dev.dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          load: true
           outputs: type=docker
           push: false
           tags: localhost:5000/${{ inputs.repo }}:dev-ci

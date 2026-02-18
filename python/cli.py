@@ -426,7 +426,6 @@ def build_dev_command(use_cache=True):
     cmd = line('''
         cd docker;
         docker build
-            --pull never
             --platform {platform}
             --file dev.dockerfile
             --build-arg BUILDKIT_INLINE_CACHE=1
