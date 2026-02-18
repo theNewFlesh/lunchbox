@@ -33,15 +33,6 @@ class FakeColorscheme(Enum):
 
 
 class ThemeTests(unittest.TestCase):
-    def test_to_dict(self):
-        class TestEnum(lbc.EnumBase):
-            FOO = 'foo'
-            BAR = 'bar'
-
-        result = TestEnum.to_dict()
-        expected = dict(FOO='foo', BAR='bar')
-        self.assertEqual(result, expected)
-
     def test_get_plotly_template(self):
         result = lbc.get_plotly_template(FakeColorscheme)
         result = result['layout']

@@ -3,26 +3,12 @@ from typing import Any, Sequence, Type  # noqa: F401
 from enum import Enum
 
 import click
+
+from lunchbox.enum import EnumBase
 # ------------------------------------------------------------------------------
 
 
-class EnumBase(Enum):
-    '''
-    Base class for enums.
-    '''
-    @classmethod
-    def to_dict(cls):
-        # type: () -> dict
-        '''
-        Convert enum to a dictionary.
-
-        Returns:
-            dict: (name, value) dictionary.
-        '''
-        return {x.name: x.value for x in cls.__members__.values()}
-
-
-class Colorscheme(EnumBase):
+class Colorscheme(Enum):
     '''
     Henanigans color scheme.
     '''
@@ -91,7 +77,7 @@ def get_plotly_template(colorscheme=Colorscheme):
         cs.YELLOW2, cs.LIGHT2, cs.DARK2, cs.GREY2, cs.CYAN1, cs.RED1, cs.GREEN1,
         cs.BLUE1, cs.ORANGE1, cs.PURPLE1, cs.YELLOW1, cs.LIGHT1, cs.DARK1,
         cs.GREY1,
-    ]
+    ]  # type: list[Colorscheme]
 
     template = dict(
         layout=dict(
