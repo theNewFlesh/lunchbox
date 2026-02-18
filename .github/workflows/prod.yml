@@ -28,7 +28,6 @@ jobs:
         with:
           docker_registry_user: ${{ secrets.DOCKER_REGISTRY_USER }}
           docker_registry_password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
-          pypi_repo: prod
 
       - name: Build dev image
         uses: ./.github/actions/build
