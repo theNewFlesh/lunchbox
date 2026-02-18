@@ -29,11 +29,11 @@ jobs:
           docker_registry_password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
           pypi_repo: prod
 
-      - name: List local docker images
-        run: docker images
-
       - name: Build dev image
         uses: ./.github/actions/build
+
+      - name: List local docker images
+        run: docker images
 
       - name: Start container
         run: $cli docker-start
