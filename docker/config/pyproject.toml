@@ -113,6 +113,10 @@ ignore = [
 docstring-quotes = "single"
 inline-quotes = "single"
 
+[[tool.pdm.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple"
+
 [tool.uv]
 cache-dir = "/home/ubuntu/pdm/cache"
 
