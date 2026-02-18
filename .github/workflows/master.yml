@@ -32,9 +32,6 @@ jobs:
       - name: Build dev image
         uses: ./.github/actions/build
 
-      - name: List local docker images
-        run: docker images
-
       - name: Start container
         run: $cli docker-start
 
