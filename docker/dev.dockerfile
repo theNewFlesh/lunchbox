@@ -123,7 +123,6 @@ RUN echo "\n${CYAN}SETUP ZSH${CLEAR}"; \
     echo 'UTC' > /etc/timezone
 
 # install s6-overlay
-ARG ARCH_2="aarch64"
 RUN echo "\n${CYAN}INSTALL S6${CLEAR}"; \
     export S6_VERSION="v3.1.5.0" && \
     export S6_URL="https://github.com/just-containers/s6-overlay/releases/download" && \
