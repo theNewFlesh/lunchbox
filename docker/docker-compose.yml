@@ -2,7 +2,6 @@ services:
   lunchbox:
     container_name: lunchbox
     image: lunchbox:dev
-    platform: linux/arm64
     build:
       context: .
       dockerfile: dev.dockerfile
