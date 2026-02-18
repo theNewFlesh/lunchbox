@@ -3,7 +3,6 @@ services:
     container_name: lunchbox
     image: lunchbox:dev
     platform: linux/arm64
-    pull_policy: never
     build:
       context: .
       dockerfile: dev.dockerfile
