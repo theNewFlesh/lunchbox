@@ -46,6 +46,9 @@ jobs:
       - name: Publish python package
         run: $cli build-publish-test -a ${{ secrets.PYPI_TEST_ACCESS_TOKEN }}
 
+      - name: Wait for package to exist
+        run: $cli build-wait
+
       - name: Build prod image
         run: $cli docker-build-prod-no-cache
 

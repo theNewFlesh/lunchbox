@@ -355,6 +355,27 @@ x_build_test () {
     _x_build_show_dir;
 }
 
+x_build_wait () {
+    # Waits for PyPI test release to exist
+    local version=`_x_get_version`;
+    local url=$TEST_PYPI_URL;
+    if [ "$url" = 'testpypi' ]; then
+        url=https://pypi.org/pypi/$REPO/json;
+    fi;
+    for i in {1..10}; do
+        local exists=`curl -s -k $url | grep '"$version":'`;
+        if [ "$exists" = '' ]; then
+            echo 'PyPI release found';
+            exit 0;
+        fi
+        echo 'PyPI release not found';
+        sleep 1;
+    done;
+
+    echo 'Timout reached';
+    exit 1;
+}
+
 # DOCS-FUNCTIONS----------------------------------------------------------------
 x_docs () {
     # Generate documentation
