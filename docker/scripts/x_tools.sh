@@ -334,6 +334,27 @@ _x_build_publish () {
         --verbose;
 }
 
+_x_build_wait () {
+    # Waits for PyPI test release to exist
+    local version=`_x_get_version`;
+    local url=$TEST_PYPI_URL;
+    if [ "$url" = 'testpypi' ]; then
+        url=https://test.pypi.org/pypi/$REPO/json;
+    fi;
+    for i in {1..10}; do
+        local exists=`curl -s -k $url | grep '"$version":'`;
+        if [ "$exists" = '' ]; then
+            echo "${GREEN2}PYPI RELEASE FOUND${CLEAR}\n";
+            exit 0;
+        fi
+        echo 'PyPI release not found';
+        sleep 1;
+    done;
+
+    echo "${RED2}TIMOUT REACHED${CLEAR}\n";
+    exit 1;
+}
+
 x_build_publish () {
     # Run production tests first then publish pip package of repo to PyPi
     # args: token
@@ -346,6 +367,7 @@ x_build_publish_test () {
     # args: token
     local version=`_x_get_version`;
     _x_build_publish __token__ $1 $version $PYPI_TEST_URL;
+    _x_build_wait;
 }
 
 x_build_test () {
@@ -353,27 +375,6 @@ x_build_test () {
     echo "${CYAN2}BUILDING TEST REPO${CLEAR}\n";
     _x_build test;
     _x_build_show_dir;
-}
-
-x_build_wait () {
-    # Waits for PyPI test release to exist
-    local version=`_x_get_version`;
-    local url=$TEST_PYPI_URL;
-    if [ "$url" = 'testpypi' ]; then
-        url=https://test.pypi.org/pypi/$REPO/json;
-    fi;
-    for i in {1..10}; do
-        local exists=`curl -s -k $url | grep '"$version":'`;
-        if [ "$exists" = '' ]; then
-            echo 'PyPI release found';
-            exit 0;
-        fi
-        echo 'PyPI release not found';
-        sleep 1;
-    done;
-
-    echo 'Timout reached';
-    exit 1;
 }
 
 # DOCS-FUNCTIONS----------------------------------------------------------------
