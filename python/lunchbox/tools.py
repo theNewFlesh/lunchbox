@@ -567,7 +567,6 @@ def dir_table(obj, public=True, semiprivate=True, private=False, max_width=100):
 
 
 def api_function(wrapped=None, **kwargs):
-    # type: (Optional[Callable], Any) -> Callable
     r'''
     A decorator that enforces keyword argument only function signatures and
     required keyword argument values when called.
@@ -603,7 +602,7 @@ def api_function(wrapped=None, **kwargs):
 
         LOGGER.debug(f'{wrapped} called with {params}.')
         return wrapped(*args, **kwargs)
-    return wrapper(wrapped)  # type: ignore
+    return wrapper(wrapped)
 
 
 def format_block(text, dedent=0, indent=0, collapse=True):
