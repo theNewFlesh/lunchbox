@@ -360,7 +360,7 @@ x_build_wait () {
     local version=`_x_get_version`;
     local url=$TEST_PYPI_URL;
     if [ "$url" = 'testpypi' ]; then
-        url=https://pypi.org/pypi/$REPO/json;
+        url=https://test.pypi.org/pypi/$REPO/json;
     fi;
     for i in {1..10}; do
         local exists=`curl -s -k $url | grep '"$version":'`;
