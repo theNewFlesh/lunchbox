@@ -87,26 +87,32 @@
 <path fill="none" stroke="#b6ecf3" d="M452.26,-182.21C483,-205.29 536.06,-245.12 570.2,-270.75"/>
 <polygon fill="#b6ecf3" stroke="#b6ecf3" points="568.34,-273.74 578.44,-276.94 572.55,-268.14 568.34,-273.74"/>
 </g>
-<!-- click -->
+<!-- humanfriendly -->
 <g id="node9" class="node">
-<title>click</title>
-<polygon fill="#343434" stroke="#343434" points="271.5,-290 213.5,-290 213.5,-254 271.5,-254 271.5,-290"/>
-<text text-anchor="middle" x="242.5" y="-268.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">click</text>
+<title>humanfriendly</title>
+<polygon fill="#343434" stroke="#343434" points="124,-90 0,-90 0,-54 124,-54 124,-90"/>
+<text text-anchor="middle" x="62" y="-68.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">humanfriendly</text>
 </g>
-<!-- click&#45;&gt;lunchbox\.command -->
+<!-- humanfriendly&#45;&gt;lunchbox\.stopwatch -->
 <g id="edge6" class="edge">
-<title>click&#45;&gt;lunchbox\.command</title>
-<path fill="none" stroke="#de958e" d="M271.67,-273.8C324.3,-277.18 439.4,-284.55 518.93,-289.65"/>
-<polygon fill="#de958e" stroke="#de958e" points="518.73,-293.14 528.93,-290.29 519.17,-286.15 518.73,-293.14"/>
+<title>humanfriendly&#45;&gt;lunchbox\.stopwatch</title>
+<path fill="none" stroke="#de958e" d="M124.43,-72C132.62,-72 141.16,-72 149.73,-72"/>
+<polygon fill="#de958e" stroke="#de958e" points="149.78,-75.5 159.78,-72 149.78,-68.5 149.78,-75.5"/>
 </g>
-<!-- click&#45;&gt;lunchbox\.theme -->
+<!-- wrapt -->
+<g id="node10" class="node">
+<title>wrapt</title>
+<polygon fill="#343434" stroke="#343434" points="271.5,-182 213.5,-182 213.5,-146 271.5,-146 271.5,-182"/>
+<text text-anchor="middle" x="242.5" y="-160.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">wrapt</text>
+</g>
+<!-- wrapt&#45;&gt;lunchbox\.tools -->
 <g id="edge7" class="edge">
-<title>click&#45;&gt;lunchbox\.theme</title>
-<path fill="none" stroke="#de958e" d="M271.62,-279.09C292.81,-284.43 322.93,-292.02 350.94,-299.08"/>
-<polygon fill="#de958e" stroke="#de958e" points="350.19,-302.5 360.74,-301.55 351.9,-295.71 350.19,-302.5"/>
+<title>wrapt&#45;&gt;lunchbox\.tools</title>
+<path fill="none" stroke="#de958e" d="M271.62,-164C292.72,-164 322.66,-164 350.57,-164"/>
+<polygon fill="#de958e" stroke="#de958e" points="350.74,-167.5 360.74,-164 350.74,-160.5 350.74,-167.5"/>
 </g>
 <!-- lunchbox -->
-<g id="node10" class="node">
+<g id="node11" class="node">
 <title>lunchbox</title>
 <polygon fill="#343434" stroke="#343434" points="103.5,-336 20.5,-336 20.5,-300 103.5,-300 103.5,-336"/>
 <text text-anchor="middle" x="62" y="-314.3" font-family="Courier,monospace" font-size="14.00" fill="#a0d17b">lunchbox</text>
@@ -153,29 +159,23 @@
 <path fill="none" stroke="#a0d17b" d="M66.35,-299.92C74.53,-261.7 99.43,-173.26 160,-137 226.64,-97.11 319.8,-120.9 376.35,-142.16"/>
 <polygon fill="#a0d17b" stroke="#a0d17b" points="375.19,-145.47 385.78,-145.82 377.72,-138.94 375.19,-145.47"/>
 </g>
-<!-- humanfriendly -->
-<g id="node11" class="node">
-<title>humanfriendly</title>
-<polygon fill="#343434" stroke="#343434" points="124,-90 0,-90 0,-54 124,-54 124,-90"/>
-<text text-anchor="middle" x="62" y="-68.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">humanfriendly</text>
-</g>
-<!-- humanfriendly&#45;&gt;lunchbox\.stopwatch -->
-<g id="edge15" class="edge">
-<title>humanfriendly&#45;&gt;lunchbox\.stopwatch</title>
-<path fill="none" stroke="#de958e" d="M124.43,-72C132.62,-72 141.16,-72 149.73,-72"/>
-<polygon fill="#de958e" stroke="#de958e" points="149.78,-75.5 159.78,-72 149.78,-68.5 149.78,-75.5"/>
-</g>
-<!-- wrapt -->
+<!-- click -->
 <g id="node12" class="node">
-<title>wrapt</title>
-<polygon fill="#343434" stroke="#343434" points="271.5,-182 213.5,-182 213.5,-146 271.5,-146 271.5,-182"/>
-<text text-anchor="middle" x="242.5" y="-160.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">wrapt</text>
+<title>click</title>
+<polygon fill="#343434" stroke="#343434" points="271.5,-290 213.5,-290 213.5,-254 271.5,-254 271.5,-290"/>
+<text text-anchor="middle" x="242.5" y="-268.3" font-family="Courier,monospace" font-size="14.00" fill="#de958e">click</text>
 </g>
-<!-- wrapt&#45;&gt;lunchbox\.tools -->
+<!-- click&#45;&gt;lunchbox\.command -->
+<g id="edge15" class="edge">
+<title>click&#45;&gt;lunchbox\.command</title>
+<path fill="none" stroke="#de958e" d="M271.67,-273.8C324.3,-277.18 439.4,-284.55 518.93,-289.65"/>
+<polygon fill="#de958e" stroke="#de958e" points="518.73,-293.14 528.93,-290.29 519.17,-286.15 518.73,-293.14"/>
+</g>
+<!-- click&#45;&gt;lunchbox\.theme -->
 <g id="edge16" class="edge">
-<title>wrapt&#45;&gt;lunchbox\.tools</title>
-<path fill="none" stroke="#de958e" d="M271.62,-164C292.72,-164 322.66,-164 350.57,-164"/>
-<polygon fill="#de958e" stroke="#de958e" points="350.74,-167.5 360.74,-164 350.74,-160.5 350.74,-167.5"/>
+<title>click&#45;&gt;lunchbox\.theme</title>
+<path fill="none" stroke="#de958e" d="M271.62,-279.09C292.81,-284.43 322.93,-292.02 350.94,-299.08"/>
+<polygon fill="#de958e" stroke="#de958e" points="350.19,-302.5 360.74,-301.55 351.9,-295.71 350.19,-302.5"/>
 </g>
 </g>
 </svg>
