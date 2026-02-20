@@ -42,14 +42,14 @@ jobs:
       - name: Publish python package
         run: $cli build-publish -a ${{ secrets.PYPI_ACCESS_TOKEN }}
 
-      - name: Build prod image
-        run: $cli docker-build-prod-no-cache
+    #   - name: Build prod image
+    #     run: $cli docker-build-prod-no-cache
 
-      - name: Push prod image
-        run: $cli docker-push-prod
+    #   - name: Push prod image
+    #     run: $cli docker-push-prod
 
-      - name: Push prod-latest image
-        run: $cli docker-push-prod-latest
+    #   - name: Push prod-latest image
+    #     run: $cli docker-push-prod-latest
 
       - name: Get version
         id: version

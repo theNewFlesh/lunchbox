@@ -44,11 +44,11 @@ jobs:
       - name: Run prod tests
         run: $cli test-prod
 
-      - name: Publish python package
-        run: $cli build-publish-test -a ${{ secrets.PYPI_TEST_ACCESS_TOKEN }}
+    #   - name: Publish python package
+    #     run: $cli build-publish-test -a ${{ secrets.PYPI_TEST_ACCESS_TOKEN }}
 
-      - name: Build prod image
-        run: $cli docker-build-prod-no-cache
+    #   - name: Build prod image
+    #     run: $cli docker-build-prod-no-cache
 
     #   - name: Unpublish python package
     #     run: $cli build-unpublish -a ${{ secrets.PYPI_TEST_ACCESS_TOKEN }}
