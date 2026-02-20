@@ -345,6 +345,18 @@ x_build_publish_test () {
     # Run tests and then publish pip package of repo to test PyPi
     # args: token
     local version=`_x_get_version`;
+
+    # throw error if package already exists
+    local url=$TEST_PYPI_URL;
+    if [ "$url" = 'testpypi' ]; then
+        url=https://test.pypi.org/pypi/$REPO/json;
+    fi;
+    local exists=`curl -s -k $url | grep '"$version":'`;
+    if [ "$exists" != '' ]; then
+        echo "${RED2}PACKAGE ALEADY EXISTS${CLEAR}\n";
+        exit 1;
+    fi;
+
     _x_build_publish __token__ $1 $version $PYPI_TEST_URL;
 }
 
