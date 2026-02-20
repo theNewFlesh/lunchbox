@@ -8,6 +8,7 @@ on:
 env:
   cli: "bin/${{ github.event.repository.name }}"
   GH_TOKEN: "${{ secrets.GH_TOKEN }}"
+  DOCKER_DEFAULT_PLATFORM: linux/amd64
 
 jobs:
   master:
