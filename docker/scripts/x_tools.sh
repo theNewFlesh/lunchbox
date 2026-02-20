@@ -347,7 +347,7 @@ x_build_publish_test () {
     local version=`_x_get_version`;
 
     # throw error if package already exists
-    local url=$TEST_PYPI_URL;
+    local url=$PYPI_TEST_URL;
     if [ "$url" = 'testpypi' ]; then
         url=https://test.pypi.org/pypi/$REPO/json;
     fi;
