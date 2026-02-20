@@ -884,7 +884,6 @@ def main():
         'build-publish': x_tools_command('x_build_publish', args),
         'build-publish-test': x_tools_command('x_build_publish_test', args),
         'build-test': x_tools_command('x_build_test', args),
-        'build-wait': x_tools_command('x_build_wait', args),
         'docker-build': build_dev_command(),
         'docker-build-from-cache': build_dev_command(use_cache=True),
         'docker-build-no-cache': build_dev_command(use_cache=False),
