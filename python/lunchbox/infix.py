@@ -914,60 +914,64 @@ class AllInfix(
     r'''
     Infix class for all of the following operators:
 
-    * +         | add
-    * r+        | add (right)
-    * -         | subtract
-    * r-        | subtract (right)
-    * *         | multiply
-    * r*        | multiply (right)
-    * /         | divide
-    * r/        | divide (right)
-    * %         | modulo
-    * r%        | modulo (right)
-    * //        | floor divide
-    * r//       | floor divide (right)
-    * **        | exponentiate
-    * r**       | exponentiate (right)
-    * @         | matrix multiply
-    * r@        | matrix multiply (right)
-    * &         | and
-    * r&        | and (right)
-    * |         | or
-    * r|        | or (right)
-    * ^         | exclusive or
-    * r^        | exclusive or (right)
-    * <         | less than
-    * <=        | less than or equal
-    * >         | greater than
-    * >=        | greater than or equal
-    * >>        | right bit shift
-    * r>>       | right bit shift (right)
-    * <<        | left bit shift
-    * r<<       | left bit shift (right)
-    * []        | get item
-    * [] =      | set item
-    * [missing] | missing item
-    * del []    | delete item
-    * ~         | invert
-    * x-        | negative
-    * x+        | positive
-    * ==        | equal
-    * !=        | not equal
-    * +=        | add and assign
-    * -=        | subtract and assign
-    * *=        | multiply and assign
-    * /=        | divide and assign
-    * %=        | modulo and assign
-    * //=       | floor divide and assign
-    * **=       | pow and assign
-    * @=        | matrix multiply and assign
-    * &=        | and and assign
-    * |=        | or and assign
-    * ^=        | exclusive or and assign
-    * >>=       | right bit shift and assign
-    * <<=       | left bit shift and assign
-    * del .     | delete attribute
-    * in        | contains
+    ========= =========================== ===============
+    Key       Function                    From Class
+    ========= =========================== ===============
+    \+        add                         ArithmeticInfix
+    r+        add (right)                 ArithmeticInfix
+    \-        subtract                    ArithmeticInfix
+    r-        subtract (right)            ArithmeticInfix
+    \*        multiply                    ArithmeticInfix
+    r\*       multiply (right)            ArithmeticInfix
+    /         divide                      ArithmeticInfix
+    r/        divide (right)              ArithmeticInfix
+    %         modulo                      MathInfix
+    r%        modulo (right)              MathInfix
+    //        floor divide                MathInfix
+    r//       floor divide (right)        MathInfix
+    **        exponentiate                MathInfix
+    r**       exponentiate (right)        MathInfix
+    @         matrix multiply             MathInfix
+    r@        matrix multiply (right)     MathInfix
+    &         and                         LogicInfix
+    r&        and (right)                 LogicInfix
+    \|        or                          LogicInfix
+    r|        or (right)                  LogicInfix
+    ^         exclusive or                LogicInfix
+    r^        exclusive or (right)        LogicInfix
+    <         less than                   ComparisonInfix
+    <=        less than or equal          ComparisonInfix
+    >         greater than                ComparisonInfix
+    >=        greater than or equal       ComparisonInfix
+    >>        right bit shift             BitwiseInfix
+    r>>       right bit shift (right)     BitwiseInfix
+    <<        left bit shift              BitwiseInfix
+    r<<       left bit shift (right)      BitwiseInfix
+    []        get item                    ItemInfix
+    [] =      set item                    ItemInfix
+    [missing] missing item                ItemInfix
+    del []    delete item                 ItemInfix
+    ~         invert                      UnaryInfix
+    x-        negative                    UnaryInfix
+    x+        positive                    UnaryInfix
+    ==        equal                       EqualityInfix
+    !=        not equal                   EqualityInfix
+    +=        add and assign              AssignmentInfix
+    -=        subtract and assign         AssignmentInfix
+    *=        multiply and assign         AssignmentInfix
+    /=        divide and assign           AssignmentInfix
+    %=        modulo and assign           AssignmentInfix
+    //=       floor divide and assign     AssignmentInfix
+    **=       pow and assign              AssignmentInfix
+    @=        matrix multiply and assign  AssignmentInfix
+    &=        and and assign              AssignmentInfix
+    |=        or and assign               AssignmentInfix
+    ^=        exclusive or and assign     AssignmentInfix
+    >>=       right bit shift and assign  AssignmentInfix
+    <<=       left bit shift and assign   AssignmentInfix
+    del .     delete attribute            MiscInfix
+    in        contains                    MiscInfix
+    ========= =========================== ===============
     '''
     pass
 
@@ -984,42 +988,46 @@ class UtiltyInfix(
     r'''
     Infix class for all of the following operators:
 
-    * +         | add
-    * r+        | add (right)
-    * -         | subtract
-    * r-        | subtract (right)
-    * *         | multiply
-    * r*        | multiply (right)
-    * /         | divide
-    * r/        | divide (right)
-    * %         | modulo
-    * r%        | modulo (right)
-    * //        | floor divide
-    * r//       | floor divide (right)
-    * **        | exponentiate
-    * r**       | exponentiate (right)
-    * @         | matrix multiply
-    * r@        | matrix multiply (right)
-    * &         | and
-    * r&        | and (right)
-    * |         | or
-    * r|        | or (right)
-    * ^         | exclusive or
-    * r^        | exclusive or (right)
-    * <         | less than
-    * <=        | less than or equal
-    * >         | greater than
-    * >=        | greater than or equal
-    * >>        | right bit shift
-    * r>>       | right bit shift (right)
-    * <<        | left bit shift
-    * r<<       | left bit shift (right)
-    * []        | get item
-    * [] =      | set item
-    * [missing] | missing item
-    * del []    | delete item
-    * ~         | invert
-    * x-        | negative
-    * x+        | positive
+    ========= =========================== ===============
+    Key       Function                    From Class
+    ========= =========================== ===============
+    \+        add                         ArithmeticInfix
+    r+        add (right)                 ArithmeticInfix
+    \-        subtract                    ArithmeticInfix
+    r-        subtract (right)            ArithmeticInfix
+    \*        multiply                    ArithmeticInfix
+    r\*       multiply (right)            ArithmeticInfix
+    /         divide                      ArithmeticInfix
+    r/        divide (right)              ArithmeticInfix
+    %         modulo                      MathInfix
+    r%        modulo (right)              MathInfix
+    //        floor divide                MathInfix
+    r//       floor divide (right)        MathInfix
+    **        exponentiate                MathInfix
+    r**       exponentiate (right)        MathInfix
+    @         matrix multiply             MathInfix
+    r@        matrix multiply (right)     MathInfix
+    &         and                         LogicInfix
+    r&        and (right)                 LogicInfix
+    \|        or                          LogicInfix
+    r|        or (right)                  LogicInfix
+    ^         exclusive or                LogicInfix
+    r^        exclusive or (right)        LogicInfix
+    <         less than                   ComparisonInfix
+    <=        less than or equal          ComparisonInfix
+    >         greater than                ComparisonInfix
+    >=        greater than or equal       ComparisonInfix
+    >>        right bit shift             BitwiseInfix
+    r>>       right bit shift (right)     BitwiseInfix
+    <<        left bit shift              BitwiseInfix
+    r<<       left bit shift (right)      BitwiseInfix
+    []        get item                    ItemInfix
+    [] =      set item                    ItemInfix
+    [missing] missing item                ItemInfix
+    del []    delete item                 ItemInfix
+    ~         invert                      UnaryInfix
+    x-        negative                    UnaryInfix
+    x+        positive                    UnaryInfix
+    ========= =========================== ===============
     '''
     pass
