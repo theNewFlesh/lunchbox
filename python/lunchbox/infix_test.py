@@ -4,7 +4,7 @@ import lunchbox.infix as lbi
 # ------------------------------------------------------------------------------
 
 
-class LeftRight(int):
+class LeftRight:
     def __init__(self, data):
         self.data = data
 
