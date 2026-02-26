@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lunchbox.infix &mdash; lunchbox  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lunchbox
+          </a>
+              <div class="version">
+                0.9.11
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#installation-for-developers">Installation for Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#installation-for-production">Installation for Production</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#quickstart-guide">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#development-cli">Development CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html#production-cli">Production CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">enforce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.enum">enum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.infix">infix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.singleton">singleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.stopwatch">stopwatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.theme">theme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-lunchbox.tools">tools</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development CLI</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">cli</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lunchbox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lunchbox.infix</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lunchbox.infix</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>  <span class="c1"># noqa F401</span>
+<span class="c1"># ------------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="InfixBase">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.InfixBase">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">InfixBase</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    InfixBase is used for declaring a mapping between infix operators and class</span>
+<span class="sd">    methods, using _infix_lookup.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="InfixBase.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.InfixBase.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Construct Infix instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: dict[str, str]</span></div>
+
+
+<div class="viewcode-block" id="InfixBase._get_infix_function">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.InfixBase._get_infix_function">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_infix_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+        <span class="c1"># type: (str) -&gt; Callable</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Get infix function from lookup table.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            symbol (str): Lookup table symbol.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            callable: Infix function.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Method not implemented for &#39;</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Method </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> not implemented for &#39;</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ArithmeticInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ArithmeticInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Infix class for infix operators: +, -, *, /</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="ArithmeticInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Construct ArithmeticInfix instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;+&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># add</span>
+            <span class="s1">&#39;r+&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># add</span>
+            <span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># subtract</span>
+            <span class="s1">&#39;r-&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># subtract</span>
+            <span class="s1">&#39;*&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># multiply</span>
+            <span class="s1">&#39;r*&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># multiply</span>
+            <span class="s1">&#39;/&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># divide</span>
+            <span class="s1">&#39;r/&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># divide</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__add__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__add__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add (+).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self ADD value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__radd__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__radd__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add (+).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value ADD self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r+&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__sub__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__sub__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Subtract (-).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self SUBTRACT value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__rsub__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__rsub__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Subtract (-).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value SUBTRACT self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r-&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__mul__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__mul__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Multiply (*).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self MULTIPLY value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__rmul__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__rmul__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Multiply (*).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value MULTIPLY self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r*&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__truediv__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__truediv__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Divide (/).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self DIVIDE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticInfix.__rtruediv__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ArithmeticInfix.__rtruediv__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Divide (/).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value DIVIDE self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r/&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MathInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MathInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="MathInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for infix operators: %, //, **, @</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;%&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>    <span class="c1"># modulo</span>
+            <span class="s1">&#39;r%&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># modulo</span>
+            <span class="s1">&#39;//&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># floor divide</span>
+            <span class="s1">&#39;r//&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># floor divide</span>
+            <span class="s1">&#39;**&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># exponentiate</span>
+            <span class="s1">&#39;r**&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># exponentiate</span>
+            <span class="s1">&#39;@&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>    <span class="c1"># matrix multiply</span>
+            <span class="s1">&#39;r@&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># matrix multiply</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__mod__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__mod__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Modulo (%).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self MODULO value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__rmod__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__rmod__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rmod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Modulo (%).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value MODULO self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r%&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__floordiv__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__floordiv__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Floor divide (//).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self FLOOR DIVIDE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;//&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__rfloordiv__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__rfloordiv__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rfloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Floor divide (//).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value FLOOR DIVIDE self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r//&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__pow__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__pow__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Exponentiate (**).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self EXPONENTIATE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;**&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__rpow__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__rpow__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Exponentiate (**).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value EXPONENTIATE self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r**&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__matmul__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__matmul__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Matrix multiply (@).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self MATRIX MULTIPLY value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MathInfix.__rmatmul__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MathInfix.__rmatmul__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rmatmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Matrix multiply (@).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value MATRIX MULTIPLY self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r@&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="LogicInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LogicInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="LogicInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for infix operators: &amp;, |, ^</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;&amp;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># and</span>
+            <span class="s1">&#39;r&amp;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># and</span>
+            <span class="s1">&#39;|&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># or</span>
+            <span class="s1">&#39;r|&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># or</span>
+            <span class="s1">&#39;^&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># exclusive or</span>
+            <span class="s1">&#39;r^&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># exclusive or</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="LogicInfix.__and__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix.__and__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        And (&amp;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self AND value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LogicInfix.__rand__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix.__rand__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        And (&amp;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value AND self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r&amp;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LogicInfix.__or__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix.__or__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Or (|).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self OR value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LogicInfix.__ror__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix.__ror__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Or (|).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value OR self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r|&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LogicInfix.__xor__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix.__xor__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__xor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Exclusive or (^).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self EXCLUSIVE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;^&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LogicInfix.__rxor__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.LogicInfix.__rxor__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rxor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Exclusive or (^).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value EXCLUSIVE self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r^&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ComparisonInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ComparisonInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ComparisonInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="ComparisonInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ComparisonInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for infix operators: &lt;, &lt;=, &gt;, &gt;=</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;&lt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># less than</span>
+            <span class="s1">&#39;&lt;=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># less than or equal</span>
+            <span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># greater than</span>
+            <span class="s1">&#39;&gt;=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># greater than or equal</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="ComparisonInfix.__lt__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ComparisonInfix.__lt__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Less than (&lt;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self LESS THAN value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ComparisonInfix.__le__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ComparisonInfix.__le__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Less than or equal (.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self LESS THAN OR EQUAL TO value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&lt;=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ComparisonInfix.__gt__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ComparisonInfix.__gt__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Greater than (&gt;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self GREATER THAN value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ComparisonInfix.__ge__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ComparisonInfix.__ge__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Greater than or equa.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self GREATER THAN OR EQUAL TO value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="BitwiseInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.BitwiseInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BitwiseInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="BitwiseInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.BitwiseInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for infix operators: &lt;&lt;, &gt;&gt;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;&gt;&gt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># right bit shift</span>
+            <span class="s1">&#39;r&gt;&gt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># right bit shift</span>
+            <span class="s1">&#39;&lt;&lt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># left bit shift</span>
+            <span class="s1">&#39;r&lt;&lt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># left bit shift</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="BitwiseInfix.__rshift__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.BitwiseInfix.__rshift__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Right bit shift (&gt;&gt;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value RIGHT BIT SHIFT self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&gt;&gt;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BitwiseInfix.__rrshift__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.BitwiseInfix.__rrshift__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rrshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Right bit shift (&gt;&gt;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value RIGHT BIT SHIFT self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r&gt;&gt;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BitwiseInfix.__lshift__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.BitwiseInfix.__lshift__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__lshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Left bit shift (&lt;&lt;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self LEFT BIT SHIFT value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&lt;&lt;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BitwiseInfix.__rlshift__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.BitwiseInfix.__rlshift__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rlshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Left bit shift (&lt;&lt;).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value LEFT BIT SHIFT self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;r&lt;&lt;&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ItemInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ItemInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="ItemInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ItemInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for infix operators: [], [] =, del [], [missing]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;[]&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>      <span class="c1"># get item</span>
+            <span class="s1">&#39;[] =&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>    <span class="c1"># set item</span>
+            <span class="s1">&#39;[missing]&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>     <span class="c1"># missing item</span>
+            <span class="s1">&#39;del []&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># delete item</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="ItemInfix.__getitem__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ItemInfix.__getitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Get item ([]).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (object): Key.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self GET ITEM key.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;[]&#39;</span><span class="p">)(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__missing__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ItemInfix.__setitem__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ItemInfix.__setitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any, Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set item (x[key] = value).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (object): Key.</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self SET ITEM value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;[] =&#39;</span><span class="p">)(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ItemInfix.__missing__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ItemInfix.__missing__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Missing item ([]). When __getitem__ looks for a non-existent key.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (object): Key.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self MISSING key.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;[missing]&#39;</span><span class="p">)(</span><span class="n">key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ItemInfix.__delitem__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.ItemInfix.__delitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Delete item (del x[key]).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (object): Key.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self DELETE key.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;del []&#39;</span><span class="p">)(</span><span class="n">key</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="UnaryInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.UnaryInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnaryInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="UnaryInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.UnaryInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for unary operators: ~, -, +</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;~&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># invert</span>
+            <span class="s1">&#39;x-&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># negative</span>
+            <span class="s1">&#39;x+&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># positive</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="UnaryInfix.__invert__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.UnaryInfix.__invert__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># type: () -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Invert (~).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: INVERT self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)()</span></div>
+
+
+<div class="viewcode-block" id="UnaryInfix.__neg__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.UnaryInfix.__neg__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># type: () -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Negative (-).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: NEGATIVE self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;x-&#39;</span><span class="p">)()</span></div>
+
+
+<div class="viewcode-block" id="UnaryInfix.__pos__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.UnaryInfix.__pos__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__pos__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Positive (+).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: POSITIVE self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;x+&#39;</span><span class="p">)()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="EqualityInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.EqualityInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EqualityInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="EqualityInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.EqualityInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for infix operators: ==, !=</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;==&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># equal</span>
+            <span class="s1">&#39;!=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># not equal</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="EqualityInfix.__eq__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.EqualityInfix.__eq__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Equal (==).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self EQUAL value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;==&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EqualityInfix.__ne__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.EqualityInfix.__ne__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Not equal (!=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self NOT EQUAL value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;!=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AssignmentInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AssignmentInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="AssignmentInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for assignment operators: +=, -=, *=, /=, %=, //=, **=, @=,</span>
+<span class="sd">        &amp;=, |=, ^=, &gt;&gt;=, &lt;&lt;=</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;+=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># add and assign</span>
+            <span class="s1">&#39;-=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># subtract and assign</span>
+            <span class="s1">&#39;*=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># multiply and assign</span>
+            <span class="s1">&#39;/=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># divide and assign</span>
+            <span class="s1">&#39;%=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># modulo and assign</span>
+            <span class="s1">&#39;//=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># floor divide and assign</span>
+            <span class="s1">&#39;**=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># pow and assign</span>
+            <span class="s1">&#39;@=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># matrix multiply and assign</span>
+            <span class="s1">&#39;&amp;=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># and and assign</span>
+            <span class="s1">&#39;|=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># or and assign</span>
+            <span class="s1">&#39;^=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>   <span class="c1"># exclusive or and assign</span>
+            <span class="s1">&#39;&gt;&gt;=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># right bit shift and assign</span>
+            <span class="s1">&#39;&lt;&lt;=&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># left bit shift and assign</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__iadd__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__iadd__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add and assign (+=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self ADD value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;+=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__isub__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__isub__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Subtract and assign (-=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self SUBTRACT value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;-=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__imul__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__imul__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__imul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Multiply and assign (*=)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self MULTIPLY value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;*=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__itruediv__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__itruediv__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__itruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Divide and assign (/=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self DIVIDE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;/=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__imod__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__imod__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__imod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Modulo and assign (%=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self MODULO value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;%=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__ifloordiv__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__ifloordiv__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ifloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Floor divide and assign (//=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self FLOOR value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;//=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__ipow__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__ipow__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ipow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Exponentiate and assign (**=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self EXPONENTIATE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;**=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__imatmul__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__imatmul__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__imatmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Matrix multiply and assign (@=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            n (@object: Assign self MATRIX MULTIPLY value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;@=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__iand__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__iand__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        And and assign (&amp;=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self AND value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&amp;=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__ior__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__ior__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ior__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Or and assign (|=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Assign self OR value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;|=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__ixor__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__ixor__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ixor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Exclusive or and assign (^=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            n (^object: Assign self EXCLUSIVE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;^=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__irshift__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__irshift__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__irshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Right bit shift and assign (&gt;&gt;=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            n (&gt;&gt;object: Assign self RIGHT value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&gt;&gt;=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AssignmentInfix.__ilshift__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AssignmentInfix.__ilshift__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ilshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Left bit shift and assign (&lt;&lt;=).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             (&lt;object: Assign self LEFT value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;&lt;&lt;=&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MiscInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MiscInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MiscInfix</span><span class="p">(</span><span class="n">InfixBase</span><span class="p">):</span>
+<div class="viewcode-block" id="MiscInfix.__init__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MiscInfix.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># type: (*Any, **Any) -&gt; None</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Infix class for operators: del x.attr, in</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infix_lookup</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;del .&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>  <span class="c1"># delete attribute</span>
+            <span class="s1">&#39;in&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>     <span class="c1"># contains</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="MiscInfix.__delattr__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MiscInfix.__delattr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Delete attribute (del x.attr).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Self DELETE value.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;del .&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MiscInfix.__contains__">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.MiscInfix.__contains__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># type: (Any) -&gt; Any</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Contains (in).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (object): Value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object: Value CONTAINS self.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_infix_function</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AllInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.AllInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AllInfix</span><span class="p">(</span>
+    <span class="n">ArithmeticInfix</span><span class="p">,</span>
+    <span class="n">MathInfix</span><span class="p">,</span>
+    <span class="n">LogicInfix</span><span class="p">,</span>
+    <span class="n">ComparisonInfix</span><span class="p">,</span>
+    <span class="n">BitwiseInfix</span><span class="p">,</span>
+    <span class="n">ItemInfix</span><span class="p">,</span>
+    <span class="n">UnaryInfix</span><span class="p">,</span>
+    <span class="n">EqualityInfix</span><span class="p">,</span>
+    <span class="n">AssignmentInfix</span><span class="p">,</span>
+    <span class="n">MiscInfix</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="UtiltyInfix">
+<a class="viewcode-back" href="../../modules.html#lunchbox.infix.UtiltyInfix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UtiltyInfix</span><span class="p">(</span>
+    <span class="n">ArithmeticInfix</span><span class="p">,</span>
+    <span class="n">MathInfix</span><span class="p">,</span>
+    <span class="n">LogicInfix</span><span class="p">,</span>
+    <span class="n">ComparisonInfix</span><span class="p">,</span>
+    <span class="n">BitwiseInfix</span><span class="p">,</span>
+    <span class="n">ItemInfix</span><span class="p">,</span>
+    <span class="n">UnaryInfix</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">pass</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Alex Braun &lt;alexander.g.braun@gmail.com&gt;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
