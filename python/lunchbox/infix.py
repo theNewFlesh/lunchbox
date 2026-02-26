@@ -911,6 +911,64 @@ class AllInfix(
     AssignmentInfix,
     MiscInfix,
 ):
+    r'''
+    Infix class for all of the following operators:
+
+    * +         | add
+    * r+        | add (right)
+    * -         | subtract
+    * r-        | subtract (right)
+    * *         | multiply
+    * r*        | multiply (right)
+    * /         | divide
+    * r/        | divide (right)
+    * %         | modulo
+    * r%        | modulo (right)
+    * //        | floor divide
+    * r//       | floor divide (right)
+    * **        | exponentiate
+    * r**       | exponentiate (right)
+    * @         | matrix multiply
+    * r@        | matrix multiply (right)
+    * &         | and
+    * r&        | and (right)
+    * |         | or
+    * r|        | or (right)
+    * ^         | exclusive or
+    * r^        | exclusive or (right)
+    * <         | less than
+    * <=        | less than or equal
+    * >         | greater than
+    * >=        | greater than or equal
+    * >>        | right bit shift
+    * r>>       | right bit shift (right)
+    * <<        | left bit shift
+    * r<<       | left bit shift (right)
+    * []        | get item
+    * [] =      | set item
+    * [missing] | missing item
+    * del []    | delete item
+    * ~         | invert
+    * x-        | negative
+    * x+        | positive
+    * ==        | equal
+    * !=        | not equal
+    * +=        | add and assign
+    * -=        | subtract and assign
+    * *=        | multiply and assign
+    * /=        | divide and assign
+    * %=        | modulo and assign
+    * //=       | floor divide and assign
+    * **=       | pow and assign
+    * @=        | matrix multiply and assign
+    * &=        | and and assign
+    * |=        | or and assign
+    * ^=        | exclusive or and assign
+    * >>=       | right bit shift and assign
+    * <<=       | left bit shift and assign
+    * del .     | delete attribute
+    * in        | contains
+    '''
     pass
 
 
@@ -923,4 +981,45 @@ class UtiltyInfix(
     ItemInfix,
     UnaryInfix,
 ):
+    r'''
+    Infix class for all of the following operators:
+
+    * +         | add
+    * r+        | add (right)
+    * -         | subtract
+    * r-        | subtract (right)
+    * *         | multiply
+    * r*        | multiply (right)
+    * /         | divide
+    * r/        | divide (right)
+    * %         | modulo
+    * r%        | modulo (right)
+    * //        | floor divide
+    * r//       | floor divide (right)
+    * **        | exponentiate
+    * r**       | exponentiate (right)
+    * @         | matrix multiply
+    * r@        | matrix multiply (right)
+    * &         | and
+    * r&        | and (right)
+    * |         | or
+    * r|        | or (right)
+    * ^         | exclusive or
+    * r^        | exclusive or (right)
+    * <         | less than
+    * <=        | less than or equal
+    * >         | greater than
+    * >=        | greater than or equal
+    * >>        | right bit shift
+    * r>>       | right bit shift (right)
+    * <<        | left bit shift
+    * r<<       | left bit shift (right)
+    * []        | get item
+    * [] =      | set item
+    * [missing] | missing item
+    * del []    | delete item
+    * ~         | invert
+    * x-        | negative
+    * x+        | positive
+    '''
     pass
