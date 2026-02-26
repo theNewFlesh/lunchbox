@@ -7,8 +7,8 @@ class InfixBase:
     InfixBase is used for declaring a mapping between infix operators and class
     methods, using _infix_lookup.
     '''
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Construct Infix instance.
         '''
@@ -39,8 +39,8 @@ class ArithmeticInfix(InfixBase):
     '''
     Infix class for infix operators: +, -, *, /
     '''
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Construct ArithmeticInfix instance.
         '''
@@ -162,8 +162,8 @@ class ArithmeticInfix(InfixBase):
 
 
 class MathInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for infix operators: %, //, **, @
         '''
@@ -285,8 +285,8 @@ class MathInfix(InfixBase):
 
 
 class LogicInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for infix operators: &, |, ^
         '''
@@ -380,8 +380,8 @@ class LogicInfix(InfixBase):
 
 
 class ComparisonInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for infix operators: <, <=, >, >=
         '''
@@ -447,8 +447,8 @@ class ComparisonInfix(InfixBase):
 
 
 class BitwiseInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for infix operators: <<, >>
         '''
@@ -514,8 +514,8 @@ class BitwiseInfix(InfixBase):
 
 
 class ItemInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for infix operators: [], [] =, del [], [missing]
         '''
@@ -523,22 +523,25 @@ class ItemInfix(InfixBase):
         self._infix_lookup.update({
             '[]': '',      # get item
             '[] =': '',    # set item
-            'x[]': '',     # missing item
+            '[missing]': '',     # missing item
             'del []': '',  # delete item
         })
 
-    def __getitem__(self, value):
+    def __getitem__(self, key):
         # type: (Any) -> Any
         '''
         Get item ([]).
 
         Args:
-            value (object): Value.
+            key (object): Key.
 
         Returns:
-            object: Self GET ITEM value.
+            object: Self GET ITEM key.
         '''
-        return self._get_infix_function('[]')(value)
+        try:
+            return self._get_infix_function('[]')(key)
+        except KeyError:
+            return self.__missing__(key)
 
     def __setitem__(self, key, value):
         # type: (Any, Any) -> Any
@@ -554,36 +557,36 @@ class ItemInfix(InfixBase):
         '''
         return self._get_infix_function('[] =')(key, value)
 
-    def __missing__(self, value):
+    def __missing__(self, key):
         # type: (Any) -> Any
         '''
         Missing item ([]). When __getitem__ looks for a non-existent key.
 
         Args:
-            value (object): Value.
+            key (object): Key.
 
         Returns:
-            object: Self MISSING value.
+            object: Self MISSING key.
         '''
-        return self._get_infix_function('x[]')(value)
+        return self._get_infix_function('[missing]')(key)
 
-    def __delitem__(self, value):
+    def __delitem__(self, key):
         # type: (Any) -> Any
         '''
-        Delete item (del x[value]).
+        Delete item (del x[key]).
 
         Args:
-            value (object): Value.
+            key (object): Key.
 
         Returns:
-            object: Self DELETE value.
+            object: Self DELETE key.
         '''
-        return self._get_infix_function('del []')(value)
+        return self._get_infix_function('del []')(key)
 
 
 class UnaryInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for unary operators: ~, -, +
         '''
@@ -625,8 +628,8 @@ class UnaryInfix(InfixBase):
 
 
 class EqualityInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for infix operators: ==, !=
         '''
@@ -664,8 +667,8 @@ class EqualityInfix(InfixBase):
 
 
 class AssignmentInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for assignment operators: +=, -=, *=, /=, %=, //=, **=, @=,
         &=, |=, ^=, >>=, <<=
@@ -704,10 +707,10 @@ class AssignmentInfix(InfixBase):
         # type: (Any) -> Any
         '''
         Subtract and assign (-=).
-        
+
         Args:
             value (object): Value.
-            
+
         Returns:
             object: Assign self SUBTRACT value.
         '''
@@ -717,10 +720,10 @@ class AssignmentInfix(InfixBase):
         # type: (Any) -> Any
         '''
         Multiply and assign (*=)
-        
+
         Args:
             value (object): Value.
-            
+
         Returns:
             object: Assign self MULTIPLY value.
         '''
@@ -782,10 +785,10 @@ class AssignmentInfix(InfixBase):
         # type: (Any) -> Any
         '''
         Matrix multiply and assign (@=).
-        
+
         Args:
             value (object): Value.
-            
+
         Returns:
             n (@object: Assign self MATRIX MULTIPLY value.
         '''
@@ -821,10 +824,10 @@ class AssignmentInfix(InfixBase):
         # type: (Any) -> Any
         '''
         Exclusive or and assign (^=).
-        
+
         Args:
             value (object): Value.
-            
+
         Returns:
             n (^object: Assign self EXCLUSIVE value.
         '''
@@ -834,10 +837,10 @@ class AssignmentInfix(InfixBase):
         # type: (Any) -> Any
         '''
         Right bit shift and assign (>>=).
-        
+
         Args:
             value (object): Value.
-            
+
         Returns:
             n (>>object: Assign self RIGHT value.
         '''
@@ -847,10 +850,10 @@ class AssignmentInfix(InfixBase):
         # type: (Any) -> Any
         '''
         Left bit shift and assign (<<=).
-        
+
         Args:
             value (object): Value.
-            
+
         Returns:
              (<object: Assign self LEFT value.
         '''
@@ -858,8 +861,8 @@ class AssignmentInfix(InfixBase):
 
 
 class MiscInfix(InfixBase):
-    def __init__(self):
-        # type: () -> None
+    def __init__(self, *args, **kwargs):
+        # type: (*Any, **Any) -> None
         '''
         Infix class for operators: del x.attr, in
         '''
