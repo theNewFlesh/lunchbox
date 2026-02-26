@@ -35,7 +35,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.10.2
+                0.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -1243,60 +1243,64 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Infix class for all of the following operators:</span>
 
-<span class="sd">    * +         | add</span>
-<span class="sd">    * r+        | add (right)</span>
-<span class="sd">    * -         | subtract</span>
-<span class="sd">    * r-        | subtract (right)</span>
-<span class="sd">    * *         | multiply</span>
-<span class="sd">    * r*        | multiply (right)</span>
-<span class="sd">    * /         | divide</span>
-<span class="sd">    * r/        | divide (right)</span>
-<span class="sd">    * %         | modulo</span>
-<span class="sd">    * r%        | modulo (right)</span>
-<span class="sd">    * //        | floor divide</span>
-<span class="sd">    * r//       | floor divide (right)</span>
-<span class="sd">    * **        | exponentiate</span>
-<span class="sd">    * r**       | exponentiate (right)</span>
-<span class="sd">    * @         | matrix multiply</span>
-<span class="sd">    * r@        | matrix multiply (right)</span>
-<span class="sd">    * &amp;         | and</span>
-<span class="sd">    * r&amp;        | and (right)</span>
-<span class="sd">    * |         | or</span>
-<span class="sd">    * r|        | or (right)</span>
-<span class="sd">    * ^         | exclusive or</span>
-<span class="sd">    * r^        | exclusive or (right)</span>
-<span class="sd">    * &lt;         | less than</span>
-<span class="sd">    * &lt;=        | less than or equal</span>
-<span class="sd">    * &gt;         | greater than</span>
-<span class="sd">    * &gt;=        | greater than or equal</span>
-<span class="sd">    * &gt;&gt;        | right bit shift</span>
-<span class="sd">    * r&gt;&gt;       | right bit shift (right)</span>
-<span class="sd">    * &lt;&lt;        | left bit shift</span>
-<span class="sd">    * r&lt;&lt;       | left bit shift (right)</span>
-<span class="sd">    * []        | get item</span>
-<span class="sd">    * [] =      | set item</span>
-<span class="sd">    * [missing] | missing item</span>
-<span class="sd">    * del []    | delete item</span>
-<span class="sd">    * ~         | invert</span>
-<span class="sd">    * x-        | negative</span>
-<span class="sd">    * x+        | positive</span>
-<span class="sd">    * ==        | equal</span>
-<span class="sd">    * !=        | not equal</span>
-<span class="sd">    * +=        | add and assign</span>
-<span class="sd">    * -=        | subtract and assign</span>
-<span class="sd">    * *=        | multiply and assign</span>
-<span class="sd">    * /=        | divide and assign</span>
-<span class="sd">    * %=        | modulo and assign</span>
-<span class="sd">    * //=       | floor divide and assign</span>
-<span class="sd">    * **=       | pow and assign</span>
-<span class="sd">    * @=        | matrix multiply and assign</span>
-<span class="sd">    * &amp;=        | and and assign</span>
-<span class="sd">    * |=        | or and assign</span>
-<span class="sd">    * ^=        | exclusive or and assign</span>
-<span class="sd">    * &gt;&gt;=       | right bit shift and assign</span>
-<span class="sd">    * &lt;&lt;=       | left bit shift and assign</span>
-<span class="sd">    * del .     | delete attribute</span>
-<span class="sd">    * in        | contains</span>
+<span class="sd">    ========= =========================== ===============</span>
+<span class="sd">    Key       Function                    From Class</span>
+<span class="sd">    ========= =========================== ===============</span>
+<span class="sd">    \+        add                         ArithmeticInfix</span>
+<span class="sd">    r+        add (right)                 ArithmeticInfix</span>
+<span class="sd">    \-        subtract                    ArithmeticInfix</span>
+<span class="sd">    r-        subtract (right)            ArithmeticInfix</span>
+<span class="sd">    \*        multiply                    ArithmeticInfix</span>
+<span class="sd">    r\*       multiply (right)            ArithmeticInfix</span>
+<span class="sd">    /         divide                      ArithmeticInfix</span>
+<span class="sd">    r/        divide (right)              ArithmeticInfix</span>
+<span class="sd">    %         modulo                      MathInfix</span>
+<span class="sd">    r%        modulo (right)              MathInfix</span>
+<span class="sd">    //        floor divide                MathInfix</span>
+<span class="sd">    r//       floor divide (right)        MathInfix</span>
+<span class="sd">    **        exponentiate                MathInfix</span>
+<span class="sd">    r**       exponentiate (right)        MathInfix</span>
+<span class="sd">    @         matrix multiply             MathInfix</span>
+<span class="sd">    r@        matrix multiply (right)     MathInfix</span>
+<span class="sd">    &amp;         and                         LogicInfix</span>
+<span class="sd">    r&amp;        and (right)                 LogicInfix</span>
+<span class="sd">    \|        or                          LogicInfix</span>
+<span class="sd">    r|        or (right)                  LogicInfix</span>
+<span class="sd">    ^         exclusive or                LogicInfix</span>
+<span class="sd">    r^        exclusive or (right)        LogicInfix</span>
+<span class="sd">    &lt;         less than                   ComparisonInfix</span>
+<span class="sd">    &lt;=        less than or equal          ComparisonInfix</span>
+<span class="sd">    &gt;         greater than                ComparisonInfix</span>
+<span class="sd">    &gt;=        greater than or equal       ComparisonInfix</span>
+<span class="sd">    &gt;&gt;        right bit shift             BitwiseInfix</span>
+<span class="sd">    r&gt;&gt;       right bit shift (right)     BitwiseInfix</span>
+<span class="sd">    &lt;&lt;        left bit shift              BitwiseInfix</span>
+<span class="sd">    r&lt;&lt;       left bit shift (right)      BitwiseInfix</span>
+<span class="sd">    []        get item                    ItemInfix</span>
+<span class="sd">    [] =      set item                    ItemInfix</span>
+<span class="sd">    [missing] missing item                ItemInfix</span>
+<span class="sd">    del []    delete item                 ItemInfix</span>
+<span class="sd">    ~         invert                      UnaryInfix</span>
+<span class="sd">    x-        negative                    UnaryInfix</span>
+<span class="sd">    x+        positive                    UnaryInfix</span>
+<span class="sd">    ==        equal                       EqualityInfix</span>
+<span class="sd">    !=        not equal                   EqualityInfix</span>
+<span class="sd">    +=        add and assign              AssignmentInfix</span>
+<span class="sd">    -=        subtract and assign         AssignmentInfix</span>
+<span class="sd">    *=        multiply and assign         AssignmentInfix</span>
+<span class="sd">    /=        divide and assign           AssignmentInfix</span>
+<span class="sd">    %=        modulo and assign           AssignmentInfix</span>
+<span class="sd">    //=       floor divide and assign     AssignmentInfix</span>
+<span class="sd">    **=       pow and assign              AssignmentInfix</span>
+<span class="sd">    @=        matrix multiply and assign  AssignmentInfix</span>
+<span class="sd">    &amp;=        and and assign              AssignmentInfix</span>
+<span class="sd">    |=        or and assign               AssignmentInfix</span>
+<span class="sd">    ^=        exclusive or and assign     AssignmentInfix</span>
+<span class="sd">    &gt;&gt;=       right bit shift and assign  AssignmentInfix</span>
+<span class="sd">    &lt;&lt;=       left bit shift and assign   AssignmentInfix</span>
+<span class="sd">    del .     delete attribute            MiscInfix</span>
+<span class="sd">    in        contains                    MiscInfix</span>
+<span class="sd">    ========= =========================== ===============</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">pass</span></div>
 
@@ -1316,43 +1320,47 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Infix class for all of the following operators:</span>
 
-<span class="sd">    * +         | add</span>
-<span class="sd">    * r+        | add (right)</span>
-<span class="sd">    * -         | subtract</span>
-<span class="sd">    * r-        | subtract (right)</span>
-<span class="sd">    * *         | multiply</span>
-<span class="sd">    * r*        | multiply (right)</span>
-<span class="sd">    * /         | divide</span>
-<span class="sd">    * r/        | divide (right)</span>
-<span class="sd">    * %         | modulo</span>
-<span class="sd">    * r%        | modulo (right)</span>
-<span class="sd">    * //        | floor divide</span>
-<span class="sd">    * r//       | floor divide (right)</span>
-<span class="sd">    * **        | exponentiate</span>
-<span class="sd">    * r**       | exponentiate (right)</span>
-<span class="sd">    * @         | matrix multiply</span>
-<span class="sd">    * r@        | matrix multiply (right)</span>
-<span class="sd">    * &amp;         | and</span>
-<span class="sd">    * r&amp;        | and (right)</span>
-<span class="sd">    * |         | or</span>
-<span class="sd">    * r|        | or (right)</span>
-<span class="sd">    * ^         | exclusive or</span>
-<span class="sd">    * r^        | exclusive or (right)</span>
-<span class="sd">    * &lt;         | less than</span>
-<span class="sd">    * &lt;=        | less than or equal</span>
-<span class="sd">    * &gt;         | greater than</span>
-<span class="sd">    * &gt;=        | greater than or equal</span>
-<span class="sd">    * &gt;&gt;        | right bit shift</span>
-<span class="sd">    * r&gt;&gt;       | right bit shift (right)</span>
-<span class="sd">    * &lt;&lt;        | left bit shift</span>
-<span class="sd">    * r&lt;&lt;       | left bit shift (right)</span>
-<span class="sd">    * []        | get item</span>
-<span class="sd">    * [] =      | set item</span>
-<span class="sd">    * [missing] | missing item</span>
-<span class="sd">    * del []    | delete item</span>
-<span class="sd">    * ~         | invert</span>
-<span class="sd">    * x-        | negative</span>
-<span class="sd">    * x+        | positive</span>
+<span class="sd">    ========= =========================== ===============</span>
+<span class="sd">    Key       Function                    From Class</span>
+<span class="sd">    ========= =========================== ===============</span>
+<span class="sd">    \+        add                         ArithmeticInfix</span>
+<span class="sd">    r+        add (right)                 ArithmeticInfix</span>
+<span class="sd">    \-        subtract                    ArithmeticInfix</span>
+<span class="sd">    r-        subtract (right)            ArithmeticInfix</span>
+<span class="sd">    \*        multiply                    ArithmeticInfix</span>
+<span class="sd">    r\*       multiply (right)            ArithmeticInfix</span>
+<span class="sd">    /         divide                      ArithmeticInfix</span>
+<span class="sd">    r/        divide (right)              ArithmeticInfix</span>
+<span class="sd">    %         modulo                      MathInfix</span>
+<span class="sd">    r%        modulo (right)              MathInfix</span>
+<span class="sd">    //        floor divide                MathInfix</span>
+<span class="sd">    r//       floor divide (right)        MathInfix</span>
+<span class="sd">    **        exponentiate                MathInfix</span>
+<span class="sd">    r**       exponentiate (right)        MathInfix</span>
+<span class="sd">    @         matrix multiply             MathInfix</span>
+<span class="sd">    r@        matrix multiply (right)     MathInfix</span>
+<span class="sd">    &amp;         and                         LogicInfix</span>
+<span class="sd">    r&amp;        and (right)                 LogicInfix</span>
+<span class="sd">    \|        or                          LogicInfix</span>
+<span class="sd">    r|        or (right)                  LogicInfix</span>
+<span class="sd">    ^         exclusive or                LogicInfix</span>
+<span class="sd">    r^        exclusive or (right)        LogicInfix</span>
+<span class="sd">    &lt;         less than                   ComparisonInfix</span>
+<span class="sd">    &lt;=        less than or equal          ComparisonInfix</span>
+<span class="sd">    &gt;         greater than                ComparisonInfix</span>
+<span class="sd">    &gt;=        greater than or equal       ComparisonInfix</span>
+<span class="sd">    &gt;&gt;        right bit shift             BitwiseInfix</span>
+<span class="sd">    r&gt;&gt;       right bit shift (right)     BitwiseInfix</span>
+<span class="sd">    &lt;&lt;        left bit shift              BitwiseInfix</span>
+<span class="sd">    r&lt;&lt;       left bit shift (right)      BitwiseInfix</span>
+<span class="sd">    []        get item                    ItemInfix</span>
+<span class="sd">    [] =      set item                    ItemInfix</span>
+<span class="sd">    [missing] missing item                ItemInfix</span>
+<span class="sd">    del []    delete item                 ItemInfix</span>
+<span class="sd">    ~         invert                      UnaryInfix</span>
+<span class="sd">    x-        negative                    UnaryInfix</span>
+<span class="sd">    x+        positive                    UnaryInfix</span>
+<span class="sd">    ========= =========================== ===============</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">pass</span></div>
 
