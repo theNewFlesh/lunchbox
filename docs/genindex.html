@@ -35,7 +35,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.9.9
+                0.10.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,6 +58,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">enforce</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.enum">enum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.infix">infix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.singleton">singleton</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.stopwatch">stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-lunchbox.theme">theme</a></li>
@@ -114,6 +115,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  | <a href="#X"><strong>X</strong></a>
@@ -124,11 +126,49 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__add__">__add__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.LogicInfix.__and__">__and__() (lunchbox.infix.LogicInfix method)</a>
+</li>
       <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__annotations__">__annotations__ (lunchbox.enum.EnumBaseMeta attribute)</a>
+
+      <ul>
+        <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__annotations__">(lunchbox.infix.ArithmeticInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__annotations__">(lunchbox.infix.AssignmentInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__annotations__">(lunchbox.infix.BitwiseInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__annotations__">(lunchbox.infix.ComparisonInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.EqualityInfix.__annotations__">(lunchbox.infix.EqualityInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.InfixBase.__annotations__">(lunchbox.infix.InfixBase attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ItemInfix.__annotations__">(lunchbox.infix.ItemInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.LogicInfix.__annotations__">(lunchbox.infix.LogicInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MathInfix.__annotations__">(lunchbox.infix.MathInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MiscInfix.__annotations__">(lunchbox.infix.MiscInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UnaryInfix.__annotations__">(lunchbox.infix.UnaryInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UtiltyInfix.__annotations__">(lunchbox.infix.UtiltyInfix attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#lunchbox.infix.MiscInfix.__contains__">__contains__() (lunchbox.infix.MiscInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.MiscInfix.__delattr__">__delattr__() (lunchbox.infix.MiscInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ItemInfix.__delitem__">__delitem__() (lunchbox.infix.ItemInfix method)</a>
 </li>
       <li><a href="modules.html#lunchbox.enforce.Enforce.__dict__">__dict__ (lunchbox.enforce.Enforce attribute)</a>
 
       <ul>
+        <li><a href="modules.html#lunchbox.infix.InfixBase.__dict__">(lunchbox.infix.InfixBase attribute)</a>
+</li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__dict__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.stopwatch.StopWatch.__dict__">(lunchbox.stopwatch.StopWatch attribute)</a>
@@ -140,8 +180,12 @@
       </ul></li>
       <li><a href="modules.html#lunchbox.tools.LogRuntime.__enter__">__enter__() (lunchbox.tools.LogRuntime method)</a>
 </li>
-      <li><a href="modules.html#lunchbox.tools.RegexMatch.__eq__">__eq__() (lunchbox.tools.RegexMatch method)</a>
+      <li><a href="modules.html#lunchbox.infix.EqualityInfix.__eq__">__eq__() (lunchbox.infix.EqualityInfix method)</a>
+
+      <ul>
+        <li><a href="modules.html#lunchbox.tools.RegexMatch.__eq__">(lunchbox.tools.RegexMatch method)</a>
 </li>
+      </ul></li>
       <li><a href="modules.html#lunchbox.tools.LogRuntime.__exit__">__exit__() (lunchbox.tools.LogRuntime method)</a>
 </li>
       <li><a href="cli.html#cli.BetterHelpFormatter.__firstlineno__">__firstlineno__ (cli.BetterHelpFormatter attribute)</a>
@@ -152,6 +196,32 @@
         <li><a href="modules.html#lunchbox.enforce.EnforceError.__firstlineno__">(lunchbox.enforce.EnforceError attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__firstlineno__">(lunchbox.enum.EnumBaseMeta attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AllInfix.__firstlineno__">(lunchbox.infix.AllInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__firstlineno__">(lunchbox.infix.ArithmeticInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__firstlineno__">(lunchbox.infix.AssignmentInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__firstlineno__">(lunchbox.infix.BitwiseInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__firstlineno__">(lunchbox.infix.ComparisonInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.EqualityInfix.__firstlineno__">(lunchbox.infix.EqualityInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.InfixBase.__firstlineno__">(lunchbox.infix.InfixBase attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ItemInfix.__firstlineno__">(lunchbox.infix.ItemInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.LogicInfix.__firstlineno__">(lunchbox.infix.LogicInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MathInfix.__firstlineno__">(lunchbox.infix.MathInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MiscInfix.__firstlineno__">(lunchbox.infix.MiscInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UnaryInfix.__firstlineno__">(lunchbox.infix.UnaryInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UtiltyInfix.__firstlineno__">(lunchbox.infix.UtiltyInfix attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__firstlineno__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
@@ -164,7 +234,33 @@
         <li><a href="modules.html#lunchbox.tools.RegexMatch.__firstlineno__">(lunchbox.tools.RegexMatch attribute)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#lunchbox.tools.RegexMatch.__hash__">__hash__ (lunchbox.tools.RegexMatch attribute)</a>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__floordiv__">__floordiv__() (lunchbox.infix.MathInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__ge__">__ge__() (lunchbox.infix.ComparisonInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ItemInfix.__getitem__">__getitem__() (lunchbox.infix.ItemInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__gt__">__gt__() (lunchbox.infix.ComparisonInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.EqualityInfix.__hash__">__hash__ (lunchbox.infix.EqualityInfix attribute)</a>
+
+      <ul>
+        <li><a href="modules.html#lunchbox.tools.RegexMatch.__hash__">(lunchbox.tools.RegexMatch attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__iadd__">__iadd__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__iand__">__iand__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__ifloordiv__">__ifloordiv__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__ilshift__">__ilshift__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__imatmul__">__imatmul__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__imod__">__imod__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__imul__">__imul__() (lunchbox.infix.AssignmentInfix method)</a>
 </li>
       <li><a href="cli.html#cli.BetterHelpFormatter.__init__">__init__() (cli.BetterHelpFormatter method)</a>
 
@@ -172,6 +268,28 @@
         <li><a href="modules.html#lunchbox.enforce.Comparator.__init__">(lunchbox.enforce.Comparator method)</a>
 </li>
         <li><a href="modules.html#lunchbox.enforce.Enforce.__init__">(lunchbox.enforce.Enforce method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__init__">(lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__init__">(lunchbox.infix.AssignmentInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__init__">(lunchbox.infix.BitwiseInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__init__">(lunchbox.infix.ComparisonInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.EqualityInfix.__init__">(lunchbox.infix.EqualityInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.InfixBase.__init__">(lunchbox.infix.InfixBase method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ItemInfix.__init__">(lunchbox.infix.ItemInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.LogicInfix.__init__">(lunchbox.infix.LogicInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MathInfix.__init__">(lunchbox.infix.MathInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MiscInfix.__init__">(lunchbox.infix.MiscInfix method)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UnaryInfix.__init__">(lunchbox.infix.UnaryInfix method)</a>
 </li>
         <li><a href="modules.html#lunchbox.stopwatch.StopWatch.__init__">(lunchbox.stopwatch.StopWatch method)</a>
 </li>
@@ -182,6 +300,34 @@
         <li><a href="modules.html#lunchbox.tools.RegexMatch.__init__">(lunchbox.tools.RegexMatch method)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#lunchbox.infix.UnaryInfix.__invert__">__invert__() (lunchbox.infix.UnaryInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__ior__">__ior__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__ipow__">__ipow__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__irshift__">__irshift__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__isub__">__isub__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__itruediv__">__itruediv__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__ixor__">__ixor__() (lunchbox.infix.AssignmentInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__le__">__le__() (lunchbox.infix.ComparisonInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__lshift__">__lshift__() (lunchbox.infix.BitwiseInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__lt__">__lt__() (lunchbox.infix.ComparisonInfix method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__matmul__">__matmul__() (lunchbox.infix.MathInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ItemInfix.__missing__">__missing__() (lunchbox.infix.ItemInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__mod__">__mod__() (lunchbox.infix.MathInfix method)</a>
+</li>
       <li><a href="cli.html#cli.BetterHelpFormatter.__module__">__module__ (cli.BetterHelpFormatter attribute)</a>
 
       <ul>
@@ -194,6 +340,32 @@
         <li><a href="modules.html#lunchbox.enum.EnumBase.__module__">(lunchbox.enum.EnumBase attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__module__">(lunchbox.enum.EnumBaseMeta attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AllInfix.__module__">(lunchbox.infix.AllInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__module__">(lunchbox.infix.ArithmeticInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__module__">(lunchbox.infix.AssignmentInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__module__">(lunchbox.infix.BitwiseInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__module__">(lunchbox.infix.ComparisonInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.EqualityInfix.__module__">(lunchbox.infix.EqualityInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.InfixBase.__module__">(lunchbox.infix.InfixBase attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ItemInfix.__module__">(lunchbox.infix.ItemInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.LogicInfix.__module__">(lunchbox.infix.LogicInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MathInfix.__module__">(lunchbox.infix.MathInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MiscInfix.__module__">(lunchbox.infix.MiscInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UnaryInfix.__module__">(lunchbox.infix.UnaryInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UtiltyInfix.__module__">(lunchbox.infix.UtiltyInfix attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__module__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
@@ -210,20 +382,60 @@
         <li><a href="modules.html#lunchbox.tools.RegexMatch.__module__">(lunchbox.tools.RegexMatch attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__mul__">__mul__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.EqualityInfix.__ne__">__ne__() (lunchbox.infix.EqualityInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.UnaryInfix.__neg__">__neg__() (lunchbox.infix.UnaryInfix method)</a>
+</li>
       <li><a href="modules.html#lunchbox.singleton.Singleton.__new__">__new__() (lunchbox.singleton.Singleton static method)</a>
 
       <ul>
         <li><a href="modules.html#lunchbox.theme.TerminalColorscheme.__new__">(lunchbox.theme.TerminalColorscheme method)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#lunchbox.infix.LogicInfix.__or__">__or__() (lunchbox.infix.LogicInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.UnaryInfix.__pos__">__pos__() (lunchbox.infix.UnaryInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__pow__">__pow__() (lunchbox.infix.MathInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__radd__">__radd__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.LogicInfix.__rand__">__rand__() (lunchbox.infix.LogicInfix method)</a>
+</li>
       <li><a href="modules.html#lunchbox.enum.EnumBase.__repr__">__repr__() (lunchbox.enum.EnumBase method)</a>
 
       <ul>
         <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__repr__">(lunchbox.enum.EnumBaseMeta method)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__rfloordiv__">__rfloordiv__() (lunchbox.infix.MathInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__rlshift__">__rlshift__() (lunchbox.infix.BitwiseInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__rmatmul__">__rmatmul__() (lunchbox.infix.MathInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__rmod__">__rmod__() (lunchbox.infix.MathInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__rmul__">__rmul__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.LogicInfix.__ror__">__ror__() (lunchbox.infix.LogicInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.MathInfix.__rpow__">__rpow__() (lunchbox.infix.MathInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__rrshift__">__rrshift__() (lunchbox.infix.BitwiseInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__rshift__">__rshift__() (lunchbox.infix.BitwiseInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__rsub__">__rsub__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__rtruediv__">__rtruediv__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.LogicInfix.__rxor__">__rxor__() (lunchbox.infix.LogicInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ItemInfix.__setitem__">__setitem__() (lunchbox.infix.ItemInfix method)</a>
+</li>
       <li><a href="cli.html#cli.BetterHelpFormatter.__static_attributes__">__static_attributes__ (cli.BetterHelpFormatter attribute)</a>
 
       <ul>
@@ -232,6 +444,32 @@
         <li><a href="modules.html#lunchbox.enforce.EnforceError.__static_attributes__">(lunchbox.enforce.EnforceError attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.enum.EnumBaseMeta.__static_attributes__">(lunchbox.enum.EnumBaseMeta attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AllInfix.__static_attributes__">(lunchbox.infix.AllInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__static_attributes__">(lunchbox.infix.ArithmeticInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.AssignmentInfix.__static_attributes__">(lunchbox.infix.AssignmentInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.BitwiseInfix.__static_attributes__">(lunchbox.infix.BitwiseInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ComparisonInfix.__static_attributes__">(lunchbox.infix.ComparisonInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.EqualityInfix.__static_attributes__">(lunchbox.infix.EqualityInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.InfixBase.__static_attributes__">(lunchbox.infix.InfixBase attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.ItemInfix.__static_attributes__">(lunchbox.infix.ItemInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.LogicInfix.__static_attributes__">(lunchbox.infix.LogicInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MathInfix.__static_attributes__">(lunchbox.infix.MathInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.MiscInfix.__static_attributes__">(lunchbox.infix.MiscInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UnaryInfix.__static_attributes__">(lunchbox.infix.UnaryInfix attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.UtiltyInfix.__static_attributes__">(lunchbox.infix.UtiltyInfix attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__static_attributes__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
@@ -244,10 +482,16 @@
         <li><a href="modules.html#lunchbox.tools.RegexMatch.__static_attributes__">(lunchbox.tools.RegexMatch attribute)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__sub__">__sub__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix.__truediv__">__truediv__() (lunchbox.infix.ArithmeticInfix method)</a>
+</li>
       <li><a href="modules.html#lunchbox.enforce.Enforce.__weakref__">__weakref__ (lunchbox.enforce.Enforce attribute)</a>
 
       <ul>
         <li><a href="modules.html#lunchbox.enforce.EnforceError.__weakref__">(lunchbox.enforce.EnforceError attribute)</a>
+</li>
+        <li><a href="modules.html#lunchbox.infix.InfixBase.__weakref__">(lunchbox.infix.InfixBase attribute)</a>
 </li>
         <li><a href="modules.html#lunchbox.singleton.Singleton.__weakref__">(lunchbox.singleton.Singleton attribute)</a>
 </li>
@@ -258,11 +502,15 @@
         <li><a href="modules.html#lunchbox.tools.RegexMatch.__weakref__">(lunchbox.tools.RegexMatch attribute)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#lunchbox.infix.LogicInfix.__xor__">__xor__() (lunchbox.infix.LogicInfix method)</a>
+</li>
       <li><a href="modules.html#lunchbox.tools.LogRuntime._default_message_func">_default_message_func() (lunchbox.tools.LogRuntime static method)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools._dir_table">_dir_table() (in module lunchbox.tools)</a>
 </li>
       <li><a href="cli.html#cli.BetterHelpFormatter._format_action">_format_action() (cli.BetterHelpFormatter method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.InfixBase._get_infix_function">_get_infix_function() (lunchbox.infix.InfixBase method)</a>
 </li>
       <li><a href="modules.html#lunchbox.enforce.Enforce._get_message">_get_message() (lunchbox.enforce.Enforce method)</a>
 </li>
@@ -274,9 +522,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cli.html#cli.BetterHelpFormatter.add_text">add_text() (cli.BetterHelpFormatter method)</a>
 </li>
+      <li><a href="modules.html#lunchbox.infix.AllInfix">AllInfix (class in lunchbox.infix)</a>
+</li>
+      <li><a href="modules.html#lunchbox.tools.api_function">api_function() (in module lunchbox.tools)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#lunchbox.tools.api_function">api_function() (in module lunchbox.tools)</a>
+      <li><a href="modules.html#lunchbox.infix.ArithmeticInfix">ArithmeticInfix (class in lunchbox.infix)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.AssignmentInfix">AssignmentInfix (class in lunchbox.infix)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools.autoformat_block">autoformat_block() (in module lunchbox.tools)</a>
 </li>
@@ -289,6 +543,8 @@
       <li><a href="cli.html#cli.BetterHelpFormatter">BetterHelpFormatter (class in cli)</a>
 </li>
       <li><a href="modules.html#lunchbox.theme.Colorscheme.BG">BG (lunchbox.theme.Colorscheme attribute)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.BitwiseInfix">BitwiseInfix (class in lunchbox.infix)</a>
 </li>
       <li><a href="modules.html#lunchbox.theme.Colorscheme.BLUE1">BLUE1 (lunchbox.theme.Colorscheme attribute)</a>
 
@@ -327,9 +583,11 @@
       </ul></li>
       <li><a href="modules.html#lunchbox.theme.Colorscheme">Colorscheme (class in lunchbox.theme)</a>
 </li>
+      <li><a href="modules.html#lunchbox.enforce.Comparator">Comparator (class in lunchbox.enforce)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#lunchbox.enforce.Comparator">Comparator (class in lunchbox.enforce)</a>
+      <li><a href="modules.html#lunchbox.infix.ComparisonInfix">ComparisonInfix (class in lunchbox.infix)</a>
 </li>
       <li><a href="cli.html#cli.container_id_command">container_id_command() (in module cli)</a>
 </li>
@@ -391,15 +649,17 @@
 </li>
       <li><a href="cli.html#cli.enter_repo">enter_repo() (in module cli)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#lunchbox.enum.EnumBase">EnumBase (class in lunchbox.enum)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#lunchbox.enum.EnumBaseMeta">EnumBaseMeta (class in lunchbox.enum)</a>
 </li>
       <li><a href="modules.html#lunchbox.enforce.Comparator.EQ">EQ (lunchbox.enforce.Comparator attribute)</a>
 </li>
       <li><a href="modules.html#lunchbox.enforce.Enforce.eq">eq() (lunchbox.enforce.Enforce method)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.EqualityInfix">EqualityInfix (class in lunchbox.infix)</a>
 </li>
       <li><a href="cli.html#cli.exit_repo">exit_repo() (in module cli)</a>
 </li>
@@ -497,6 +757,8 @@
 </li>
       <li><a href="modules.html#lunchbox.enforce.Enforce.in_">in_() (lunchbox.enforce.Enforce method)</a>
 </li>
+      <li><a href="modules.html#lunchbox.infix.InfixBase">InfixBase (class in lunchbox.infix)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#lunchbox.enforce.Comparator.INSTANCE_OF">INSTANCE_OF (lunchbox.enforce.Comparator attribute)</a>
@@ -504,6 +766,8 @@
       <li><a href="modules.html#lunchbox.enforce.Enforce.instance_of">instance_of() (lunchbox.enforce.Enforce method)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools.is_standard_module">is_standard_module() (in module lunchbox.tools)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.ItemInfix">ItemInfix (class in lunchbox.infix)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -520,6 +784,8 @@
       <li><a href="modules.html#lunchbox.tools.log_level_to_int">log_level_to_int() (in module lunchbox.tools)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools.log_runtime">log_runtime() (in module lunchbox.tools)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.LogicInfix">LogicInfix (class in lunchbox.infix)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools.LogRuntime">LogRuntime (class in lunchbox.tools)</a>
 </li>
@@ -545,6 +811,13 @@
 
       <ul>
         <li><a href="modules.html#module-lunchbox.enum">module</a>
+</li>
+      </ul></li>
+      <li>
+    lunchbox.infix
+
+      <ul>
+        <li><a href="modules.html#module-lunchbox.infix">module</a>
 </li>
       </ul></li>
       <li>
@@ -583,9 +856,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cli.html#cli.main">main() (in module cli)</a>
 </li>
+      <li><a href="modules.html#lunchbox.infix.MathInfix">MathInfix (class in lunchbox.infix)</a>
+</li>
       <li><a href="modules.html#lunchbox.enum.EnumBase.members">members() (lunchbox.enum.EnumBase class method)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools.LogRuntime.message">message (lunchbox.tools.LogRuntime attribute)</a>
+</li>
+      <li><a href="modules.html#lunchbox.infix.MiscInfix">MiscInfix (class in lunchbox.infix)</a>
 </li>
       <li>
     module
@@ -596,6 +873,8 @@
         <li><a href="modules.html#module-lunchbox.enforce">lunchbox.enforce</a>
 </li>
         <li><a href="modules.html#module-lunchbox.enum">lunchbox.enum</a>
+</li>
+        <li><a href="modules.html#module-lunchbox.infix">lunchbox.infix</a>
 </li>
         <li><a href="modules.html#module-lunchbox.singleton">lunchbox.singleton</a>
 </li>
@@ -767,6 +1046,18 @@
       <li><a href="modules.html#lunchbox.tools.truncate_list">truncate_list() (in module lunchbox.tools)</a>
 </li>
       <li><a href="modules.html#lunchbox.tools.try_">try_() (in module lunchbox.tools)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#lunchbox.infix.UnaryInfix">UnaryInfix (class in lunchbox.infix)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#lunchbox.infix.UtiltyInfix">UtiltyInfix (class in lunchbox.infix)</a>
 </li>
   </ul></td>
 </tr></table>

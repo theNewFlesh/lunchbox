@@ -8,6 +8,7 @@ Github: https://github.com/theNewFlesh
 from lunchbox import command  # noqa F401
 from lunchbox import enforce  # noqa F401
 from lunchbox import enum  # noqa F401
+from lunchbox import infix  # noqa F401
 from lunchbox import singleton  # noqa F401
 from lunchbox import stopwatch  # noqa F401
 from lunchbox import theme  # noqa F401

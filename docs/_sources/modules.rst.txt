@@ -16,6 +16,15 @@ enum
    :undoc-members:
    :show-inheritance:
 
+infix
+-----
+.. automodule:: lunchbox.infix
+   :members:
+   :private-members:
+   :special-members:
+   :undoc-members:
+   :show-inheritance:
+
 singleton
 ---------
 .. automodule:: lunchbox.singleton
