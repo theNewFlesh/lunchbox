@@ -38,7 +38,7 @@
             lunchbox
           </a>
               <div class="version">
-                0.9.11
+                0.10.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -1087,6 +1087,84 @@ comparator.</p>
 <dt class="sig sig-object py" id="lunchbox.infix.AllInfix">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.infix.</span></span><span class="sig-name descname"><span class="pre">AllInfix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#AllInfix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.AllInfix" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lunchbox.infix.ArithmeticInfix" title="lunchbox.infix.ArithmeticInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithmeticInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.MathInfix" title="lunchbox.infix.MathInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">MathInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.LogicInfix" title="lunchbox.infix.LogicInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.ComparisonInfix" title="lunchbox.infix.ComparisonInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComparisonInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.BitwiseInfix" title="lunchbox.infix.BitwiseInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">BitwiseInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.ItemInfix" title="lunchbox.infix.ItemInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.UnaryInfix" title="lunchbox.infix.UnaryInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnaryInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.EqualityInfix" title="lunchbox.infix.EqualityInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">EqualityInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.AssignmentInfix" title="lunchbox.infix.AssignmentInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">AssignmentInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.MiscInfix" title="lunchbox.infix.MiscInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">MiscInfix</span></code></a></p>
+<p>Infix class for all of the following operators:</p>
+<ul>
+<li><ul>
+<li><div class="line-block">
+<div class="line">add</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>r+        | add (right)</p></li>
+<li><ul>
+<li><div class="line-block">
+<div class="line">subtract</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>r-        | subtract (right)</p></li>
+<li><ul>
+<li><div class="line-block">
+<div class="line">multiply</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>r*        | multiply (right)</p></li>
+<li><p>/         | divide</p></li>
+<li><p>r/        | divide (right)</p></li>
+<li><p>%         | modulo</p></li>
+<li><p>r%        | modulo (right)</p></li>
+<li><p>//        | floor divide</p></li>
+<li><p>r//       | floor divide (right)</p></li>
+<li><p>**        | exponentiate</p></li>
+<li><p>r**       | exponentiate (right)</p></li>
+<li><p>&#64;         | matrix multiply</p></li>
+<li><p>r&#64;        | matrix multiply (right)</p></li>
+<li><p>&amp;         | and</p></li>
+<li><p>r&amp;        | and (right)</p></li>
+<li><div class="line-block">
+<div class="line">| or</div>
+</div>
+</li>
+<li><p>r|        | or (right)</p></li>
+<li><p>^         | exclusive or</p></li>
+<li><p>r^        | exclusive or (right)</p></li>
+<li><p>&lt;         | less than</p></li>
+<li><p>&lt;=        | less than or equal</p></li>
+<li><p>&gt;         | greater than</p></li>
+<li><p>&gt;=        | greater than or equal</p></li>
+<li><p>&gt;&gt;        | right bit shift</p></li>
+<li><p>r&gt;&gt;       | right bit shift (right)</p></li>
+<li><p>&lt;&lt;        | left bit shift</p></li>
+<li><p>r&lt;&lt;       | left bit shift (right)</p></li>
+<li><p>[]        | get item</p></li>
+<li><p>[] =      | set item</p></li>
+<li><p>[missing] | missing item</p></li>
+<li><p>del []    | delete item</p></li>
+<li><p>~         | invert</p></li>
+<li><p>x-        | negative</p></li>
+<li><p>x+        | positive</p></li>
+<li><p>==        | equal</p></li>
+<li><p>!=        | not equal</p></li>
+<li><p>+=        | add and assign</p></li>
+<li><p>-=        | subtract and assign</p></li>
+<li><p><a href="#id1"><span class="problematic" id="id2">*</span></a>=        | multiply and assign</p></li>
+<li><p>/=        | divide and assign</p></li>
+<li><p>%=        | modulo and assign</p></li>
+<li><p>//=       | floor divide and assign</p></li>
+<li><p><a href="#id3"><span class="problematic" id="id4">**</span></a>=       | pow and assign</p></li>
+<li><p>&#64;=        | matrix multiply and assign</p></li>
+<li><p>&amp;=        | and and assign</p></li>
+<li><p><a href="#id5"><span class="problematic" id="id6">|</span></a>=        | or and assign</p></li>
+<li><p>^=        | exclusive or and assign</p></li>
+<li><p>&gt;&gt;=       | right bit shift and assign</p></li>
+<li><p>&lt;&lt;=       | left bit shift and assign</p></li>
+<li><p>del .     | delete attribute</p></li>
+<li><p>in        | contains</p></li>
+</ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lunchbox.infix.AllInfix.__firstlineno__">
 <span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">902</span></em><a class="headerlink" href="#lunchbox.infix.AllInfix.__firstlineno__" title="Link to this definition"></a></dt>
@@ -1108,7 +1186,7 @@ comparator.</p>
 <dt class="sig sig-object py" id="lunchbox.infix.ArithmeticInfix">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.infix.</span></span><span class="sig-name descname"><span class="pre">ArithmeticInfix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#ArithmeticInfix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.ArithmeticInfix" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lunchbox.infix.InfixBase" title="lunchbox.infix.InfixBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">InfixBase</span></code></a></p>
-<p>Infix class for infix operators: +, -, <a href="#id1"><span class="problematic" id="id2">*</span></a>, /</p>
+<p>Infix class for infix operators: +, -, <a href="#id7"><span class="problematic" id="id8">*</span></a>, /</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.infix.ArithmeticInfix.__add__">
 <span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#ArithmeticInfix.__add__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.ArithmeticInfix.__add__" title="Link to this definition"></a></dt>
@@ -1392,7 +1470,7 @@ comparator.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.infix.AssignmentInfix.__imul__">
 <span class="sig-name descname"><span class="pre">__imul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#AssignmentInfix.__imul__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.AssignmentInfix.__imul__" title="Link to this definition"></a></dt>
-<dd><p>Multiply and assign (<a href="#id3"><span class="problematic" id="id4">*</span></a>=)</p>
+<dd><p>Multiply and assign (<a href="#id9"><span class="problematic" id="id10">*</span></a>=)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>object</em>) – Value.</p>
@@ -1409,14 +1487,14 @@ comparator.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.infix.AssignmentInfix.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#AssignmentInfix.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.AssignmentInfix.__init__" title="Link to this definition"></a></dt>
-<dd><p>Infix class for assignment operators: +=, -=, <a href="#id5"><span class="problematic" id="id6">*</span></a>=, /=, %=, //=, <a href="#id7"><span class="problematic" id="id8">**</span></a>=, &#64;=,
-&amp;=, <a href="#id9"><span class="problematic" id="id10">|</span></a>=, ^=, &gt;&gt;=, &lt;&lt;=</p>
+<dd><p>Infix class for assignment operators: +=, -=, <a href="#id11"><span class="problematic" id="id12">*</span></a>=, /=, %=, //=, <a href="#id13"><span class="problematic" id="id14">**</span></a>=, &#64;=,
+&amp;=, <a href="#id15"><span class="problematic" id="id16">|</span></a>=, ^=, &gt;&gt;=, &lt;&lt;=</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.infix.AssignmentInfix.__ior__">
 <span class="sig-name descname"><span class="pre">__ior__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#AssignmentInfix.__ior__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.AssignmentInfix.__ior__" title="Link to this definition"></a></dt>
-<dd><p>Or and assign (<a href="#id11"><span class="problematic" id="id12">|</span></a>=).</p>
+<dd><p>Or and assign (<a href="#id17"><span class="problematic" id="id18">|</span></a>=).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>object</em>) – Value.</p>
@@ -1433,7 +1511,7 @@ comparator.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.infix.AssignmentInfix.__ipow__">
 <span class="sig-name descname"><span class="pre">__ipow__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#AssignmentInfix.__ipow__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.AssignmentInfix.__ipow__" title="Link to this definition"></a></dt>
-<dd><p>Exponentiate and assign (<a href="#id13"><span class="problematic" id="id14">**</span></a>=).</p>
+<dd><p>Exponentiate and assign (<a href="#id19"><span class="problematic" id="id20">**</span></a>=).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>object</em>) – Value.</p>
@@ -1997,7 +2075,7 @@ methods, using _infix_lookup.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.infix.LogicInfix.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#LogicInfix.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.LogicInfix.__init__" title="Link to this definition"></a></dt>
-<dd><p>Infix class for infix operators: &amp;, <a href="#id15"><span class="problematic" id="id16">|</span></a>, ^</p>
+<dd><p>Infix class for infix operators: &amp;, <a href="#id21"><span class="problematic" id="id22">|</span></a>, ^</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2131,7 +2209,7 @@ methods, using _infix_lookup.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="lunchbox.infix.MathInfix.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#MathInfix.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.MathInfix.__init__" title="Link to this definition"></a></dt>
-<dd><p>Infix class for infix operators: %, //, <a href="#id17"><span class="problematic" id="id18">**</span></a>, &#64;</p>
+<dd><p>Infix class for infix operators: %, //, <a href="#id23"><span class="problematic" id="id24">**</span></a>, &#64;</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2409,6 +2487,67 @@ methods, using _infix_lookup.</p>
 <dt class="sig sig-object py" id="lunchbox.infix.UtiltyInfix">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lunchbox.infix.</span></span><span class="sig-name descname"><span class="pre">UtiltyInfix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lunchbox/infix.html#UtiltyInfix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lunchbox.infix.UtiltyInfix" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lunchbox.infix.ArithmeticInfix" title="lunchbox.infix.ArithmeticInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArithmeticInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.MathInfix" title="lunchbox.infix.MathInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">MathInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.LogicInfix" title="lunchbox.infix.LogicInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogicInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.ComparisonInfix" title="lunchbox.infix.ComparisonInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComparisonInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.BitwiseInfix" title="lunchbox.infix.BitwiseInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">BitwiseInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.ItemInfix" title="lunchbox.infix.ItemInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemInfix</span></code></a>, <a class="reference internal" href="#lunchbox.infix.UnaryInfix" title="lunchbox.infix.UnaryInfix"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnaryInfix</span></code></a></p>
+<p>Infix class for all of the following operators:</p>
+<ul>
+<li><ul>
+<li><div class="line-block">
+<div class="line">add</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>r+        | add (right)</p></li>
+<li><ul>
+<li><div class="line-block">
+<div class="line">subtract</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>r-        | subtract (right)</p></li>
+<li><ul>
+<li><div class="line-block">
+<div class="line">multiply</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>r*        | multiply (right)</p></li>
+<li><p>/         | divide</p></li>
+<li><p>r/        | divide (right)</p></li>
+<li><p>%         | modulo</p></li>
+<li><p>r%        | modulo (right)</p></li>
+<li><p>//        | floor divide</p></li>
+<li><p>r//       | floor divide (right)</p></li>
+<li><p>**        | exponentiate</p></li>
+<li><p>r**       | exponentiate (right)</p></li>
+<li><p>&#64;         | matrix multiply</p></li>
+<li><p>r&#64;        | matrix multiply (right)</p></li>
+<li><p>&amp;         | and</p></li>
+<li><p>r&amp;        | and (right)</p></li>
+<li><div class="line-block">
+<div class="line">| or</div>
+</div>
+</li>
+<li><p>r|        | or (right)</p></li>
+<li><p>^         | exclusive or</p></li>
+<li><p>r^        | exclusive or (right)</p></li>
+<li><p>&lt;         | less than</p></li>
+<li><p>&lt;=        | less than or equal</p></li>
+<li><p>&gt;         | greater than</p></li>
+<li><p>&gt;=        | greater than or equal</p></li>
+<li><p>&gt;&gt;        | right bit shift</p></li>
+<li><p>r&gt;&gt;       | right bit shift (right)</p></li>
+<li><p>&lt;&lt;        | left bit shift</p></li>
+<li><p>r&lt;&lt;       | left bit shift (right)</p></li>
+<li><p>[]        | get item</p></li>
+<li><p>[] =      | set item</p></li>
+<li><p>[missing] | missing item</p></li>
+<li><p>del []    | delete item</p></li>
+<li><p>~         | invert</p></li>
+<li><p>x-        | negative</p></li>
+<li><p>x+        | positive</p></li>
+</ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lunchbox.infix.UtiltyInfix.__annotations__">
 <span class="sig-name descname"><span class="pre">__annotations__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#lunchbox.infix.UtiltyInfix.__annotations__" title="Link to this definition"></a></dt>
@@ -2416,7 +2555,7 @@ methods, using _infix_lookup.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lunchbox.infix.UtiltyInfix.__firstlineno__">
-<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">917</span></em><a class="headerlink" href="#lunchbox.infix.UtiltyInfix.__firstlineno__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__firstlineno__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">975</span></em><a class="headerlink" href="#lunchbox.infix.UtiltyInfix.__firstlineno__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3361,7 +3500,7 @@ arguments as a dict.</p>
 <dd class="field-even"><p><a class="reference internal" href="#lunchbox.enforce.EnforceError" title="lunchbox.enforce.EnforceError"><strong>EnforceError</strong></a> – If log level is illegal.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>function(<a href="#id19"><span class="problematic" id="id20">*</span></a>args, <a href="#id21"><span class="problematic" id="id22">**</span></a>kwargs).</p>
+<dd class="field-odd"><p>function(<a href="#id25"><span class="problematic" id="id26">*</span></a>args, <a href="#id27"><span class="problematic" id="id28">**</span></a>kwargs).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>object</p>
